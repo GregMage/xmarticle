@@ -30,4 +30,11 @@ $thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
 // Load language files
 \Xmf\Language::load('main', $thisModuleDir);
 
+// Config
+$nb_limit = 15;
+$path_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
+
+// Get handler
+$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+
 xoops_cp_header();

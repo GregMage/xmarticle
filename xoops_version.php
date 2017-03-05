@@ -38,9 +38,13 @@ $modversion['system_menu'] = 1;
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 
+// Tables
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
+$modversion['tables'][1] = 'xmarticle_category';
 
-
+// Admin Templates
+$modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'description' => '', 'type' => 'admin');
 
 
 
