@@ -16,3 +16,18 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+$path = dirname(dirname(dirname(__DIR__)));
+require_once $path . '/mainfile.php';
+require_once $path . '/include/cp_functions.php';
+require_once $path . '/include/cp_header.php';
+
+class_exists('\Xmf\Module\Admin') or die('XMF is required.');
+
+global $xoopsModule;
+
+$thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
+
+// Load language files
+\Xmf\Language::load('main', $thisModuleDir);
+
+xoops_cp_header();

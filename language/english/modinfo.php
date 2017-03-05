@@ -19,3 +19,7 @@
 // The name of this module
 define('_MI_XMARTICLE_NAME', 'Article');
 define('_MI_XMARTICLE_DESC', 'Management articles');
+
+// Menu
+define('_MI_XMARTICLE_MENU_HOME', 'Index');
+define('_MI_XMARTICLE_MENU_ABOUT', 'About');

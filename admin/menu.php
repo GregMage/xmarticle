@@ -19,20 +19,22 @@
 
 defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
-$moduleHandler = xoops_getHandler('module');
-$module         = $moduleHandler->getByDirname(basename(dirname(__DIR__)));
-$pathIcon32     = '../../' . $module->getInfo('icons32');
-xoops_loadLanguage('modinfo', $module->dirname());
+// get path to icons
+$pathIcon32='';
+if (class_exists('Xmf\Module\Admin', true)) {
+    $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+}
 
-$adminmenu = array();
-
-$i                      = 1;
-$adminmenu[$i]['title'] = _MI_XMARTICLE_MENU_HOME;
-$adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['desc']  = _MI_XMARTICLE_MENU_HOME_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_XMARTICLE_MENU_ABOUT;
-$adminmenu[$i]['link']  = 'admin/about.php';
-$adminmenu[$i]['desc']  = _MI_XMARTICLE_MENU_ABOUT_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';
+$adminmenu=array();
+// Index
+$adminmenu[] = array(
+    'title' => _MI_XMARTICLE_MENU_HOME ,
+    'link'  => 'admin/index.php' ,
+    'icon'  => $pathIcon32 . 'home.png'
+) ;
+// About
+$adminmenu[] = array(
+    'title' => _MI_XMARTICLE_MENU_ABOUT ,
+    'link'  => 'admin/about.php' ,
+    'icon'  => $pathIcon32 . 'about.png'
+) ;

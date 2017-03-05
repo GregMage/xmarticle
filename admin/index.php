@@ -16,15 +16,13 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
-require __DIR__ . '/header.php';
+use Xmf\Module\Admin; 
 
-// header
-xoops_cp_header();
+require dirname(__FILE__) . '/admin_header.php';
 
-$xoopsTpl->assign('navigation', $admin_class->addNavigation('index.php'));
-$xoopsTpl->assign('renderindex', $admin_class->renderIndex());
+$moduleAdmin = Admin::getInstance();
+$moduleAdmin->displayNavigation('index.php');
+$moduleAdmin->addConfigModuleVersion('system', 212);
+$moduleAdmin->displayIndex();
 
-// Call template file
-$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/xmarticle/templates/admin/xmarticle_admin_index.tpl');
-
-xoops_cp_footer();
+require dirname(__FILE__) . '/admin_footer.php';
