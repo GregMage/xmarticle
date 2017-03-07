@@ -38,6 +38,10 @@ $modversion['system_menu'] = 1;
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 
+// Install and update
+$modversion['onInstall']        = 'include/install.php';
+//$modversion['onUpdate']         = 'include/update.php';
+
 // Tables
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
@@ -50,24 +54,36 @@ $modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'de
 
 // Configs
 $modversion['config'] = array();
-/*
+
 $modversion['config'][] = array(
-    'name'        => 'config1',
-    'title'       => '_MI_XMFDEMO_CONFIG1',
-    'description' => '_MI_XMFDEMO_CONFIG2_DSC',
-    'formtype'    => 'textbox',
+    'name'        => 'break',
+    'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
+    'description' => '',
+    'formtype'    => 'line_break',
     'valuetype'   => 'text',
-    'default'     => 'this is my test config1 value',
+    'default'     => 'head',
+);
+
+xoops_load('xoopseditorhandler');
+$editorHandler = XoopsEditorHandler::getInstance();
+$modversion['config'][] = array(
+    'name'        => 'admin_editor',
+    'title'       => '_MI_XMARTICLE_PREF_EDITOR',
+    'description' => '',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtmltextarea',
+    'options'     => array_flip($editorHandler->getList())
 );
 
 $modversion['config'][] = array(
-    'name'        => 'config2',
-    'title'       => '_MI_XMFDEMO_CONFIG2',
-    'description' => '_MI_XMFDEMO_CONFIG2_DSC',
+    'name'        => 'admin_perpage',
+    'title'       => '_MI_XMARTICLE_PREF_ITEMPERPAGE',
+    'description' => '',
     'formtype'    => 'textbox',
-    'valuetype'   => 'text',
-    'default'     => 'this is my test config2 value',
-);*/
+    'valuetype'   => 'int',
+    'default'     => 15
+);
 
 // About stuff
 $modversion['module_status'] = 'Alpha 1';
@@ -76,7 +92,6 @@ $modversion['release_date']  = '2017/03/04';
 $modversion['developer_lead']      = 'Mage';
 $modversion['module_website_url']  = 'github.com/GregMage';
 $modversion['module_website_name'] = 'github.com/GregMage';
-
 
 $modversion['min_xoops'] = '2.5.9';
 $modversion['min_php']   = '5.3.7';

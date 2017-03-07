@@ -20,9 +20,11 @@
 // Button
  define('_MA_XMARTICLE_CATEGORY_ADD', 'Add category');
  define('_MA_XMARTICLE_CATEGORY_LIST', 'Category List');
+ define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
  
 // Error message
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
+define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
 // shared
 define('_MA_XMARTICLE_ACTION', 'Action');
@@ -31,6 +33,8 @@ define('_MA_XMARTICLE_STATUS_NA', 'Disabled');
 define('_MA_XMARTICLE_DEL', 'Delete');
 define('_MA_XMARTICLE_EDIT', 'Edit');
 define('_MA_XMARTICLE_STATUS', 'Status');
+define('_MA_XMARTICLE_ADD', 'Add');
+
 
 
 
@@ -45,5 +49,7 @@ define('_MA_XMARTICLE_CATEGORY_NAME', 'Name');
 define('_MA_XMARTICLE_CATEGORY_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_CATEGORY_UPLOADSIZE', 'Maximum size: %s kB');
 define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
+
+
 
  

@@ -24,8 +24,6 @@ require dirname(__FILE__) . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('category.php');
 
-
-
 // Get Action type
 $op = Request::getCmd('op', 'list');
 switch ($op) {
@@ -80,6 +78,56 @@ switch ($op) {
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
         $xoopsTpl->assign('form', $form->render());
+        break;
+        
+    // edit
+    case 'edit':
+        // Module admin
+        $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        // Form
+        $category_id = Request::getInt('category_id', 0);
+        if ($category_id == 0) {
+            $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
+        } else {
+            $obj = $categoryHandler->get($category_id);
+            $form = $obj->getForm();
+            $xoopsTpl->assign('form', $form->render()); 
+        }
+
+        break;
+        
+    case 'save':
+        if (!$GLOBALS['xoopsSecurity']->check()) {
+            redirect_header('category.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        $category_id = Request::getInt('category_id', 0);
+        if ($category_id == 0) {
+            $obj = $categoryHandler->create();            
+        } else {
+            $obj = $categoryHandler->get($category_id);
+        }
+        $error_message = $obj->saveCategory($categoryHandler, 'category.php');
+        if ($error_message != ''){
+            $xoopsTpl->assign('error_message', $error_message);
+            $form = $obj->getForm();
+            $xoopsTpl->assign('form', $form->render());
+        }
+        
+        break;
+    
+    // update status
+    case 'category_update_status':
+        $category_id = Request::getInt('category_id', 0);
+        if ($category_id > 0) {
+            $obj = $categoryHandler->get($category_id);
+            $old = $obj->getVar('category_status');
+            $obj->setVar('category_status', !$old);
+            if ($categoryHandler->insert($obj)) {
+                exit;
+            }
+            $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
+        }
         break;
 }
 

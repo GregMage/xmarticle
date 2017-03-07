@@ -22,16 +22,14 @@ require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
 class_exists('\Xmf\Module\Admin') or die('XMF is required.');
-
-global $xoopsModule;
-
-$thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
+use Xmf\Module\Helper;
+$helper = Helper::getHelper('xmarticle');
 
 // Load language files
-\Xmf\Language::load('main', $thisModuleDir);
+$helper->loadLanguage('main');
 
 // Config
-$nb_limit = 15;
+$nb_limit = $helper->getConfig('admin_perpage', 15);
 $path_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
 
 // Get handler

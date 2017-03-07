@@ -24,3 +24,8 @@ define('_MI_XMARTICLE_DESC', 'Management articles');
 define('_MI_XMARTICLE_MENU_HOME', 'Index');
 define('_MI_XMARTICLE_MENU_CATEGORY', 'Category');
 define('_MI_XMARTICLE_MENU_ABOUT', 'About');
+
+// Pref
+define('_MI_XMARTICLE_PREF_HEAD_ADMIN', "<span style='font-weight: bold;'>Administration</span>");
+define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
+define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');
