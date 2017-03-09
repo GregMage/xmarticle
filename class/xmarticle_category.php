@@ -107,7 +107,6 @@ class xmarticle_category extends XoopsObject
     public function getForm($action = false)
     {
         $upload_size = 500000;
-        //global $xoopsModuleConfig;
         $helper = \Xmf\Module\Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];

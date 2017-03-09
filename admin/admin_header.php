@@ -30,8 +30,8 @@ $helper->loadLanguage('main');
 
 // Config
 $nb_limit = $helper->getConfig('admin_perpage', 15);
-$path_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
-
+$url_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
+$path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
 // Get handler
 $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
 

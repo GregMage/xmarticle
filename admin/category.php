@@ -55,7 +55,7 @@ switch ($op) {
                 $category['weight']          = $category_arr[$i]->getVar('category_weight');
                 $category['status']          = $category_arr[$i]->getVar('category_status');
                 $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
-                $category['logo']            = '<img src="' . $path_logo_category .  $category_img . '" alt="' . $category_img . '" />';
+                $category['logo']            = '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" />';
                 $xoopsTpl->append_by_ref('category', $category);
                 unset($category);
             }
@@ -69,7 +69,7 @@ switch ($op) {
         }
         break;
     
-    // add
+    // Add
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
@@ -80,7 +80,7 @@ switch ($op) {
         $xoopsTpl->assign('form', $form->render());
         break;
         
-    // edit
+    // Edit
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
@@ -96,7 +96,7 @@ switch ($op) {
         }
 
         break;
-        
+    // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('category.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -115,8 +115,44 @@ switch ($op) {
         }
         
         break;
-    
-    // update status
+        
+    // del
+    case 'del':    
+        $category_id = Request::getInt('category_id', 0);
+        if ($category_id == 0) {
+            $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
+        } else {
+            $surdel = Request::getBool('surdel', false);
+            $obj  = $categoryHandler->get($category_id);
+            if ($surdel === true) {
+                if (!$GLOBALS['xoopsSecurity']->check()) {
+                    redirect_header('category.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+                }
+                if ($categoryHandler->delete($obj)) {
+                    //Del logo
+                    if ($obj->getVar('category_logo') != 'blank.gif') {
+                        $urlfile = $path_logo_category . $obj->getVar('category_logo');
+                        if (is_file($urlfile)) {
+                            chmod($urlfile, 0777);
+                            unlink($urlfile);
+                        }
+                    }
+                    redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                } else {
+                    $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
+                }
+            } else {
+                $category_img = $obj->getVar('category_logo') ?: 'blank.gif';
+                xoops_confirm(array('surdel' => true, 'category_id' => $category_id, 'op' => 'del'), $_SERVER['REQUEST_URI'], 
+                                    sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br \>
+                                    <img src="' . $url_logo_category . $category_img . '" title="' . 
+                                    $obj->getVar('category_name') . '" /><br \>');
+            }
+        }
+        
+        break;
+        
+    // Update status
     case 'category_update_status':
         $category_id = Request::getInt('category_id', 0);
         if ($category_id > 0) {
