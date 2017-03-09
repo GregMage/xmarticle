@@ -23,6 +23,7 @@ define('_MI_XMARTICLE_DESC', 'Management articles');
 // Menu
 define('_MI_XMARTICLE_MENU_HOME', 'Index');
 define('_MI_XMARTICLE_MENU_CATEGORY', 'Category');
+define('_MI_XMARTICLE_MENU_FIELD', 'Field');
 define('_MI_XMARTICLE_MENU_ABOUT', 'About');
 
 // Pref

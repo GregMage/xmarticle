@@ -32,11 +32,17 @@ $adminmenu[] = array(
     'link'  => 'admin/index.php' ,
     'icon'  => $pathIcon32 . 'home.png'
 ) ;
-// Index
+// Category
 $adminmenu[] = array(
     'title' => _MI_XMARTICLE_MENU_CATEGORY ,
     'link'  => 'admin/category.php' ,
     'icon'  => $pathIcon32 . 'category.png'
+) ;
+// Field
+$adminmenu[] = array(
+    'title' => _MI_XMARTICLE_MENU_FIELD ,
+    'link'  => 'admin/field.php' ,
+    'icon'  => $pathIcon32 . 'folder_txt.png'
 ) ;
 // About
 $adminmenu[] = array(

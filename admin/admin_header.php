@@ -34,5 +34,6 @@ $url_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
 $path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
 // Get handler
 $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
 
 xoops_cp_header();

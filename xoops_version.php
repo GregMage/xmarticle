@@ -46,9 +46,11 @@ $modversion['onInstall']        = 'include/install.php';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 $modversion['tables'][1] = 'xmarticle_category';
+$modversion['tables'][2] = 'xmarticle_field';
 
 // Admin Templates
 $modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'xmarticle_admin_field.tpl', 'description' => '', 'type' => 'admin');
 
 
 

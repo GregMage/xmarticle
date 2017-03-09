@@ -34,7 +34,7 @@ class xmarticle_category extends XoopsObject
     {
         $this->initVar('category_id', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('category_name', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('category_reference', XOBJ_DTYPE_TXTBOX, null, false, 11);
+        $this->initVar('category_reference', XOBJ_DTYPE_TXTBOX, null, false, 50);
         $this->initVar('category_description', XOBJ_DTYPE_TXTAREA, null, false);
         // use html
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);        
@@ -132,7 +132,7 @@ class xmarticle_category extends XoopsObject
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_NAME, 'category_name', 50, 255, $this->getVar('category_name')), true);
         
         // reference
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_REFERENCE, 'category_reference', 20, 255, $this->getVar('category_reference')), true);
+        $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_REFERENCE, 'category_reference', 20, 50, $this->getVar('category_reference')), true);
 
         // description
         $editor_configs           =array();
