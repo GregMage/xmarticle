@@ -92,7 +92,7 @@ class xmarticle_category extends XoopsObject
         if ($error_message == '') {
             $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
-                redirect_header($action, 2, _MA_XMARTICLE);
+                redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
             } else {
                 $error_message =  $this->getHtmlErrors();
             }
@@ -173,7 +173,7 @@ class xmarticle_category extends XoopsObject
         $form->addElement($form_status);
 
         $form->addElement(new XoopsFormHidden('op', 'save'));
-        // submitt
+        // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;

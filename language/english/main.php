@@ -29,6 +29,8 @@ define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the databas
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
+define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
+
 
 // Shared
 define('_MA_XMARTICLE_ACTION', 'Action');
@@ -42,11 +44,16 @@ define('_MA_XMARTICLE_ADD', 'Add');
 // Field type
 define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
 define('_MA_XMARTICLE_FIELDTYPE_VSTEXT', 'Text with 25 characters');
-/*define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
-define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
-define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
-define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');*/
-
+define('_MA_XMARTICLE_FIELDTYPE_STEXT', 'Text with 50 characters');
+define('_MA_XMARTICLE_FIELDTYPE_MTEXT', 'Text with 100 characters');
+define('_MA_XMARTICLE_FIELDTYPE_LTEXT', 'Text with 255 characters');
+define('_MA_XMARTICLE_FIELDTYPE_TEXT', 'Long text');
+define('_MA_XMARTICLE_FIELDTYPE_SELECT', 'Select');
+define('_MA_XMARTICLE_FIELDTYPE_SELECTMULTI', 'Multi select');
+define('_MA_XMARTICLE_FIELDTYPE_RADIOYN', 'Radio Yes/No');
+define('_MA_XMARTICLE_FIELDTYPE_RADIO', 'Radio buttons');
+define('_MA_XMARTICLE_FIELDTYPE_CHECKBOX', 'Checkbox');
+define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
 
 
 
@@ -64,6 +71,24 @@ define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
 
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');
 define('_MA_XMARTICLE_FIELD_NAME', 'Field name');
+define('_MA_XMARTICLE_FIELD_DESC', 'Field description');
+define('_MA_XMARTICLE_FIELD_WEIGHT', 'Field weight');
+define('_MA_XMARTICLE_FIELD_SEARCH', 'Field display in search page');
+define('_MA_XMARTICLE_FIELD_KEY', 'Value to be stored');
+define('_MA_XMARTICLE_FIELD_VALUE', 'Text to be displayed');
+define('_MA_XMARTICLE_FIELD_DEFAULT', 'Default');
+define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Add options');
+define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Add more options');
+define('_MA_XMARTICLE_FIELD_REQUIRED', 'Field required');
+define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
+define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
+define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
+
+
+
+
+
+
 
 
 

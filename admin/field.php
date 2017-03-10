@@ -45,16 +45,19 @@ switch ($op) {
         $field_arr = $fieldHandler->getall($criteria);
         $field_count = $fieldHandler->getCount($criteria);
         $xoopsTpl->assign('field_count', $field_count);
+        
+        $field_type_arr = $fieldHandler->get_fieldtypes();
         if ($field_count > 0) {
             foreach (array_keys($field_arr) as $i) {
                 $field_id                 = $field_arr[$i]->getVar('field_id');
                 $field['id']              = $field_id;
+                $field['type']            = $field_type_arr[$field_arr[$i]->getVar('field_type')];
                 $field['name']            = $field_arr[$i]->getVar('field_name');
-                $field['reference']       = $field_arr[$i]->getVar('field_reference');
                 $field['description']     = $field_arr[$i]->getVar('field_description');
                 $field['weight']          = $field_arr[$i]->getVar('field_weight');
+                $field['required']        = $field_arr[$i]->getVar('field_required');
+                $field['search']          = $field_arr[$i]->getVar('field_search');                
                 $field['status']          = $field_arr[$i]->getVar('field_status');
-
                 $xoopsTpl->append_by_ref('field', $field);
                 unset($field);
             }
@@ -121,7 +124,7 @@ switch ($op) {
         } else {
             $obj = $fieldHandler->get($field_id);
         }
-        $error_message = $obj->saveCategory($fieldHandler, 'field.php');
+        $error_message = $obj->saveField($fieldHandler, 'field.php');
         if ($error_message != ''){
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
