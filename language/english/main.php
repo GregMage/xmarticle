@@ -69,6 +69,7 @@ define('_MA_XMARTICLE_CATEGORY_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_CATEGORY_UPLOADSIZE', 'Maximum size: %s kB');
 define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
 
+// Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');
 define('_MA_XMARTICLE_FIELD_NAME', 'Field name');
 define('_MA_XMARTICLE_FIELD_DESC', 'Field description');
@@ -83,15 +84,4 @@ define('_MA_XMARTICLE_FIELD_REQUIRED', 'Field required');
 define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
-
-
-
-
-
-
-
-
-
-
-
- 
+define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');

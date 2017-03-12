@@ -75,7 +75,9 @@ class xmarticle_field extends XoopsObject
     {
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
-        }               
+        }
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';   
+        
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type        
         $field_type = new XoopsFormSelect(_MA_XMARTICLE_FIELD_TYPE, 'field_type', $this->getVar('field_type'));
@@ -100,6 +102,7 @@ class xmarticle_field extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         $field_arr = $this->get_fieldtypes();
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -155,7 +158,11 @@ class xmarticle_field extends XoopsObject
                         $i++;
                     }
                 }
-                $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _MA_XMARTICLE_FIELD_KEY . "</td><td class='width40'>" . _MA_XMARTICLE_FIELD_VALUE . "</td><td>" . _MA_XMARTICLE_FIELD_DEFAULT . "</td></tr>";
+                $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _MA_XMARTICLE_FIELD_KEY . "</td><td class='width40'>" . _MA_XMARTICLE_FIELD_VALUE . "</td><td>" . _MA_XMARTICLE_FIELD_DEFAULT . "</td>";
+                if (!$this->isNew()) {
+                    $option_text .= "<td>" . _MA_XMARTICLE_FIELD_REMOVE . "</td>";
+                }
+                $option_text .= "</tr>";
                 for ($i = 0; $i < ($count_options + 10); ++$i) {
                     if ($i >= $count_options){
                         $key = '';
@@ -179,10 +186,19 @@ class xmarticle_field extends XoopsObject
                         }
                         $option_text .= "<td><INPUT type= 'radio' name='field_default' value='{$i}' " . $checked . "></td>";
                     }
-                    $option_text .= "</tr><tr height='3px'><td colspan='3'> </td></tr>";
+                    if (!$this->isNew()) {
+                        if ($key == ''){
+                            $option_text .= "<td>&nbsp;</td>";
+                        }else{
+                            $option_text .= "<td><INPUT type= 'checkbox' name='removeOptions[]' value='{$key}'></td>";
+                        }                        
+                        $option_text .= "</tr><tr height='3px'><td colspan='4'> </td></tr>";
+                    }else{
+                        $option_text .= "</tr><tr height='3px'><td colspan='3'> </td></tr>";
+                    }
                 }
                 $option_text .= "</table>";
-                $option_text .= "<label><input type='checkbox' name='addmoreoptions' id='addmoreoptions' value='yes'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . "</label>";
+                $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . "</label>";
                 $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
                 break;
         }
@@ -304,17 +320,25 @@ class xmarticle_field extends XoopsObject
                         $options[$option['key']] = $option['value'];
                     }
                 }
+                if (isset($_REQUEST['removeOptions']) && is_array($_REQUEST['removeOptions'])) {
+                    foreach ($_REQUEST['removeOptions'] as $index) {
+                        unset($options[$index]);
+                    }
+                }
                 $this->setVar('field_options', $options);
                 
                 if ($field_type == 'select_multi' || $field_type == 'checkbox'){
                     $i = 0;
-                    foreach (array_keys($options) as $key) {
-                        if (in_array($i, $_REQUEST['field_default'])){
-                            $default[] = $options[$key];
+                    $field_default = Xmf\Request::getArray('field_default', array());
+                    if (!empty($field_default)) {
+                        foreach (array_keys($options) as $key) {
+                            if (in_array($i, $field_default)){
+                                $default[] = $options[$key];
+                            }
+                            $i++;
                         }
-                        $i++;
-                    }
-                    $this->setVar('field_default', serialize($default));
+                        $this->setVar('field_default', serialize($default));
+                    }                    
                 }else{
                     $i = 0;
                     foreach (array_keys($options) as $key) {
@@ -323,13 +347,20 @@ class xmarticle_field extends XoopsObject
                         }
                         $i++;
                     }
-                }               
+                }
                 break;
         }
         if ($error_message == '') {
             $this->setVar('field_weight', Xmf\Request::getInt('field_weight', 0));
             if ($fieldHandler->insert($this)) {
-                redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                if ((Xmf\Request::getBool('addmoreoptions', false)) === true){
+                    //redirect_header($action . '?op=edit&amp;field_id=' . $this->getVar('field_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                    echo 'edit';
+                } else {
+                    //redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                    echo 'save';
+                }
+                
             } else {
                 $error_message =  $this->getHtmlErrors();
             }
