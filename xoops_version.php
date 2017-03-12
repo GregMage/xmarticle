@@ -47,6 +47,8 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 $modversion['tables'][1] = 'xmarticle_category';
 $modversion['tables'][2] = 'xmarticle_field';
+$modversion['tables'][3] = 'xmarticle_field';
+$modversion['tables'][4] = 'xmarticle_fielddata';
 
 // Admin Templates
 $modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'description' => '', 'type' => 'admin');
