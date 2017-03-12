@@ -175,8 +175,10 @@ class xmarticle_field extends XoopsObject
                     $option_text .= "<td><input type='text' name='addOption[{$i}][value]' id='addOption[{$i}][value]' value='" . $value . "' size='35' /></td>";
                     if ($field_type == 'select_multi' || $field_type == 'checkbox'){
                         $checked = '';
-                        if (in_array($value, $default)){
-                            $checked = 'checked';
+                        if (!empty($default)){
+                            if (in_array($value, $default)){
+                                $checked = 'checked';
+                            }
                         }
                         $option_text .= "<td><INPUT type= 'checkbox' name='field_default[]' value='{$i}' " . $checked . "></td>";
                     } else{
@@ -312,40 +314,55 @@ class xmarticle_field extends XoopsObject
             case 'radio':
             case 'checkbox':
                 $options = $this->getVar('field_options');
+                $default = array();
+                // add options and default
                 if (!empty($_REQUEST['addOption'])) {
+                    $i = 0;
+                    if ($field_type == 'select_multi' || $field_type == 'checkbox'){
+                        $field_default = Xmf\Request::getArray('field_default', array());
+                    } else {
+                        $field_default = Xmf\Request::getInt('field_default', -1);
+                    }
                     foreach ($_REQUEST['addOption'] as $option) {
                         if (empty($option['value'])) {
                             continue;
                         }
                         $options[$option['key']] = $option['value'];
+                        if ($field_type == 'select_multi' || $field_type == 'checkbox'){
+                            if (in_array($i, $field_default)){
+                                $default[$option['key']] = $option['value'];
+                            }
+                        }else{
+                            if ($field_default == $i){
+                                $default[$option['key']] = $option['value'];
+                                $save_key = $option['key'];
+                            }
+                        }
+                        $i++;
+                        
                     }
                 }
+                // remove
                 if (isset($_REQUEST['removeOptions']) && is_array($_REQUEST['removeOptions'])) {
                     foreach ($_REQUEST['removeOptions'] as $index) {
                         unset($options[$index]);
+                        unset($default[$index]);
                     }
                 }
+                // save field_options
                 $this->setVar('field_options', $options);
-                
+                // save field_default
                 if ($field_type == 'select_multi' || $field_type == 'checkbox'){
-                    $i = 0;
-                    $field_default = Xmf\Request::getArray('field_default', array());
-                    if (!empty($field_default)) {
-                        foreach (array_keys($options) as $key) {
-                            if (in_array($i, $field_default)){
-                                $default[] = $options[$key];
-                            }
-                            $i++;
-                        }
+                    if (!empty($default)){
                         $this->setVar('field_default', serialize($default));
-                    }                    
+                    } else{
+                        $this->setVar('field_default', '');
+                    }
                 }else{
-                    $i = 0;
-                    foreach (array_keys($options) as $key) {
-                        if ($_REQUEST['field_default'] == $i){
-                            $this->setVar('field_default', $options[$key]);
-                        }
-                        $i++;
+                    if (!empty($default)){
+                        $this->setVar('field_default', $default[$save_key]);
+                    } else{
+                        $this->setVar('field_default', '');
                     }
                 }
                 break;
@@ -354,11 +371,9 @@ class xmarticle_field extends XoopsObject
             $this->setVar('field_weight', Xmf\Request::getInt('field_weight', 0));
             if ($fieldHandler->insert($this)) {
                 if ((Xmf\Request::getBool('addmoreoptions', false)) === true){
-                    //redirect_header($action . '?op=edit&amp;field_id=' . $this->getVar('field_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                    echo 'edit';
+                    redirect_header($action . '?op=edit&amp;field_id=' . $this->getVar('field_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
-                    //redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                    echo 'save';
+                    redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 }
                 
             } else {
