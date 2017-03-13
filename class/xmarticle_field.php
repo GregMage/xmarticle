@@ -44,6 +44,7 @@ class xmarticle_field extends XoopsObject
         $this->initVar('field_default', XOBJ_DTYPE_TXTAREA, '');
         $this->initVar('field_search', XOBJ_DTYPE_INT, 0);
         $this->initVar('field_status', XOBJ_DTYPE_INT, 0);
+        $this->initVar('field_sort', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('field_options', XOBJ_DTYPE_ARRAY, array());
     }
     /**
@@ -202,6 +203,11 @@ class xmarticle_field extends XoopsObject
                 $option_text .= "</table>";
                 $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . "</label>";
                 $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
+                // sort
+                $sort = new XoopsFormSelect(_MA_XMARTICLE_FIELD_SORT, 'field_sort', $this->getVar('field_sort'));
+                $sort_arr = array('DEF' => _MA_XMARTICLE_FIELD_SORTDEF,'VLH' => _MA_XMARTICLE_FIELD_SORTVLH, 'VHL' => _MA_XMARTICLE_FIELD_SORTVHL, 'KLH' => _MA_XMARTICLE_FIELD_SORTKLH, 'KHL' => _MA_XMARTICLE_FIELD_SORTKHL);
+                $sort->addOptionArray($sort_arr);
+                $form->addElement($sort, true);
                 break;
         }
         // default
@@ -349,6 +355,23 @@ class xmarticle_field extends XoopsObject
                         unset($default[$index]);
                     }
                 }
+                // save sort
+                $field_sort = Xmf\Request::getString('field_sort', 'DEF');
+                switch ($field_sort) {
+                    case 'VLH':
+                        asort($options);
+                        break;
+                    case 'VHL':
+                        arsort($options);
+                        break;
+                    case 'KLH':
+                        ksort($options);
+                        break;
+                    case 'KHL':
+                        krsort($options);
+                        break;                    
+                }
+                $this->setVar('field_sort', $field_sort);
                 // save field_options
                 $this->setVar('field_options', $options);
                 // save field_default

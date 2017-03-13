@@ -85,3 +85,10 @@ define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');
+
+define('_MA_XMARTICLE_FIELD_SORT', 'Sort');
+define('_MA_XMARTICLE_FIELD_SORTDEF', 'Sort according to record');
+define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');
+define('_MA_XMARTICLE_FIELD_SORTVHL', 'Sort value high to low');
+define('_MA_XMARTICLE_FIELD_SORTKLH', 'Sort key low to high');
+define('_MA_XMARTICLE_FIELD_SORTKHL', 'Sort key high to low');
