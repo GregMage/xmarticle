@@ -55,11 +55,9 @@ define('_MA_XMARTICLE_FIELDTYPE_RADIO', 'Radio buttons');
 define('_MA_XMARTICLE_FIELDTYPE_CHECKBOX', 'Checkbox');
 define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
 
-
-
+// Category
 define('_MA_XMARTICLE_CATEGORY_DESC', 'Description');
 define('_MA_XMARTICLE_CATEGORY_FORMPATH', 'Files are in: %s');
-
 define('_MA_XMARTICLE_CATEGORY_LOGO', 'Logo');
 define('_MA_XMARTICLE_CATEGORY_LOGOFILE', 'Logo file');
 define('_MA_XMARTICLE_CATEGORY_REFERENCE', 'Reference');
@@ -67,7 +65,13 @@ define('_MA_XMARTICLE_CATEGORY_SUREDEL', 'Sure to delete this category? %s');
 define('_MA_XMARTICLE_CATEGORY_NAME', 'Name');
 define('_MA_XMARTICLE_CATEGORY_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_CATEGORY_UPLOADSIZE', 'Maximum size: %s kB');
+define('_MA_XMARTICLE_FIELD_ADDMOREFIELDS', 'Add more fields');
+define('_MA_XMARTICLE_FIELD_ADDFIELD', 'Add fields');
+define('_MA_XMARTICLE_CATEGORY_FIELD', 'Fields');
 define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
+define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Remove fields');
+
+
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');

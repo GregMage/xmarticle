@@ -6,6 +6,7 @@ CREATE TABLE `xmarticle_category` (
   `category_logo`           varchar(50)         NOT NULL DEFAULT '',
   `category_weight`         int(11)             NOT NULL DEFAULT '0',
   `category_status`         tinyint(1)          NOT NULL DEFAULT '1',
+  `category_fields`    		text,
   
   PRIMARY KEY (`category_id`),
   KEY `category_name` (`category_name`),
@@ -22,7 +23,7 @@ CREATE TABLE `xmarticle_field` (
   `field_default`       text,
   `field_search`        tinyint(1) unsigned     NOT NULL default '0',
   `field_status`        tinyint(1) unsigned     NOT NULL default '0',
-  `field_sort`        varchar(3)              NOT NULL default '',
+  `field_sort`      	varchar(3)              NOT NULL default '',
   `field_options`       text,
   
   PRIMARY KEY  (`field_id`),

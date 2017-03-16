@@ -41,6 +41,7 @@ class xmarticle_category extends XoopsObject
         $this->initVar('category_logo', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_weight', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('category_status', XOBJ_DTYPE_INT, null, false, 1);
+		$this->initVar('category_fields', XOBJ_DTYPE_ARRAY, array());
     }
 
     /**
@@ -89,10 +90,34 @@ class xmarticle_category extends XoopsObject
         $this->setVar('category_reference',  Xmf\Request::getString('category_reference', ''));
         $this->setVar('category_description',  Xmf\Request::getText('category_description', ''));        
         $this->setVar('category_status', Xmf\Request::getInt('category_status', 1));
+		
+		$fields = $this->getVar('category_fields');
+		// remove field
+		if (isset($_REQUEST['removeFields']) && is_array($_REQUEST['removeFields'])) {
+			foreach ($_REQUEST['removeFields'] as $index) {
+				unset($fields[$index]);
+			}
+		}
+		
+		// add fields	
+		if (!empty($_REQUEST['addField'])) {
+			$i = 0;
+			foreach ($_REQUEST['addField'] as $field) {
+				if ($field == '') {
+					continue;
+				}
+				$fields[$field] = $field;
+			}                       
+		}
+		$this->setVar('category_fields', $fields);
         if ($error_message == '') {
             $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
-                redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+				if ((Xmf\Request::getBool('addmorefields', false)) === true){
+                    redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                } else {
+                    redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                }
             } else {
                 $error_message =  $this->getHtmlErrors();
             }
@@ -112,6 +137,7 @@ class xmarticle_category extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+		$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -166,12 +192,49 @@ class xmarticle_category extends XoopsObject
         // weight
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
 
-        // status
+		// remove field		
+		$fields = $this->getVar('category_fields');		
+		if (count($fields) > 0) {
+			$remove_fields          = new XoopsFormCheckBox(_MA_XMARTICLE_CATEGORY_REMOVEFIELDS, 'removeFields');
+			$remove_fields->columns = 3;
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')','IN'));
+			$field_arr = $fieldHandler->getall($criteria);
+			foreach (array_keys($field_arr) as $key) {
+				$field_temp_arr[$key] = $field_arr[$key]->getVar('field_name');
+			}
+			$remove_fields->addOptionArray($field_temp_arr);
+			$form->addElement($remove_fields);
+		}
+		
+		// field		
+		$criteria = new CriteriaCompo();
+        $criteria->setSort('field_weight ASC, field_name');
+        $criteria->setOrder('ASC');
+		$field_arr = $fieldHandler->getall($criteria);
+		$sel_option = '<option value=""> </option>';
+		foreach (array_keys($field_arr) as $i) {
+			$sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') .'</option>';
+		}		
+		$field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td></tr>";
+		$sel_id = 0;
+		for ($i = 0; $i < 5; ++$i) {
+			$field_text .= "<tr><td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select></td>";
+			$sel_id++;
+			$field_text .= "<td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select><td></tr>";
+			$sel_id++;
+			$field_text .= "<tr height='3px'><td colspan='2'></td></tr>";
+		}
+		$field_text .= "</table>";
+		$field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . "</label>";
+		$form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);
+
+		// status
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'category_status', $status);
         $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA,);
         $form_status->addOptionArray($options);
         $form->addElement($form_status);
-
+		
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
