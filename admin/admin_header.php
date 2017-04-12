@@ -21,6 +21,8 @@ require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
+xoops_load('utility', basename(dirname(__DIR__)));
+
 class_exists('\Xmf\Module\Admin') or die('XMF is required.');
 use Xmf\Module\Helper;
 $helper = Helper::getHelper('xmarticle');

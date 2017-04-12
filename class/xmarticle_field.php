@@ -47,26 +47,6 @@ class xmarticle_field extends XoopsObject
         $this->initVar('field_sort', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('field_options', XOBJ_DTYPE_ARRAY, array());
     }
-    /**
-     * @return mixed
-     */
-    public function get_fieldtypes()
-    {
-        $this->fieldtypes = array(
-            'label'         => _MA_XMARTICLE_FIELDTYPE_LABEL,
-            'vs_text'       => _MA_XMARTICLE_FIELDTYPE_VSTEXT,
-            's_text'        => _MA_XMARTICLE_FIELDTYPE_STEXT,
-            'm_text'        => _MA_XMARTICLE_FIELDTYPE_MTEXT,
-            'l_text'        => _MA_XMARTICLE_FIELDTYPE_LTEXT,
-            'text'          => _MA_XMARTICLE_FIELDTYPE_TEXT,
-            'select'        => _MA_XMARTICLE_FIELDTYPE_SELECT,
-            'select_multi'  => _MA_XMARTICLE_FIELDTYPE_SELECTMULTI,
-            'radio_yn'      => _MA_XMARTICLE_FIELDTYPE_RADIOYN,
-            'radio'         => _MA_XMARTICLE_FIELDTYPE_RADIO,
-            'checkbox'      => _MA_XMARTICLE_FIELDTYPE_CHECKBOX,
-            'number'        => _MA_XMARTICLE_FIELDTYPE_NUMBER);
-        return $this->fieldtypes;
-    }
 
     /**
      * @param bool $action
@@ -82,7 +62,7 @@ class xmarticle_field extends XoopsObject
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type        
         $field_type = new XoopsFormSelect(_MA_XMARTICLE_FIELD_TYPE, 'field_type', $this->getVar('field_type'));
-        $field_arr = $this->get_fieldtypes();
+        $field_arr = XmarticleUtility::fieldTypes();
         foreach ($field_arr as $key => $value) {
             $field_type->addOption($key, $value);
         }
@@ -104,7 +84,7 @@ class xmarticle_field extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        $field_arr = $this->get_fieldtypes();
+        $field_arr = XmarticleUtility::fieldTypes();
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
         
@@ -421,23 +401,5 @@ class xmarticlexmarticle_fieldHandler extends XoopsPersistableObjectHandler
     public function __construct(&$db)
     {
         parent::__construct($db, 'xmarticle_field', 'xmarticle_field', 'field_id', 'field_name');
-    }
-    
-    public function get_fieldtypes()
-    {
-        $this->fieldtypes = array(
-            'label'         => _MA_XMARTICLE_FIELDTYPE_LABEL,
-            'vs_text'       => _MA_XMARTICLE_FIELDTYPE_VSTEXT,
-            's_text'        => _MA_XMARTICLE_FIELDTYPE_STEXT,
-            'm_text'        => _MA_XMARTICLE_FIELDTYPE_MTEXT,
-            'l_text'        => _MA_XMARTICLE_FIELDTYPE_LTEXT,
-            'text'          => _MA_XMARTICLE_FIELDTYPE_TEXT,
-            'select'        => _MA_XMARTICLE_FIELDTYPE_SELECT,
-            'select_multi'  => _MA_XMARTICLE_FIELDTYPE_SELECTMULTI,
-            'radio_yn'      => _MA_XMARTICLE_FIELDTYPE_RADIOYN,
-            'radio'         => _MA_XMARTICLE_FIELDTYPE_RADIO,
-            'checkbox'      => _MA_XMARTICLE_FIELDTYPE_CHECKBOX,
-            'number'        => _MA_XMARTICLE_FIELDTYPE_NUMBER);
-        return $this->fieldtypes;
     }
 }
