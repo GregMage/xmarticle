@@ -34,8 +34,11 @@ $helper->loadLanguage('main');
 $nb_limit = $helper->getConfig('admin_perpage', 15);
 $url_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
 $path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
+$url_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
+$path_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
 // Get handler
 $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
 $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+$articleHandler = xoops_getModuleHandler('xmarticle_article', 'xmarticle');
 
 xoops_cp_header();

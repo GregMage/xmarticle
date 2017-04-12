@@ -53,7 +53,7 @@ $modversion['tables'][4] = 'xmarticle_fielddata';
 // Admin Templates
 $modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'xmarticle_admin_field.tpl', 'description' => '', 'type' => 'admin');
-
+$modversion['templates'][] = array('file' => 'xmarticle_admin_article.tpl', 'description' => '', 'type' => 'admin');
 
 
 // Configs

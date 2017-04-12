@@ -41,15 +41,24 @@ function xoops_module_install_xmarticle()
         mkdir($dir, 0777);
     }
     chmod($dir, 0777);
+    
+    //Creation ".$namemodule."/images/article
+    $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article';
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Copy index.html
     $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.html';
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.html');
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/index.html');
 
     //Copy blank.gif
     $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/blank.gif');
+    copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/blank.gif');
     return true;
 }

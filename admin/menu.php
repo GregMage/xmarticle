@@ -44,6 +44,12 @@ $adminmenu[] = array(
     'link'  => 'admin/field.php' ,
     'icon'  => $pathIcon32 . 'folder_txt.png'
 ) ;
+// Article
+$adminmenu[] = array(
+    'title' => _MI_XMARTICLE_MENU_ARTICLE ,
+    'link'  => 'admin/article.php' ,
+    'icon'  => $pathIcon32 . 'view_detailed.png'
+) ;
 // About
 $adminmenu[] = array(
     'title' => _MI_XMARTICLE_MENU_ABOUT ,

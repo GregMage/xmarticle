@@ -20,12 +20,15 @@
 // Button
 define('_MA_XMARTICLE_CATEGORY_ADD', 'Add category');
 define('_MA_XMARTICLE_CATEGORY_LIST', 'Category list');
+define('_MA_XMARTICLE_ARTICLE_ADD', 'Add article');
+define('_MA_XMARTICLE_ARTICLE_LIST', 'Article list');
 define('_MA_XMARTICLE_FIELD_ADD', 'Add field');
 define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
  
 // Error message
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
+define('_MA_XMARTICLE_ERROR_NOARTICLE', 'There are no articles in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
@@ -71,7 +74,16 @@ define('_MA_XMARTICLE_CATEGORY_FIELD', 'Fields');
 define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
 define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Remove fields');
 
-
+// Article
+define('_MA_XMARTICLE_ARTICLE_DESC', 'Description');
+define('_MA_XMARTICLE_ARTICLE_FORMPATH', 'Files are in: %s');
+define('_MA_XMARTICLE_ARTICLE_LOGO', 'Logo');
+define('_MA_XMARTICLE_ARTICLE_LOGOFILE', 'Logo file');
+define('_MA_XMARTICLE_ARTICLE_REFERENCE', 'Reference');
+define('_MA_XMARTICLE_ARTICLE_SUREDEL', 'Sure to delete this article? %s');
+define('_MA_XMARTICLE_ARTICLE_NAME', 'Name');
+define('_MA_XMARTICLE_ARTICLE_UPLOAD', 'Upload');
+define('_MA_XMARTICLE_ARTICLE_UPLOADSIZE', 'Maximum size: %s kB');
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');
