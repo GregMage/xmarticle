@@ -84,6 +84,7 @@ define('_MA_XMARTICLE_ARTICLE_SUREDEL', 'Sure to delete this article? %s');
 define('_MA_XMARTICLE_ARTICLE_NAME', 'Name');
 define('_MA_XMARTICLE_ARTICLE_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_ARTICLE_UPLOADSIZE', 'Maximum size: %s kB');
+define('_MA_XMARTICLE_ARTICLE_CATEGORY', 'Category');
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');

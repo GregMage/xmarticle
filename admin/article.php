@@ -49,6 +49,7 @@ switch ($op) {
             foreach (array_keys($article_arr) as $i) {
                 $article_id                 = $article_arr[$i]->getVar('article_id');
                 $article['id']              = $article_id;
+                $article['category']        = $article_arr[$i]->getVar('article_cid');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
                 $article['description']     = $article_arr[$i]->getVar('article_description', 'show');
@@ -75,8 +76,23 @@ switch ($op) {
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Form
         $obj  = $articleHandler->create();
-        $form = $obj->getForm();
+        $form = $obj->getFormCategory();
         $xoopsTpl->assign('form', $form->render());
+        break;
+
+    // Loadtype
+    case 'loadarticle':
+        // Module admin
+        $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());  
+        $article_cid = Request::getInt('article_cid', 0);
+        if ($article_cid == 0) {
+            $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
+        } else {
+            $obj  = $articleHandler->create();
+            $form = $obj->getForm($article_cid);
+            $xoopsTpl->assign('form', $form->render());
+        }
         break;
         
     // Edit

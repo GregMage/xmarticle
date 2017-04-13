@@ -18,6 +18,7 @@
         <thead>
         <tr>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ARTICLE_LOGO}></th>
+            <th class="txtleft width20"><{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}></th>
             <th class="txtleft width15"><{$smarty.const._MA_XMARTICLE_ARTICLE_NAME}></th>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ARTICLE_REFERENCE}></th>
             <th class="txtleft"><{$smarty.const._MA_XMARTICLE_ARTICLE_DESC}></th>
@@ -29,6 +30,7 @@
         <{foreach item=article from=$article}>
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter"><{$article.logo}></td>
+                <td class="txtleft"><{$article.category}></td>
                 <td class="txtleft"><{$article.name}></td>
                 <td class="txtcenter"><{$article.reference}></td>
                 <td class="txtleft"><{$article.description}></td>

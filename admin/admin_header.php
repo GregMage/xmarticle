@@ -34,7 +34,7 @@ $helper->loadLanguage('main');
 $nb_limit = $helper->getConfig('admin_perpage', 15);
 $url_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
 $path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
-$url_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
+$url_logo_article = XOOPS_UPLOAD_URL . '/xmarticle/images/article/';
 $path_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
 // Get handler
 $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');

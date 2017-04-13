@@ -41,12 +41,11 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_logo', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
     }
-
     /**
      * @param bool $action
      * @return XoopsThemeForm
      */
-    public function getFormTypes($action = false)
+    public function getFormCategory($action = false)
     {
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
@@ -55,189 +54,186 @@ class xmarticle_article extends XoopsObject
         
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type        
-        $article_type = new XoopsFormSelect(_MA_XMARTICLE_article_TYPE, 'article_type', $this->getVar('article_type'));
-        $article_arr = $this->get_articletypes();
-        foreach ($article_arr as $key => $value) {
-            $article_type->addOption($key, $value);
+        $field_type = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
+        
+        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+        $criteria = new CriteriaCompo();
+        $criteria->setSort('category_weight ASC, category_name');
+        $criteria->setOrder('ASC');
+        $category_arr = $categoryHandler->getall($criteria);
+        foreach (array_keys($category_arr) as $i) {
+            $field_type->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
         }
-        $form->addElement($article_type, true);   
-        $form->addElement(new XoopsFormHidden('op', 'loadtype'));        
+        $form->addElement($field_type, true);   
+        $form->addElement(new XoopsFormHidden('op', 'loadarticle'));        
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
         return $form;
-    }
-    
+    } 
     /**
     * @param bool $action
     * @return XoopsThemeForm
     */
-    public function getForm($article_type = '', $action = false)
+    public function getForm($article_cid = 0, $action = false)
     {
+        $upload_size = 500000;
         $helper = \Xmf\Module\Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        $article_arr = $this->get_articletypes();
+		$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+        
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
         
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
         
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
-            $article_name = $article_arr[$this->getVar('article_type')];
-            $article_type = $this->getVar('article_type');
-            $weight = $this->getVar('article_weight');
-            $search = $this->getVar('article_search');
-            $required = $this->getVar('article_required');
             $status = $this->getVar('article_status');
-            if ($article_type == 'select_multi' || $article_type == 'checkbox'){
-                $default = unserialize($this->getVar('article_default', 'n'));
-            }
+            $article_cid = $this->getVar('article_cid');
         } else {
-            $article_name = $article_arr[$article_type];
-            $weight = $this->getVar('article_weight') ? $this->getVar('article_weight') : 0;
-            $search = $this->getVar('article_search') ? $this->getVar('article_search') : 1;
-            $required = $this->getVar('article_required') ? $this->getVar('article_required') : 1;
-            $status = $this->getVar('article_status') ? $this->getVar('article_status') : 1;
-            $default = array();
+            $status = 1;            
         }
-        // type
-        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_article_TYPE, $article_name));
+        // category        
+        $category = $categoryHandler->get($article_cid);
+        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, $category->getVar('category_name')));
+        $form->addElement(new XoopsFormHidden('article_cid', $article_cid));
 
-        // name
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_NAME, 'article_name', 50, 255, $this->getVar('article_name')), true);
+        // title
+        $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'article_name', 50, 255, $this->getVar('article_name')), true);
         
+        // reference
+        $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'article_reference', 20, 50, $this->getVar('article_reference')), true);
+
         // description
         $editor_configs           =array();
         $editor_configs['name']   = 'article_description';
         $editor_configs['value']  = $this->getVar('article_description', 'e');
-        $editor_configs['rows']   = 2;
-        $editor_configs['editor'] = 'Plain Text';
-        $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_article_DESC, 'article_description', $editor_configs), false);
-        
-        // options
-        switch ($article_type) {
-            case 'select':
-            case 'select_multi':
-            case 'radio':
-            case 'checkbox':
-                $options = $this->getVar('article_options');
-                $count_options = count($options);
-                if ($count_options > 0){
-                    $i = 0;
-                    foreach (array_keys($options) as $key) {
-                        $addOption[$i]['value'] = $options[$key];
-                        $addOption[$i]['key'] = $key;
-                        $i++;
-                    }
-                }
-                $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _MA_XMARTICLE_article_KEY . "</td><td class='width40'>" . _MA_XMARTICLE_article_VALUE . "</td><td>" . _MA_XMARTICLE_article_DEFAULT . "</td>";
-                if (!$this->isNew()) {
-                    $option_text .= "<td>" . _MA_XMARTICLE_article_REMOVE . "</td>";
-                }
-                $option_text .= "</tr>";
-                for ($i = 0; $i < ($count_options + 10); ++$i) {
-                    if ($i >= $count_options){
-                        $key = '';
-                        $value = '';
-                    } else {
-                        $key = $addOption[$i]['key'];
-                        $value = $addOption[$i]['value'];
-                    }                   
-                    $option_text .= "<tr><td><input type='text' name='addOption[{$i}][key]' id='addOption[{$i}][key]' value='" . $key . "' size='15' /></td>";
-                    $option_text .= "<td><input type='text' name='addOption[{$i}][value]' id='addOption[{$i}][value]' value='" . $value . "' size='35' /></td>";
-                    if ($article_type == 'select_multi' || $article_type == 'checkbox'){
-                        $checked = '';
-                        if (!empty($default)){
-                            if (in_array($value, $default)){
-                                $checked = 'checked';
-                            }
-                        }
-                        $option_text .= "<td><INPUT type= 'checkbox' name='article_default[]' value='{$i}' " . $checked . "></td>";
-                    } else{
-                        $checked = '';
-                        if ($this->getVar('article_default') == $value && $this->getVar('article_default') != ''){
-                            $checked = 'checked';
-                        }
-                        $option_text .= "<td><INPUT type= 'radio' name='article_default' value='{$i}' " . $checked . "></td>";
-                    }
-                    if (!$this->isNew()) {
-                        if ($key == ''){
-                            $option_text .= "<td>&nbsp;</td>";
-                        }else{
-                            $option_text .= "<td><INPUT type= 'checkbox' name='removeOptions[]' value='{$key}'></td>";
-                        }                        
-                        $option_text .= "</tr><tr height='3px'><td colspan='4'> </td></tr>";
-                    }else{
-                        $option_text .= "</tr><tr height='3px'><td colspan='3'> </td></tr>";
-                    }
-                }
-                $option_text .= "</table>";
-                $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_article_ADDMOREOPTIONS . "</label>";
-                $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_article_ADDOPTION, $option_text), true);
-                // sort
-                $sort = new XoopsFormSelect(_MA_XMARTICLE_article_SORT, 'article_sort', $this->getVar('article_sort'));
-                $sort_arr = array('DEF' => _MA_XMARTICLE_article_SORTDEF,'VLH' => _MA_XMARTICLE_article_SORTVLH, 'VHL' => _MA_XMARTICLE_article_SORTVHL, 'KLH' => _MA_XMARTICLE_article_SORTKLH, 'KHL' => _MA_XMARTICLE_article_SORTKHL);
-                $sort->addOptionArray($sort_arr);
-                $form->addElement($sort, true);
-                break;
+        $editor_configs['rows']   = 20;
+        $editor_configs['cols']   = 160;
+        $editor_configs['width']  = '100%';
+        $editor_configs['height'] = '400px';
+        $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
+        $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_ARTICLE_DESC, 'article_description', $editor_configs), false);
+        // logo
+        $blank_img = $this->getVar('article_logo') ? $this->getVar('article_logo') : 'blank.gif';
+        $uploadirectory='/uploads/xmarticle/images/article';
+        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE  . '<br /><br />' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size/1000), '<br />');
+        $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
+        $imageselect_img = new XoopsFormSelect($imgpath_img, 'article_logo', $blank_img);
+        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $imageselect_img->addOption("$blank_img", $blank_img);
+        foreach ($image_array_img as $image_img) {
+            $imageselect_img->addOption("$image_img", $image_img);
         }
-        // default
-        switch ($article_type) {
-            case 'label':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 50, 255, $this->getVar('article_default')), true);
-                break;
-            case 'vs_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 50, 25, $this->getVar('article_default')));
-                break;
-            case 's_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 50, 50, $this->getVar('article_default')));
-                break;
-            case 'm_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 50, 100, $this->getVar('article_default')));
-                break;
-            case 'l_text':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 50, 255, $this->getVar('article_default')));
-                break;
-            case 'text':
-                $editor_configs           =array();
-                $editor_configs['name']   = 'article_default';
-                $editor_configs['value']  = $this->getVar('article_default', 'e');
-                $editor_configs['rows']   = 2;
-                $editor_configs['editor'] = 'Plain Text';
-                $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_article_DEFAULT, 'article_default', $editor_configs), false);
-                break;
-            case 'radio_yn':
-                $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_article_DEFAULT, 'article_default', $this->getVar('article_default')));
-                break;
-            case 'number':
-                $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_DEFAULT, 'article_default', 15, 50, $this->getVar('article_default')));
-                break;
-        }  
+        $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"article_logo\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $imgtray_img->addElement($imageselect_img, false);
+        $imgtray_img->addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt='' />"));
+        $fileseltray_img = new XoopsFormElementTray('<br />', '<br /><br />');
+        $fileseltray_img->addElement(new XoopsFormFile(_MA_XMARTICLE_ARTICLE_UPLOAD, 'article_logo', $upload_size), false);
+        $fileseltray_img->addElement(new XoopsFormLabel(''), false);
+        $imgtray_img->addElement($fileseltray_img);
+        $form->addElement($imgtray_img);
+		
+		// field		
+		/*$criteria = new CriteriaCompo();
+        $criteria->setSort('field_weight ASC, field_name');
+        $criteria->setOrder('ASC');
+		$field_arr = $fieldHandler->getall($criteria);
+		$sel_option = '<option value=""> </option>';
+		foreach (array_keys($field_arr) as $i) {
+			$sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') .'</option>';
+		}		
+		$field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_ARTICLE_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_ARTICLE_FIELD . "</td></tr>";
+		$sel_id = 0;
+		for ($i = 0; $i < 5; ++$i) {
+			$field_text .= "<tr><td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select></td>";
+			$sel_id++;
+			$field_text .= "<td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select><td></tr>";
+			$sel_id++;
+			$field_text .= "<tr height='3px'><td colspan='2'></td></tr>";
+		}
+		$field_text .= "</table>";
+		$field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . "</label>";
+		$form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);*/
 
-        // weight        
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_article_WEIGHT, 'article_weight', 5, 5, $weight), true);
-        
-        // search
-        $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_article_SEARCH, 'article_search', $search));
-        
-        // required
-        $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_article_REQUIRED, 'article_required', $required));
-
-        // status        
+		// status
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
         $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA,);
         $form_status->addOptionArray($options);
         $form->addElement($form_status);
-
-        $form->addElement(new XoopsFormHidden('article_type', $article_type));
+		
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function saveArticle($articleHandler, $action = false)
+    {
+        if ($action === false) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+        $error_message = '';      
+        //logo
+        $uploadirectory = '/xmarticle/images/article';
+        if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
+            include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+            $uploader_article_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $upload_size, null, null);
+            if ($uploader_article_img->fetchMedia('article_logo')) {
+                $uploader_article_img->setPrefix('article_');
+                if (!$uploader_article_img->upload()) {
+                    $error_message .= $uploader_article_img->getErrors() . '<br />';
+                } else {
+                    $this->setVar('article_logo', $uploader_article_img->getSavedFileName());
+                }
+            } else {
+                $error_message .= $uploader_article_img->getErrors();
+            }
+        } else {
+            $this->setVar('article_logo', Xmf\Request::getString('article_logo', ''));
+        }
+        $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
+        $this->setVar('article_reference',  Xmf\Request::getString('article_reference', ''));
+        $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
+        $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
+        $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
+        $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
+		/*$fields = $this->getVar('article_fields');
+		// remove field
+		if (isset($_REQUEST['removeFields']) && is_array($_REQUEST['removeFields'])) {
+			foreach ($_REQUEST['removeFields'] as $index) {
+				unset($fields[$index]);
+			}
+		}
+		
+		// add fields	
+		if (!empty($_REQUEST['addField'])) {
+			$i = 0;
+			foreach ($_REQUEST['addField'] as $field) {
+				if ($field == '') {
+					continue;
+				}
+				$fields[$field] = $field;
+			}                       
+		}
+		$this->setVar('article_fields', $fields);*/
+        if ($error_message == '') {
+            if ($articleHandler->insert($this)) {
+                redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+            } else {
+                $error_message =  $this->getHtmlErrors();
+            }
+        }
+        return $error_message;
     }
 
     /**
@@ -249,138 +245,6 @@ class xmarticle_article extends XoopsObject
         $new_enreg = $xoopsDB->getInsertId();
         return $new_enreg;
     }
-    
-    /**
-     * @return mixed
-     */
-    public function savearticle($articleHandler, $action = false)
-    {
-        if ($action === false) {
-            $action = $_SERVER['REQUEST_URI'];
-        }
-        $error_message = '';        
-        // test error
-        if ((int)$_REQUEST['article_weight'] == 0 && $_REQUEST['article_weight'] != '0') {
-            $error_message .= _MA_XMARTICLE_ERROR_WEIGHT . '<br>';
-            $this->setVar('article_weight', 0);
-        }
-        $article_type = Xmf\Request::getString('article_type', '');
-        if ($article_type == ''){
-            redirect_header($action, 2, _MA_XMARTICLE_ERROR_articleNOTCONFIGURABLE);
-        }        
-        $this->setVar('article_type', $article_type);
-        $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
-        $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
-        $this->setVar('article_required', Xmf\Request::getInt('article_required', 1));
-        $this->setVar('article_search', Xmf\Request::getInt('article_search', 1));
-        $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
-        
-        switch ($article_type) {
-            case 'label':
-            case 'vs_text':
-            case 's_text':
-            case 'm_text':
-            case 'l_text':
-            case 'text':
-            case 'radio_yn':
-            case 'number':
-                $this->setVar('article_default', Xmf\Request::getString('article_default', ''));
-                break;            
-            case 'text':
-                $this->setVar('article_default', Xmf\Request::getText('article_default', ''));
-                break;
-            case 'select':
-            case 'select_multi':
-            case 'radio':
-            case 'checkbox':
-                $options = $this->getVar('article_options');
-                $default = array();
-                // add options and default
-                if (!empty($_REQUEST['addOption'])) {
-                    $i = 0;
-                    if ($article_type == 'select_multi' || $article_type == 'checkbox'){
-                        $article_default = Xmf\Request::getArray('article_default', array());
-                    } else {
-                        $article_default = Xmf\Request::getInt('article_default', -1);
-                    }
-                    foreach ($_REQUEST['addOption'] as $option) {
-                        if (empty($option['value'])) {
-                            continue;
-                        }
-                        $options[$option['key']] = $option['value'];
-                        if ($article_type == 'select_multi' || $article_type == 'checkbox'){
-                            if (in_array($i, $article_default)){
-                                $default[$option['key']] = $option['value'];
-                            }
-                        }else{
-                            if ($article_default == $i){
-                                $default[$option['key']] = $option['value'];
-                                $save_key = $option['key'];
-                            }
-                        }
-                        $i++;
-                        
-                    }
-                }
-                // remove
-                if (isset($_REQUEST['removeOptions']) && is_array($_REQUEST['removeOptions'])) {
-                    foreach ($_REQUEST['removeOptions'] as $index) {
-                        unset($options[$index]);
-                        unset($default[$index]);
-                    }
-                }
-                // save sort
-                $article_sort = Xmf\Request::getString('article_sort', 'DEF');
-                switch ($article_sort) {
-                    case 'VLH':
-                        asort($options);
-                        break;
-                    case 'VHL':
-                        arsort($options);
-                        break;
-                    case 'KLH':
-                        ksort($options);
-                        break;
-                    case 'KHL':
-                        krsort($options);
-                        break;                    
-                }
-                $this->setVar('article_sort', $article_sort);
-                // save article_options
-                $this->setVar('article_options', $options);
-                // save article_default
-                if ($article_type == 'select_multi' || $article_type == 'checkbox'){
-                    if (!empty($default)){
-                        $this->setVar('article_default', serialize($default));
-                    } else{
-                        $this->setVar('article_default', '');
-                    }
-                }else{
-                    if (!empty($default)){
-                        $this->setVar('article_default', $default[$save_key]);
-                    } else{
-                        $this->setVar('article_default', '');
-                    }
-                }
-                break;
-        }
-        if ($error_message == '') {
-            $this->setVar('article_weight', Xmf\Request::getInt('article_weight', 0));
-            if ($articleHandler->insert($this)) {
-                if ((Xmf\Request::getBool('addmoreoptions', false)) === true){
-                    redirect_header($action . '?op=edit&amp;article_id=' . $this->getVar('article_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                } else {
-                    redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                }
-                
-            } else {
-                $error_message =  $this->getHtmlErrors();
-            }
-        }
-        return $error_message;
-    }
-
-
 }
 
 /**
