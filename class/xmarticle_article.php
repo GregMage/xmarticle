@@ -40,6 +40,8 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_description', XOBJ_DTYPE_TXTAREA);
         $this->initVar('article_logo', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
+        $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, array());
     }
     /**
      * @param bool $action

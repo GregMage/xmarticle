@@ -52,6 +52,7 @@ CREATE TABLE `xmarticle_article` (
   `article_status`      tinyint(1) unsigned     NOT NULL default '0',
   
   PRIMARY KEY  (`article_id`),
+  KEY `article_cid` (`article_cid`),
   KEY `article_name` (`article_name`),
   KEY `article_reference` (`article_reference`)
 ) ENGINE=MyISAM;

@@ -41,15 +41,18 @@ switch ($op) {
         $criteria->setSort('article_name');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
-        $criteria->setLimit($nb_limit);
-        $article_arr = $articleHandler->getall($criteria);
+        $criteria->setLimit($nb_limit);       
+        $articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
+        $articleHandler->field_link = "category_id";
+        $articleHandler->field_object = "article_cid";
+        $article_arr = $articleHandler->getByLink($criteria);
         $article_count = $articleHandler->getCount($criteria);
         $xoopsTpl->assign('article_count', $article_count);
         if ($article_count > 0) {
             foreach (array_keys($article_arr) as $i) {
                 $article_id                 = $article_arr[$i]->getVar('article_id');
                 $article['id']              = $article_id;
-                $article['category']        = $article_arr[$i]->getVar('article_cid');
+                $article['category']        = $article_arr[$i]->getVar('category_name');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
                 $article['description']     = $article_arr[$i]->getVar('article_description', 'show');
