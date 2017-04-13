@@ -164,7 +164,7 @@ class xmarticle_field extends XoopsObject
                         $option_text .= "<td><INPUT type= 'checkbox' name='field_default[]' value='{$i}' " . $checked . "></td>";
                     } else{
                         $checked = '';
-                        if ($this->getVar('field_default') == $value && $this->getVar('field_default') != ''){
+                        if ($this->getVar('field_default') == $key && $this->getVar('field_default') != ''){
                             $checked = 'checked';
                         }
                         $option_text .= "<td><INPUT type= 'radio' name='field_default' value='{$i}' " . $checked . "></td>";
@@ -363,7 +363,7 @@ class xmarticle_field extends XoopsObject
                     }
                 }else{
                     if (!empty($default)){
-                        $this->setVar('field_default', $default[$save_key]);
+                        $this->setVar('field_default', $save_key);
                     } else{
                         $this->setVar('field_default', '');
                     }
