@@ -211,6 +211,7 @@ class xmarticle_category extends XoopsObject
 		$criteria = new CriteriaCompo();
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
+        $criteria->add(new Criteria('field_status', 0, '!='));
 		$field_arr = $fieldHandler->getall($criteria);
 		$sel_option = '<option value=""> </option>';
 		foreach (array_keys($field_arr) as $i) {

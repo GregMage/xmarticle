@@ -142,26 +142,64 @@ class xmarticle_article extends XoopsObject
         $form->addElement($imgtray_img);
 		
 		// field		
-		/*$criteria = new CriteriaCompo();
+		$criteria = new CriteriaCompo();
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
+        $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+        $criteria->add(new Criteria('field_status', 0, '!='));
 		$field_arr = $fieldHandler->getall($criteria);
-		$sel_option = '<option value=""> </option>';
-		foreach (array_keys($field_arr) as $i) {
-			$sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') .'</option>';
-		}		
-		$field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_ARTICLE_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_ARTICLE_FIELD . "</td></tr>";
-		$sel_id = 0;
-		for ($i = 0; $i < 5; ++$i) {
-			$field_text .= "<tr><td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select></td>";
-			$sel_id++;
-			$field_text .= "<td><select class='form-control' name='addField[{$sel_id}]' id='addField[{$sel_id}]'>" . $sel_option . "</select><td></tr>";
-			$sel_id++;
-			$field_text .= "<tr height='3px'><td colspan='2'></td></tr>";
-		}
-		$field_text .= "</table>";
-		$field_text .= "<label><input type='checkbox' name='addmorefields' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREFIELDS . "</label>";
-		$form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDFIELD, $field_text), true);*/
+        foreach (array_keys($field_arr) as $i) {
+            $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+            if ($field_arr[$i]->getVar('field_required') == 1){
+                $required = true;
+            } else {
+                $required = false;
+            }
+            $value = $field_arr[$i]->getVar('field_default');
+            $name = 'field_' . $i;
+            switch ($field_arr[$i]->getVar('field_type')) {
+                case 'label':
+                    $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
+                    break;
+                case 'vs_text':
+                    $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
+                    break;
+                case 's_text':
+                    $form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
+                    break;
+                case 'm_text':
+                    $form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
+                    break;
+                case 'l_text':
+                    $form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
+                    break;
+                case 'text':
+                    $editor_configs           =array();
+                    $editor_configs['name']   = $name;
+                    $editor_configs['value']  = $value;
+                    $editor_configs['rows']   = 2;
+                    $editor_configs['editor'] = 'Plain Text';
+                    $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
+                    break;
+                case 'select':
+                    $select_field = new XoopsFormSelect($caption, $name, $value);
+                    $select_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                    $form->addElement($select_field, $required);
+                    break;
+                case 'select_multi':
+                    // a finaliser
+                    $select_multi_field = new XoopsFormSelect($caption, $name, unserialize($field_arr[$i]->getVar('field_default', 'n')), 5, true);
+                    $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                    $form->addElement($select_multi_field, $required);
+                    break;
+                case 'radio_yn':
+                    $form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
+                    break;
+                case 'number':
+                    $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
+                    break;
+            }
+        }
 
 		// status
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
@@ -209,28 +247,21 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
-		/*$fields = $this->getVar('article_fields');
-		// remove field
-		if (isset($_REQUEST['removeFields']) && is_array($_REQUEST['removeFields'])) {
-			foreach ($_REQUEST['removeFields'] as $index) {
-				unset($fields[$index]);
-			}
-		}
-		
-		// add fields	
-		if (!empty($_REQUEST['addField'])) {
-			$i = 0;
-			foreach ($_REQUEST['addField'] as $field) {
-				if ($field == '') {
-					continue;
-				}
-				$fields[$field] = $field;
-			}                       
-		}
-		$this->setVar('article_fields', $fields);*/
+        
+        // fields
+        $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+        $category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+        $criteria->add(new Criteria('field_status', 0, '!='));
+		$field_arr = $fieldHandler->getall($criteria);
+        foreach (array_keys($field_arr) as $i) {
+            echo $_POST['field_' . $i] . '<br>';
+        }
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
-                redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                //redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
             } else {
                 $error_message =  $this->getHtmlErrors();
             }
