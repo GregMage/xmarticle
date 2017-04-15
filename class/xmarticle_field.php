@@ -26,9 +26,6 @@ if (!defined('XOOPS_ROOT_PATH')) {
  */
 class xmarticle_field extends XoopsObject
 {
-    public $fieldtypes;
-    
-    
     // constructor
     /**
      * xmarticle_field constructor.
