@@ -39,6 +39,7 @@ $path_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
 // Get handler
 $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
 $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
 $articleHandler = xoops_getModuleHandler('xmarticle_article', 'xmarticle');
 
 xoops_cp_header();

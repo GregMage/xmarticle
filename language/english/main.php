@@ -27,6 +27,7 @@ define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
  
 // Error message
+define('_MA_XMARTICLE_ERROR', 'Error');
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
 define('_MA_XMARTICLE_ERROR_NOARTICLE', 'There are no articles in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');

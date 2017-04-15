@@ -39,4 +39,64 @@ class XmarticleUtility
             'number'        => _MA_XMARTICLE_FIELDTYPE_NUMBER);
         return $types;
     }
+	
+	
+	public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
+    {
+		if ($action === false) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+		if ($fielddata_fid == 0 || $fielddata_aid == 0 || $field_type == ''){
+			redirect_header($action, 2, _MA_XMARTICLE_ERROR);
+		}
+		$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
+		$criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
+		$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+		$fielddata_arr = $fielddataHandler->getall($criteria);
+		
+		if (count($fielddata_arr) == 0) {
+			$obj = $fielddataHandler->create();            
+		} else {
+			foreach (array_keys($fielddata_arr) as $i) {
+				$obj = $fielddataHandler->get($fielddata_arr[$i]->getVar('fielddata_id'));
+			}
+		}		
+		
+		$error_message = '';
+		$obj->setVar('fielddata_fid', $fielddata_fid);
+        $obj->setVar('fielddata_aid',  $fielddata_aid);
+		switch ($field_type) {
+			case 'vs_text':
+			case 's_text':
+			case 'm_text':
+			case 'l_text':
+			case 'select':
+			case 'radio_yn':
+			case 'radio':
+				$obj->setVar('fielddata_value1',  $fielddata_value);
+				break;
+			
+			case 'label':
+			case 'text':
+				$obj->setVar('fielddata_value2',  $fielddata_value);
+				break;
+
+			case 'select_multi':
+			case 'checkbox':
+				$obj->setVar('fielddata_value3',  serialize($fielddata_value));
+				break;
+				
+			case 'number':
+				$obj->setVar('fielddata_value4',  $fielddata_value);
+				break;
+			
+		}
+		if ($error_message == '') {
+            if (!$fielddataHandler->insert($obj)) {
+                $error_message =  $obj->getHtmlErrors();
+            }
+        }
+        return $error_message;
+    }
 }

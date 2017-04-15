@@ -160,7 +160,7 @@ class xmarticle_article extends XoopsObject
             switch ($field_arr[$i]->getVar('field_type')) {
                 case 'label':
                     $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
-                    $form->addElement(new XoopsFormHidden($name, ''));
+                    $form->addElement(new XoopsFormHidden($name, $value));
                     break;
                 case 'vs_text':
                     $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
@@ -257,22 +257,28 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
-        
-        // fields
-        $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
-        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
-        $category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
-        $criteria = new CriteriaCompo();
-        $criteria->setSort('field_weight ASC, field_name');
-        $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
-        $criteria->add(new Criteria('field_status', 0, '!='));
-		$field_arr = $fieldHandler->getall($criteria);
-        foreach (array_keys($field_arr) as $i) {
-            echo 'field_' . $i . ': ' . $_POST['field_' . $i] . '<br>';
-        }
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
+				// fields and fielddata
+				$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+				$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+				$category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
+				$criteria = new CriteriaCompo();
+				$criteria->setSort('field_weight ASC, field_name');
+				$criteria->setOrder('ASC');
+				$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+				$criteria->add(new Criteria('field_status', 0, '!='));
+				$field_arr = $fieldHandler->getall($criteria);
+				if ($this->get_new_enreg() == 0){
+					$fielddata_aid = $this->getVar('article_id');
+				} else {
+					$fielddata_aid = $this->get_new_enreg();
+				}
+				echo $fielddata_aid . 'gg<br>';
+				foreach (array_keys($field_arr) as $i) {
+					XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+					echo 'field_' . $i . ': ' . $_POST['field_' . $i] . '<br>';
+				}
                 //redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
             } else {
                 $error_message =  $this->getHtmlErrors();
