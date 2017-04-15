@@ -230,7 +230,12 @@ class xmarticle_field extends XoopsObject
         $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SEARCH, 'field_search', $search));
         
         // required
-        $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_REQUIRED, 'field_required', $required));
+		if ($field_type == 'label'){
+			$form->addElement(new XoopsFormHidden('field_required', 0));
+		} else {
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_REQUIRED, 'field_required', $required));
+		}
+        
 
         // status        
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'field_status', $status);
