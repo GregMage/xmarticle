@@ -149,7 +149,7 @@ class xmarticle_article extends XoopsObject
         $criteria->add(new Criteria('field_status', 0, '!='));
 		$field_arr = $fieldHandler->getall($criteria);
         foreach (array_keys($field_arr) as $i) {
-            $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+            $caption = 'field_' . $i . ': ' . $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
             if ($field_arr[$i]->getVar('field_required') == 1){
                 $required = true;
             } else {
@@ -160,6 +160,7 @@ class xmarticle_article extends XoopsObject
             switch ($field_arr[$i]->getVar('field_type')) {
                 case 'label':
                     $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
+                    $form->addElement(new XoopsFormHidden($name, ''));
                     break;
                 case 'vs_text':
                     $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
@@ -176,7 +177,7 @@ class xmarticle_article extends XoopsObject
                 case 'text':
                     $editor_configs           =array();
                     $editor_configs['name']   = $name;
-                    $editor_configs['value']  = $value;
+                    $editor_configs['value']  = $field_arr[$i]->getVar('field_default', 'e');
                     $editor_configs['rows']   = 2;
                     $editor_configs['editor'] = 'Plain Text';
                     $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
@@ -187,13 +188,22 @@ class xmarticle_article extends XoopsObject
                     $form->addElement($select_field, $required);
                     break;
                 case 'select_multi':
-                    // a finaliser
-                    $select_multi_field = new XoopsFormSelect($caption, $name, unserialize($field_arr[$i]->getVar('field_default', 'n')), 5, true);
+                    $select_multi_field = new XoopsFormSelect($caption, $name, array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))), 5, true);
                     $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($select_multi_field, $required);
                     break;
                 case 'radio_yn':
                     $form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
+                    break;
+                case 'radio':                    
+                    $radio_field = new XoopsFormRadio($caption, $name, $value);
+                    $radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                    $form->addElement($radio_field, $required);
+                    break;
+                case 'checkbox':
+                    $checkbox_field = new XoopsFormCheckBox($caption, $name, array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
+                    $checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                    $form->addElement($checkbox_field, $required);
                     break;
                 case 'number':
                     $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
@@ -253,11 +263,13 @@ class xmarticle_article extends XoopsObject
         $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
         $category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
         $criteria = new CriteriaCompo();
+        $criteria->setSort('field_weight ASC, field_name');
+        $criteria->setOrder('ASC');
         $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
         $criteria->add(new Criteria('field_status', 0, '!='));
 		$field_arr = $fieldHandler->getall($criteria);
         foreach (array_keys($field_arr) as $i) {
-            echo $_POST['field_' . $i] . '<br>';
+            echo 'field_' . $i . ': ' . $_POST['field_' . $i] . '<br>';
         }
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
