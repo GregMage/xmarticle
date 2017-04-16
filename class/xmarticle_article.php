@@ -96,9 +96,11 @@ class xmarticle_article extends XoopsObject
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $status = $this->getVar('article_status');
-            $article_cid = $this->getVar('article_cid');
+            $article_cid = $this->getVar('article_cid');			
+			$fielddata_values = XmarticleUtility::getFielddata($this->getVar('article_id'));			
         } else {
-            $status = 1;            
+            $status = 1; 
+			$fielddata_values =	array();
         }
         // category        
         $category = $categoryHandler->get($article_cid);
@@ -154,8 +156,18 @@ class xmarticle_article extends XoopsObject
                 $required = true;
             } else {
                 $required = false;
-            }
-            $value = $field_arr[$i]->getVar('field_default');
+            }			
+			if (array_key_exists ($field_arr[$i]->getVar('field_id'), $fielddata_values)){
+				$value = $fielddata_values[$field_arr[$i]->getVar('field_id')];
+			} else {
+				if ($field_arr[$i]->getVar('field_type') == 'text'){
+					$value = $field_arr[$i]->getVar('field_default', 'e');
+				} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
+					$value = array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n')));
+				} else {
+					$value = $field_arr[$i]->getVar('field_default');
+				}
+			}
             $name = 'field_' . $i;
             switch ($field_arr[$i]->getVar('field_type')) {
                 case 'label':
@@ -177,7 +189,7 @@ class xmarticle_article extends XoopsObject
                 case 'text':
                     $editor_configs           =array();
                     $editor_configs['name']   = $name;
-                    $editor_configs['value']  = $field_arr[$i]->getVar('field_default', 'e');
+                    $editor_configs['value']  = $value;
                     $editor_configs['rows']   = 2;
                     $editor_configs['editor'] = 'Plain Text';
                     $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
@@ -188,7 +200,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement($select_field, $required);
                     break;
                 case 'select_multi':
-                    $select_multi_field = new XoopsFormSelect($caption, $name, array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))), 5, true);
+                    $select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
                     $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($select_multi_field, $required);
                     break;
@@ -201,7 +213,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement($radio_field, $required);
                     break;
                 case 'checkbox':
-                    $checkbox_field = new XoopsFormCheckBox($caption, $name, array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
+                    $checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
                     $checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($checkbox_field, $required);
                     break;
@@ -209,6 +221,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
                     break;
             }
+			unset($value);
         }
 
 		// status

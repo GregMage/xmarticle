@@ -40,7 +40,6 @@ class XmarticleUtility
         return $types;
     }
 	
-	
 	public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
     {
 		if ($action === false) {
@@ -98,5 +97,33 @@ class XmarticleUtility
             }
         }
         return $error_message;
+    }
+	
+	public static function getFielddata($fielddata_aid = 0)
+    {
+		if ($fielddata_aid == 0){
+			$values = array();
+		} else {
+			$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+			$fielddata_arr = $fielddataHandler->getall($criteria);
+			$values = array();
+			foreach (array_keys($fielddata_arr) as $i) {
+				if ($fielddata_arr[$i]->getVar('fielddata_value1') != ''){
+					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value1');
+				}
+				if ($fielddata_arr[$i]->getVar('fielddata_value2') != ''){
+					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value2', 'e');
+				}
+				if ($fielddata_arr[$i]->getVar('fielddata_value3') != ''){
+					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = unserialize($fielddata_arr[$i]->getVar('fielddata_value3', 'n'));
+				}
+				if ($fielddata_arr[$i]->getVar('fielddata_value4') != ''){
+					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value4');
+				}
+			}
+		}
+        return $values;
     }
 }
