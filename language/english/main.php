@@ -34,6 +34,7 @@ define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
+define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
 
 
 // Shared
@@ -112,3 +113,9 @@ define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');
 define('_MA_XMARTICLE_FIELD_SORTVHL', 'Sort value high to low');
 define('_MA_XMARTICLE_FIELD_SORTKLH', 'Sort key low to high');
 define('_MA_XMARTICLE_FIELD_SORTKHL', 'Sort key high to low');
+
+// user
+define('_MA_XMARTICLE_HOME', 'Home page');
+define('_MA_XMARTICLE_MOREDETAILS', 'More details');
+define('_MA_XMARTICLE_LISTARTICLE', 'List of articles');
+

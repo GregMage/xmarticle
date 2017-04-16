@@ -5,12 +5,12 @@
         <{foreach item=category from=$categories}>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 xm-category-list">
                 <a class="btn btn-primary btn-md btn-block" title="<{$category.name}>"
-                   href="<{$xoops_url}>/modules/xmarticles/viewcat.php?category_id=<{$category.id}>">
+                   href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category.id}>">
                     <{$category.name}>
                 </a>
 
-                <a title="<{$category.name}>" href="<{$xoops_url}>/modules/xmarticles/viewcat.php?category_id=<{$category.id}>" class="xm-category-image">
-                    <img class="<{$img_float}>" src="<{$category.logo}>" alt="<{$category.name}>">
+                <a title="<{$category.name}>" href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category.id}>" class="xm-category-image">
+                    <img src="<{$category.logo}>" alt="<{$category.name}>">
                 </a>
 
                 <!-- Category Description -->
