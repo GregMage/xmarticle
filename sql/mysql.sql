@@ -34,10 +34,10 @@ CREATE TABLE `xmarticle_fielddata` (
   `fielddata_id`            int(12) unsigned        NOT NULL auto_increment,
   `fielddata_fid`           int(12) unsigned        NOT NULL default '0',
   `fielddata_aid`           int(12) unsigned        NOT NULL default '0',
-  `fielddata_value1`        varchar(255)            NOT NULL default '',
+  `fielddata_value1`        varchar(255),
   `fielddata_value2`        text,
   `fielddata_value3`        text,
-  `fielddata_value4`        double(9,3)            NOT NULL default '0.000',
+  `fielddata_value4`        double(9,3),
   
   PRIMARY KEY  (`fielddata_id`)
 ) ENGINE=MyISAM;
