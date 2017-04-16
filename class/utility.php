@@ -126,4 +126,15 @@ class XmarticleUtility
 		}
         return $values;
     }
+    
+    public static function articlePerCat($category_id, $article_arr)
+    {
+        $count = 0;
+        foreach (array_keys($article_arr) as $i) {
+            if ($article_arr[$i]->getVar('article_cid') == $category_id) {
+                $count++;
+            }
+        }        
+        return $count;
+    }
 }
