@@ -18,6 +18,7 @@
  */
 $path =dirname(dirname(__DIR__));
 require_once $path . '/mainfile.php';
+include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 
 
 xoops_load('utility', basename(__DIR__));

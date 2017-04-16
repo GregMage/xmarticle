@@ -44,5 +44,15 @@
             <!-- .xm-category-list -->
         <{/foreach}>
     </div><!-- .xm-category -->
+    <div class="clear spacer"></div>
+    <{if $nav_menu}>
+        <div class="floatright"><{$nav_menu}></div>
+        <div class="clear spacer"></div>
+    <{/if}>
+    <{else}>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <{$smarty.const._MA_XMARTICLE_ERROR_NOCATEGORY}>
+        </div>
     <{/if}>
 </div><!-- .xmarticle -->

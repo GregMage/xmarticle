@@ -30,7 +30,6 @@ $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('article_status', 1));
 $article_arr = $articleHandler->getall($criteria);
 
-
 // Get start pager
 $start = Request::getInt('start', 0);
 // Criteria
@@ -60,8 +59,5 @@ if ($category_count > 0) {
         $nav = new XoopsPageNav($category_count, $nb_limit, $start, 'start');
         $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
     }
-} else {
-    $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
-
 include XOOPS_ROOT_PATH.'/footer.php';

@@ -73,7 +73,7 @@ $modversion['config'][] = array(
 );
 
 $modversion['config'][] = array(
-    'name'        => 'GENERAL_perpage',
+    'name'        => 'general_perpage',
     'title'       => '_MI_XMARTICLE_PREF_GENERALITEMPERPAGE',
     'description' => '',
     'formtype'    => 'textbox',
