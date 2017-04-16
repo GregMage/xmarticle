@@ -55,17 +55,30 @@ $modversion['templates'][] = array('file' => 'xmarticle_admin_category.tpl', 'de
 $modversion['templates'][] = array('file' => 'xmarticle_admin_field.tpl', 'description' => '', 'type' => 'admin');
 $modversion['templates'][] = array('file' => 'xmarticle_admin_article.tpl', 'description' => '', 'type' => 'admin');
 
+// User Templates
+$modversion['templates'][] = array('file' => 'xmarticle_index.tpl', 'description' => '');
+
+
 
 // Configs
 $modversion['config'] = array();
 
 $modversion['config'][] = array(
     'name'        => 'break',
-    'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
+    'title'       => '_MI_XMARTICLE_PREF_HEAD_GENERAL',
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'text',
     'default'     => 'head',
+);
+
+$modversion['config'][] = array(
+    'name'        => 'GENERAL_perpage',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALITEMPERPAGE',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 15
 );
 
 xoops_load('xoopseditorhandler');
@@ -78,6 +91,15 @@ $modversion['config'][] = array(
     'valuetype'   => 'text',
     'default'     => 'dhtmltextarea',
     'options'     => array_flip($editorHandler->getList())
+);
+
+$modversion['config'][] = array(
+    'name'        => 'break',
+    'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'text',
+    'default'     => 'head',
 );
 
 $modversion['config'][] = array(
