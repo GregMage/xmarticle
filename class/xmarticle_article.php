@@ -276,10 +276,11 @@ class xmarticle_article extends XoopsObject
 				}
 				echo $fielddata_aid . 'gg<br>';
 				foreach (array_keys($field_arr) as $i) {
-					XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
-					echo 'field_' . $i . ': ' . $_POST['field_' . $i] . '<br>';
+					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 				}
-                //redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+				if ($error_message == ''){
+					redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+				}
             } else {
                 $error_message =  $this->getHtmlErrors();
             }
