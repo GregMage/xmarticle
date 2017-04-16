@@ -44,6 +44,7 @@ define('_MA_XMARTICLE_DEL', 'Delete');
 define('_MA_XMARTICLE_EDIT', 'Edit');
 define('_MA_XMARTICLE_STATUS', 'Status');
 define('_MA_XMARTICLE_ADD', 'Add');
+define('_MA_XMARTICLE_VIEW', 'View');
 
 // Field type
 define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
