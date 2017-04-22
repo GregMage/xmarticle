@@ -38,6 +38,7 @@ $criteria->setSort('category_weight ASC, category_name');
 $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
+$criteria->add(new Criteria('category_status', 1));
 $category_arr = $categoryHandler->getall($criteria);
 $category_count = $categoryHandler->getCount($criteria);
 $xoopsTpl->assign('category_count', $category_count);
