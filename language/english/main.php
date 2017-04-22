@@ -89,6 +89,11 @@ define('_MA_XMARTICLE_ARTICLE_NAME', 'Name');
 define('_MA_XMARTICLE_ARTICLE_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_ARTICLE_UPLOADSIZE', 'Maximum size: %s kB');
 define('_MA_XMARTICLE_ARTICLE_CATEGORY', 'Category');
+define('_MA_XMARTICLE_USERID', 'Author');
+define('_MA_XMARTICLE_DATEUPDATE', 'Update the creation date');
+define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
+define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
+
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');

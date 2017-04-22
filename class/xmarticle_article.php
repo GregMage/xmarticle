@@ -39,6 +39,9 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_name', XOBJ_DTYPE_TXTBOX, null);        
         $this->initVar('article_description', XOBJ_DTYPE_TXTAREA);
         $this->initVar('article_logo', XOBJ_DTYPE_TXTBOX, null);
+		$this->initVar('article_userid', XOBJ_DTYPE_INT, 0);
+		$this->initVar('article_date', XOBJ_DTYPE_INT, 0);
+		$this->initVar('article_mdate', XOBJ_DTYPE_INT, 0);
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, array());
@@ -78,7 +81,9 @@ class xmarticle_article extends XoopsObject
     */
     public function getForm($article_cid = 0, $action = false)
     {
-        $upload_size = 500000;
+        global $xoopsUser;
+		
+		$upload_size = 500000;
         $helper = \Xmf\Module\Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
@@ -223,7 +228,35 @@ class xmarticle_article extends XoopsObject
             }
 			unset($value);
         }
-
+		if ($helper->isUserAdmin() == true){
+			if ($this->isNew()) {
+				$userid = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+			} else {
+				$userid = $this->getVar('article_userid');
+			}
+			// userid
+			$form->addElement(new XoopsFormSelectUser(_MA_XMARTICLE_USERID, 'article_userid', true, $userid, 1, false), true);
+			
+			// date and mdate
+			if (!$this->isNew()) {
+				$selection_date = new XoopsFormElementTray(_MA_XMARTICLE_DATEUPDATE);
+				$date = new XoopsFormRadio('', 'date_update', 'N');
+				$options = array('N' =>_NO . ' (' . formatTimestamp($this->getVar('article_date'),'s') . ')', 'Y' => _YES);
+				$date->addOptionArray($options);
+				$selection_date->addElement($date);
+				$selection_date->addElement(new XoopsFormTextDateSelect('', 'article_date', '', time()));
+				$form->addElement($selection_date);
+				if ($this->getVar('article_mdate') != 0){
+					$selection_mdate = new XoopsFormElementTray(_MA_XMARTICLE_MDATEUPDATE);
+					$mdate = new XoopsFormRadio('', 'mdate_update', 'N');
+					$options = array('N' =>_NO . ' (' . formatTimestamp($this->getVar('article_mdate'),'s') . ')', 'R' => _MA_XMARTICLE_RESETMDATE, 'Y' => _YES);
+					$mdate->addOptionArray($options);
+					$selection_mdate->addElement($mdate);
+					$selection_mdate->addElement(new XoopsFormTextDateSelect('', 'article_mdate', '', time()));
+					$form->addElement($selection_mdate);
+				}
+			}
+		}
 		// status
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
         $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA,);
@@ -269,6 +302,27 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
+		if (isset($_POST['article_userid'])) {
+            $this->setVar('article_userid', Xmf\Request::getInt('article_userid', 0));
+        } else {
+            $this->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
+        }
+		if (isset($_POST['article_date'])) {
+			if ($_POST['date_update'] == 'Y'){
+				$this->setVar('article_date', strtotime(Xmf\Request::getString('article_date', '')));
+			}
+			$this->setVar('article_mdate', time());
+        } else {
+			$this->setVar('article_date', time());
+        }
+		if (isset($_POST['article_mdate'])) {
+			if ($_POST['mdate_update'] == 'Y'){
+				$this->setVar('article_mdate', strtotime(Xmf\Request::getString('article_mdate', '')));
+			}
+			if ($_POST['mdate_update'] == 'R'){
+				$this->setVar('article_mdate', 0);
+			}
+        }
         $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
@@ -287,7 +341,6 @@ class xmarticle_article extends XoopsObject
 				} else {
 					$fielddata_aid = $this->get_new_enreg();
 				}
-				echo $fielddata_aid . 'gg<br>';
 				foreach (array_keys($field_arr) as $i) {
 					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 				}

@@ -43,13 +43,16 @@ CREATE TABLE `xmarticle_fielddata` (
 ) ENGINE=MyISAM;
 
 CREATE TABLE `xmarticle_article` (
-  `article_id`          int(12) unsigned        NOT NULL auto_increment,
-  `article_cid`         int(11)                 NOT NULL DEFAULT '0',
-  `article_reference`   varchar(50)             NOT NULL default '',
-  `article_name`        varchar(255)            NOT NULL default '',
-  `article_description` text,
-  `article_logo`        varchar(50)             NOT NULL DEFAULT '',
-  `article_status`      tinyint(1) unsigned     NOT NULL default '0',
+  `article_id`             int(12) unsigned        NOT NULL auto_increment,
+  `article_cid`            int(11)                 NOT NULL DEFAULT '0',
+  `article_reference`      varchar(50)             NOT NULL default '',
+  `article_name`           varchar(255)            NOT NULL default '',
+  `article_description`    text,
+  `article_logo`           varchar(50)             NOT NULL DEFAULT '',
+  `article_userid`         mediumint(8) unsigned   NOT NULL default '0',
+  `article_date`           int(10) unsigned        NOT NULL DEFAULT '0',
+  `article_mdate`          int(10) unsigned        NOT NULL DEFAULT '0',
+  `article_status`         tinyint(1) unsigned     NOT NULL default '0',
   
   PRIMARY KEY  (`article_id`),
   KEY `article_cid` (`article_cid`),
