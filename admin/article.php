@@ -33,15 +33,32 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_ADD, 'article.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
-        // Get start pager
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());   
+		// Get start pager
         $start = Request::getInt('start', 0);
+		$xoopsTpl->assign('start', $start);
+		// Category
+		$article_cid = Request::getInt('article_cid', 0);
+		$criteria = new CriteriaCompo();
+		$criteria->setSort('category_weight ASC, category_name');
+		$criteria->setOrder('ASC');
+		$category_arr = $categoryHandler->getall($criteria);		
+		if (count($category_arr) > 0) {
+			$article_cid_options = '<option value="0"' . ($article_cid == 0 ? ' selected="selected"' : '') . '>' . _ALL .'</option>';
+			foreach (array_keys($category_arr) as $i) {
+				$article_cid_options .= '<option value="' . $i . '"' . ($article_cid == $i ? ' selected="selected"' : '') . '>' . $category_arr[$i]->getVar('category_name') . '</option>';
+			}
+			$xoopsTpl->assign('article_cid_options', $article_cid_options);
+		}
         // Criteria
         $criteria = new CriteriaCompo();
         $criteria->setSort('article_name');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
-        $criteria->setLimit($nb_limit);       
+        $criteria->setLimit($nb_limit);
+		if ($article_cid != 0){
+			$criteria->add(new Criteria('article_cid', $article_cid));
+		}				
         $articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
         $articleHandler->field_link = "category_id";
         $articleHandler->field_object = "article_cid";
@@ -64,7 +81,7 @@ switch ($op) {
             }
             // Display Page Navigation
             if ($article_count > $nb_limit) {
-                $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start');
+                $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'article_cid=' . $article_cid);
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {

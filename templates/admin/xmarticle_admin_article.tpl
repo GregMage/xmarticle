@@ -14,6 +14,13 @@
     <{$form}>
 </div>
 <{if $article_count != 0}>
+	<div align="right">
+		<form id="form_document_tri" name="form_document_tri" method="get" action="document.php">
+			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid='+this.options[this.selectedIndex].value">
+				<{$article_cid_options}>
+			<select>
+		</form>
+	</div>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
         <tr>
