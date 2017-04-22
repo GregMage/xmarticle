@@ -20,6 +20,7 @@ $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
+include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 
 xoops_load('utility', basename(dirname(__DIR__)));
 
