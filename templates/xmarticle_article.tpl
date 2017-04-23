@@ -10,7 +10,7 @@
             <{$down.date}>
         </div>
         <div class="col-md-7"><span class="glyphicon glyphicon-user" title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_SUBMITTER}>"></span>
-            mage
+			<{$down.author}>
         </div>
     </div>
 
