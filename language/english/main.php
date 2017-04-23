@@ -93,6 +93,8 @@ define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_DATEUPDATE', 'Update the creation date');
 define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
 define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
+define('_MA_XMARTICLE_DATE', 'Date');
+define('_MA_XMARTICLE_AUTHOR', 'Author');
 
 
 // Field
