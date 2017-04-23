@@ -4,17 +4,13 @@
         <li class="active"><{$name}></li>
     </ol>
     <div class="media">
-      <div class="media-left media-middle">
-        <a href="#">
-          <img class="media-object" src="<{$logo}>" alt="<{$name}>">
-        </a>
-      </div>
-      <div class="media-body">
-        <h2 class="media-heading"><{$name}> (<{$reference}>)</h2>
-        <blockquote>
-            <small><br><{$description}></small>
-        </blockquote>
-      </div>
+        <div class="media-left">
+            <img class="media-object" src="<{$logo}>" alt="<{$name}>">
+        </div>
+        <div class="media-body">
+            <h2 class="media-heading"><{$name}> (<{$reference}>)</h2>
+            <{$description}>
+        </div>
     </div>
     <{if $article != ""}>
         <h3 class="tdm-title"><{$smarty.const._MA_XMARTICLE_LISTARTICLE}>:</h3>
