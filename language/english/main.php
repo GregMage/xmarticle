@@ -95,6 +95,8 @@ define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
 define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
 define('_MA_XMARTICLE_DATE', 'Date');
 define('_MA_XMARTICLE_AUTHOR', 'Author');
+define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
+define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
 
 
 // Field

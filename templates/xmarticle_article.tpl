@@ -19,7 +19,7 @@
     </div>
 
     <a class="btn btn-primary col-md-9" title="<{$down.name}>"
-       href="<{$xoops_url}>/modules/xmarticle/article.php?category_id=<{$down.cid}>&amp;article_id=<{$down.id}>">
+       href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$down.cid}>&amp;article_id=<{$down.id}>">
         <{$smarty.const._MA_XMARTICLE_MOREDETAILS}>
     </a>
 </div><!-- .xm-minibox -->

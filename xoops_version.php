@@ -59,6 +59,7 @@ $modversion['templates'][] = array('file' => 'xmarticle_admin_article.tpl', 'des
 $modversion['templates'][] = array('file' => 'xmarticle_index.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_viewcat.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_article.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'xmarticle_viewarticle.tpl', 'description' => '');
 
 // Configs
 $modversion['config'] = array();
