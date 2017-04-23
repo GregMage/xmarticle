@@ -35,6 +35,26 @@ a.xm-category-image {
     display: block;
 }
 
+.xm-article-field {
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #999;
+}
+
+.xm-article-general-button {
+    text-align: center;
+	padding-top: 15px;
+}
+
+.xm-article-general.row {
+    font-weight: bold;
+    color: #999;
+    font-size: 1em;
+}
+
+.xm-article-general {
+    padding-bottom: 5px;
+}
+
 .xm-article-data.row {
     font-weight: bold;
     color: #999;

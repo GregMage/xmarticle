@@ -55,13 +55,47 @@ if (count($article_id) == 0) {
 }
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
+$xoopsTpl->assign('category_id', $category_id);
+
 // Article
 $xoopsTpl->assign('name', $article->getVar('article_name'));
 $xoopsTpl->assign('description', $article->getVar('article_description'));
 $xoopsTpl->assign('reference', $article->getVar('article_reference'));
+$xoopsTpl->assign('date', formatTimestamp($article->getVar('article_date'), 's'));
+if ($article->getVar('article_mdate') != 0){
+	$xoopsTpl->assign('mdate', formatTimestamp($article->getVar('article_mdate'), 's'));
+}
+$xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
 $article_img = $article->getVar('article_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_article .  $article_img);
 
+// Field
+$field_arr = XmarticleUtility::getArticleFields($category->getVar('category_fields'), $article_id);
+$field_count = count($field_arr);
+if ($field_count >0 ){
+	$count = 1;
+	$count_row = 1;
+	foreach (array_keys($field_arr) as $i) {
+		$field['name']            = $field_arr[$i][0];
+		$field['description']     = $field_arr[$i][1];
+		$field['value']           = $field_arr[$i][2];
+		$field['count']           = $count;
+		if ($count_row == $count) {
+			$field['row'] = true;
+			$count_row = $count_row + 2;
+		} else {
+			$field['row'] = false;
+		}
+		if ($count == $field_count) {
+			$field['end'] = true;
+		} else {
+			$field['end'] = false;
+		}
+		$xoopsTpl->append_by_ref('field', $field);
+		unset($field);
+		$count++;
+	}
+}
 //SEO
 // pagetitle
 $xoopsTpl->assign('xoops_pagetitle', \Xmf\Metagen::generateSeoTitle($article->getVar('article_name') . '-' . $xoopsModule->name()));

@@ -43,6 +43,7 @@ define('_MA_XMARTICLE_STATUS_A', 'Active');
 define('_MA_XMARTICLE_STATUS_NA', 'Disabled');
 define('_MA_XMARTICLE_DEL', 'Delete');
 define('_MA_XMARTICLE_EDIT', 'Edit');
+define('_MA_XMARTICLE_CLONE', 'Clone');
 define('_MA_XMARTICLE_STATUS', 'Status');
 define('_MA_XMARTICLE_ADD', 'Add');
 define('_MA_XMARTICLE_VIEW', 'View');
@@ -93,10 +94,12 @@ define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_DATEUPDATE', 'Update the creation date');
 define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
 define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
-define('_MA_XMARTICLE_DATE', 'Date');
+define('_MA_XMARTICLE_DATE', 'Creation date');
+define('_MA_XMARTICLE_MDATE', 'Modification date');
 define('_MA_XMARTICLE_AUTHOR', 'Author');
 define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
 define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
+
 
 
 // Field

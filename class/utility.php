@@ -126,6 +126,55 @@ class XmarticleUtility
 		}
         return $values;
     }
+	
+	public static function getArticleFields($fields = array(), $fielddata_aid = 0)
+    {
+		$values = array();
+		if (count($fields) != 0){
+			// fielddata
+			$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('fielddata_fid', '(' . implode(',', $fields) . ')', 'IN'));
+			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+			$fielddata_arr = $fielddataHandler->getall($criteria);
+			// field
+			$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+			$criteria = new CriteriaCompo();
+			$criteria->setSort('field_weight ASC, field_name');
+			$criteria->setOrder('ASC');
+			$criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
+			$field_arr = $fieldHandler->getall($criteria);
+			foreach (array_keys($field_arr) as $i) {
+				$fielddata_value = '';
+				foreach (array_keys($fielddata_arr) as $j) {					
+					if( $field_arr[$i]->getVar('field_id') == $fielddata_arr[$j]->getVar('fielddata_fid')){
+						if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+							if ($field_arr[$i]->getVar('field_type') == 'radio_yn'){ 
+								if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0){
+									$fielddata_value = _NO;
+								} else {
+									$fielddata_value = _YES;
+								}
+							} else {
+								$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value1');
+							}
+						}
+						if ($fielddata_arr[$j]->getVar('fielddata_value2') != ''){
+							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value2', 'e');
+						}
+						if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
+							$fielddata_value = implode(', ', unserialize($fielddata_arr[$j]->getVar('fielddata_value3', 'n')));
+						}
+						if ($fielddata_arr[$j]->getVar('fielddata_value4') != ''){
+							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value4');
+						}						
+					}
+				}
+				$values[] = array($field_arr[$i]->getVar('field_name'), $field_arr[$i]->getVar('field_description'), $fielddata_value);
+			}
+		}
+        return $values;
+    }
     
     public static function articlePerCat($category_id, $article_arr)
     {
