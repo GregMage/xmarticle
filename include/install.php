@@ -20,7 +20,6 @@
 function xoops_module_install_xmarticle()
 {
     $namemodule = 'xmarticle';
-    include_once __DIR__ . '/common.php';
     
     //Creation ".$namemodule."/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';
@@ -63,6 +62,7 @@ function xoops_module_install_xmarticle()
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/blank.gif');
 	
 	// insert field for test
+	$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
     $field_arr[] = array('field_type' => 'label', 'field_name'=> 'name label', 'field_description'=> 'dsc label', 'field_required'=> 0, 'field_weight'=> 1, 'field_default'=> 'def label', 'field_search'=> 1, 'field_status'=> 1, 'field_options'=> '');
     $field_arr[] = array('field_type' => 'vs_text', 'field_name'=> 'name vs_text', 'field_description'=> 'dsc vs_text', 'field_required'=> 1, 'field_weight'=> 2, 'field_default'=> 'def vs_text', 'field_search'=> 1, 'field_status'=> 1, 'field_options'=> '');
 	$field_arr[] = array('field_type' => 's_text', 'field_name'=> 'name s_text', 'field_description'=> 'dsc s_text', 'field_required'=> 1, 'field_weight'=> 3, 'field_default'=> 'def s_text', 'field_search'=> 1, 'field_status'=> 1, 'field_options'=> '');
