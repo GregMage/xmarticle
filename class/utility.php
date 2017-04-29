@@ -48,7 +48,7 @@ class XmarticleUtility
 		if ($fielddata_fid == 0 || $fielddata_aid == 0 || $field_type == ''){
 			redirect_header($action, 2, _MA_XMARTICLE_ERROR);
 		}
-		$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
+		include __DIR__ . '/../include/common.php';
 		$criteria = new CriteriaCompo();
         $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
 		$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
@@ -104,7 +104,7 @@ class XmarticleUtility
 		if ($fielddata_aid == 0){
 			$values = array();
 		} else {
-			$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
+			include __DIR__ . '/../include/common.php';
 			$criteria = new CriteriaCompo();
 			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
 			$fielddata_arr = $fielddataHandler->getall($criteria);
@@ -131,14 +131,13 @@ class XmarticleUtility
     {
 		$values = array();
 		if (count($fields) != 0){
+            include __DIR__ . '/../include/common.php';
 			// fielddata
-			$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
 			$criteria = new CriteriaCompo();
 			$criteria->add(new Criteria('fielddata_fid', '(' . implode(',', $fields) . ')', 'IN'));
 			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
 			$fielddata_arr = $fielddataHandler->getall($criteria);
 			// field
-			$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
 			$criteria = new CriteriaCompo();
 			$criteria->setSort('field_weight ASC, field_name');
 			$criteria->setOrder('ASC');
@@ -191,8 +190,8 @@ class XmarticleUtility
     {
 		if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
-        }		
-		$articleHandler = xoops_getModuleHandler('xmarticle_article', 'xmarticle');
+        }
+        include __DIR__ . '/../include/common.php';
 		$article = $articleHandler->get($article_id);
 		if (count($article) == 0){
 			redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
@@ -206,14 +205,6 @@ class XmarticleUtility
 		$newobj->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 		$newobj->setVar('article_date', time());
 		$newobj->setVar('article_status', 1);
-		
-		
-		 
-		
-		/*if ($articleHandler->insert($newobj)) {
-			//redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
-			exit;
-		}*/
         return $newobj;
     }
 }

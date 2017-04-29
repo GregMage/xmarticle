@@ -55,13 +55,12 @@ class xmarticle_article extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';   
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        include __DIR__ . '/../include/common.php';        
         
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type        
         $field_type = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
-        
-        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
         $criteria = new CriteriaCompo();
         $criteria->setSort('category_weight ASC, category_name');
         $criteria->setOrder('ASC');
@@ -89,8 +88,7 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-		$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
-        $categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+        include __DIR__ . '/../include/common.php';
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
@@ -282,6 +280,7 @@ class xmarticle_article extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
+        include __DIR__ . '/../include/common.php';
         $error_message = '';      
         //logo
         $uploadirectory = '/xmarticle/images/article';
@@ -330,8 +329,6 @@ class xmarticle_article extends XoopsObject
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
 				// fields and fielddata
-				$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
-				$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
 				$category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
 				$criteria = new CriteriaCompo();
 				$criteria->setSort('field_weight ASC, field_name');

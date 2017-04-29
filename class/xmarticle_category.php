@@ -137,7 +137,7 @@ class xmarticle_category extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-		$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+        include __DIR__ . '/../include/common.php';
         
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);

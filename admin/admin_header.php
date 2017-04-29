@@ -21,12 +21,13 @@ require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+include_once __DIR__ . '/../include/common.php';
 
 xoops_load('utility', basename(dirname(__DIR__)));
 
 class_exists('\Xmf\Module\Admin') or die('XMF is required.');
 use Xmf\Module\Helper;
-$helper = Helper::getHelper('xmarticle');
+$helper = Helper::getHelper(basename(dirname(__DIR__)));
 
 // Load language files
 $helper->loadLanguage('main');
@@ -37,10 +38,4 @@ $url_logo_category = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
 $path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
 $url_logo_article = XOOPS_UPLOAD_URL . '/xmarticle/images/article/';
 $path_logo_article = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
-// Get handler
-$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
-$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
-$fielddataHandler = xoops_getModuleHandler('xmarticle_fielddata', 'xmarticle');
-$articleHandler = xoops_getModuleHandler('xmarticle_article', 'xmarticle');
-
 xoops_cp_header();
