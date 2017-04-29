@@ -137,9 +137,13 @@ switch ($op) {
 	// Clone
     case 'clone':
         $article_id = Request::getInt('article_id', 0);
-		$cloneobj = XmarticleUtility::cloneArticle($article_id);
-		$form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php');
-		$xoopsTpl->assign('form', $form->render());
+        if ($article_id == 0) {
+            $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
+        } else {
+            $cloneobj = XmarticleUtility::cloneArticle($article_id);
+            $form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php');
+            $xoopsTpl->assign('form', $form->render());
+        }
         break;
 		
     // Save
