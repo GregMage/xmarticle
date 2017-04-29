@@ -132,6 +132,15 @@ switch ($op) {
         }
 
         break;
+	
+	// Clone
+    case 'clone':
+        $article_id = Request::getInt('article_id', 0);
+		$cloneobj = XmarticleUtility::cloneArticle($article_id);
+		$form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id);
+		$xoopsTpl->assign('form', $form->render());
+        break;
+		
     // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {

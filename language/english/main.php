@@ -99,6 +99,7 @@ define('_MA_XMARTICLE_MDATE', 'Modification date');
 define('_MA_XMARTICLE_AUTHOR', 'Author');
 define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
 define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
+define('_MA_XMARTICLE_CLONE_NAME', 'CLONE');
 
 
 

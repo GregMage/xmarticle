@@ -186,4 +186,34 @@ class XmarticleUtility
         }        
         return $count;
     }
+	
+	public static function cloneArticle($article_id, $action = false)
+    {
+		if ($action === false) {
+            $action = $_SERVER['REQUEST_URI'];
+        }		
+		$articleHandler = xoops_getModuleHandler('xmarticle_article', 'xmarticle');
+		$article = $articleHandler->get($article_id);
+		if (count($article) == 0){
+			redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
+		}
+		$newobj = $articleHandler->create();
+		$rand_id = rand (1, 10000);			
+		$newobj->setVar('article_name', _MA_XMARTICLE_CLONE_NAME . $rand_id . '- ' . $article->getVar('article_name'));
+		$newobj->setVar('article_reference', $article->getVar('article_reference') . '-' .$rand_id);
+		$newobj->setVar('article_description', $article->getVar('article_description', 'e'));
+		$newobj->setVar('article_cid', $article->getVar('article_cid'));
+		$newobj->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
+		$newobj->setVar('article_date', time());
+		$newobj->setVar('article_status', 1);
+		
+		
+		 
+		
+		/*if ($articleHandler->insert($newobj)) {
+			//redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+			exit;
+		}*/
+        return $newobj;
+    }
 }

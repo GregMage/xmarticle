@@ -79,7 +79,7 @@ class xmarticle_article extends XoopsObject
     * @param bool $action
     * @return XoopsThemeForm
     */
-    public function getForm($article_cid = 0, $action = false)
+    public function getForm($article_cid = 0, $old_article_cid = 0, $action = false)
     {
         global $xoopsUser;
 		
@@ -101,11 +101,15 @@ class xmarticle_article extends XoopsObject
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $status = $this->getVar('article_status');
-            $article_cid = $this->getVar('article_cid');			
+            $article_cid = $this->getVar('article_cid');
 			$fielddata_values = XmarticleUtility::getFielddata($this->getVar('article_id'));			
         } else {
-            $status = 1; 
-			$fielddata_values =	array();
+            $status = 1;
+			if ($old_article_cid != 0){
+				$fielddata_values = XmarticleUtility::getFielddata($old_article_cid);
+			} else {
+				$fielddata_values =	array();
+			}
         }
         // category        
         $category = $categoryHandler->get($article_cid);
@@ -300,7 +304,6 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
         $this->setVar('article_reference',  Xmf\Request::getString('article_reference', ''));
         $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
-        $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
         $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
 		if (isset($_POST['article_userid'])) {
             $this->setVar('article_userid', Xmf\Request::getInt('article_userid', 0));
