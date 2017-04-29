@@ -42,6 +42,7 @@ $criteria->add(new Criteria('category_status', 1));
 $category_arr = $categoryHandler->getall($criteria);
 $category_count = $categoryHandler->getCount($criteria);
 $xoopsTpl->assign('category_count', $category_count);
+$keywords = '';
 if ($category_count > 0) {
     foreach (array_keys($category_arr) as $i) {
         $category_id                 = $category_arr[$i]->getVar('category_id');
@@ -53,6 +54,11 @@ if ($category_count > 0) {
         $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
         $category['logo']            = $url_logo_category .  $category_img;
         $xoopsTpl->append_by_ref('categories', $category);
+        if ($keywords == ''){
+            $keywords = $category_arr[$i]->getVar('category_name');
+        } else {
+            $keywords = $keywords . ',' . $category_arr[$i]->getVar('category_name');
+        }
         unset($category);
     }
     // Display Page Navigation
@@ -61,4 +67,9 @@ if ($category_count > 0) {
         $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
     }
 }
+//SEO
+// pagetitle
+$xoopsTpl->assign('xoops_pagetitle', $xoopsModule->name());
+//keywords  
+$xoTheme->addMeta('meta', 'keywords', $keywords);
 include XOOPS_ROOT_PATH.'/footer.php';
