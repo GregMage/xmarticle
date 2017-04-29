@@ -137,7 +137,7 @@ switch ($op) {
     case 'clone':
         $article_id = Request::getInt('article_id', 0);
 		$cloneobj = XmarticleUtility::cloneArticle($article_id);
-		$form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id);
+		$form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php');
 		$xoopsTpl->assign('form', $form->render());
         break;
 		
@@ -148,7 +148,7 @@ switch ($op) {
         }
         $article_id = Request::getInt('article_id', 0);
         if ($article_id == 0) {
-            $obj = $articleHandler->create();            
+            $obj = $articleHandler->create();
         } else {
             $obj = $articleHandler->get($article_id);
         }
