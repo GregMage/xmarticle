@@ -27,6 +27,10 @@ define('_MI_XMARTICLE_MENU_FIELD', 'Field');
 define('_MI_XMARTICLE_MENU_ARTICLE', 'Article');
 define('_MI_XMARTICLE_MENU_ABOUT', 'About');
 
+// Sub menu
+define('_MI_XMARTICLE_SUB_ADD', 'Submit an article');
+define('_MI_XMARTICLE_SUB_SEARCH', 'Search');
+
 // Pref
 define('_MI_XMARTICLE_PREF_HEAD_GENERAL', "<span style='font-weight: bold;'>General</span>");
 define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the general view');

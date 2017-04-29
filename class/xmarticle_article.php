@@ -308,7 +308,8 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
         $this->setVar('article_reference',  Xmf\Request::getString('article_reference', ''));
         $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
-        $this->setVar('article_cid', Xmf\Request::getInt('article_cid', 0));
+        $article_cid = Xmf\Request::getInt('article_cid', 0);
+        $this->setVar('article_cid', $article_cid);
 		if (isset($_POST['article_userid'])) {
             $this->setVar('article_userid', Xmf\Request::getInt('article_userid', 0));
         } else {
@@ -330,11 +331,11 @@ class xmarticle_article extends XoopsObject
 				$this->setVar('article_mdate', 0);
 			}
         }
-        $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
+        $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));        
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
 				// fields and fielddata
-				$category = $categoryHandler->get(Xmf\Request::getInt('article_cid', 0));
+				$category = $categoryHandler->get($article_cid);
 				$criteria = new CriteriaCompo();
 				$criteria->setSort('field_weight ASC, field_name');
 				$criteria->setOrder('ASC');
@@ -350,7 +351,11 @@ class xmarticle_article extends XoopsObject
 					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 				}
 				if ($error_message == ''){
-					redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                    if ($action == 'viewarticle.php'){
+                        redirect_header('viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                    } else {
+                        redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                    }
 				}
             } else {
                 $error_message =  $this->getHtmlErrors();

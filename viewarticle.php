@@ -59,6 +59,7 @@ $xoopsTpl->assign('category_reference', $category->getVar('category_reference'))
 $xoopsTpl->assign('category_id', $category_id);
 
 // Article
+$xoopsTpl->assign('article_id', $article_id);
 $xoopsTpl->assign('name', $article->getVar('article_name'));
 $xoopsTpl->assign('description', $article->getVar('article_description'));
 $xoopsTpl->assign('reference', $article->getVar('article_reference'));

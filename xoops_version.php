@@ -30,7 +30,16 @@ $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 0;
 $modversion['image']       = 'assets/images/xmarticle_logo.png';
 
+// Menu
 $modversion['hasMain'] = 1;
+$modversion['sub'][] = array(
+    'name' => _MI_XMARTICLE_SUB_ADD,
+    'url'  => 'action.php?op=add'
+);
+$modversion['sub'][] = array(
+    'name' => _MI_XMARTICLE_SUB_SEARCH,
+    'url'  => 'search.php'
+);
 
 // Admin things
 $modversion['hasAdmin']    = 1;
@@ -60,6 +69,7 @@ $modversion['templates'][] = array('file' => 'xmarticle_index.tpl', 'description
 $modversion['templates'][] = array('file' => 'xmarticle_viewcat.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_article.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_viewarticle.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'xmarticle_action.tpl', 'description' => '');
 
 // Configs
 $modversion['config'] = array();

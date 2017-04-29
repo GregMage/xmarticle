@@ -46,7 +46,7 @@
 					<{$smarty.const._MA_XMARTICLE_DATE}>: <{$date}>
 				</div>
 				<div class="col-md-6"><span class="glyphicon glyphicon-user" title="<{$smarty.const._MA_XMARTICLE_AUTHOR}>"></span>
-					<{$smarty.const._MA_XMARTICLE_AUTHOR}>:<{$author}>
+					<{$smarty.const._MA_XMARTICLE_AUTHOR}>: <{$author}>
 				</div>
 			</div>
 			<{if $mdate}>
@@ -58,9 +58,15 @@
 			<{/if}>
 			<div class="xm-article-general-button">
 				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-duplicate"></span> <{$smarty.const._MA_XMARTICLE_CLONE}></button>
-					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> <{$smarty.const._MA_XMARTICLE_EDIT}></button>
-					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> <{$smarty.const._MA_XMARTICLE_DEL}></button>
+					<a href="action.php?op=clone&amp;article_id=<{$article_id}>">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-duplicate"></span> <{$smarty.const._MA_XMARTICLE_CLONE}></button>
+                    </a>
+                    <a href="action.php?op=edit&amp;article_id=<{$article_id}>">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> <{$smarty.const._MA_XMARTICLE_EDIT}></button>
+                    </a>
+                    <a href="action.php?op=del&amp;article_id=<{$article_id}>">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> <{$smarty.const._MA_XMARTICLE_DEL}></button>
+                    </a>
 				</div>
 			</div>
 			
