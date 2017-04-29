@@ -70,6 +70,7 @@ switch ($op) {
                 $article_id                 = $article_arr[$i]->getVar('article_id');
                 $article['id']              = $article_id;
                 $article['category']        = $article_arr[$i]->getVar('category_name');
+				$article['cid']             = $article_arr[$i]->getVar('article_cid');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
                 $article['description']     = $article_arr[$i]->getVar('article_description', 'show');
