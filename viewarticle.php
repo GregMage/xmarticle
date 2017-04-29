@@ -55,6 +55,7 @@ if (count($article_id) == 0) {
 }
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
+$xoopsTpl->assign('category_reference', $category->getVar('category_reference'));
 $xoopsTpl->assign('category_id', $category_id);
 
 // Article

@@ -9,7 +9,7 @@
             <img class="media-object" src="<{$logo}>" alt="<{$name}>">
         </div>
         <div class="media-body">
-            <h2 class="media-heading"><{$name}> (<{$reference}>)</h2>
+            <h2 class="media-heading"><{$name}> (<{$category_reference}><{$reference}>)</h2>
             <{$description}>
         </div>
     </div>

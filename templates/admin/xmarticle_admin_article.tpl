@@ -27,7 +27,7 @@
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ARTICLE_LOGO}></th>
             <th class="txtleft width20"><{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}></th>
             <th class="txtleft width15"><{$smarty.const._MA_XMARTICLE_ARTICLE_NAME}></th>
-            <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ARTICLE_REFERENCE}></th>
+            <th class="txtleft width10"><{$smarty.const._MA_XMARTICLE_ARTICLE_REFERENCE}></th>
             <th class="txtleft"><{$smarty.const._MA_XMARTICLE_ARTICLE_DESC}></th>
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_STATUS}></th>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ACTION}></th>
@@ -39,7 +39,7 @@
                 <td class="txtcenter"><{$article.logo}></td>
                 <td class="txtleft"><{$article.category}></td>
                 <td class="txtleft"><{$article.name}></td>
-                <td class="txtcenter"><{$article.reference}></td>
+                <td class="txtleft"><{$article.cat_reference}><{$article.reference}></td>
                 <td class="txtleft"><{$article.description}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$article.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
