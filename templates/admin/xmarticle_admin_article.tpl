@@ -15,7 +15,7 @@
 </div>
 <{if $article_count != 0}>
 	<div align="right">
-		<form id="form_document_tri" name="form_document_tri" method="get" action="document.php">
+		<form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
 			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid='+this.options[this.selectedIndex].value">
 				<{$article_cid_options}>
 			<select>

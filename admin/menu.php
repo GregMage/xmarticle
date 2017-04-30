@@ -50,6 +50,12 @@ $adminmenu[] = array(
     'link'  => 'admin/article.php' ,
     'icon'  => $pathIcon32 . 'view_detailed.png'
 ) ;
+// Article
+$adminmenu[] = array(
+    'title' => _MI_XMARTICLE_MENU_PERMISSION ,
+    'link'  => 'admin/permission.php' ,
+    'icon'  => $pathIcon32 . 'permissions.png'
+) ;
 // About
 $adminmenu[] = array(
     'title' => _MI_XMARTICLE_MENU_ABOUT ,

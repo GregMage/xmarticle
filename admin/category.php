@@ -137,6 +137,10 @@ switch ($op) {
                             unlink($urlfile);
                         }
                     }
+                    // Del permissions
+                    $permHelper = new \Xmf\Module\Helper\Permission();
+                    $permHelper->deletePermissionForItem('xmarticle_view', $category_id);
+                    $permHelper->deletePermissionForItem('xmarticle_submit', $category_id);
                     redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());

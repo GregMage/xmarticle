@@ -36,7 +36,6 @@ define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
 
-
 // Shared
 define('_MA_XMARTICLE_ACTION', 'Action');
 define('_MA_XMARTICLE_STATUS_A', 'Active');
@@ -101,7 +100,17 @@ define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
 define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
 define('_MA_XMARTICLE_CLONE_NAME', 'CLONE');
 
-
+// permission
+define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');
+define('_MA_XMARTICLE_PERMISSION_VIEW_DSC', 'Select groups that can view an article in categories');
+define('_MA_XMARTICLE_PERMISSION_VIEW_THIS', 'Select groups that can view in this category');
+define('_MA_XMARTICLE_PERMISSION_SUBMIT', 'Submit permission');
+define('_MA_XMARTICLE_PERMISSION_SUBMIT_DSC', 'Select groups that can submit an article in categories');
+define('_MA_XMARTICLE_PERMISSION_SUBMIT_THIS', 'Select groups that can submit in this category');
+define('_MA_XMARTICLE_PERMISSION_OTHER', 'Other permissions');
+define('_MA_XMARTICLE_PERMISSION_OTHER_DSC', 'Select groups that can:');
+define('_MA_XMARTICLE_PERMISSION_OTHER_4', 'Submit an article');
+define('_MA_XMARTICLE_PERMISSION_OTHER_8', 'Auto approve submitted articles');
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');
@@ -119,6 +128,7 @@ define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');
+define('_MA_XMARTICLE_FIELD_SUREDEL', 'Sure to delete this field? %s');
 
 define('_MA_XMARTICLE_FIELD_SORT', 'Sort');
 define('_MA_XMARTICLE_FIELD_SORTDEF', 'Sort according to record');

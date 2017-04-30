@@ -113,6 +113,21 @@ class xmarticle_category extends XoopsObject
         if ($error_message == '') {
             $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
+                // permissions
+                if ($this->get_new_enreg() == 0){
+					$perm_id = $this->getVar('category_id');
+				} else {
+					$perm_id = $this->get_new_enreg();
+				}
+                $permHelper = new \Xmf\Module\Helper\Permission();
+                // permission view
+                $name_view = $permHelper->defaultFieldName('xmarticle_view', $perm_id);
+                $groups_view = \Xmf\Request::getArray($name_view, array(), 'POST');
+                $permHelper->savePermissionForItem('xmarticle_view', $perm_id, $groups_view);
+                // permission submit
+                $name_submit = $permHelper->defaultFieldName('xmarticle_submit', $perm_id);
+                $groups_submit = \Xmf\Request::getArray($name_submit, array(), 'POST');
+                $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
 				if ((Xmf\Request::getBool('addmorefields', false)) === true){
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
@@ -235,6 +250,11 @@ class xmarticle_category extends XoopsObject
         $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA,);
         $form_status->addOptionArray($options);
         $form->addElement($form_status);
+        
+        // permission
+        $permHelper = new \Xmf\Module\Helper\Permission();
+        $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_view', $this->getVar('category_id'),  _MA_XMARTICLE_PERMISSION_VIEW_THIS, null, true));
+        $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_submit', $this->getVar('category_id'),  _MA_XMARTICLE_PERMISSION_SUBMIT_THIS, null, true));
 		
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
