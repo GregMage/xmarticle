@@ -10,17 +10,24 @@
         <{$error_message}>
     </div>
 <{/if}>
-<div>
-    <{$form}>
+<{if $form}>
+    <div>
+        <{$form}>
+    </div>
+<{/if}>
+<div align="right">
+    <form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
+        <{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
+        <select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_status=<{$article_status}>&article_cid='+this.options[this.selectedIndex].value">
+            <{$article_cid_options}>
+        <select>
+        <{$smarty.const._MA_XMARTICLE_STATUS}>
+        <select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid=<{$article_cid}>&article_status='+this.options[this.selectedIndex].value">
+            <{$article_status_options}>
+        <select>
+    </form>
 </div>
 <{if $article_count != 0}>
-	<div align="right">
-		<form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
-			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid='+this.options[this.selectedIndex].value">
-				<{$article_cid_options}>
-			<select>
-		</form>
-	</div>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
         <tr>
@@ -44,10 +51,10 @@
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$article.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
                     alt="<{$smarty.const._AM_SYSTEM_LOADING}>"/><img class="cursorpointer tooltip" id="sml<{$article.id}>"
-                    onclick="system_setStatus( { op: 'article_update_status', article_id: <{$article.id}> }, 'sml<{$article.id}>', 'article.php' )"
-                    src="<{if $article.status}><{xoAdminIcons success.png}><{else}><{xoAdminIcons cancel.png}><{/if}>"
-                    alt="<{if $article.status}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{else}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"
-                    title="<{if $article.status}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{else}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"/>
+                    onclick="system_setStatus( { op: 'article_update_status', article_id: <{$article.id}>, article_status: <{$article.status}> }, 'sml<{$article.id}>', 'article.php' )"
+                    src="<{if $article.status == 1}><{xoAdminIcons success.png}><{/if}><{if $article.status == 0}><{xoAdminIcons cancel.png}><{/if}><{if $article.status == 2}><{xoAdminIcons messagebox_warning.png}><{/if}>"
+                    alt="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"
+                    title="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"/>
                 </td>
                 <td class="xo-actions txtcenter">
 					<a class="tooltip" href="../viewarticle.php?category_id=<{$article.cid}>&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">

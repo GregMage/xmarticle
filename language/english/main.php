@@ -99,6 +99,7 @@ define('_MA_XMARTICLE_AUTHOR', 'Author');
 define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
 define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
 define('_MA_XMARTICLE_CLONE_NAME', 'CLONE');
+define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');

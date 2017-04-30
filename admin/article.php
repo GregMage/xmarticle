@@ -39,6 +39,7 @@ switch ($op) {
 		$xoopsTpl->assign('start', $start);
 		// Category
 		$article_cid = Request::getInt('article_cid', 0);
+        $xoopsTpl->assign('article_cid', $article_cid);
 		$criteria = new CriteriaCompo();
 		$criteria->setSort('category_weight ASC, category_name');
 		$criteria->setOrder('ASC');
@@ -50,6 +51,16 @@ switch ($op) {
 			}
 			$xoopsTpl->assign('article_cid_options', $article_cid_options);
 		}
+        // Status
+        $article_status = Request::getInt('article_status', 10);
+        $xoopsTpl->assign('article_status', $article_status);
+        $status_options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA, 2 =>_MA_XMARTICLE_WFV);
+		$article_status_options = '<option value="10"' . ($article_status == 0 ? ' selected="selected"' : '') . '>' . _ALL .'</option>';
+        foreach (array_keys($status_options) as $i) {
+            $article_status_options .= '<option value="' . $i . '"' . ($article_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
+        }
+        $xoopsTpl->assign('article_status_options', $article_status_options);
+        
         // Criteria
         $criteria = new CriteriaCompo();
         $criteria->setSort('article_name');
@@ -58,7 +69,10 @@ switch ($op) {
         $criteria->setLimit($nb_limit);
 		if ($article_cid != 0){
 			$criteria->add(new Criteria('article_cid', $article_cid));
-		}				
+		}
+        if ($article_status != 10){
+			$criteria->add(new Criteria('article_status', $article_status));
+		}    
         $articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
         $articleHandler->field_link = "category_id";
         $articleHandler->field_object = "article_cid";
@@ -83,7 +97,7 @@ switch ($op) {
             }
             // Display Page Navigation
             if ($article_count > $nb_limit) {
-                $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'article_cid=' . $article_cid);
+                $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'article_cid=' . $article_cid . '&article_status=' . $article_status);
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {
@@ -206,9 +220,13 @@ switch ($op) {
     case 'article_update_status':
         $article_id = Request::getInt('article_id', 0);
         if ($article_id > 0) {
+            $article_status = Request::getInt('article_status', 10);
             $obj = $articleHandler->get($article_id);
-            $old = $obj->getVar('article_status');
-            $obj->setVar('article_status', !$old);
+            if ($article_status == 0 || $article_status == 2){
+                $obj->setVar('article_status', 1);
+            } else {
+                $obj->setVar('article_status', 0);
+            }
             if ($articleHandler->insert($obj)) {
                 exit;
             }
