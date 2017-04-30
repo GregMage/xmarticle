@@ -25,6 +25,7 @@ include_once __DIR__ . '/include/common.php';
 xoops_load('utility', basename(__DIR__));
 use Xmf\Module\Helper;
 $helper = Helper::getHelper('xmarticle');
+$permHelper = new \Xmf\Module\Helper\Permission();
 
 // Load language files
 $helper->loadLanguage('main');

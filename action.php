@@ -31,6 +31,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
         // Add
         case 'add':      
             // Form
+            // permission to submitt
+            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $obj  = $articleHandler->create();
             $form = $obj->getFormCategory();
             $xoopsTpl->assign('form', $form->render());
@@ -38,6 +40,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // Loadtype
         case 'loadarticle': 
+            // permission to submitt
+            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $article_cid = Request::getInt('article_cid', 0);
             if ($article_cid == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -76,6 +80,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
             
         // Save
         case 'save':
+            // permission to submitt
+            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('index.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -94,7 +100,9 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
             break;
             
         // del
-        case 'del':    
+        case 'del':
+            // permission to del
+            $permHelper->checkPermissionRedirect('xmarticle_other', 16, 'index.php', 2, _NOPERM);
             $article_id = Request::getInt('article_id', 0);
             if ($article_id == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
