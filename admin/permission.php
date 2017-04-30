@@ -67,7 +67,8 @@ switch ($permission) {
         $permissionDescription = _MA_XMARTICLE_PERMISSION_OTHER_DSC;
         $global_perms_array = array(
             '4' => _MA_XMARTICLE_PERMISSION_OTHER_4 ,
-            '8' => _MA_XMARTICLE_PERMISSION_OTHER_8
+            '8' => _MA_XMARTICLE_PERMISSION_OTHER_8,
+            '16' => _MA_XMARTICLE_PERMISSION_OTHER_16
              );
         break;
 }
