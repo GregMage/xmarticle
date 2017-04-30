@@ -264,12 +264,17 @@ class xmarticle_article extends XoopsObject
 				}
 			}
 		}
-		// status
-        $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
-        $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA,);
-        $form_status->addOptionArray($options);
-        $form->addElement($form_status);
-		
+        // permission Auto approve submitted article
+        $permHelper = new \Xmf\Module\Helper\Permission();
+        $permission = $permHelper->checkPermission('xmarticle_other', 8);
+        if ($permission == true || $helper->isUserAdmin() == true){
+            // status
+            $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
+            $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA, 2 =>_MA_XMARTICLE_WFV);
+            $form_status->addOptionArray($options);
+            $form->addElement($form_status);
+        }
+
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
@@ -331,7 +336,14 @@ class xmarticle_article extends XoopsObject
 				$this->setVar('article_mdate', 0);
 			}
         }
-        $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));        
+        // permission Auto approve submitted article
+        $permHelper = new \Xmf\Module\Helper\Permission();
+        $permission = $permHelper->checkPermission('xmarticle_other', 8);
+        if ($permission == false){
+            $this->setVar('article_status', 2);
+        } else {
+            $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
+        }      
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
 				// fields and fielddata
