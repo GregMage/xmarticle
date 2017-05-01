@@ -10,6 +10,14 @@
         <{$error_message}>
     </div>
 <{/if}>
+<{if $warning_message != ''}>
+    <div class="xm-warning-msg xo-actions">
+        <{$warning_message}>
+		<a class="tooltip" href="article.php?article_status=2" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
+			<img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>"/>
+		</a>
+    </div>
+<{/if}>
 <{if $form}>
     <div>
         <{$form}>

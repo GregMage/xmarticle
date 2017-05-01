@@ -1,0 +1,9 @@
+.xm-warning-msg {
+	padding: .8em;
+    text-align: center;
+    margin-bottom: 1em;
+    border: 2px solid #ddd;
+	background-color: #fcf8e3;
+    color: #8a6d3b;
+    border-color: #faebcc;
+}

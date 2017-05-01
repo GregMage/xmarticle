@@ -30,6 +30,7 @@ switch ($op) {
     case 'list':
         // Define Stylesheet
         $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/admin.css');
+		$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/admin.css', null );
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_ADD, 'article.php?op=add', 'add');
@@ -60,6 +61,14 @@ switch ($op) {
             $article_status_options .= '<option value="' . $i . '"' . ($article_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
         }
         $xoopsTpl->assign('article_status_options', $article_status_options);
+		
+		// Waiting article
+        $criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('article_status', 2));
+		$Waiting_article = $articleHandler->getCount($criteria);
+		if ($Waiting_article > 0){
+			$xoopsTpl->assign('warning_message', sprintf(_MA_XMARTICLE_WAITING, $Waiting_article));
+		}		
         
         // Criteria
         $criteria = new CriteriaCompo();
