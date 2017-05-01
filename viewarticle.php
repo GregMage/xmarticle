@@ -31,6 +31,9 @@ if ($category_id == 0) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
     exit();
 }
+// permission to view
+$permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php', 2, _NOPERM);
+
 if ($article_id == 0) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
     exit();

@@ -39,6 +39,18 @@ class XmarticleUtility
             'number'        => _MA_XMARTICLE_FIELDTYPE_NUMBER);
         return $types;
     }
+    
+    public static function getPermissionCat($permtype = 'xmarticle_view')
+    {
+        global $xoopsUser;
+        $helper = Xmf\Module\Helper::getHelper('xmarticle');
+        $moduleHandler = $helper->getModule();
+        $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $gpermHandler = xoops_gethandler('groupperm');
+        $categories = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));
+
+        return $categories;
+    }
 	
 	public static function saveFielddata($field_type = '', $fielddata_fid = 0, $fielddata_aid = 0, $fielddata_value = '', $action = false)
     {

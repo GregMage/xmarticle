@@ -24,7 +24,8 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null );
 
-
+// Get Permission to view
+$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
 // Get article
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('article_status', 1));
@@ -39,6 +40,7 @@ $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
 $criteria->add(new Criteria('category_status', 1));
+$criteria->add(new Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')','IN'));
 $category_arr = $categoryHandler->getall($criteria);
 $category_count = $categoryHandler->getCount($criteria);
 $xoopsTpl->assign('category_count', $category_count);
