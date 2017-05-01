@@ -141,6 +141,20 @@ switch ($op) {
                     $permHelper = new \Xmf\Module\Helper\Permission();
                     $permHelper->deletePermissionForItem('xmarticle_view', $category_id);
                     $permHelper->deletePermissionForItem('xmarticle_submit', $category_id);
+                    // Del article and fielddata
+                    $criteria = new CriteriaCompo();
+                    $criteria->add(new Criteria('article_cid', $category_id));
+                    $article_arr = $articleHandler->getall($criteria);
+                    if (count($article_arr) > 0){
+                        foreach (array_keys($article_arr) as $i) {
+                            // Del fielddata
+                             XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));                            
+                            // Del article
+                            $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
+                            $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
+                        }
+                    }
+                    
                     redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
@@ -148,9 +162,9 @@ switch ($op) {
             } else {
                 $category_img = $obj->getVar('category_logo') ?: 'blank.gif';
                 xoops_confirm(array('surdel' => true, 'category_id' => $category_id, 'op' => 'del'), $_SERVER['REQUEST_URI'], 
-                                    sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br \>
+                                    sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br>
                                     <img src="' . $url_logo_category . $category_img . '" title="' . 
-                                    $obj->getVar('category_name') . '" /><br \>');
+                                    $obj->getVar('category_name') . '" /><br>' . XmarticleUtility::articleNamePerCat($category_id));
             }
         }
         

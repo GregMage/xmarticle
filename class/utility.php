@@ -214,6 +214,24 @@ class XmarticleUtility
         }        
         return $count;
     }
+    
+    public static function articleNamePerCat($category_id)
+    {
+        include __DIR__ . '/../include/common.php';
+        $article_name = '';
+        $criteria = new CriteriaCompo();
+        $criteria->setSort('article_name');
+        $criteria->setOrder('ASC');
+        $criteria->add(new Criteria('article_cid', $category_id));
+        $article_arr = $articleHandler->getall($criteria);
+        if (count($article_arr) > 0){
+            $article_name .= _MA_XMARTICLE_CATEGORY_WARNINGDELARTICLE . '<br>';
+            foreach (array_keys($article_arr) as $i) {
+                $article_name .= $article_arr[$i]->getVar('article_name') . '<br>';
+            }
+        }
+        return $article_name;
+    }
 	
 	public static function cloneArticle($article_id, $action = false)
     {

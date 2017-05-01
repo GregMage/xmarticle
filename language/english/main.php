@@ -78,6 +78,7 @@ define('_MA_XMARTICLE_CATEGORY_FIELD', 'Fields');
 define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Weight');
 define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Remove fields');
 define('_MA_XMARTICLE_CATEGORY_THEREAREARTICLE', 'There are <strong>%s</strong> articles in this category!');
+define('_MA_XMARTICLE_CATEGORY_WARNINGDELARTICLE', '<strong>Warning, the following items will also be removed!</strong>');
 
 // Article
 define('_MA_XMARTICLE_ARTICLE_DESC', 'Description');
