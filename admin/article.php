@@ -34,10 +34,12 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_ADD, 'article.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());   
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
 		// Get start pager
         $start = Request::getInt('start', 0);
 		$xoopsTpl->assign('start', $start);
+        
+        $xoopsTpl->assign('filter', true);
 		// Category
 		$article_cid = Request::getInt('article_cid', 0);
         $xoopsTpl->assign('article_cid', $article_cid);

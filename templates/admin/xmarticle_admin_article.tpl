@@ -23,7 +23,7 @@
         <{$form}>
     </div>
 <{/if}>
-<{if !$form}>
+<{if $filter}>
 	<div align="right">
 		<form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
 			<{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
