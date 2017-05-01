@@ -40,6 +40,22 @@ class XmarticleUtility
         return $types;
     }
     
+    public static function delFilddataArticle($article_id = 0)
+    {
+        include __DIR__ . '/../include/common.php';
+        if ($article_id == 0){
+            return false;
+            exit();
+        }
+        $criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('fielddata_aid', $article_id));
+        $fielddata_count = $fielddataHandler->getCount($criteria);
+		if ($fielddata_count > 0){
+            $fielddataHandler->deleteAll($criteria);
+        }
+        return true;
+    }
+    
     public static function getPermissionCat($permtype = 'xmarticle_view')
     {
         global $xoopsUser;

@@ -122,6 +122,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                                 unlink($urlfile);
                             }
                         }
+                        //Del fielddata
+                        XmarticleUtility::delFilddataArticle($article_id);
                         redirect_header('index.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                     } else {
                         $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
