@@ -23,18 +23,20 @@
         <{$form}>
     </div>
 <{/if}>
-<div align="right">
-    <form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
-        <{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
-        <select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_status=<{$article_status}>&article_cid='+this.options[this.selectedIndex].value">
-            <{$article_cid_options}>
-        <select>
-        <{$smarty.const._MA_XMARTICLE_STATUS}>
-        <select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid=<{$article_cid}>&article_status='+this.options[this.selectedIndex].value">
-            <{$article_status_options}>
-        <select>
-    </form>
-</div>
+<{if !$form}>
+	<div align="right">
+		<form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
+			<{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
+			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_status=<{$article_status}>&article_cid='+this.options[this.selectedIndex].value">
+				<{$article_cid_options}>
+			<select>
+			<{$smarty.const._MA_XMARTICLE_STATUS}>
+			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_cid=<{$article_cid}>&article_status='+this.options[this.selectedIndex].value">
+				<{$article_status_options}>
+			<select>
+		</form>
+	</div>
+<{/if}>
 <{if $article_count != 0}>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
