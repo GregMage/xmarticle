@@ -43,6 +43,7 @@ class XmarticleUtility
     public static function getPermissionCat($permtype = 'xmarticle_view')
     {
         global $xoopsUser;
+        $categories = array();
         $helper = Xmf\Module\Helper::getHelper('xmarticle');
         $moduleHandler = $helper->getModule();
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;

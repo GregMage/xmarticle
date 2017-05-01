@@ -40,12 +40,14 @@ $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
 $criteria->add(new Criteria('category_status', 1));
-$criteria->add(new Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')','IN'));
+if (!empty($viewPermissionCat)){
+    $criteria->add(new Criteria('category_id', '(' . implode(',', $viewPermissionCat) . ')','IN'));
+}
 $category_arr = $categoryHandler->getall($criteria);
 $category_count = $categoryHandler->getCount($criteria);
 $xoopsTpl->assign('category_count', $category_count);
 $keywords = '';
-if ($category_count > 0) {
+if ($category_count > 0 && !empty($viewPermissionCat)) {
     foreach (array_keys($category_arr) as $i) {
         $category_id                 = $category_arr[$i]->getVar('category_id');
         $category['id']              = $category_id;

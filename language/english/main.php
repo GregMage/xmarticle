@@ -35,6 +35,7 @@ define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
+define('_MA_XMARTICLE_ERROR_NOACESSCATEGORY', 'You don\'t have access to any categories');
 
 // Shared
 define('_MA_XMARTICLE_ACTION', 'Action');

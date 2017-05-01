@@ -57,19 +57,28 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include __DIR__ . '/../include/common.php';        
+        include __DIR__ . '/../include/common.php';  
+
+        // Get Permission to submit
+        $submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');        
         
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
         // type        
-        $field_type = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
+        $field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
         $criteria = new CriteriaCompo();
         $criteria->setSort('category_weight ASC, category_name');
         $criteria->setOrder('ASC');
-        $category_arr = $categoryHandler->getall($criteria);
-        foreach (array_keys($category_arr) as $i) {
-            $field_type->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
+        if (!empty($submitPermissionCat)){
+            $criteria->add(new Criteria('category_id', '(' . implode(',', $submitPermissionCat) . ')','IN'));
         }
-        $form->addElement($field_type, true);   
+        $category_arr = $categoryHandler->getall($criteria);        
+        if (count($category_arr) == 0 || empty($submitPermissionCat)){
+            redirect_header($action, 3, _MA_XMARTICLE_ERROR_NOACESSCATEGORY);
+        }
+        foreach (array_keys($category_arr) as $i) {
+            $field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
+        }
+        $form->addElement($field_cat, true);   
         $form->addElement(new XoopsFormHidden('op', 'loadarticle'));        
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));

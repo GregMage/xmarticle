@@ -121,7 +121,7 @@ switch ($op) {
         $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Form
         $obj  = $articleHandler->create();
-        $form = $obj->getFormCategory();
+        $form = $obj->getFormCategory('article.php');
         $xoopsTpl->assign('form', $form->render());
         break;
 
