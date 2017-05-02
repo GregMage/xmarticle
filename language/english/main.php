@@ -116,6 +116,7 @@ define('_MA_XMARTICLE_PERMISSION_OTHER_DSC', 'Select groups that can:');
 define('_MA_XMARTICLE_PERMISSION_OTHER_4', 'Submit an article');
 define('_MA_XMARTICLE_PERMISSION_OTHER_8', 'Auto approve submitted articles');
 define('_MA_XMARTICLE_PERMISSION_OTHER_16', 'Delete an article');
+define('_MA_XMARTICLE_PERMISSION_OTHER_32', 'To do a search');
 
 // Field
 define('_MA_XMARTICLE_FIELD_TYPE', 'Field type');
