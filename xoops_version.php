@@ -71,6 +71,7 @@ $modversion['templates'][] = array('file' => 'xmarticle_viewcat.tpl', 'descripti
 $modversion['templates'][] = array('file' => 'xmarticle_article.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_viewarticle.tpl', 'description' => '');
 $modversion['templates'][] = array('file' => 'xmarticle_action.tpl', 'description' => '');
+$modversion['templates'][] = array('file' => 'xmarticle_search.tpl', 'description' => '');
 
 // Configs
 $modversion['config'] = array();

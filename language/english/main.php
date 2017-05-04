@@ -147,4 +147,5 @@ define('_MA_XMARTICLE_FIELD_SORTKHL', 'Sort key high to low');
 define('_MA_XMARTICLE_HOME', 'Home page');
 define('_MA_XMARTICLE_MOREDETAILS', 'More details');
 define('_MA_XMARTICLE_LISTARTICLE', 'List of articles');
+define('_MA_XMARTICLE_SEARCHFORM', 'Search form');
 
