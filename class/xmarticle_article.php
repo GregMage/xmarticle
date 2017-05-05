@@ -172,7 +172,7 @@ class xmarticle_article extends XoopsObject
         $criteria->add(new Criteria('field_status', 0, '!='));
 		$field_arr = $fieldHandler->getall($criteria);
         foreach (array_keys($field_arr) as $i) {
-            $caption = 'field_' . $i . ': ' . $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+            $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
             if ($field_arr[$i]->getVar('field_required') == 1){
                 $required = true;
             } else {
