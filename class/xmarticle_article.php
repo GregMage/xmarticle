@@ -184,7 +184,10 @@ class xmarticle_article extends XoopsObject
 				if ($field_arr[$i]->getVar('field_type') == 'text'){
 					$value = $field_arr[$i]->getVar('field_default', 'e');
 				} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
-					$value = array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n')));
+					$value = '';
+					if ($field_arr[$i]->getVar('field_default', 'n') != ''){
+						$value = array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n')));
+					}
 				} else {
 					$value = $field_arr[$i]->getVar('field_default');
 				}
