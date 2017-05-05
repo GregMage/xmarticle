@@ -176,22 +176,47 @@ class XmarticleUtility
 				$fielddata_value = '';
 				foreach (array_keys($fielddata_arr) as $j) {					
 					if( $field_arr[$i]->getVar('field_id') == $fielddata_arr[$j]->getVar('fielddata_fid')){
-						if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
-							if ($field_arr[$i]->getVar('field_type') == 'radio_yn'){ 
-								if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0){
-									$fielddata_value = _NO;
-								} else {
-									$fielddata_value = _YES;
-								}
-							} else {
-								$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value1');
+						if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){							
+							switch ($field_arr[$i]->getVar('field_type')) {
+								case 'vs_text':
+								case 's_text':
+								case 'm_text':
+								case 'l_text':
+									$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value1');
+									break;
+
+								case 'radio_yn':
+									if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0){
+										$fielddata_value = _NO;
+									} else {
+										$fielddata_value = _YES;
+									}								
+									
+									break;
+									
+								case 'select':
+								case 'radio':
+									$fielddata_value = $field_arr[$i]->getVar('field_options')[$fielddata_arr[$j]->getVar('fielddata_value1')];
+									break;
+								
 							}
 						}
 						if ($fielddata_arr[$j]->getVar('fielddata_value2') != ''){
 							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value2', 'e');
 						}
 						if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
-							$fielddata_value = implode(', ', unserialize($fielddata_arr[$j]->getVar('fielddata_value3', 'n')));
+							$value3_arr = unserialize($fielddata_arr[$j]->getVar('fielddata_value3', 'n'));
+							$fielddata_value = '';
+							if (count($value3_arr) > 0){
+								foreach (array_keys($value3_arr) as $k) {
+									if ($fielddata_value == ''){
+										$seperator = '';
+									} else {
+										$seperator = ' - ';
+									}
+									$fielddata_value .= $seperator . $field_arr[$i]->getVar('field_options')[$value3_arr[$k]];
+								}
+							}
 						}
 						if ($fielddata_arr[$j]->getVar('fielddata_value4') != ''){
 							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value4');
