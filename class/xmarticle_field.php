@@ -315,14 +315,17 @@ class xmarticle_field extends XoopsObject
                         if (empty($option['value'])) {
                             continue;
                         }
-                        $options[$option['key']] = $option['value'];
+                        //$options[$option['key']] = $option['value'];
+                        $options[$option['key']] = htmlentities($option['value'], ENT_QUOTES);
                         if ($field_type == 'select_multi' || $field_type == 'checkbox'){
                             if (in_array($i, $field_default)){
-                                $default[$option['key']] = $option['value'];
+                                //$default[$option['key']] = $option['value'];
+                                $default[$option['key']] = htmlentities($option['value'], ENT_QUOTES);
                             }
                         }else{
                             if ($field_default == $i){
-                                $default[$option['key']] = $option['value'];
+                                //$default[$option['key']] = $option['value'];
+                                $default[$option['key']] = htmlentities($option['value'], ENT_QUOTES);
                                 $save_key = $option['key'];
                             }
                         }
