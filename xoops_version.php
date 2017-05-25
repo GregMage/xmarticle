@@ -94,6 +94,15 @@ $modversion['config'][] = array(
     'default'     => 15
 );
 
+$modversion['config'][] = array(
+    'name'        => 'general_separator',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALSEPARATOR',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => '-'
+);
+
 xoops_load('xoopseditorhandler');
 $editorHandler = XoopsEditorHandler::getInstance();
 $modversion['config'][] = array(

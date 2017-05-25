@@ -212,7 +212,7 @@ class XmarticleUtility
 									if ($fielddata_value == ''){
 										$seperator = '';
 									} else {
-										$seperator = ' - ';
+										$seperator = $helper->getConfig('general_separator', '-');
 									}
 									$fielddata_value .= $seperator . $field_arr[$i]->getVar('field_options')[$value3_arr[$k]];
 								}
