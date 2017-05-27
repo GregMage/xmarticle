@@ -68,7 +68,85 @@ $field_cat->addOption(0, _ALL);
 foreach (array_keys($category_arr) as $i) {
 	$field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 }
+$field_cat->setExtra("onchange=\"location='search.php?search_name=" . $search_name . "&search_reference=" . $search_reference . "&search_cat='+this.options[this.selectedIndex].value\"");
 $form->addElement($field_cat);
+
+//fields
+
+if ($search_cat != 0){
+    $category = $categoryHandler->get($search_cat);
+    // field		
+    $criteria = new CriteriaCompo();
+    $criteria->setSort('field_weight ASC, field_name');
+    $criteria->setOrder('ASC');
+    $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+    $criteria->add(new Criteria('field_status', 0, '!='));
+    $criteria->add(new Criteria('field_search', 0, '!='));
+    $field_arr = $fieldHandler->getall($criteria);
+    foreach (array_keys($field_arr) as $i) {
+        $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+        if ($field_arr[$i]->getVar('field_required') == 1){
+            $required = true;
+        } else {
+            $required = false;
+        }			
+        $name = 'field_' . $i;
+        $value = '';
+        switch ($field_arr[$i]->getVar('field_type')) {
+            case 'label':
+                $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
+                $form->addElement(new XoopsFormHidden($name, $value));
+                break;
+            case 'vs_text':
+                $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
+                break;
+            case 's_text':
+                $form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
+                break;
+            case 'm_text':
+                $form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
+                break;
+            case 'l_text':
+                $form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
+                break;
+            case 'text':
+                $editor_configs           =array();
+                $editor_configs['name']   = $name;
+                $editor_configs['value']  = $value;
+                $editor_configs['rows']   = 2;
+                $editor_configs['editor'] = 'Plain Text';
+                $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
+                break;
+            case 'select':
+                $select_field = new XoopsFormSelect($caption, $name, $value);
+                $select_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                $form->addElement($select_field, $required);
+                break;
+            case 'select_multi':
+                $select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
+                $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                $form->addElement($select_multi_field, $required);
+                break;
+            case 'radio_yn':
+                $form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
+                break;
+            case 'radio':                    
+                $radio_field = new XoopsFormRadio($caption, $name, $value);
+                $radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                $form->addElement($radio_field, $required);
+                break;
+            case 'checkbox':
+                $checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
+                $checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+                $form->addElement($checkbox_field, $required);
+                break;
+            case 'number':
+                $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
+                break;
+        }
+        unset($value);
+    }
+}
 // search
 $button = new XoopsFormElementTray('');
 $button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
