@@ -85,7 +85,10 @@ class XmarticleUtility
 			case 'l_text':
 			case 'select':
 			case 'radio_yn':
-			case 'radio':			
+			case 'radio':
+                $fieldname_bdd = 'fielddata_value1';
+				break;
+                
 			case 'label':
 			case 'text':
                 $fieldname_bdd = 'fielddata_value2';
@@ -154,7 +157,6 @@ class XmarticleUtility
                 $value = $fielddata_arr[$i]->getVar('fielddata_value2', 'e');
             }
             if ($fielddata_arr[$i]->getVar('fielddata_value3') != ''){
-                
                 if ($value == ''){
                     $seperator = '';
                 } else {
@@ -221,7 +223,7 @@ class XmarticleUtility
                             } else {
                                 $seperator = $helper->getConfig('general_separator', '-');
                             }
-                            $fielddata_value .= $seperator . $fielddata_arr[$j]->getVar('fielddata_value3');
+                            $fielddata_value .= $seperator . $field_arr[$i]->getVar('field_options')[$fielddata_arr[$j]->getVar('fielddata_value3')];
                             break;
                             
                         case 'number':
