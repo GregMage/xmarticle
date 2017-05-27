@@ -179,7 +179,6 @@ class xmarticle_article extends XoopsObject
                 $required = false;
             }
             $value = XmarticleUtility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
-            echo '<br>' .$value;
             if ($value == ''){
 				if ($field_arr[$i]->getVar('field_type') == 'text'){
 					$value = $field_arr[$i]->getVar('field_default', 'e');
