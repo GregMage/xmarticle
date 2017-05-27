@@ -78,82 +78,95 @@ class XmarticleUtility
 			redirect_header($action, 2, _MA_XMARTICLE_ERROR);
 		}
 		include __DIR__ . '/../include/common.php';
-		$criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
-		$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
-		$fielddata_arr = $fielddataHandler->getall($criteria);
-		
-		if (count($fielddata_arr) == 0) {
-			$obj = $fielddataHandler->create();            
-		} else {
-			foreach (array_keys($fielddata_arr) as $i) {
-				$obj = $fielddataHandler->get($fielddata_arr[$i]->getVar('fielddata_id'));
-			}
-		}		
-		
-		$error_message = '';
-		$obj->setVar('fielddata_fid', $fielddata_fid);
-        $obj->setVar('fielddata_aid',  $fielddata_aid);
-		switch ($field_type) {
+        switch ($field_type) {
 			case 'vs_text':
 			case 's_text':
 			case 'm_text':
 			case 'l_text':
 			case 'select':
 			case 'radio_yn':
-			case 'radio':
-				$obj->setVar('fielddata_value1',  $fielddata_value);
-				break;
-			
+			case 'radio':			
 			case 'label':
 			case 'text':
-				$obj->setVar('fielddata_value2',  $fielddata_value);
+                $fieldname_bdd = 'fielddata_value2';
 				break;
-
-			case 'select_multi':
+                
+            case 'select_multi':
 			case 'checkbox':
-				$obj->setVar('fielddata_value3',  serialize($fielddata_value));
+                $fieldname_bdd = 'fielddata_value3';
 				break;
 				
 			case 'number':
-				$obj->setVar('fielddata_value4',  $fielddata_value);
+                $fieldname_bdd = 'fielddata_value4';
 				break;
-			
 		}
-		if ($error_message == '') {
-            if (!$fielddataHandler->insert($obj)) {
-                $error_message =  $obj->getHtmlErrors();
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
+        $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));       
+        $error_message = '';
+        if ($field_type == 'select_multi' || $field_type == 'checkbox'){
+            $fielddataHandler->deleteAll($criteria);
+            foreach (array_keys($fielddata_value) as $i) {
+                $obj = $fielddataHandler->create();
+                $obj->setVar('fielddata_fid', $fielddata_fid);
+                $obj->setVar('fielddata_aid',  $fielddata_aid);
+                $obj->setVar($fieldname_bdd,  $fielddata_value[$i]);
+                if ($error_message == '') {
+                    if (!$fielddataHandler->insert($obj)) {
+                        $error_message =  $obj->getHtmlErrors();
+                    }
+                }
+            }
+        } else{
+            $fielddata_arr = $fielddataHandler->getall($criteria);
+            if (count($fielddata_arr) == 0) {
+                $obj = $fielddataHandler->create();            
+            } else {
+                foreach (array_keys($fielddata_arr) as $i) {
+                    $obj = $fielddataHandler->get($fielddata_arr[$i]->getVar('fielddata_id'));
+                }
+            }
+            $obj->setVar('fielddata_fid', $fielddata_fid);
+            $obj->setVar('fielddata_aid',  $fielddata_aid);
+            $obj->setVar($fieldname_bdd,  $fielddata_value);
+            if ($error_message == '') {
+                if (!$fielddataHandler->insert($obj)) {
+                    $error_message =  $obj->getHtmlErrors();
+                }
             }
         }
-        return $error_message;
+        return $error_message;       
     }
 	
-	public static function getFielddata($fielddata_aid = 0)
+	public static function getFielddata($fielddata_aid = 0, $fielddata_fid = 0)
     {
-		if ($fielddata_aid == 0){
-			$values = array();
-		} else {
-			include __DIR__ . '/../include/common.php';
-			$criteria = new CriteriaCompo();
-			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
-			$fielddata_arr = $fielddataHandler->getall($criteria);
-			$values = array();
-			foreach (array_keys($fielddata_arr) as $i) {
-				if ($fielddata_arr[$i]->getVar('fielddata_value1') != ''){
-					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value1');
-				}
-				if ($fielddata_arr[$i]->getVar('fielddata_value2') != ''){
-					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value2', 'e');
-				}
-				if ($fielddata_arr[$i]->getVar('fielddata_value3') != ''){
-					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = unserialize($fielddata_arr[$i]->getVar('fielddata_value3', 'n'));
-				}
-				if ($fielddata_arr[$i]->getVar('fielddata_value4') != ''){
-					$values[$fielddata_arr[$i]->getVar('fielddata_fid')] = $fielddata_arr[$i]->getVar('fielddata_value4');
-				}
-			}
-		}
-        return $values;
+        include __DIR__ . '/../include/common.php';
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+        $criteria->add(new Criteria('fielddata_fid', $fielddata_fid));
+        $fielddata_arr = $fielddataHandler->getall($criteria);
+        $value = '';
+        foreach (array_keys($fielddata_arr) as $i) {
+            if ($fielddata_arr[$i]->getVar('fielddata_value1') != ''){
+                $value = $fielddata_arr[$i]->getVar('fielddata_value1');
+            }
+            if ($fielddata_arr[$i]->getVar('fielddata_value2') != ''){
+                $value = $fielddata_arr[$i]->getVar('fielddata_value2', 'e');
+            }
+            if ($fielddata_arr[$i]->getVar('fielddata_value3') != ''){
+                
+                if ($value == ''){
+                    $seperator = '';
+                } else {
+                    $seperator = ',';
+                }
+                $value .= $seperator . $fielddata_arr[$i]->getVar('fielddata_value3');
+            }
+            if ($fielddata_arr[$i]->getVar('fielddata_value4') != ''){
+                $value = $fielddata_arr[$i]->getVar('fielddata_value4');
+            }
+        }
+        return $value;
     }
 	
 	public static function getArticleFields($fields = array(), $fielddata_aid = 0)
@@ -161,70 +174,63 @@ class XmarticleUtility
 		$values = array();
 		if (count($fields) != 0){
             include __DIR__ . '/../include/common.php';
-			// fielddata
-			$criteria = new CriteriaCompo();
-			$criteria->add(new Criteria('fielddata_fid', '(' . implode(',', $fields) . ')', 'IN'));
-			$criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
-			$fielddata_arr = $fielddataHandler->getall($criteria);
 			// field
 			$criteria = new CriteriaCompo();
 			$criteria->setSort('field_weight ASC, field_name');
 			$criteria->setOrder('ASC');
 			$criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
 			$field_arr = $fieldHandler->getall($criteria);
-			foreach (array_keys($field_arr) as $i) {
-				$fielddata_value = '';
-				foreach (array_keys($fielddata_arr) as $j) {					
-					if( $field_arr[$i]->getVar('field_id') == $fielddata_arr[$j]->getVar('fielddata_fid')){
-						if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){							
-							switch ($field_arr[$i]->getVar('field_type')) {
-								case 'vs_text':
-								case 's_text':
-								case 'm_text':
-								case 'l_text':
-									$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value1');
-									break;
+            foreach (array_keys($field_arr) as $i) {
+                $fielddata_value = '';
+                // fielddata
+                $criteria = new CriteriaCompo();
+                $criteria->add(new Criteria('fielddata_fid', $field_arr[$i]->getVar('field_id')));
+                $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
+                $fielddata_arr = $fielddataHandler->getall($criteria);
+                foreach (array_keys($fielddata_arr) as $j) {
+                    switch ($field_arr[$i]->getVar('field_type')) {
+                        case 'vs_text':
+                        case 's_text':
+                        case 'm_text':
+                        case 'l_text':
+                            $fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value1');
+                            break;
 
-								case 'radio_yn':
-									if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0){
-										$fielddata_value = _NO;
-									} else {
-										$fielddata_value = _YES;
-									}								
-									
-									break;
-									
-								case 'select':
-								case 'radio':
-									$fielddata_value = $field_arr[$i]->getVar('field_options')[$fielddata_arr[$j]->getVar('fielddata_value1')];
-									break;
-								
-							}
-						}
-						if ($fielddata_arr[$j]->getVar('fielddata_value2') != ''){
-							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value2', 'e');
-						}
-						if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
-							$value3_arr = unserialize($fielddata_arr[$j]->getVar('fielddata_value3', 'n'));
-							$fielddata_value = '';
-							if (count($value3_arr) > 0){
-								foreach (array_keys($value3_arr) as $k) {
-									if ($fielddata_value == ''){
-										$seperator = '';
-									} else {
-										$seperator = $helper->getConfig('general_separator', '-');
-									}
-									$fielddata_value .= $seperator . $field_arr[$i]->getVar('field_options')[$value3_arr[$k]];
-								}
-							}
-						}
-						if ($fielddata_arr[$j]->getVar('fielddata_value4') != ''){
-							$fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value4');
-						}						
-					}
-				}
-				$values[] = array($field_arr[$i]->getVar('field_name'), $field_arr[$i]->getVar('field_description'), $fielddata_value);
-			}
+                        case 'radio_yn':
+                            if ($fielddata_arr[$j]->getVar('fielddata_value1') == 0){
+                                $fielddata_value = _NO;
+                            } else {
+                                $fielddata_value = _YES;
+                            }
+                            break;
+                            
+                        case 'select':
+                        case 'radio':
+                            $fielddata_value = $field_arr[$i]->getVar('field_options')[$fielddata_arr[$j]->getVar('fielddata_value1')];
+                            break;
+                            
+                        case 'label':
+                        case 'text':
+                            $fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value2', 'e');                            
+                            break;
+
+                        case 'select_multi':
+                        case 'checkbox':
+                            if ($fielddata_value == ''){
+                                $seperator = '';
+                            } else {
+                                $seperator = $helper->getConfig('general_separator', '-');
+                            }
+                            $fielddata_value .= $seperator . $fielddata_arr[$j]->getVar('fielddata_value3');
+                            break;
+                            
+                        case 'number':
+                            $fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value4');
+                            break;
+                    }
+                }
+                $values[] = array($field_arr[$i]->getVar('field_name'), $field_arr[$i]->getVar('field_description'), $fielddata_value);
+            }
 		}
         return $values;
     }

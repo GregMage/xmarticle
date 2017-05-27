@@ -36,7 +36,7 @@ CREATE TABLE `xmarticle_fielddata` (
   `fielddata_aid`           int(12) unsigned        NOT NULL default '0',
   `fielddata_value1`        varchar(255),
   `fielddata_value2`        text,
-  `fielddata_value3`        text,
+  `fielddata_value3`        varchar(255),
   `fielddata_value4`        double(9,3),
   
   PRIMARY KEY  (`fielddata_id`)

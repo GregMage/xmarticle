@@ -37,7 +37,7 @@ class xmarticle_fielddata extends XoopsObject
 		$this->initVar('fielddata_aid', XOBJ_DTYPE_INT, null);
         $this->initVar('fielddata_value1', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('fielddata_value2', XOBJ_DTYPE_TXTAREA);
-		$this->initVar('fielddata_value3', XOBJ_DTYPE_TXTAREA);
+		$this->initVar('fielddata_value3', XOBJ_DTYPE_TXTBOX);
         $this->initVar('fielddata_value4', XOBJ_DTYPE_OTHER, null, false);
     }
 

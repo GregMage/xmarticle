@@ -110,11 +110,11 @@ class xmarticle_article extends XoopsObject
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $status = $this->getVar('article_status');
             $article_cid = $this->getVar('article_cid');
-			$fielddata_values = XmarticleUtility::getFielddata($this->getVar('article_id'));			
+            $article_cid_fielddata = $this->getVar('article_id');
         } else {
             $status = 1;
 			if ($old_article_cid != 0){
-				$fielddata_values = XmarticleUtility::getFielddata($old_article_cid);
+                $article_cid_fielddata = $old_article_cid;
 			} else {
 				$fielddata_values =	array();
 			}
@@ -177,10 +177,10 @@ class xmarticle_article extends XoopsObject
                 $required = true;
             } else {
                 $required = false;
-            }			
-			if (array_key_exists ($field_arr[$i]->getVar('field_id'), $fielddata_values)){
-				$value = $fielddata_values[$field_arr[$i]->getVar('field_id')];
-			} else {
+            }
+            $value = XmarticleUtility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
+            echo '<br>' .$value;
+            if ($value == ''){
 				if ($field_arr[$i]->getVar('field_type') == 'text'){
 					$value = $field_arr[$i]->getVar('field_default', 'e');
 				} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
@@ -224,7 +224,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement($select_field, $required);
                     break;
                 case 'select_multi':
-                    $select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
+                    $select_multi_field = new XoopsFormSelect($caption, $name, explode(',', $value), 5, true);
                     $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($select_multi_field, $required);
                     break;
@@ -237,7 +237,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement($radio_field, $required);
                     break;
                 case 'checkbox':
-                    $checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
+                    $checkbox_field = new XoopsFormCheckBox($caption, $name, explode(',', $value));
                     $checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($checkbox_field, $required);
                     break;
