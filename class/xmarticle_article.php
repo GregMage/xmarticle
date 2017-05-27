@@ -116,7 +116,8 @@ class xmarticle_article extends XoopsObject
 			if ($old_article_cid != 0){
                 $article_cid_fielddata = $old_article_cid;
 			} else {
-				$fielddata_values =	array();
+				$article_cid_fielddata = 0;
+                //echo 'ici';
 			}
         }
         // category        
@@ -183,9 +184,8 @@ class xmarticle_article extends XoopsObject
 				if ($field_arr[$i]->getVar('field_type') == 'text'){
 					$value = $field_arr[$i]->getVar('field_default', 'e');
 				} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
-					$value = '';
 					if ($field_arr[$i]->getVar('field_default', 'n') != ''){
-						$value = array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n')));
+						$value =  implode(',', array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
 					}
 				} else {
 					$value = $field_arr[$i]->getVar('field_default');
