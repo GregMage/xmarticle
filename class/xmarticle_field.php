@@ -223,16 +223,14 @@ class xmarticle_field extends XoopsObject
         // weight        
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_WEIGHT, 'field_weight', 5, 5, $weight), true);
         
-        // search
-        $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SEARCH, 'field_search', $search));
-        
-        // required
+        // required and search
 		if ($field_type == 'label'){
 			$form->addElement(new XoopsFormHidden('field_required', 0));
+            $form->addElement(new XoopsFormHidden('field_search', 0));
 		} else {
+            $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SEARCH, 'field_search', $search));
 			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_REQUIRED, 'field_required', $required));
 		}
-        
 
         // status        
         $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'field_status', $status);
