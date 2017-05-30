@@ -179,7 +179,12 @@ if ($s_cat != 0){
                 $form->addElement($select_multi_field, $required);
                 break;
             case 'radio_yn':
-                $radio_yn_field = new XoopsFormSelect($caption, $name, $value);
+                if ($value == ''){
+                    $value_yn = 999;
+                } else {
+                    $value_yn = $value;
+                }
+                $radio_yn_field = new XoopsFormSelect($caption, $name, $value_yn);
                 $radio_yn_field ->addOption(999, '&nbsp;');
                 $radio_yn_field ->addOption(1, _YES);
                 $radio_yn_field ->addOption(0, _NO);
