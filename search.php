@@ -90,7 +90,7 @@ if ($s_cat != 0){
         $name = 'f_' . $i;
         if (isset($_POST['f_' . $i])){
             $value = $_POST['f_' . $i];
-            if ($value != '') {
+            if ($value != '' && $value != 999) {
                 $criteria = new CriteriaCompo();
                 switch ($field_arr[$i]->getVar('field_type')) {
                     case 'vs_text':
@@ -180,11 +180,9 @@ if ($s_cat != 0){
                 break;
             case 'radio_yn':
                 if ($value == ''){
-                    $value_yn = 999;
-                } else {
-                    $value_yn = $value;
+                    $value = 999;
                 }
-                $radio_yn_field = new XoopsFormSelect($caption, $name, $value_yn);
+                $radio_yn_field = new XoopsFormSelect($caption, $name, $value);
                 $radio_yn_field ->addOption(999, '&nbsp;');
                 $radio_yn_field ->addOption(1, _YES);
                 $radio_yn_field ->addOption(0, _NO);
