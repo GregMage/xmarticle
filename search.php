@@ -82,47 +82,61 @@ if ($s_cat != 0){
     $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
     $criteria->add(new Criteria('field_status', 0, '!='));
     $criteria->add(new Criteria('field_search', 0, '!='));
-    $field_arr = $fieldHandler->getall($criteria);    
+    $field_arr = $fieldHandler->getall($criteria);
+    $result = true;
     foreach (array_keys($field_arr) as $i) {
         $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
         $required = false;			
         $name = 'f_' . $i;
         if (isset($_POST['f_' . $i])){
             $value = $_POST['f_' . $i];
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('fielddata_fid', $i));
-            switch ($field_arr[$i]->getVar('field_type')) {
-                case 'vs_text':
-                case 's_text':
-                case 'm_text':
-                case 'l_text':
-                case 'select':
-                case 'radio_yn':
-                case 'radio':
-                    $fieldname_bdd = 'fielddata_value1';
-                    break;
-                    
-                case 'label':
-                case 'text':
-                    $fieldname_bdd = 'fielddata_value2';
-                    break;
-                    
-                case 'select_multi':
-                case 'checkbox':
-                    $fieldname_bdd = 'fielddata_value3';
-                    break;
-                    
-                case 'number':
-                    $fieldname_bdd = 'fielddata_value4';
-                    break;
-            }
-            $criteria->add(new Criteria($fieldname_bdd, $value));
-            $fielddata_arr = $fielddataHandler->getall($criteria);
-            if (count($fielddata_arr) > 0){
-                foreach (array_keys($fielddata_arr) as $j) {
-                    if ($value != '') {
-                        $fielddata_aid_arr[] = $fielddata_arr[$j]->getVar('fielddata_aid');
-                    }                    
+            if ($value != '') {
+                $criteria = new CriteriaCompo();
+                switch ($field_arr[$i]->getVar('field_type')) {
+                    case 'vs_text':
+                    case 's_text':
+                    case 'm_text':
+                    case 'l_text':
+                    case 'select':
+                    case 'radio_yn':
+                    case 'radio':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new Criteria('fielddata_value1', $value));;
+                        break;
+                        
+                    case 'label':
+                    case 'text':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new Criteria('fielddata_value2', $value));
+                        break;
+                        
+                    case 'select_multi':
+                    case 'checkbox':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new Criteria('fielddata_value3', $value));
+                        break;
+                        
+                    case 'number':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new Criteria('fielddata_value4', $value));
+                        break;
+                }
+                if ($result == true){
+                    if (count($fielddata_aid_arr) > 0) {
+                        $criteria->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
+                        $fielddata_aid_arr = array();
+                    }
+                    $fielddata_arr = $fielddataHandler->getall($criteria);
+                    if (count($fielddata_arr) > 0){
+                        foreach (array_keys($fielddata_arr) as $j) {
+                            if ($value != '') {
+                                $fielddata_aid_arr[] = $fielddata_arr[$j]->getVar('fielddata_aid');
+                            }                    
+                        }
+                    } else {
+                        $fielddata_aid_arr[] = 0;
+                        $result = false;
+                    }
                 }
             }
         } else {
@@ -209,7 +223,6 @@ if ($search != ''){
 		$criteria->add(new Criteria('article_reference', '%' . $s_reference . '%', 'LIKE'));
 		$arguments .= 's_reference=' . $s_reference . '&amp;';
 	}
-    var_dump($fielddata_aid_arr);
     if (count($fielddata_aid_arr) > 0) {
         $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
     }
