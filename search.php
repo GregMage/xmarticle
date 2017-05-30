@@ -262,7 +262,9 @@ if ($search != ''){
 			$nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
 			$xoopsTpl->assign('nav_menu', $nav->renderNav(4));
 		}
-	}
+	} else {
+        $xoopsTpl->assign('no_article', true);
+    }
 }
 
 //SEO

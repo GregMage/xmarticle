@@ -11,4 +11,7 @@
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>
+    <{if $no_article}>
+        <div class="alert alert-danger" role="alert"><{$smarty.const._MA_XMARTICLE_ERROR_NOARTICLE}></div>
+    <{/if}>
 </div><!-- .xmarticle -->
