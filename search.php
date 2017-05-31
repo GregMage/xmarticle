@@ -97,11 +97,15 @@ if ($s_cat != 0){
                     case 's_text':
                     case 'm_text':
                     case 'l_text':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+                        $criteria->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                        break;
+
                     case 'select':
                     case 'radio_yn':
                     case 'radio':
                         $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value1', $value));;
+                        $criteria->add(new Criteria('fielddata_value1', $value));
                         break;
                         
                     case 'label':
@@ -113,7 +117,8 @@ if ($s_cat != 0){
                     case 'select_multi':
                     case 'checkbox':
                         $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value3', $value));
+                        //en cours
+                        $criteria->add(new Criteria('fielddata_value3', '("c", "d")', 'IN'));
                         break;
                         
                     case 'number':
@@ -188,8 +193,12 @@ if ($s_cat != 0){
                 $radio_yn_field ->addOption(0, _NO);
                 $form->addElement($radio_yn_field, $required);
                 break;
-            case 'radio':                    
-                $radio_field = new XoopsFormRadio($caption, $name, $value);
+            case 'radio':
+                if ($value == ''){
+                    $value = 999;
+                }
+                $radio_field = new XoopsFormSelect($caption, $name, $value);
+                $radio_field ->addOption(999, '&nbsp;');
                 $radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                 $form->addElement($radio_field, $required);
                 break;
