@@ -117,8 +117,19 @@ if ($s_cat != 0){
                     case 'select_multi':
                     case 'checkbox':
                         $criteria->add(new Criteria('fielddata_fid', $i));
-                        //en cours
-                        $criteria->add(new Criteria('fielddata_value3', '("c", "d")', 'IN'));
+						if ($value != '') {
+							$value_bdd = '';
+							foreach (array_keys($value) as $k) {
+								if ($value_bdd == ''){
+									$seperator = '';
+								} else {
+									$seperator = ', ';
+								}
+								$value_bdd .= $seperator . '"' . $value[$k] . '"';
+							}
+							$value_bdd = '(' . $value_bdd . ')';
+						}
+                        $criteria->add(new Criteria('fielddata_value3', $value_bdd, 'IN'));
                         break;
                         
                     case 'number':
