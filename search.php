@@ -133,8 +133,36 @@ if ($s_cat != 0){
                         break;
                         
                     case 'number':
-                        $criteria->add(new Criteria('fielddata_fid', $i));
-                        $criteria->add(new Criteria('fielddata_value4', $value));
+                        $value_fnmi = '';
+                        $value_fnma = '';
+                        $value_fnex = '';
+                        if (isset($_POST['fnex_' . $i])){
+                            $value_fnex = $_POST['fnex_' . $i];
+                            if ($value_fnex != '') {
+                                $criteria->add(new Criteria('fielddata_fid', $i));
+                                $criteria->add(new Criteria('fielddata_value4', $value_fnex));
+                            }
+                        }
+                        if (isset($_POST['fnmi_' . $i]) && $value_fnex == ''){
+                            $value_fnmi = $_POST['fnmi_' . $i];
+                        } else {
+                            $value_fnmi = '';
+                        }
+                        if (isset($_POST['fnma_' . $i]) && $value_fnex == ''){
+                            $value_fnma = $_POST['fnma_' . $i];
+                        } else {
+                            $value_fnma = '';
+                        }
+                    
+                        if ($value_fnma != '' || $value_fnmi != '') {
+                            $criteria->add(new Criteria('fielddata_fid', $i));
+                        }
+                        if ($value_fnmi != '') {
+                            $criteria->add(new Criteria('fielddata_value4', $value_fnmi, '>='));
+                        }
+                        if ($value_fnma != '') {
+                            $criteria->add(new Criteria('fielddata_value4', $value_fnma, '<='));
+                        }
                         break;
                 }
                 if ($result == true){
@@ -219,7 +247,18 @@ if ($s_cat != 0){
                 $form->addElement($checkbox_field, $required);
                 break;
             case 'number':
-                $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
+                $number = new XoopsFormElementTray($caption);
+                $exactly = new XoopsFormText('Exactly', 'fnex_' . $i, 10, 255, $value_fnex);
+                $number->addElement($exactly);
+                $min = new XoopsFormText('Min', 'fnmi_' . $i, 10, 255, $value_fnmi);
+                $number->addElement($min);
+                $max = new XoopsFormText('Max', 'fnma_' . $i, 10, 255, $value_fnma);
+                $number->addElement($max);
+                $form->addElement($number, $required);
+                $form->addElement(new XoopsFormHidden($name, true));
+            
+            
+                //$form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
                 break;
         }
         unset($value);
