@@ -88,6 +88,9 @@ if ($s_cat != 0){
         $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
         $required = false;			
         $name = 'f_' . $i;
+        $value_fnmi = '';
+        $value_fnma = '';
+        $value_fnex = '';
         if (isset($_POST['f_' . $i])){
             $value = $_POST['f_' . $i];
             if ($value != '' && $value != 999) {
@@ -133,9 +136,6 @@ if ($s_cat != 0){
                         break;
                         
                     case 'number':
-                        $value_fnmi = '';
-                        $value_fnma = '';
-                        $value_fnex = '';
                         if (isset($_POST['fnex_' . $i])){
                             $value_fnex = $_POST['fnex_' . $i];
                             if ($value_fnex != '') {
