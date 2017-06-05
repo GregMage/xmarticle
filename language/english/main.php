@@ -135,7 +135,6 @@ define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');
 define('_MA_XMARTICLE_FIELD_SUREDEL', 'Sure to delete this field? %s');
-
 define('_MA_XMARTICLE_FIELD_SORT', 'Sort');
 define('_MA_XMARTICLE_FIELD_SORTDEF', 'Sort according to record');
 define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');
@@ -148,4 +147,5 @@ define('_MA_XMARTICLE_HOME', 'Home page');
 define('_MA_XMARTICLE_MOREDETAILS', 'More details');
 define('_MA_XMARTICLE_LISTARTICLE', 'List of articles');
 define('_MA_XMARTICLE_SEARCHFORM', 'Search form');
+define('_MA_XMARTICLE_SEARCH', 'Search');
 

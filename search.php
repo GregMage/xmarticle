@@ -256,9 +256,6 @@ if ($s_cat != 0){
                 $number->addElement($max);
                 $form->addElement($number, $required);
                 $form->addElement(new XoopsFormHidden($name, true));
-            
-            
-                //$form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
                 break;
         }
         unset($value);
@@ -268,7 +265,6 @@ if ($s_cat != 0){
 $button = new XoopsFormElementTray('');
 $button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
 $button->addElement(new XoopsFormButton('', 'reset', _RESET, 'submit'));
-//$form->addElement(new XoopsFormButtonTray('', _SEARCH, 'submit', 'search.php', true));
 $form->addElement($button);
 
 $xoopsTpl->assign('form', $form->render());
@@ -328,7 +324,5 @@ if ($search != ''){
 
 //SEO
 // pagetitle
-//$xoopsTpl->assign('xoops_pagetitle', $xoopsModule->name());
-//keywords  
-//$xoTheme->addMeta('meta', 'keywords', $keywords);
+$xoopsTpl->assign('xoops_pagetitle', \Xmf\Metagen::generateSeoTitle(_MA_XMARTICLE_SEARCH . '-' . $xoopsModule->name()));
 include XOOPS_ROOT_PATH.'/footer.php';
