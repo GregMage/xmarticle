@@ -286,8 +286,8 @@ if ($search != ''){
     }
 	$criteria->setSort('article_name');
 	$criteria->setOrder('ASC');
-	$criteria->setStart($start);
-	$criteria->setLimit($nb_limit);
+	//$criteria->setStart($start);
+	//$criteria->setLimit($nb_limit);
 	if ($s_cat != 0){
 		$criteria->add(new Criteria('article_cid', $s_cat));
 	}
@@ -313,10 +313,10 @@ if ($search != ''){
 			unset($article);
 		}
 		// Display Page Navigation
-		if ($article_count > $nb_limit) {
+		/*if ($article_count > $nb_limit) {
 			$nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
 			$xoopsTpl->assign('nav_menu', $nav->renderNav(4));
-		}
+		}*/
 	} else {
         $xoopsTpl->assign('no_article', true);
     }
