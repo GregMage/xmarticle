@@ -105,6 +105,22 @@ if ($s_cat != 0){
                         break;
 
                     case 'select':
+                        $criteria->add(new Criteria('fielddata_fid', $i));
+						if ($value != '') {
+							$value_bdd = '';
+							foreach (array_keys($value) as $k) {
+								if ($value_bdd == ''){
+									$seperator = '';
+								} else {
+									$seperator = ', ';
+								}
+								$value_bdd .= $seperator . '"' . $value[$k] . '"';
+							}
+							$value_bdd = '(' . $value_bdd . ')';
+						}
+                        $criteria->add(new Criteria('fielddata_value1', $value_bdd, 'IN'));
+                        break;
+
                     case 'radio_yn':
                     case 'radio':
                         $criteria->add(new Criteria('fielddata_fid', $i));
@@ -212,11 +228,6 @@ if ($s_cat != 0){
                 $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
                 break;
             case 'select':
-                $select_field = new XoopsFormSelect($caption, $name, $value);
-                $select_field ->addOption('', '');
-                $select_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
-                $form->addElement($select_field, $required);
-                break;
             case 'select_multi':
                 $select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
                 $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
