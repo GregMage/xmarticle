@@ -134,8 +134,8 @@ $modversion['config'][] = array(
 );
 
 // About stuff
-$modversion['module_status'] = 'Alpha 1';
-$modversion['release_date']  = '2017/03/04';
+$modversion['module_status'] = 'RC 1';
+$modversion['release_date']  = '2017/06/05';
 
 $modversion['developer_lead']      = 'Mage';
 $modversion['module_website_url']  = 'github.com/GregMage';
