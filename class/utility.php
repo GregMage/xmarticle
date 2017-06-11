@@ -63,7 +63,7 @@ class XmarticleUtility
         $helper = Xmf\Module\Helper::getHelper('xmarticle');
         $moduleHandler = $helper->getModule();
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = xoops_gethandler('groupperm');
+        $gpermHandler = xoops_getHandler('groupperm');
         $categories = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));
 
         return $categories;
