@@ -19,11 +19,11 @@
 
 use Xmf\Module\Admin;
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('about.php');
 Admin::setPaypal('9MYQB7GUK5MCS');
 $moduleAdmin->displayAbout(false);
 
-require dirname(__FILE__) . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';
