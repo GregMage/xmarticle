@@ -184,7 +184,7 @@ class xmarticle_category extends XoopsObject
         $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_CATEGORY_DESC, 'category_description', $editor_configs), false);
         // logo
-        $blank_img = $this->getVar('category_logo') ? $this->getVar('category_logo') : 'blank.gif';
+        $blank_img = $this->getVar('category_logo') ?: 'blank.gif';
         $uploadirectory='/uploads/xmarticle/images/category';
         $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE  . '<br /><br />' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size/1000), '<br />');
         $imgpath_img     = sprintf(_MA_XMARTICLE_CATEGORY_FORMPATH, $uploadirectory);
