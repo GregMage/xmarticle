@@ -61,7 +61,7 @@ class xmarticlexmarticle_fielddataHandler extends XoopsPersistableObjectHandler
      * xmarticlexmarticle_fielddataHandler constructor.
      * @param null|XoopsDatabase $db
      */
-    public function __construct(&$db)
+    public function __construct($db)
     {
         parent::__construct($db, 'xmarticle_fielddata', 'xmarticle_fielddata', 'fielddata_id', 'fielddata_fid');
     }

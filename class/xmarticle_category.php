@@ -271,7 +271,7 @@ class xmarticlexmarticle_categoryHandler extends XoopsPersistableObjectHandler
      * xmarticlexmarticle_categoryHandler constructor.
      * @param null|XoopsDatabase $db
      */
-    public function __construct(&$db)
+    public function __construct($db)
     {
         parent::__construct($db, 'xmarticle_category', 'xmarticle_category', 'category_id', 'category_name');
     }
