@@ -18,11 +18,11 @@
  */
 use Xmf\Module\Admin; 
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
 $moduleAdmin->displayIndex();
 
-require dirname(__FILE__) . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';

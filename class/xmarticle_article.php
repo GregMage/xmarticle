@@ -146,7 +146,7 @@ class xmarticle_article extends XoopsObject
         $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_ARTICLE_DESC, 'article_description', $editor_configs), false);
         // logo
-        $blank_img = $this->getVar('article_logo') ? $this->getVar('article_logo') : 'blank.gif';
+        $blank_img = $this->getVar('article_logo') ?: 'blank.gif';
         $uploadirectory='/uploads/xmarticle/images/article';
         $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE  . '<br /><br />' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size/1000), '<br />');
         $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
@@ -407,7 +407,7 @@ class xmarticlexmarticle_articleHandler extends XoopsPersistableObjectHandler
      * xmarticlexmarticle_articleHandler constructor.
      * @param null|XoopsDatabase $db
      */
-    public function __construct(&$db)
+    public function __construct($db)
     {
         parent::__construct($db, 'xmarticle_article', 'xmarticle_article', 'article_id', 'article_name');
     }

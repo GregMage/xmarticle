@@ -100,10 +100,10 @@ class xmarticle_field extends XoopsObject
             }
         } else {
             $field_name = $field_arr[$field_type];
-            $weight = $this->getVar('field_weight') ? $this->getVar('field_weight') : 0;
-            $search = $this->getVar('field_search') ? $this->getVar('field_search') : 1;
-            $required = $this->getVar('field_required') ? $this->getVar('field_required') : 1;
-            $status = $this->getVar('field_status') ? $this->getVar('field_status') : 1;
+            $weight = $this->getVar('field_weight') ?: 0;
+            $search = $this->getVar('field_search') ?: 1;
+            $required = $this->getVar('field_required') ?: 1;
+            $status = $this->getVar('field_status') ?: 1;
             $default = array();
         }
         // type
@@ -401,7 +401,7 @@ class xmarticlexmarticle_fieldHandler extends XoopsPersistableObjectHandler
      * xmarticlexmarticle_fieldHandler constructor.
      * @param null|XoopsDatabase $db
      */
-    public function __construct(&$db)
+    public function __construct($db)
     {
         parent::__construct($db, 'xmarticle_field', 'xmarticle_field', 'field_id', 'field_name');
     }
