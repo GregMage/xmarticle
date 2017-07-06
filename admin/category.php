@@ -131,10 +131,16 @@ switch ($op) {
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
                     if ($obj->getVar('category_logo') != 'blank.gif') {
-                        $urlfile = $path_logo_category . $obj->getVar('category_logo');
-                        if (is_file($urlfile)) {
-                            chmod($urlfile, 0777);
-                            unlink($urlfile);
+                        // Test if the image is used
+                        $criteria = new CriteriaCompo();
+                        $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
+                        $category_count = $categoryHandler->getCount($criteria);
+                        if ($category_count == 0){
+                            $urlfile = $path_logo_category . $obj->getVar('category_logo');
+                            if (is_file($urlfile)) {
+                                chmod($urlfile, 0777);
+                                unlink($urlfile);
+                            }
                         }
                     }
                     // Del permissions
