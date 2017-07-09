@@ -34,7 +34,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
             // permission to submitt
             $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $obj  = $articleHandler->create();
-            $form = $obj->getFormCategory('index.php');
+            $form = $obj->getFormCategory('action.php');
             $xoopsTpl->assign('form', $form->render());
             break;
 
