@@ -66,6 +66,7 @@ class xmarticle_article extends XoopsObject
         // type        
         $field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
         $criteria = new CriteriaCompo();
+		$criteria->add(new Criteria('category_status', 1));
         $criteria->setSort('category_weight ASC, category_name');
         $criteria->setOrder('ASC');
         if (!empty($submitPermissionCat)){
