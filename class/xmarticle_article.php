@@ -165,6 +165,12 @@ class xmarticle_article extends XoopsObject
         $fileseltray_img->addElement(new XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
+        
+        //xmdoc
+        if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+            xoops_load('utility', 'xmdoc');
+            XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('category_id'));
+        }
 		
 		// field		
 		$criteria = new CriteriaCompo();
