@@ -116,6 +116,15 @@ $modversion['config'][] = array(
 );
 
 $modversion['config'][] = array(
+    'name'        => 'general_xmdoc',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALXMDOC',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+);
+
+$modversion['config'][] = array(
     'name'        => 'break',
     'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
     'description' => '',

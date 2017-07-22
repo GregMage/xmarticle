@@ -36,6 +36,7 @@ define('_MI_XMARTICLE_SUB_SEARCH', 'Search');
 define('_MI_XMARTICLE_PREF_HEAD_GENERAL', "<span style='font-weight: bold;'>General</span>");
 define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the general view');
 define('_MI_XMARTICLE_PREF_GENERALSEPARATOR', 'Separation characters for multiple data display');
+define('_MI_XMARTICLE_PREF_GENERALXMDOC', 'Use xmdoc module to add document');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', "<span style='font-weight: bold;'>Administration</span>");
 define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');
