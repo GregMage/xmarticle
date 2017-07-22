@@ -23,6 +23,12 @@ require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
+$folder[] = $path_logo_category;
+$folder[] = $path_logo_article;
+foreach (array_keys( $folder) as $i) {
+    $moduleAdmin->addConfigBoxLine($folder[$i], 'folder');
+    $moduleAdmin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+}
 $moduleAdmin->displayIndex();
 
 require __DIR__ . '/admin_footer.php';
