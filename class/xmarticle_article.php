@@ -380,6 +380,11 @@ class xmarticle_article extends XoopsObject
 				foreach (array_keys($field_arr) as $i) {
 					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 				}
+                //xmdoc
+                if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+                    xoops_load('utility', 'xmdoc');
+                    $error_message .= XmdocUtility::saveDocuments('xmarticle', $fielddata_aid);
+                }
 				if ($error_message == ''){
                     if ($action == 'viewarticle.php'){
                         redirect_header('viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
