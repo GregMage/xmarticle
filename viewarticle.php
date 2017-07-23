@@ -101,6 +101,11 @@ if ($field_count >0 ){
 		$count++;
 	}
 }
+//xmdoc
+if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+    xoops_load('utility', 'xmdoc');
+    XmdocUtility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
+}
 //SEO
 // pagetitle
 $xoopsTpl->assign('xoops_pagetitle', \Xmf\Metagen::generateSeoTitle($article->getVar('article_name') . '-' . $xoopsModule->name()));

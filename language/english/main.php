@@ -105,6 +105,7 @@ define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
 define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 define('_MA_XMARTICLE_WAITING', 'There are <strong>%s</strong> articles waiting for validation!');
+define('_MA_XMARTICLE_XMDOC', 'Documents');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');

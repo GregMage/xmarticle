@@ -38,6 +38,14 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
+            <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_XMDOC}></h3>
+        </div>
+        <div class="panel-body">
+            <{include file="db:xmdoc_viewdoc.tpl"}>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_GENINFORMATION}></h3>
         </div>
         <div class="panel-body">
