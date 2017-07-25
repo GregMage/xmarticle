@@ -36,6 +36,7 @@
 			<{/foreach}>
         </div>
     </div>
+    <{if $xmdoc_viewdocs == true}>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_XMDOC}></h3>
@@ -44,6 +45,7 @@
             <{include file="db:xmdoc_viewdoc.tpl"}>
         </div>
     </div>
+    <{/if}>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_GENINFORMATION}></h3>
