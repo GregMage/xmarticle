@@ -102,7 +102,7 @@ if ($field_count >0 ){
 	}
 }
 //xmdoc
-if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
     xoops_load('utility', 'xmdoc');
     XmdocUtility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
 } else {

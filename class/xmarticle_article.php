@@ -167,7 +167,7 @@ class xmarticle_article extends XoopsObject
         $form->addElement($imgtray_img);
         
         //xmdoc
-        if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+        if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
             xoops_load('utility', 'xmdoc');
             XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('category_id'));
         }
@@ -381,7 +381,7 @@ class xmarticle_article extends XoopsObject
 					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 				}
                 //xmdoc
-                if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+                if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
                     xoops_load('utility', 'xmdoc');
                     $error_message .= XmdocUtility::saveDocuments('xmarticle', $fielddata_aid);
                 }
