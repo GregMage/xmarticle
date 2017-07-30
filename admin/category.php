@@ -51,7 +51,7 @@ switch ($op) {
                 $category['id']              = $category_id;
                 $category['name']            = $category_arr[$i]->getVar('category_name');
                 $category['reference']       = $category_arr[$i]->getVar('category_reference');
-                $category['description']     = \Xmf\Metagen::generateDescription($category_arr[$i]->getVar('category_description', 'show'), 30) . ' ...';
+                $category['description']     = \Xmf\Metagen::generateDescription($category_arr[$i]->getVar('category_description', 'show'), 30);
                 $category['weight']          = $category_arr[$i]->getVar('category_weight');
                 $category['status']          = $category_arr[$i]->getVar('category_status');
                 $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
