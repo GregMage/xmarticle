@@ -99,7 +99,7 @@ switch ($op) {
 				$article['cid']             = $article_arr[$i]->getVar('article_cid');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
-                $article['description']     = $article_arr[$i]->getVar('article_description', 'show');
+                $article['description']     = \Xmf\Metagen::generateDescription($article_arr[$i]->getVar('article_description', 'show'), 30) . ' ...';
                 $article['status']          = $article_arr[$i]->getVar('article_status');
                 $article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
                 $article['logo']            = '<img src="' . $url_logo_article .  $article_img . '" alt="' . $article_img . '" />';

@@ -305,6 +305,7 @@ class xmarticle_article extends XoopsObject
      */
     public function saveArticle($articleHandler, $action = false)
     {
+        global $xoopsUser;
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
