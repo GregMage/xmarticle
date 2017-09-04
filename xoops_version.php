@@ -125,6 +125,15 @@ $modversion['config'][] = array(
 );
 
 $modversion['config'][] = array(
+    'name'        => 'general_captcha',
+    'title'       => '_MI_XMARTICLE_PREF_CAPTCHA',
+    'description' => '_MI_XMARTICLE_PREF_CAPTCHA_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+);
+
+$modversion['config'][] = array(
     'name'        => 'break',
     'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
     'description' => '',
