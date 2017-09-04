@@ -292,7 +292,11 @@ class xmarticle_article extends XoopsObject
             $form_status->addOptionArray($options);
             $form->addElement($form_status);
         }
-
+		//captcha		
+		if ($helper->getConfig('general_captcha', 0) == 1) {
+			$form->addElement(new XoopsFormCaptcha(), true);
+		}
+		
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
@@ -362,7 +366,15 @@ class xmarticle_article extends XoopsObject
             $this->setVar('article_status', 2);
         } else {
             $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
-        }      
+        }
+		// Captcha
+        if ($xoopsModuleConfig['general_captcha'] == 1) {
+            xoops_load('xoopscaptcha');
+            $xoopsCaptcha = XoopsCaptcha::getInstance();
+            if (! $xoopsCaptcha->verify() ) {
+                $error_message .= $xoopsCaptcha->getMessage();
+            }
+        }
         if ($error_message == '') {
             if ($articleHandler->insert($this)) {
 				// fields and fielddata
