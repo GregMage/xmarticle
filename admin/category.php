@@ -33,7 +33,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_ADD, 'category.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
@@ -42,19 +42,19 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($nb_limit);
-        $category_arr   = $categoryHandler->getall($criteria);
+        $category_arr = $categoryHandler->getall($criteria);
         $category_count = $categoryHandler->getCount($criteria);
         $xoopsTpl->assign('category_count', $category_count);
         if ($category_count > 0) {
             foreach (array_keys($category_arr) as $i) {
-                $category_id             = $category_arr[$i]->getVar('category_id');
-                $category['id']          = $category_id;
-                $category['name']        = $category_arr[$i]->getVar('category_name');
-                $category['reference']   = $category_arr[$i]->getVar('category_reference');
-                $category['description'] = $category_arr[$i]->getVar('category_description', 'show');
-                $category['weight']      = $category_arr[$i]->getVar('category_weight');
-                $category['status']      = $category_arr[$i]->getVar('category_status');
-                $category_img            = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
+                $category_id                 = $category_arr[$i]->getVar('category_id');
+                $category['id']              = $category_id;
+                $category['name']            = $category_arr[$i]->getVar('category_name');
+                $category['reference']       = $category_arr[$i]->getVar('category_reference');
+                $category['description']     = \Xmf\Metagen::generateDescription($category_arr[$i]->getVar('category_description', 'show'), 30);
+                $category['weight']          = $category_arr[$i]->getVar('category_weight');
+                $category['status']          = $category_arr[$i]->getVar('category_status');
+                $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
                 $category['logo']        = '<img src="' . $url_logo_category . $category_img . '" alt="' . $category_img . '">';
                 $xoopsTpl->append_by_ref('category', $category);
                 unset($category);
@@ -68,31 +68,31 @@ switch ($op) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         }
         break;
-
+    
     // Add
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Form
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
         $xoopsTpl->assign('form', $form->render());
         break;
-
+        
     // Edit
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
         // Form
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         } else {
-            $obj  = $categoryHandler->get($category_id);
+            $obj = $categoryHandler->get($category_id);
             $form = $obj->getForm();
-            $xoopsTpl->assign('form', $form->render());
+            $xoopsTpl->assign('form', $form->render()); 
         }
 
         break;
@@ -103,27 +103,27 @@ switch ($op) {
         }
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
-            $obj = $categoryHandler->create();
+            $obj = $categoryHandler->create();            
         } else {
             $obj = $categoryHandler->get($category_id);
         }
         $error_message = $obj->saveCategory($categoryHandler, 'category.php');
-        if ($error_message != '') {
+        if ($error_message != ''){
             $xoopsTpl->assign('error_message', $error_message);
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
         }
-
+        
         break;
-
+        
     // del
-    case 'del':
+    case 'del':    
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         } else {
             $surdel = Request::getBool('surdel', false);
-            $obj    = $categoryHandler->get($category_id);
+            $obj  = $categoryHandler->get($category_id);
             if ($surdel === true) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header('category.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -131,10 +131,16 @@ switch ($op) {
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
                     if ($obj->getVar('category_logo') != 'blank.gif') {
+                        // Test if the image is used
+                        $criteria = new CriteriaCompo();
+                        $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
+                        $category_count = $categoryHandler->getCount($criteria);
+                        if ($category_count == 0){
                         $urlfile = $path_logo_category . $obj->getVar('category_logo');
                         if (is_file($urlfile)) {
                             chmod($urlfile, 0777);
                             unlink($urlfile);
+                            }
                         }
                     }
                     // Del permissions
@@ -145,16 +151,16 @@ switch ($op) {
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('article_cid', $category_id));
                     $article_arr = $articleHandler->getall($criteria);
-                    if (count($article_arr) > 0) {
+                    if (count($article_arr) > 0){
                         foreach (array_keys($article_arr) as $i) {
                             // Del fielddata
-                            XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));
+                             XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));                            
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
                         }
                     }
-
+                    
                     redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
@@ -165,9 +171,9 @@ switch ($op) {
                                     <img src="' . $url_logo_category . $category_img . '" title="' . $obj->getVar('category_name') . '"><br>' . XmarticleUtility::articleNamePerCat($category_id));
             }
         }
-
+        
         break;
-
+        
     // Update status
     case 'category_update_status':
         $category_id = Request::getInt('category_id', 0);

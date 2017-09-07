@@ -25,7 +25,11 @@ define('_MA_XMARTICLE_CATEGORY_LIST', 'Category list');
 define('_MA_XMARTICLE_FIELD_ADD', 'Add field');
 define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
-
+ 
+// Admin
+define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR', 'You must install the xmdoc module to add documents');
+ 
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
@@ -101,6 +105,7 @@ define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
 define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 define('_MA_XMARTICLE_WAITING', 'There are <strong>%s</strong> articles waiting for validation!');
+define('_MA_XMARTICLE_XMDOC', 'Documents');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');

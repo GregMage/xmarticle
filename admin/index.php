@@ -24,6 +24,20 @@ require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
+// xmdoc
+if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc')) {
+    $moduleAdmin->addConfigModuleVersion('xmdoc', 10);
+} elseif ($helper->getConfig('general_xmdoc', 0) == 0) {
+    $moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING);
+} else {
+    $moduleAdmin->addConfigError(_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR);
+}
+$folder[] = $path_logo_category;
+$folder[] = $path_logo_article;
+foreach (array_keys( $folder) as $i) {
+    $moduleAdmin->addConfigBoxLine($folder[$i], 'folder');
+    $moduleAdmin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+}
 $moduleAdmin->displayIndex();
 
 require __DIR__ . '/admin_footer.php';

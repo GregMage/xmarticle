@@ -48,7 +48,7 @@ $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 
 // Install and update
-$modversion['onInstall'] = 'include/install.php';
+$modversion['onInstall']        = 'include/install.php';
 //$modversion['onUpdate']         = 'include/update.php';
 
 // Tables
@@ -104,7 +104,7 @@ $modversion['config'][] = [
 ];
 
 xoops_load('xoopseditorhandler');
-$editorHandler          = XoopsEditorHandler::getInstance();
+$editorHandler = XoopsEditorHandler::getInstance();
 $modversion['config'][] = [
     'name'        => 'admin_editor',
     'title'       => '_MI_XMARTICLE_PREF_EDITOR',
@@ -113,6 +113,24 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => 'dhtmltextarea',
     'options'     => array_flip($editorHandler->getList())
+];
+
+$modversion['config'][] = [
+    'name'        => 'general_xmdoc',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALXMDOC',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+];
+
+$modversion['config'][] = [
+    'name'        => 'general_captcha',
+    'title'       => '_MI_XMARTICLE_PREF_CAPTCHA',
+    'description' => '_MI_XMARTICLE_PREF_CAPTCHA_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
 ];
 
 $modversion['config'][] = [

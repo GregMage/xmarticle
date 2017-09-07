@@ -17,11 +17,11 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
-use Xmf\Module\Admin;
+use Xmf\Module\Admin; 
 use Xmf\Request;
 
 require __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('permission.php');
 
@@ -30,12 +30,13 @@ $permission = Request::getInt('permission', 1);
 $tab_perm   = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
 
 // Category
-$criteria     = new CriteriaCompo();
+$criteria = new CriteriaCompo();
 $category_arr = $categoryHandler->getall($criteria);
 if (count($category_arr) > 0) {
     $tab_perm = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
 } else {
-    $tab_perm = [1 => _MA_XMARTICLE_PERMISSION_VIEW];
+    $tab_perm = [3 => _MA_XMARTICLE_PERMISSION_VIEW];
+    $permission = 3;
 }
 $permission_options = '';
 foreach (array_keys($tab_perm) as $i) {
@@ -45,8 +46,8 @@ $xoopsTpl->assign('permission_options', $permission_options);
 
 switch ($permission) {
     case 1:    // View permission
-        $formTitle             = _MA_XMARTICLE_PERMISSION_VIEW;
-        $permissionName        = 'xmarticle_view';
+        $formTitle = _MA_XMARTICLE_PERMISSION_VIEW;
+        $permissionName = 'xmarticle_view';
         $permissionDescription = _MA_XMARTICLE_PERMISSION_VIEW_DSC;
         foreach (array_keys($category_arr) as $i) {
             $global_perms_array[$i] = $category_arr[$i]->getVar('category_name');
@@ -54,8 +55,8 @@ switch ($permission) {
         break;
 
     case 2:    // Submit permission
-        $formTitle             = _MA_XMARTICLE_PERMISSION_SUBMIT;
-        $permissionName        = 'xmarticle_submit';
+        $formTitle = _MA_XMARTICLE_PERMISSION_SUBMIT;
+        $permissionName = 'xmarticle_submit';
         $permissionDescription = _MA_XMARTICLE_PERMISSION_SUBMIT_DSC;
         foreach (array_keys($category_arr) as $i) {
             $global_perms_array[$i] = $category_arr[$i]->getVar('category_name');
@@ -63,21 +64,21 @@ switch ($permission) {
         break;
 
     case 3:    // Other permission
-        $formTitle             = _MA_XMARTICLE_PERMISSION_OTHER;
-        $permissionName        = 'xmarticle_other';
+        $formTitle = _MA_XMARTICLE_PERMISSION_OTHER;
+        $permissionName = 'xmarticle_other';
         $permissionDescription = _MA_XMARTICLE_PERMISSION_OTHER_DSC;
         $global_perms_array    = [
-            '4'  => _MA_XMARTICLE_PERMISSION_OTHER_4,
-            '8'  => _MA_XMARTICLE_PERMISSION_OTHER_8,
+            '4' => _MA_XMARTICLE_PERMISSION_OTHER_4 ,
+            '8' => _MA_XMARTICLE_PERMISSION_OTHER_8,
             '16' => _MA_XMARTICLE_PERMISSION_OTHER_16,
-            '32' => _MA_XMARTICLE_PERMISSION_OTHER_32
+			'32' => _MA_XMARTICLE_PERMISSION_OTHER_32
         ];
         break;
 }
 
 $permissionsForm = new XoopsGroupPermForm($formTitle, $helper->getModule()->getVar('mid'), $permissionName, $permissionDescription, 'admin/permission.php?permission=' . $permission);
 foreach ($global_perms_array as $perm_id => $permissionName) {
-    $permissionsForm->addItem($perm_id, $permissionName);
+    $permissionsForm->addItem($perm_id , $permissionName) ;
 }
 $xoopsTpl->assign('form', $permissionsForm->render());
 
