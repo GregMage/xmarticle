@@ -12,13 +12,13 @@
 /**
  * xmarticle module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+
 use Xmf\Module\Admin;
 use Xmf\Request;
-
 
 require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
@@ -55,7 +55,7 @@ switch ($op) {
                 $category['weight']          = $category_arr[$i]->getVar('category_weight');
                 $category['status']          = $category_arr[$i]->getVar('category_status');
                 $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
-                $category['logo']            = '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" />';
+                $category['logo']        = '<img src="' . $url_logo_category . $category_img . '" alt="' . $category_img . '">';
                 $xoopsTpl->append_by_ref('category', $category);
                 unset($category);
             }
@@ -99,7 +99,7 @@ switch ($op) {
     // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('category.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('category.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
@@ -126,7 +126,7 @@ switch ($op) {
             $obj  = $categoryHandler->get($category_id);
             if ($surdel === true) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
-                    redirect_header('category.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+                    redirect_header('category.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
@@ -136,10 +136,10 @@ switch ($op) {
                         $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));
                         $category_count = $categoryHandler->getCount($criteria);
                         if ($category_count == 0){
-                            $urlfile = $path_logo_category . $obj->getVar('category_logo');
-                            if (is_file($urlfile)) {
-                                chmod($urlfile, 0777);
-                                unlink($urlfile);
+                        $urlfile = $path_logo_category . $obj->getVar('category_logo');
+                        if (is_file($urlfile)) {
+                            chmod($urlfile, 0777);
+                            unlink($urlfile);
                             }
                         }
                     }
@@ -167,10 +167,8 @@ switch ($op) {
                 }
             } else {
                 $category_img = $obj->getVar('category_logo') ?: 'blank.gif';
-                xoops_confirm(array('surdel' => true, 'category_id' => $category_id, 'op' => 'del'), $_SERVER['REQUEST_URI'], 
-                                    sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br>
-                                    <img src="' . $url_logo_category . $category_img . '" title="' . 
-                                    $obj->getVar('category_name') . '" /><br>' . XmarticleUtility::articleNamePerCat($category_id));
+                xoops_confirm(['surdel' => true, 'category_id' => $category_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], sprintf(_MA_XMARTICLE_CATEGORY_SUREDEL, $obj->getVar('category_name')) . '<br>
+                                    <img src="' . $url_logo_category . $category_img . '" title="' . $obj->getVar('category_name') . '"><br>' . XmarticleUtility::articleNamePerCat($category_id));
             }
         }
         

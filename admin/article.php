@@ -12,13 +12,13 @@
 /**
  * xmarticle module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+
 use Xmf\Module\Admin;
 use Xmf\Request;
-
 
 require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
@@ -57,7 +57,7 @@ switch ($op) {
         // Status
         $article_status = Request::getInt('article_status', 10);
         $xoopsTpl->assign('article_status', $article_status);
-        $status_options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA, 2 =>_MA_XMARTICLE_WFV);
+        $status_options         = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
 		$article_status_options = '<option value="10"' . ($article_status == 0 ? ' selected="selected"' : '') . '>' . _ALL .'</option>';
         foreach (array_keys($status_options) as $i) {
             $article_status_options .= '<option value="' . $i . '"' . ($article_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
@@ -102,7 +102,7 @@ switch ($op) {
                 $article['description']     = \Xmf\Metagen::generateDescription($article_arr[$i]->getVar('article_description', 'show'), 30);
                 $article['status']          = $article_arr[$i]->getVar('article_status');
                 $article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
-                $article['logo']            = '<img src="' . $url_logo_article .  $article_img . '" alt="' . $article_img . '" />';
+                $article['logo']          = '<img src="' . $url_logo_article . $article_img . '" alt="' . $article_img . '">';
                 $xoopsTpl->append_by_ref('article', $article);
                 unset($article);
             }
@@ -174,7 +174,7 @@ switch ($op) {
     // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('article.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('article.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $article_id = Request::getInt('article_id', 0);
         if ($article_id == 0) {
@@ -201,7 +201,7 @@ switch ($op) {
             $obj  = $articleHandler->get($article_id);
             if ($surdel === true) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
-                    redirect_header('article.php', 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+                    redirect_header('article.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
                 if ($articleHandler->delete($obj)) {
                     //Del logo
@@ -220,10 +220,10 @@ switch ($op) {
                 }
             } else {
                 $article_img = $obj->getVar('article_logo') ?: 'blank.gif';
-                xoops_confirm(array('surdel' => true, 'article_id' => $article_id, 'op' => 'del'), $_SERVER['REQUEST_URI'], 
-                                    sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br \>
+                xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], 
+                                    sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>
                                     <img src="' . $url_logo_article . $article_img . '" title="' . 
-                                    $obj->getVar('article_name') . '" /><br \>');
+                                    $obj->getVar('article_name') . '"><br>');
             }
         }
         

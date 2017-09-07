@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -12,14 +12,12 @@
 /**
  * xmarticle module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class xmarticle_fielddata
@@ -33,11 +31,11 @@ class xmarticle_fielddata extends XoopsObject
     public function __construct()
     {
         $this->initVar('fielddata_id', XOBJ_DTYPE_INT, null);
-		$this->initVar('fielddata_fid', XOBJ_DTYPE_INT, null);
-		$this->initVar('fielddata_aid', XOBJ_DTYPE_INT, null);
+        $this->initVar('fielddata_fid', XOBJ_DTYPE_INT, null);
+        $this->initVar('fielddata_aid', XOBJ_DTYPE_INT, null);
         $this->initVar('fielddata_value1', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('fielddata_value2', XOBJ_DTYPE_TXTAREA);
-		$this->initVar('fielddata_value3', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('fielddata_value3', XOBJ_DTYPE_TXTBOX);
         $this->initVar('fielddata_value4', XOBJ_DTYPE_OTHER, null, false);
     }
 
@@ -48,6 +46,7 @@ class xmarticle_fielddata extends XoopsObject
     {
         global $xoopsDB;
         $new_enreg = $xoopsDB->getInsertId();
+
         return $new_enreg;
     }
 }

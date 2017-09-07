@@ -12,7 +12,7 @@
 /**
  * xmarticle module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
@@ -25,7 +25,7 @@ define('_MA_XMARTICLE_CATEGORY_LIST', 'Category list');
 define('_MA_XMARTICLE_FIELD_ADD', 'Add field');
 define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
-
+ 
 // Admin
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR', 'You must install the xmdoc module to add documents');

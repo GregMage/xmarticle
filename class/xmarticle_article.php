@@ -12,14 +12,12 @@
 /**
  * xmarticle module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class xmarticle_article
@@ -45,8 +43,9 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_reference',XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, array());
+        $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
     }
+
     /**
      * @param bool $action
      * @return XoopsThemeForm
@@ -83,8 +82,10 @@ class xmarticle_article extends XoopsObject
         $form->addElement(new XoopsFormHidden('op', 'loadarticle'));        
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+
         return $form;
     } 
+
     /**
     * @param bool $action
     * @return XoopsThemeForm
@@ -137,7 +138,7 @@ class xmarticle_article extends XoopsObject
         $form->addElement($reference, true);
 
         // description
-        $editor_configs           =array();
+        $editor_configs           = [];
         $editor_configs['name']   = 'article_description';
         $editor_configs['value']  = $this->getVar('article_description', 'e');
         $editor_configs['rows']   = 20;
@@ -149,7 +150,7 @@ class xmarticle_article extends XoopsObject
         // logo
         $blank_img = $this->getVar('article_logo') ?: 'blank.gif';
         $uploadirectory='/uploads/xmarticle/images/article';
-        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE  . '<br /><br />' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size/1000), '<br />');
+        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size / 1000), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
         $imageselect_img = new XoopsFormSelect($imgpath_img, 'article_logo', $blank_img);
         $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
@@ -159,13 +160,13 @@ class xmarticle_article extends XoopsObject
         }
         $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"article_logo\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt='' />"));
-        $fileseltray_img = new XoopsFormElementTray('<br />', '<br /><br />');
+        $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
+        $fileseltray_img = new XoopsFormElementTray('<br>', '<br><br>');
         $fileseltray_img->addElement(new XoopsFormFile(_MA_XMARTICLE_ARTICLE_UPLOAD, 'article_logo', $upload_size), false);
         $fileseltray_img->addElement(new XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
-        
+		
         //xmdoc
         if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
             xoops_load('utility', 'xmdoc');
@@ -217,7 +218,7 @@ class xmarticle_article extends XoopsObject
                     $form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
                     break;
                 case 'text':
-                    $editor_configs           =array();
+                    $editor_configs           = [];
                     $editor_configs['name']   = $name;
                     $editor_configs['value']  = $value;
                     $editor_configs['rows']   = 2;
@@ -266,7 +267,7 @@ class xmarticle_article extends XoopsObject
 			if (!$this->isNew()) {
 				$selection_date = new XoopsFormElementTray(_MA_XMARTICLE_DATEUPDATE);
 				$date = new XoopsFormRadio('', 'date_update', 'N');
-				$options = array('N' =>_NO . ' (' . formatTimestamp($this->getVar('article_date'),'s') . ')', 'Y' => _YES);
+                $options        = ['N' => _NO . ' (' . formatTimestamp($this->getVar('article_date'), 's') . ')', 'Y' => _YES];
 				$date->addOptionArray($options);
 				$selection_date->addElement($date);
 				$selection_date->addElement(new XoopsFormTextDateSelect('', 'article_date', '', time()));
@@ -274,7 +275,7 @@ class xmarticle_article extends XoopsObject
 				if ($this->getVar('article_mdate') != 0){
 					$selection_mdate = new XoopsFormElementTray(_MA_XMARTICLE_MDATEUPDATE);
 					$mdate = new XoopsFormRadio('', 'mdate_update', 'N');
-					$options = array('N' =>_NO . ' (' . formatTimestamp($this->getVar('article_mdate'),'s') . ')', 'R' => _MA_XMARTICLE_RESETMDATE, 'Y' => _YES);
+                    $options         = ['N' => _NO . ' (' . formatTimestamp($this->getVar('article_mdate'), 's') . ')', 'R' => _MA_XMARTICLE_RESETMDATE, 'Y' => _YES];
 					$mdate->addOptionArray($options);
 					$selection_mdate->addElement($mdate);
 					$selection_mdate->addElement(new XoopsFormTextDateSelect('', 'article_mdate', '', time()));
@@ -288,7 +289,7 @@ class xmarticle_article extends XoopsObject
         if ($permission == true || $helper->isUserAdmin() == true){
             // status
             $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
-            $options = array(1 => _MA_XMARTICLE_STATUS_A, 0 =>_MA_XMARTICLE_STATUS_NA, 2 =>_MA_XMARTICLE_WFV);
+            $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
             $form_status->addOptionArray($options);
             $form->addElement($form_status);
         }
@@ -296,7 +297,7 @@ class xmarticle_article extends XoopsObject
 		if ($helper->getConfig('general_captcha', 0) == 1) {
 			$form->addElement(new XoopsFormCaptcha(), true);
 		}
-		
+
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
@@ -319,11 +320,11 @@ class xmarticle_article extends XoopsObject
         $uploadirectory = '/xmarticle/images/article';
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_article_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $upload_size, null, null);
+            $uploader_article_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
             if ($uploader_article_img->fetchMedia('article_logo')) {
                 $uploader_article_img->setPrefix('article_');
                 if (!$uploader_article_img->upload()) {
-                    $error_message .= $uploader_article_img->getErrors() . '<br />';
+                    $error_message .= $uploader_article_img->getErrors() . '<br>';
                 } else {
                     $this->setVar('article_logo', $uploader_article_img->getSavedFileName());
                 }
@@ -366,7 +367,7 @@ class xmarticle_article extends XoopsObject
             $this->setVar('article_status', 2);
         } else {
             $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
-        }
+        }      
 		// Captcha
         if ($xoopsModuleConfig['general_captcha'] == 1) {
             xoops_load('xoopscaptcha');
@@ -409,6 +410,7 @@ class xmarticle_article extends XoopsObject
                 $error_message =  $this->getHtmlErrors();
             }
         }
+
         return $error_message;
     }
 
@@ -419,6 +421,7 @@ class xmarticle_article extends XoopsObject
     {
         global $xoopsDB;
         $new_enreg = $xoopsDB->getInsertId();
+
         return $new_enreg;
     }
 }
