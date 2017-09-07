@@ -36,18 +36,18 @@
                 <td class="txtcenter"><{$category.weight}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$category.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
-                    alt="<{$smarty.const._AM_SYSTEM_LOADING}>"/><img class="cursorpointer tooltip" id="sml<{$category.id}>"
+                    alt="<{$smarty.const._AM_SYSTEM_LOADING}>"><img class="cursorpointer tooltip" id="sml<{$category.id}>"
                     onclick="system_setStatus( { op: 'category_update_status', category_id: <{$category.id}> }, 'sml<{$category.id}>', 'category.php' )"
                     src="<{if $category.status}><{xoAdminIcons success.png}><{else}><{xoAdminIcons cancel.png}><{/if}>"
                     alt="<{if $category.status}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{else}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"
-                    title="<{if $category.status}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{else}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"/>
+                    title="<{if $category.status}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{else}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>">
                 </td>
                 <td class="xo-actions txtcenter">
                     <a class="tooltip" href="category.php?op=edit&amp;category_id=<{$category.id}>" title="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>"/>
+                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>">
                     </a>
                     <a class="tooltip" href="category.php?op=del&amp;category_id=<{$category.id}>" title="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>"/>
+                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>">
                     </a>
                 </td>
             </tr>

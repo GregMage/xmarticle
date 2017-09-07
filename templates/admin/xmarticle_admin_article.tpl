@@ -14,7 +14,7 @@
     <div class="xm-warning-msg xo-actions">
         <{$warning_message}>
 		<a class="tooltip" href="article.php?article_status=2" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
-			<img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>"/>
+			<img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>">
 		</a>
     </div>
 <{/if}>
@@ -60,24 +60,24 @@
                 <td class="txtleft"><{$article.description}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$article.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
-                    alt="<{$smarty.const._AM_SYSTEM_LOADING}>"/><img class="cursorpointer tooltip" id="sml<{$article.id}>"
+                    alt="<{$smarty.const._AM_SYSTEM_LOADING}>"><img class="cursorpointer tooltip" id="sml<{$article.id}>"
                     onclick="system_setStatus( { op: 'article_update_status', article_id: <{$article.id}>, article_status: <{$article.status}> }, 'sml<{$article.id}>', 'article.php' )"
                     src="<{if $article.status == 1}><{xoAdminIcons success.png}><{/if}><{if $article.status == 0}><{xoAdminIcons cancel.png}><{/if}><{if $article.status == 2}><{xoAdminIcons messagebox_warning.png}><{/if}>"
                     alt="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"
-                    title="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>"/>
+                    title="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>">
                 </td>
                 <td class="xo-actions txtcenter">
 					<a class="tooltip" href="../viewarticle.php?category_id=<{$article.cid}>&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
-                        <img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>"/>
+                        <img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>">
                     </a>
 					<a class="tooltip" href="article.php?op=clone&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_CLONE}>">
-                        <img src="<{xoAdminIcons clone.png}>" alt="<{$smarty.const._MA_XMARTICLE_CLONE}>"/>
+                        <img src="<{xoAdminIcons clone.png}>" alt="<{$smarty.const._MA_XMARTICLE_CLONE}>">
                     </a>
                     <a class="tooltip" href="article.php?op=edit&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>"/>
+                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>">
                     </a>
                     <a class="tooltip" href="article.php?op=del&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>"/>
+                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>">
                     </a>
                 </td>
             </tr>
