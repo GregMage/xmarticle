@@ -315,6 +315,7 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include __DIR__ . '/../include/common.php';
+        $helper = \Xmf\Module\Helper::getHelper('xmarticle');
         $error_message = '';      
         //logo
         $uploadirectory = '/xmarticle/images/article';
@@ -369,7 +370,7 @@ class xmarticle_article extends XoopsObject
             $this->setVar('article_status', Xmf\Request::getInt('article_status', 1));
         }      
 		// Captcha
-        if ($xoopsModuleConfig['general_captcha'] == 1) {
+        if ($helper->getConfig('general_captcha', 0) == 1) {
             xoops_load('xoopscaptcha');
             $xoopsCaptcha = XoopsCaptcha::getInstance();
             if (! $xoopsCaptcha->verify() ) {
