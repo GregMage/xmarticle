@@ -55,6 +55,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // Edit
         case 'edit':
+			// permission to submitt
+            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             // Form
             $article_id = Request::getInt('article_id', 0);
             if ($article_id == 0) {
@@ -69,6 +71,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // Clone
         case 'clone':
+			// permission to submitt
+            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $article_id = Request::getInt('article_id', 0);
             if ($article_id == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
