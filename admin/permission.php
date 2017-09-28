@@ -35,7 +35,7 @@ $category_arr = $categoryHandler->getall($criteria);
 if (count($category_arr) > 0) {
     $tab_perm = [1 => _MA_XMARTICLE_PERMISSION_VIEW, 2 => _MA_XMARTICLE_PERMISSION_SUBMIT, 3 => _MA_XMARTICLE_PERMISSION_OTHER];
 } else {
-    $tab_perm = [3 => _MA_XMARTICLE_PERMISSION_VIEW];
+    $tab_perm = [3 => _MA_XMARTICLE_PERMISSION_OTHER];
     $permission = 3;
 }
 $permission_options = '';
