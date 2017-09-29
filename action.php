@@ -26,31 +26,70 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
 $op = Request::getCmd('op', '');
+// Get start pager
+$start = Request::getInt('start', 0);
 
 if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'loadarticle' || $op == 'save') {
     switch ($op) {
         // Add
-        case 'add':
-            // Form
+        case 'add':           
             // permission to submitt
-            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
-            $obj  = $articleHandler->create();
-            $form = $obj->getFormCategory('action.php');
-            $xoopsTpl->assign('form', $form->render());
+			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
+			// Get Permission to submit
+			$submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('category_status', 1));
+			$criteria->setSort('category_weight ASC, category_name');
+			$criteria->setStart($start);
+			$criteria->setLimit($nb_limit);
+			$criteria->setOrder('ASC');
+			if (!empty($submitPermissionCat)){
+				$criteria->add(new Criteria('category_id', '(' . implode(',', $submitPermissionCat) . ')','IN'));
+			}
+			$category_arr   = $categoryHandler->getall($criteria);
+			$category_count = $categoryHandler->getCount($criteria);
+			$xoopsTpl->assign('category_count', $category_count);
+			if ($category_count > 0 && !empty($submitPermissionCat)) {
+				foreach (array_keys($category_arr) as $i) {
+					$category_id              = $category_arr[$i]->getVar('category_id');
+					$category['id']           = $category_id;
+					$category['name']         = $category_arr[$i]->getVar('category_name');
+					$category['reference']    = $category_arr[$i]->getVar('category_reference');
+					$category['description']  = $category_arr[$i]->getVar('category_description', 'show');
+					$category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
+					$category['logo']         = $url_logo_category . $category_img;
+					$xoopsTpl->append_by_ref('categories', $category);
+					unset($category);
+				}
+				// Display Page Navigation
+				if ($category_count > $nb_limit) {
+					$nav = new XoopsPageNav($category_count, $nb_limit, $start, 'start');
+					$xoopsTpl->assign('nav_menu', $nav->renderNav(4));
+				}
+			} else {
+				$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
+			}
+            
+            
             break;
 
         // Loadtype
-        case 'loadarticle':
+        case 'loadarticle':            
             // permission to submitt
-            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
-            $article_cid = Request::getInt('article_cid', 0);
-            if ($article_cid == 0) {
-                $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
-            } else {
+			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
+			// Get Permission to submit in category
+			$submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
+			$category_id = Request::getInt('category_id', 0);
+			if (!in_array($category_id, $submitPermissionCat)) {
+				redirect_header('action.php?op=add', 2, _NOPERM);
+			}
+			if ($category_id == 0) {
+				$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
+			} else {
                 $obj  = $articleHandler->create();
-                $form = $obj->getForm($article_cid);
-                $xoopsTpl->assign('form', $form->render());
-            }
+                $form = $obj->getForm($category_id);
+                $xoopsTpl->assign('form', $form->render());;
+			}
             break;
 
         // Edit
