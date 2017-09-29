@@ -1,5 +1,8 @@
 <div class="xmarticle">
     <{if count($categories) gt 0}>
+    <ol class="breadcrumb">
+        <li class="active"><{$smarty.const._MA_XMARTICLE_HOME}></li>
+    </ol>
 
     <div class="xm-category row">
         <{foreach item=category from=$categories}>
