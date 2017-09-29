@@ -119,12 +119,12 @@ class xmarticle_article extends XoopsObject
                 $article_cid_fielddata = $old_article_cid;
 			} else {
 				$article_cid_fielddata = 0;
-                //echo 'ici';
 			}
         }
-        // category        
+        // category
         $category = $categoryHandler->get($article_cid);
-        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, $category->getVar('category_name')));
+        $category_img = $category->getVar('category_logo') ?: 'blank.gif';
+        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" /> <strong>' . $category->getVar('category_name') . '</strong>'));
         $form->addElement(new XoopsFormHidden('article_cid', $article_cid));
 
         // title
