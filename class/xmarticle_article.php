@@ -170,7 +170,7 @@ class xmarticle_article extends XoopsObject
         //xmdoc
         if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
             xoops_load('utility', 'xmdoc');
-            XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('category_id'));
+            XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('article_id'));
         }
 		
 		// field		
