@@ -296,4 +296,28 @@ class XmarticleUtility
 
         return $newobj;
     }
+	
+	public static function getArticleList($efl = false)
+    {
+        include __DIR__ . '/../include/common.php';
+		$articlelist = array();
+
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('article_status', 1));
+		$criteria->setSort('article_name');
+        $criteria->setOrder('ASC');
+		$articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
+        $articleHandler->field_link = "category_id";
+        $articleHandler->field_object = "article_cid";
+        $article_arr = $articleHandler->getByLink($criteria);
+		if ($efl == true){
+			$articlelist[0] = "-";
+		}
+		if (count($article_arr) > 0) {
+			foreach (array_keys($article_arr) as $i) {
+				$articlelist[$i] = $article_arr[$i]->getVar('article_name') . ' (' . $article_arr[$i]->getVar('category_reference') . $article_arr[$i]->getVar('article_reference') .')';
+			}
+		}
+        return $articlelist;
+    }
 }
