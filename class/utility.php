@@ -320,4 +320,22 @@ class XmarticleUtility
 		}
         return $articlelist;
     }
+	
+	public static function getArticleName($articleid, $uref = true, $ulink = true)
+    {
+        include __DIR__ . '/../include/common.php';
+		
+		$article = $articleHandler->get($articleid);
+		if ($uref == true){
+			$ref = ' (' . $article->getVar('article_reference') . ')';
+		} else {
+			$ref = '';
+		}
+		if ($ulink == true){
+			$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article->getVar('article_cid') . '&article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
+		} else {
+			$link = $article->getVar('article_name');
+		}		
+        return $link . $ref;
+    }
 }
