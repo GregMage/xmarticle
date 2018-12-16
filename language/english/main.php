@@ -154,3 +154,7 @@ define('_MA_XMARTICLE_MOREDETAILS', 'More details');
 define('_MA_XMARTICLE_SEARCH', 'Search');
 define('_MA_XMARTICLE_SEARCHFORM', 'Search form');
 define('_MA_XMARTICLE_SELECTCATEGORY', 'Select a category to add an item to');
+
+// formArticle
+define('_MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD', 'Add article');
+

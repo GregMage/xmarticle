@@ -338,4 +338,12 @@ class XmarticleUtility
 		}		
         return $link . $ref;
     }
+	
+	public static function renderArticleForm($form, $caption, $name, $itemid = 0)
+    {
+        xoops_load('formarticle', 'xmarticle');
+        $form->addElement(new XmarticleFormArticle($caption, $itemid), false);
+		$form->addElement(new XoopsFormHidden($name, $itemid));
+        return $form;
+    }
 }
