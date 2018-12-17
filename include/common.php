@@ -23,6 +23,9 @@ use Xmf\Module\Helper;
 $helper = Helper::getHelper(basename(dirname(__DIR__)));
 
 $url_logo_category  = XOOPS_UPLOAD_URL . '/xmarticle/images/category/';
+$path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
+$url_logo_article   = XOOPS_UPLOAD_URL . '/xmarticle/images/article/';
+$path_logo_article  = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
 
 // Get handler
 $categoryHandler  = $helper->getHandler('xmarticle_category');
