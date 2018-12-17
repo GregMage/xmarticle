@@ -424,7 +424,6 @@ class xmarticle_article extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
-		echo $action;
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         include __DIR__ . '/../include/common.php';
 		
@@ -441,7 +440,7 @@ class xmarticle_article extends XoopsObject
 		}
 		$category_arr = $categoryHandler->getall($criteria);
 
-		$form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', 'search.php', 'post', true);
+		$form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', $action, 'post', true);
 		// title
 		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
 		//reference
