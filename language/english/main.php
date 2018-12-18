@@ -159,4 +159,6 @@ define('_MA_XMARTICLE_SELECTCATEGORY', 'Select a category to add an item to');
 define('_MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD', 'Add article');
 define('_MA_XMARTICLE_FORMARTICLE_LISTARTICLE', 'List of articles');
 define('_MA_XMARTICLE_FORMARTICLE_SELECT', 'Select');
+define('_MA_XMARTICLE_FORMARTICLE_SELECTED', 'Article selected');
+define('_MA_XMARTICLE_FORMARTICLE_RESETSELECTED', 'Reset article selected');
 

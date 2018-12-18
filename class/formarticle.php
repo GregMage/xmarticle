@@ -27,7 +27,6 @@ class XmarticleFormArticle extends XoopsFormElementTray
 	/**
      * Constructor
      *
-     * @param string $modulename   name of module
      */
     public function __construct($caption, $itemid = 0)
     {
@@ -36,7 +35,11 @@ class XmarticleFormArticle extends XoopsFormElementTray
 		xoops_loadLanguage('main', 'xmarticle');
         
         $sessionHelper = new \Xmf\Module\Helper\Session('xmarticle');
-        $sessionHelper->del('selectionarticle');
+		if ($itemid != 0){
+			$sessionHelper->set('selectionarticle', $itemid);
+		} else {
+			$sessionHelper->del('selectionarticle');
+		}
 
 		parent::__construct($caption, '<br>');
 		if ($itemid != 0){

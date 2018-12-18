@@ -14,21 +14,15 @@
 <body onload="window.resizeTo(<{$xsize|default:800}>, <{$ysize|default:800}>);">
 <div class="xmarticle">
 	<{if $selected}>
-		<h2><{$smarty.const._MA_XMDOC_FORMDOC_SELECTED}></h2>
+		<h2><{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECTED}></h2>
 		<table cellspacing="0" id="imagemain">
-			<tr>
-			<{foreach item=seldoc from=$seldoc}>			
-				<td class="txtcenter"><{$seldoc.name}><br><{$seldoc.logo}></td>
-				<{if $seldoc.count is div by 4}>
-				</tr>
-				<tr>
-				<{/if}>
-			<{/foreach}>
+			<tr>		
+				<td class="txtcenter"><{$selarticle_arr.name}><br><{$selarticle_arr.logo}></td>
 			</tr>
 		</table>
 		<form name="selreset" id="selreset" action="articlemanager.php" method="post">
 			<input type="hidden" name="selectreset" value="true" />
-			<input type='submit' class='formButton' name='subselect'  id='subselect' value='<{$smarty.const._MA_XMDOC_FORMDOC_RESETSELECTED}>' title='<{$smarty.const._MA_XMDOC_FORMDOC_RESETSELECTED}>'  />
+			<input type='submit' class='formButton' name='subselect'  id='subselect' value='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>' title='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>'  />
 			<input value="<{$smarty.const._SUBMIT}>" type="button" onclick="window.close();"/>
 		</form>
 	<{/if}>

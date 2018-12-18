@@ -339,11 +339,22 @@ class XmarticleUtility
         return $link . $ref;
     }
 	
-	public static function renderArticleForm($form, $caption, $name, $itemid = 0)
+	public static function renderArticleForm($form, $caption, $itemid = 0)
     {
         xoops_load('formarticle', 'xmarticle');
         $form->addElement(new XmarticleFormArticle($caption, $itemid), false);
-		$form->addElement(new XoopsFormHidden($name, $itemid));
         return $form;
+    }
+	
+	public static function renderArticleIdSave()
+    {
+		$sessionHelper = new \Xmf\Module\Helper\Session('xmarticle');
+		if ($sessionHelper->get('selectionarticle') != false){
+			$selectionarticle = $sessionHelper->get('selectionarticle');
+			$sessionHelper->del('selectionarticle');
+			return $selectionarticle;
+		} else {
+			return 0;
+		}
     }
 }

@@ -30,47 +30,22 @@ $sessionHelper = new \Xmf\Module\Helper\Session();
 if (isset($_REQUEST['selectreset'])){
     $sessionHelper->del('selectionarticle');
 }
-		
-if (isset($_REQUEST['selArticle'])){
-echo 'prout';
-	$selectionarticle = '';	
-	if ($sessionHelper->get('selectionarticle') != false){
-		$selectionarticle = $sessionHelper->get('selectionarticle');
-	}
+$selectionarticle = Request::getInt('selArticle', 0);		
+if (isset($_REQUEST['selArticle'])){	
 	$sessionHelper->set('selectionarticle', $selectionarticle);
 }
+
 if ($sessionHelper->get('selectionarticle') != False){
 	$xoopsTpl->assign('selected', true);
-	echo '<br>prout2';	
-	
-	/*$criteria = new CriteriaCompo();
-	$criteria->add(new Criteria('document_status', 1));
-    if (is_array($sessionHelper->get('selectionarticle'))){
-        $criteria->add(new Criteria('document_id', '(' . implode(',', $sessionHelper->get('selectionarticle')) . ')','IN'));
-    }
-	$criteria->setSort('document_weight ASC, document_name');
-	$criteria->setOrder('ASC');
-	$documentHandler->table_link = $documentHandler->db->prefix("xmdoc_category");
-	$documentHandler->field_link = "category_id";
-	$documentHandler->field_object = "document_category";
-	$seldoc_arr = $documentHandler->getByLink($criteria);
-	$seldoc_count = $documentHandler->getCount($criteria);
-	$xoopsTpl->assign('seldoc_count', $seldoc_count);
-	if ($seldoc_count > 0) {
-		$count = 1;
-		foreach (array_keys($seldoc_arr) as $i) {
-			$seldoc['name']            = $seldoc_arr[$i]->getVar('document_name');
-			$seldoc_img                = $seldoc_arr[$i]->getVar('document_logo') ?: 'blank_doc.gif';
-			$seldoc['logo']            = '<img src="' . $url_logo_document .  $seldoc_img . '" alt="' . $seldoc_img . '" />';
-			$seldoc['count']           = $count;
-			$xoopsTpl->append_by_ref('seldoc', $seldoc);
-			unset($seldoc);
-			$count++;
-			
-		}
+	$selarticle  = $articleHandler->get($sessionHelper->get('selectionarticle'));	
+	if (count($selarticle) > 0) {
+		$selarticle_arr['name']        = $selarticle->getVar('article_name');
+		$selarticle_img            	   = $selarticle->getVar('article_logo') ?: 'blank.gif';
+		$selarticle_arr['logo']        = '<img src="' . $url_logo_article .  $selarticle_img . '" alt="' . $selarticle_img . '" />';	
+		$xoopsTpl->assign('selarticle_arr', $selarticle_arr);
 	} else {
 		$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
-	}	*/
+	}
 	$reset = '';
 }
 
