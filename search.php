@@ -68,7 +68,10 @@ if ($search != '') {
     //$criteria->setLimit($nb_limit);
     if ($s_cat != 0) {
         $criteria->add(new Criteria('article_cid', $s_cat));
-    }
+    } else {		
+		$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
+		$criteria->add(new Criteria('article_cid', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
+	}
     $criteria->add(new Criteria('article_status', 1));
     $articleHandler->table_link   = $articleHandler->db->prefix("xmarticle_category");
     $articleHandler->field_link   = "category_id";
