@@ -40,6 +40,9 @@ class xmarticle_article extends XoopsObject
 		$this->initVar('article_userid', XOBJ_DTYPE_INT, 0);
 		$this->initVar('article_date', XOBJ_DTYPE_INT, 0);
 		$this->initVar('article_mdate', XOBJ_DTYPE_INT, 0);
+		$this->initVar('article_rating', XOBJ_DTYPE_OTHER, null, false, 10);
+        $this->initVar('article_votes', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('article_counter', XOBJ_DTYPE_INT, null, false, 8);
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);

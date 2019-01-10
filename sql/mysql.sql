@@ -1,7 +1,6 @@
 CREATE TABLE `xmarticle_category` (
   `category_id`             int(11) unsigned    NOT NULL AUTO_INCREMENT,
   `category_name`           varchar(255)        NOT NULL DEFAULT '',
-  `category_reference`      varchar(50)         NOT NULL DEFAULT '',
   `category_description`    text,
   `category_logo`           varchar(50)         NOT NULL DEFAULT '',
   `category_weight`         int(11)             NOT NULL DEFAULT '0',
@@ -9,8 +8,7 @@ CREATE TABLE `xmarticle_category` (
   `category_fields`    		text,
   
   PRIMARY KEY (`category_id`),
-  KEY `category_name` (`category_name`),
-  KEY `category_reference` (`category_reference`)
+  KEY `category_name` (`category_name`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE `xmarticle_field` (
@@ -52,6 +50,9 @@ CREATE TABLE `xmarticle_article` (
   `article_userid`         mediumint(8) unsigned   NOT NULL default '0',
   `article_date`           int(10) unsigned        NOT NULL DEFAULT '0',
   `article_mdate`          int(10) unsigned        NOT NULL DEFAULT '0',
+  `article_rating`         double(6,4)             NOT NULL default '0.0000',
+  `article_votes`          int(11) unsigned        NOT NULL default '0',
+  `article_counter`        int(8) unsigned         NOT NULL DEFAULT '0',
   `article_status`         tinyint(1) unsigned     NOT NULL default '0',
   
   PRIMARY KEY  (`article_id`),
