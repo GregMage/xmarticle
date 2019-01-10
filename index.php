@@ -53,7 +53,6 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category_id              = $category_arr[$i]->getVar('category_id');
         $category['id']           = $category_id;
         $category['name']         = $category_arr[$i]->getVar('category_name');
-        $category['reference']    = $category_arr[$i]->getVar('category_reference');
         $category['description']  = $category_arr[$i]->getVar('category_description', 'show');
         $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, XmarticleUtility::articlePerCat($category_id, $article_arr));
         $category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';

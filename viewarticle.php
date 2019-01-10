@@ -55,7 +55,6 @@ if ($category->getVar('category_status') == 0 || $article->getVar('article_statu
 
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
-$xoopsTpl->assign('category_reference', $category->getVar('category_reference'));
 $xoopsTpl->assign('category_id', $category_id);
 
 // Article

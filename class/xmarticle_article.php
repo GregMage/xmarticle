@@ -42,7 +42,6 @@ class xmarticle_article extends XoopsObject
 		$this->initVar('article_mdate', XOBJ_DTYPE_INT, 0);
         $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('category_reference',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
     }
 
@@ -131,12 +130,8 @@ class xmarticle_article extends XoopsObject
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'article_name', 50, 255, $this->getVar('article_name')), true);
         
         // reference
-        $reference = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_REFERENCE);
-        $category_reference = new xoopsFormLabel ($category->getVar('category_reference'));
-        $reference->addElement($category_reference);
-        $reference->addElement(new XoopsFormText('', 'article_reference', 20, 50, $this->getVar('article_reference')));
-        $form->addElement($reference, true);
-
+        $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'article_reference', 20, 50, $this->getVar('article_reference')), true);
+		
         // description
         $editor_configs           = [];
         $editor_configs['name']   = 'article_description';

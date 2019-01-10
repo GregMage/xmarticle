@@ -54,7 +54,6 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 					$category_id              = $category_arr[$i]->getVar('category_id');
 					$category['id']           = $category_id;
 					$category['name']         = $category_arr[$i]->getVar('category_name');
-					$category['reference']    = $category_arr[$i]->getVar('category_reference');
 					$category['description']  = $category_arr[$i]->getVar('category_description', 'show');
 					$category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
 					$category['logo']         = $url_logo_category . $category_img;

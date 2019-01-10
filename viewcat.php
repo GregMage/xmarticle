@@ -49,7 +49,6 @@ $start = Request::getInt('start', 0);
 // Category
 $xoopsTpl->assign('name', $category->getVar('category_name'));
 $xoopsTpl->assign('description' , $category->getVar('category_description', 'show'));
-$xoopsTpl->assign('reference', $category->getVar('category_reference'));
 $category_img = $category->getVar('category_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_category .  $category_img);
 

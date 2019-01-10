@@ -315,7 +315,7 @@ class XmarticleUtility
 		}
 		if (count($article_arr) > 0) {
 			foreach (array_keys($article_arr) as $i) {
-				$articlelist[$i] = $article_arr[$i]->getVar('article_name') . ' (' . $article_arr[$i]->getVar('category_reference') . $article_arr[$i]->getVar('article_reference') .')';
+				$articlelist[$i] = $article_arr[$i]->getVar('article_name') . ' (' . $article_arr[$i]->getVar('article_reference') .')';
 			}
 		}
         return $articlelist;
