@@ -19,7 +19,6 @@
         <tr>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_CATEGORY_LOGO}></th>
             <th class="txtleft width15"><{$smarty.const._MA_XMARTICLE_CATEGORY_NAME}></th>
-            <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_CATEGORY_REFERENCE}></th>
             <th class="txtleft"><{$smarty.const._MA_XMARTICLE_CATEGORY_DESC}></th>            
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_WEIGHT}></th>
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_STATUS}></th>
@@ -31,7 +30,6 @@
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter"><{$category.logo}></td>
                 <td class="txtleft"><{$category.name}></td>
-                <td class="txtcenter"><{$category.reference}></td>
                 <td class="txtleft"><{$category.description}></td>                
                 <td class="txtcenter"><{$category.weight}></td>
                 <td class="xo-actions txtcenter">
