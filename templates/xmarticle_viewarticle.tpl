@@ -66,6 +66,14 @@
 				</div>
 			</div>
 			<{/if}>
+			<div class="row xm-article-general">
+				<div class="col-md-6"><span class="glyphicon glyphicon-repeat" title="<{$smarty.const._MA_XMARTICLE_DATE}>"></span>
+					<{$smarty.const._MA_XMARTICLE_READING}>: <{$counter}>
+				</div>
+				<div class="col-md-6"><span class="glyphicon glyphicon-star-empty" title="<{$smarty.const._MA_XMARTICLE_AUTHOR}>"></span>
+					<{$smarty.const._MA_XMARTICLE_RATING}>: <{$rating}> <{$votes}>
+				</div>
+			</div>
 			<div class="xm-article-general-button">
 				<div class="btn-group" role="group" aria-label="...">
 					<a href="action.php?op=clone&amp;article_id=<{$article_id}>">

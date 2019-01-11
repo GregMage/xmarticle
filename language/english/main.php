@@ -106,6 +106,9 @@ define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 define('_MA_XMARTICLE_WAITING', 'There are <strong>%s</strong> articles waiting for validation!');
 define('_MA_XMARTICLE_XMDOC', 'Documents');
+define('_MA_XMARTICLE_READING', 'Reading');
+define('_MA_XMARTICLE_RATING', 'Rating');
+define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');

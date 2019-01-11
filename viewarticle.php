@@ -62,6 +62,9 @@ $xoopsTpl->assign('article_id', $article_id);
 $xoopsTpl->assign('name', $article->getVar('article_name'));
 $xoopsTpl->assign('description', $article->getVar('article_description'));
 $xoopsTpl->assign('reference', $article->getVar('article_reference'));
+$xoopsTpl->assign('counter', $article->getVar('article_counter'));
+$xoopsTpl->assign('rating', number_format($article->getVar('article_rating'), 1));
+$xoopsTpl->assign('votes', sprintf(_MA_XMARTICLE_VOTES, $article->getVar('article_votes')));
 $xoopsTpl->assign('date', formatTimestamp($article->getVar('article_date'), 's'));
 if ($article->getVar('article_mdate') != 0) {
     $xoopsTpl->assign('mdate', formatTimestamp($article->getVar('article_mdate'), 's'));
@@ -97,6 +100,11 @@ if ($field_count > 0) {
         $count++;
     }
 }
+
+//counter
+$sql = 'UPDATE ' . $xoopsDB->prefix('xmarticle_article') . ' SET article_counter=article_counter+1 WHERE article_id = ' . $article_id;
+$xoopsDB->queryF($sql);
+
 //xmdoc
 if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
     xoops_load('utility', 'xmdoc');
