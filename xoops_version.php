@@ -50,6 +50,11 @@ $modversion['comments']['callbackFile']        = 'include/comment_functions.php'
 $modversion['comments']['callback']['approve'] = 'content_com_approve';
 $modversion['comments']['callback']['update']  = 'content_com_update';
 
+// Search
+$modversion['hasSearch'] = 1;
+$modversion['search']['file'] = 'include/search.inc.php';
+$modversion['search']['func'] = 'xmarticle_search';
+
 // Admin things
 $modversion['hasAdmin']    = 1;
 $modversion['system_menu'] = 1;
