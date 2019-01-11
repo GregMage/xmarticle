@@ -135,6 +135,15 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
+    'name'        => 'general_countertime',
+    'title'       => '_MI_XMARTICLE_PREF_COUNTERTIME',
+    'description' => '_MI_XMARTICLE_PREF_COUNTERTIME_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 10
+];
+
+$modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
     'description' => '',

@@ -39,6 +39,8 @@ define('_MI_XMARTICLE_PREF_GENERALSEPARATOR', 'Separation characters for multipl
 define('_MI_XMARTICLE_PREF_GENERALXMDOC', 'Use xmdoc module to add document');
 define('_MI_XMARTICLE_PREF_CAPTCHA', 'Use Captcha?');
 define('_MI_XMARTICLE_PREF_CAPTCHA_DESC', 'Select Yes to use Captcha in the submit form');
+define('_MI_XMARTICLE_PREF_COUNTERTIME', 'Select the time before the article reading counter can be incremented by the same person. [min]');
+define('_MI_XMARTICLE_PREF_COUNTERTIME_DESC', 'Put "0" if you do not want to put any limitation');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', "<span style='font-weight: bold;'>Administration</span>");
 define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');
