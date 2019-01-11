@@ -137,4 +137,5 @@ $xoTheme->addMeta('meta', 'description', \Xmf\Metagen::generateDescription($arti
 $keywords = \Xmf\Metagen::generateKeywords($article->getVar('article_description'), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 
+include XOOPS_ROOT_PATH.'/include/comment_view.php';
 include XOOPS_ROOT_PATH . '/footer.php';

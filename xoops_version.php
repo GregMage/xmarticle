@@ -41,6 +41,15 @@ $modversion['sub'][]   = [
     'url'  => 'search.php'
 ];
 
+// Comments
+$modversion['hasComments'] = 1;
+$modversion['comments']['itemName']            = 'article_id';
+$modversion['comments']['pageName']            = 'viewarticle.php';
+$modversion['comments']['extraParams']         = ['category_id'];
+$modversion['comments']['callbackFile']        = 'include/comment_functions.php';
+$modversion['comments']['callback']['approve'] = 'content_com_approve';
+$modversion['comments']['callback']['update']  = 'content_com_update';
+
 // Admin things
 $modversion['hasAdmin']    = 1;
 $modversion['system_menu'] = 1;
