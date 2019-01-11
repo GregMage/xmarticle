@@ -108,12 +108,12 @@ if (isset($_COOKIE['xmarticleCounterId'])) {
 	$counterIds = unserialize($_COOKIE['xmarticleCounterId']);
 	if (!in_array($article_id, $counterIds)){
 		array_push($counterIds, $article_id);
-		setcookie("xmarticleCounterId", serialize($counterIds), time() + $helper->getConfig('general_countertime', 10));
+		setcookie("xmarticleCounterId", serialize($counterIds), time() + $helper->getConfig('general_countertime', 10) * 60);
 		$counterUpdate = true;
 	}
 } else {
 	$counterId[] = $article_id;
-	setcookie("xmarticleCounterId", serialize($counterId), time() + $helper->getConfig('general_countertime', 10));
+	setcookie("xmarticleCounterId", serialize($counterId), time() + $helper->getConfig('general_countertime', 10) * 60);
 	$counterUpdate = true;
 }
 if ($counterUpdate == true){
