@@ -36,7 +36,7 @@ $permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php'
 
 $category = $categoryHandler->get($category_id);
 
-if (count($category) == 0) {
+if (empty($category)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 
