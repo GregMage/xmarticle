@@ -25,13 +25,16 @@ $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
 // xmdoc
-if (is_dir(XOOPS_ROOT_PATH . '/modules/xmdoc')) {
-    $moduleAdmin->addConfigModuleVersion('xmdoc', 10);
-} elseif ($helper->getConfig('general_xmdoc', 0) == 0) {
-    $moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING);
+if (xoops_isActiveModule('xmdocs')){
+	if ($helper->getConfig('general_xmdoc', 0) == 1) {
+		$moduleAdmin->addConfigModuleVersion('xmdoc', 50);
+	} else {
+		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE);
+	}
 } else {
-    $moduleAdmin->addConfigError(_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR);
+	$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED);
 }
+
 $folder[] = $path_logo_category;
 $folder[] = $path_logo_article;
 foreach (array_keys( $folder) as $i) {

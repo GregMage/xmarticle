@@ -27,8 +27,8 @@ define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
  
 // Admin
-define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNING', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
-define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_ERROR', 'You must install the xmdoc module to add documents');
+define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmdoc (if you want to add documents)');
  
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
