@@ -25,7 +25,7 @@ $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
 // xmdoc
-if (xoops_isActiveModule('xmdocs')){
+if (xoops_isActiveModule('xmdoc')){
 	if ($helper->getConfig('general_xmdoc', 0) == 1) {
 		$moduleAdmin->addConfigModuleVersion('xmdoc', 50);
 	} else {
