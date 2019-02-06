@@ -58,4 +58,7 @@
             <{$smarty.const._MA_XMARTICLE_ERROR_NOCATEGORY}>
         </div>
     <{/if}>
+	<div style="margin:3px; padding: 3px;">
+		<{include file='db:system_notification_select.html'}>
+    </div>
 </div><!-- .xmarticle -->

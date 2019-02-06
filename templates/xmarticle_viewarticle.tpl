@@ -103,4 +103,7 @@
         <{include file="db:system_comments_nest.tpl"}>
         <{/if}>
     </div>
+	<div style="margin:3px; padding: 3px;">
+		<{include file='db:system_notification_select.html'}>
+    </div>
 </div><!-- .xmarticle -->

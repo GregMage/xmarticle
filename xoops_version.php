@@ -174,6 +174,94 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 15
 ];
+// ------------------- Notifications -------------------
+$modversion['config'][] = [
+    'name' => 'break',
+    'title' => '_MI_XMARTICLE_PREF_HEAD_COMNOTI',
+    'description' => '',
+    'formtype' => 'line_break',
+    'valuetype' => 'textbox',
+    'default' => 'head',
+];
+$modversion['hasNotification'] = 1;
+$modversion['notification']['lookup_file'] = 'include/notification.inc.php';
+$modversion['notification']['lookup_func'] = 'xmarticle_notify_iteminfo';
+
+$modversion['notification']['category'][] = [
+    'name' => 'global',
+    'title' => _MI_XMARTICLE_NOTIFICATION_GLOBAL,
+    'description' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_DESC,
+    'subscribe_from' => ['index.php', 'viewcat.php', 'viewarticle.php'],
+];
+
+$modversion['notification']['event'][] = [
+    'name' => 'new_article',
+    'category' => 'global',
+    'title' =>  _MI_XMARTICLE_NOTIFICATION_GLOBAL_NEWARTICLE,
+    'caption' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_NEWARTICLE_CAP,
+    'description' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_NEWARTICLE_DESC,
+    'mail_template' => 'global_newarticle',
+    'mail_subject' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_NEWARTICLE_SBJ,
+];
+
+$modversion['notification']['event'][] = [
+    'name' => 'submit_article',
+    'category' => 'global',
+    'title' =>  _MI_XMARTICLE_NOTIFICATION_GLOBAL_SUBMITARTICLE,
+    'caption' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_SUBMITARTICLE_CAP,
+    'description' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_SUBMITARTICLE_DESC,
+    'mail_template' => 'global_submitarticle',
+    'mail_subject' => _MI_XMARTICLE_NOTIFICATION_GLOBAL_SUBMITARTICLE_SBJ,
+    'admin_only' => 1,
+];
+
+$modversion['notification']['category'][] = [
+    'name' => 'category',
+    'title' => _MI_XMARTICLE_NOTIFICATION_CATEGORY,
+    'description' => _MI_XMARTICLE_NOTIFICATION_CATEGORY_DESC,
+    'subscribe_from' => ['viewcat.php', 'viewarticle.php'],
+    'item_name' => 'category_id',
+];
+
+$modversion['notification']['event'][] = [
+    'name' => 'new_article',
+    'category' => 'category',
+    'title' =>  _MI_XMARTICLE_NOTIFICATION_CATEGORY_NEWARTICLE,
+    'caption' => _MI_XMARTICLE_NOTIFICATION_CATEGORY_NEWARTICLE_CAP,
+    'description' => _MI_XMARTICLE_NOTIFICATION_CATEGORY_NEWARTICLE_DESC,
+    'mail_template' => 'category_newarticle',
+    'mail_subject' => _MI_XMARTICLE_NOTIFICATION_CATEGORY_NEWARTICLE_SBJ,
+];
+
+$modversion['notification']['category'][] = [
+    'name' => 'article',
+    'title' => _MI_XMARTICLE_NOTIFICATION_ARTICLE,
+    'description' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_DESC,
+    'subscribe_from' => 'viewarticle.php',
+    'item_name' => 'article_id',
+    'allow_bookmark' => 1,
+];
+
+$modversion['notification']['event'][] = [
+    'name' => 'modified_article',
+    'category' => 'article',
+    'title' =>  _MI_XMARTICLE_NOTIFICATION_ARTICLE_MODIFIEDARTICLE,
+    'caption' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_MODIFIEDARTICLE_CAP,
+    'description' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_MODIFIEDARTICLE_DESC,
+    'mail_template' => 'article_modifiedarticle',
+    'mail_subject' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_MODIFIEDARTICLE_SBJ,
+];
+
+$modversion['notification']['event'][] = [
+    'name' => 'approve_article',
+    'category' => 'article',
+    'invisible' => 1,
+    'title' =>  _MI_XMARTICLE_NOTIFICATION_ARTICLE_APPROVE,
+    'caption' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_APPROVE_CAP,
+    'description' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_APPROVE_DESC,
+    'mail_template' => 'article_approvearticle',
+    'mail_subject' => _MI_XMARTICLE_NOTIFICATION_ARTICLE_APPROVE_SBJ,
+];
 
 // About stuff
 $modversion['module_status'] = 'RC 1';

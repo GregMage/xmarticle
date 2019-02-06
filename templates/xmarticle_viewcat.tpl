@@ -21,4 +21,7 @@
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>
+	<div style="margin:3px; padding: 3px;">
+		<{include file='db:system_notification_select.html'}>
+    </div>
 </div><!-- .xmarticle -->
