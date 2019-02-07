@@ -21,7 +21,7 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
 
-    $sql = "SELECT article_id, article_cid, article_name, article_reference, article_description FROM " . $xoopsDB->prefix("xmarticle_article") . " WHERE article_status = 1";
+    $sql = "SELECT article_id, article_cid, article_name, article_reference, article_description, article_date, article_userid FROM " . $xoopsDB->prefix("xmarticle_article") . " WHERE article_status = 1";
 
     if ( is_array($queryarray) && $count = count($queryarray) )
     {
@@ -44,6 +44,8 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
         $ret[$i]["image"] = "assets/images/xmarticle_search.png";
         $ret[$i]["link"] = "viewarticle.php?article_id=" . $myrow["article_id"] . '&category_id=' . $myrow["article_cid"];
         $ret[$i]["title"] = $myrow["article_name"] . '(' . $myrow["article_reference"] . ')';
+        $ret[$i]["time"] = $myrow["article_date"];
+        $ret[$i]["uid"] = $myrow["article_userid"];
         $i++;
     }
 
