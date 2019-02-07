@@ -49,7 +49,7 @@ if (empty($article)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 
-if ($category->getVar('category_status') == 0 || $article->getVar('article_status') == 0) {
+if ($category->getVar('category_status') == 0 || $article->getVar('article_status') == 0 || $article->getVar('article_status') == 2) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
 }
 
