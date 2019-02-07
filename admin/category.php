@@ -157,8 +157,17 @@ switch ($op) {
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
+							
+							//Del Notification and comment
+							$helper = \Xmf\Module\Helper::getHelper('xmarticle');
+							$moduleid = $helper->getModule()->getVar('mid');
+							xoops_notification_deletebyitem($moduleid, 'article', $i);
+							xoops_comment_delete($moduleid, $i);
                         }
                     }
+					
+					//Del Notification
+					xoops_notification_deletebyitem($moduleid, 'category', $category_id);
                     
                     redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {

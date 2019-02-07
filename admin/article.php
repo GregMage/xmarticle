@@ -213,6 +213,13 @@ switch ($op) {
                     }
                     //Del fielddata
                     XmarticleUtility::delFilddataArticle($article_id);
+					
+					//Del Notification and comment
+					$helper = \Xmf\Module\Helper::getHelper('xmarticle');
+					$moduleid = $helper->getModule()->getVar('mid');
+					xoops_notification_deletebyitem($moduleid, 'article', $article_id);
+					xoops_comment_delete($moduleid, $article_id);
+						
                     redirect_header('article.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
