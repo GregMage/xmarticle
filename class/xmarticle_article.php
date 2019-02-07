@@ -426,6 +426,9 @@ class xmarticle_article extends XoopsObject
 				}
 				
 				if ($error_message == ''){
+					if ($this->getVar('article_status') == 2){
+						redirect_header('index.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
+					}
                     if ($action == 'viewarticle.php'){
                         redirect_header('viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
                     } else {
