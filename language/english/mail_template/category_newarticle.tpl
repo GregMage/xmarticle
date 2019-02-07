@@ -3,7 +3,7 @@ Hi {X_UNAME},
 A new article "{ARTICLE_NAME}" has been added in category "{CATEGORY_NAME}" at {X_SITENAME}.
 
 You can view this article here:
-{FILE_URL}
+{ARTICLE_URL}
 
 You can view the whole category here:
 {CATEGORY_URL}

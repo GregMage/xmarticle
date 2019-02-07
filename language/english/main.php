@@ -101,6 +101,7 @@ define('_MA_XMARTICLE_DATEUPDATE', 'Update the creation date');
 define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
 define('_MA_XMARTICLE_MDATE', 'Modification date');
 define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
+define('_MA_XMARTICLE_NOTIFY', 'Notify me of the publication?');
 define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
 define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');

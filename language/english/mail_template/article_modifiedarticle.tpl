@@ -1,9 +1,9 @@
 Hi {X_UNAME},
 
-L'"{ARTICLE_NAME}" has been modified at {X_SITENAME}.
+Article "{ARTICLE_NAME}" has been modified at {X_SITENAME}.
 
 You can view this modified article here:
-{MODIFIEDARTICLE_URL}
+{ARTICLE_URL}
 
 -----------
 

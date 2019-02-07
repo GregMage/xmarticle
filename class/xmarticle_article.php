@@ -290,7 +290,10 @@ class xmarticle_article extends XoopsObject
             $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
             $form_status->addOptionArray($options);
             $form->addElement($form_status);
-        }
+        } else {
+			// Notification article:approve_article
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_NOTIFY, 'article_notify', true));	
+		}
 		//captcha		
 		if ($helper->getConfig('general_captcha', 0) == 1) {
 			$form->addElement(new XoopsFormCaptcha(), true);
@@ -398,6 +401,30 @@ class xmarticle_article extends XoopsObject
                     xoops_load('utility', 'xmdoc');
                     $error_message .= XmdocUtility::saveDocuments('xmarticle', $fielddata_aid);
                 }
+				//Notification global: new_article, category: new_article, article: approve_article
+				$tags = [];
+				$tags['ARTICLE_NAME'] = Xmf\Request::getString('article_name', '');
+				$tags['ARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid;
+				$tags['CATEGORY_NAME'] = $category->getVar('category_name');
+				$tags['CATEGORY_URL'] =  XOOPS_URL . '/modules/xmarticle/viewcat.php?category_id=' . $article_cid;
+				$notificationHandler = xoops_getHandler('notification');
+				$notificationHandler->triggerEvent('global', 0, 'new_article', $tags);
+				$notificationHandler->triggerEvent('category', $article_cid, 'new_article', $tags);
+				$notificationHandler->triggerEvent('article', $fielddata_aid, 'approve_article', $tags);
+				//Notification global: submit_article
+				if ($this->getVar('article_status') == 2){
+					$tags['WAITINGARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/admin/article.php?article_status=2';
+					$notificationHandler->triggerEvent('global', 0, 'submit_article', $tags);					
+				}
+				//Notification article: modified_article
+				if ($this->get_new_enreg() == 0){
+					$notificationHandler->triggerEvent('article', $fielddata_aid, 'modified_article', $tags);
+				}
+				// Notification article: approve_article
+				if (Xmf\Request::getInt('article_notify', 0) == 1){
+					$notificationHandler->subscribe('article', $fielddata_aid, 'approve_article', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
+				}
+				
 				if ($error_message == ''){
                     if ($action == 'viewarticle.php'){
                         redirect_header('viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
