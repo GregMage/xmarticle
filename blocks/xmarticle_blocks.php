@@ -18,11 +18,8 @@
  */
 use Xmf\Module\Helper;
 function block_xmarticle_show($options) {
-	global $xoTheme;
 	include __DIR__ . '/../include/common.php';
 	include_once __DIR__ . '/../class/utility.php';
-	
-	$xoTheme->addStylesheet( XOOPS_URL . '/modules/xmarticle/assets/css/styles.css', null );
 	
 	$helper = Helper::getHelper('xmarticle');
 	$helper->loadLanguage('main');
@@ -86,11 +83,15 @@ function block_xmarticle_show($options) {
 			$article['author']          = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
 			$article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
 			$article['logo']            = $url_logo_article .  $article_img;
+			$article['hits']            = $article_arr[$i]->getVar('article_counter');
+			$article['rating']          = $article_arr[$i]->getVar('article_rating');
+			$article['votes']           = $article_arr[$i]->getVar('article_votes');
+			$article['type']            = $options[2];
 			$block['article'][] = $article;
 			unset($article);
 		}
 	}
-	$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL . '/modules/xmdoc/assets/css/styles.css');
+	$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL . '/modules/xmarticle/assets/css/styles.css');
 	return $block;
 }
 
