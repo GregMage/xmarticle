@@ -88,6 +88,53 @@ $modversion['templates'][] = ['file' => 'xmarticle_action.tpl', 'description' =>
 $modversion['templates'][] = ['file' => 'xmarticle_search.tpl', 'description' => ''];
 $modversion['templates'][] = ['file' => 'xmarticle_articlemanager.tpl', 'description' => ''];
 
+// Blocks
+$modversion['blocks'][] = array(
+    'file'        => 'xmarticle_blocks.php',
+    'name'        => _MI_XMARTICLE_BLOCK_DATE,
+    'description' => _MI_XMARTICLE_BLOCK_DATE_DESC,
+    'show_func'   => 'block_xmarticle_show',
+    'edit_func'   => 'block_xmarticle_edit',
+	'options'     => '0|5|date',
+    'template'    => 'xmarticle_block.tpl'
+);
+$modversion['blocks'][] = array(
+    'file'        => 'xmarticle_blocks.php',
+    'name'        => _MI_XMARTICLE_BLOCK_HITS,
+    'description' => _MI_XMARTICLE_BLOCK_HITS_DESC,
+    'show_func'   => 'block_xmarticle_show',
+    'edit_func'   => 'block_xmarticle_edit',
+	'options'     => '0|5|hits',
+    'template'    => 'xmarticle_block.tpl'
+);
+$modversion['blocks'][] = array(
+    'file'        => 'xmarticle_blocks.php',
+    'name'        => _MI_XMARTICLE_BLOCK_RATING,
+    'description' => _MI_XMARTICLE_BLOCK_RATING_DESC,
+    'show_func'   => 'block_xmarticle_show',
+    'edit_func'   => 'block_xmarticle_edit',
+	'options'     => '0|5|rating',
+    'template'    => 'xmarticle_block.tpl'
+);
+$modversion['blocks'][] = array(
+    'file'        => 'xmarticle_blocks.php',
+    'name'        => _MI_XMARTICLE_BLOCK_RANDOM,
+    'description' => _MI_XMARTICLE_BLOCK_RANDOM_DESC,
+    'show_func'   => 'block_xmarticle_show',
+    'edit_func'   => 'block_xmarticle_edit',
+	'options'     => '0|5|random',
+    'template'    => 'xmarticle_block.tpl'
+);
+$modversion['blocks'][] = array(
+    'file'        => 'xmarticle_blocks.php',
+    'name'        => _MI_XMARTICLE_BLOCK_WAITING,
+    'description' => _MI_XMARTICLE_BLOCK_WAITING_DESC,
+    'show_func'   => 'block_xmarticle_show',
+    'edit_func'   => 'block_xmarticle_edit',
+	'options'     => '0|5|waiting',
+    'template'    => 'xmarticle_block_waiting.tpl'
+);
+
 // Configs
 $modversion['config'] = [];
 

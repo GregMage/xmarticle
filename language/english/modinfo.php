@@ -32,6 +32,19 @@ define('_MI_XMARTICLE_MENU_ABOUT', 'About');
 define('_MI_XMARTICLE_SUB_ADD', 'Submit an article');
 define('_MI_XMARTICLE_SUB_SEARCH', 'Search');
 
+// Block
+define('_MI_XMARTICLE_BLOCK_DATE', 'Recent Articles');
+define('_MI_XMARTICLE_BLOCK_DATE_DESC', 'Display Recent Articles');
+define('_MI_XMARTICLE_BLOCK_HITS', 'Top Articles');
+define('_MI_XMARTICLE_BLOCK_HITS_DESC', 'Display Top Articles');
+define('_MI_XMARTICLE_BLOCK_RATING', 'Top Rated Articles');
+define('_MI_XMARTICLE_BLOCK_RATING_DESC', 'Display Top Rated Articles');
+define('_MI_XMARTICLE_BLOCK_RANDOM', 'Random Articles');
+define('_MI_XMARTICLE_BLOCK_RANDOM_DESC', 'Display articles randomly');
+define('_MI_XMARTICLE_BLOCK_WAITING', 'Waitting Articles');
+define('_MI_XMARTICLE_BLOCK_WAITING_DESC', 'Display waitting articles');
+
+
 // Pref
 define('_MI_XMARTICLE_PREF_HEAD_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span>');
 define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the general view');
