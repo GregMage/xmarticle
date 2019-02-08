@@ -67,10 +67,10 @@
 			</div>
 			<{/if}>
 			<div class="row xm-article-general">
-				<div class="col-md-6"><span class="glyphicon glyphicon-repeat" title="<{$smarty.const._MA_XMARTICLE_DATE}>"></span>
+				<div class="col-md-6"><span class="glyphicon glyphicon-repeat" title="<{$smarty.const._MA_XMARTICLE_READING}>"></span>
 					<{$smarty.const._MA_XMARTICLE_READING}>: <{$counter}>
 				</div>
-				<div class="col-md-6"><span class="glyphicon glyphicon-star-empty" title="<{$smarty.const._MA_XMARTICLE_AUTHOR}>"></span>
+				<div class="col-md-6"><span class="glyphicon glyphicon-star-empty" title="<{$smarty.const._MA_XMARTICLE_RATING}>"></span>
 					<{$smarty.const._MA_XMARTICLE_RATING}>: <{$rating}> <{$votes}>
 				</div>
 			</div>
