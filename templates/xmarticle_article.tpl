@@ -15,7 +15,7 @@
     </div>
 
     <div class="xm-short-description">
-        <{$down.description}>
+		<{$down.description|truncateHtml:20:'...'}>
     </div>
 
     <a class="btn btn-primary col-md-9" title="<{$down.name}>"
