@@ -33,19 +33,21 @@ $permHelper->checkPermissionRedirect('xmarticle_other', 32, 'index.php', 2, _NOP
 $search = Request::getString('search', '');
 $reset  = Request::getString('reset', '');
 if ($reset == '') {
-    $s_name      = Request::getString('s_name', '');
-    $s_reference = Request::getString('s_reference', '');
-    $s_cat       = Request::getInt('s_cat', 0);
+    $s_name = Request::getString('s_name', '');
+    $s_ref  = Request::getString('s_ref', '');
+    $s_desc = Request::getString('s_desc', '');
+    $s_cat  = Request::getInt('s_cat', 0);
 } else {
-    $s_name      = '';
-    $s_reference = '';
-    $s_cat       = 0;
+    $s_name = '';
+    $s_ref  = '';
+    $s_desc  = '';
+    $s_cat  = 0;
 }
 // Get start pager
 $start = Request::getInt('start', 0);
 // Form
 $obj  = $articleHandler->create();
-$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_reference, $s_cat);
+$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat);
 
 if ($search != '') {
     $arguments = 's_cat=' . $s_cat . '&amp;';
@@ -55,9 +57,13 @@ if ($search != '') {
         $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
         $arguments .= 's_name=' . $s_name . '&amp;';
     }
-    if ($s_reference != '') {
-        $criteria->add(new Criteria('article_reference', '%' . $s_reference . '%', 'LIKE'));
-        $arguments .= 's_reference=' . $s_reference . '&amp;';
+    if ($s_ref != '') {
+        $criteria->add(new Criteria('article_reference', '%' . $s_ref . '%', 'LIKE'));
+        $arguments .= 's_ref=' . $s_ref . '&amp;';
+    }
+	if ($s_desc != '') {
+        $criteria->add(new Criteria('article_description', '%' . $s_desc . '%', 'LIKE'));
+        $arguments .= 's_desc=' . $s_desc . '&amp;';
     }
     if (count($fielddata_aid_arr) > 0) {
         $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));

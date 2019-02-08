@@ -445,7 +445,7 @@ class xmarticle_article extends XoopsObject
     * @param bool $action
     * @return XoopsThemeForm
     */
-    public function getFormSearch($s_name, $s_reference, $s_cat, $action = false)
+    public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
     {
 		global $xoopsTpl;
         if ($action === false) {
@@ -471,14 +471,16 @@ class xmarticle_article extends XoopsObject
 		// title
 		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
 		//reference
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_reference', 50, 255, $s_reference));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_ref', 50, 255, $s_ref));
+		//description
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 's_desc', 50, 255, $s_desc));
 		//cat
 		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 's_cat', $s_cat);
 		$field_cat->addOption(0, _ALL);
 		foreach (array_keys($category_arr) as $i) {
 			$field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 		}
-		$field_cat->setExtra("onchange=\"location='" . $action . "?s_name=" . $s_name . "&s_reference=" . $s_reference . "&s_cat='+this.options[this.selectedIndex].value\"");
+		$field_cat->setExtra("onchange=\"location='" . $action . "?s_name=" . $s_name . "&s_ref=" . $s_ref . "&s_desc=" . $s_desc . "&s_cat='+this.options[this.selectedIndex].value\"");
 		$form->addElement($field_cat);
 
 		//fields
