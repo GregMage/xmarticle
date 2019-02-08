@@ -12,7 +12,7 @@
             <{$form}>
         </div>
     <{/if}>
-    <{if count($categories) gt 0}>
+    <{if $categories > 0}>
         <ol class="breadcrumb">
             <li><a href="index.php"><{$smarty.const._MA_XMARTICLE_HOME}></a></li>
             <li class="active"><{$smarty.const._MA_XMARTICLE_SELECTCATEGORY}></li>
