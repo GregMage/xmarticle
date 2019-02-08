@@ -318,5 +318,5 @@ $modversion['developer_lead']      = 'Mage';
 $modversion['module_website_url']  = 'github.com/GregMage';
 $modversion['module_website_name'] = 'github.com/GregMage';
 
-$modversion['min_xoops'] = '2.5.9';
+$modversion['min_xoops'] = '2.5.10';
 $modversion['min_php']   = '7.0';
