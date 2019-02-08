@@ -184,7 +184,8 @@ switch ($op) {
         $error_message = $obj->savearticle($articleHandler, 'article.php');
         if ($error_message != ''){
             $xoopsTpl->assign('error_message', $error_message);
-            $form = $obj->getForm();
+			$article_cid = Request::getInt('article_cid', 0);
+			$form = $obj->getForm($article_cid);
             $xoopsTpl->assign('form', $form->render());
         }
         

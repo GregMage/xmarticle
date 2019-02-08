@@ -43,7 +43,7 @@ class xmarticle_article extends XoopsObject
 		$this->initVar('article_rating', XOBJ_DTYPE_OTHER, null, false, 10);
         $this->initVar('article_votes', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('article_counter', XOBJ_DTYPE_INT, null, false, 8);
-        $this->initVar('article_status', XOBJ_DTYPE_INT, 0);
+        $this->initVar('article_status', XOBJ_DTYPE_INT, 1);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
     }
@@ -112,11 +112,9 @@ class xmarticle_article extends XoopsObject
         
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
-            $status = $this->getVar('article_status');
             $article_cid = $this->getVar('article_cid');
             $article_cid_fielddata = $this->getVar('article_id');
         } else {
-            $status = 1;
 			if ($old_article_cid != 0){
                 $article_cid_fielddata = $old_article_cid;
 			} else {
@@ -286,7 +284,7 @@ class xmarticle_article extends XoopsObject
         $permission = $permHelper->checkPermission('xmarticle_other', 8);
         if ($permission == true || $helper->isUserAdmin() == true){
             // status
-            $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $status);
+            $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $this->getVar('article_status'));
             $options     = [1 => _MA_XMARTICLE_STATUS_A, 0 => _MA_XMARTICLE_STATUS_NA, 2 => _MA_XMARTICLE_WFV];
             $form_status->addOptionArray($options);
             $form->addElement($form_status);
@@ -317,7 +315,8 @@ class xmarticle_article extends XoopsObject
         }
         include __DIR__ . '/../include/common.php';
         $helper = \Xmf\Module\Helper::getHelper('xmarticle');
-        $error_message = '';      
+        $error_message = '';
+		$upload_size = 512000;		
         //logo
         $uploadirectory = '/xmarticle/images/article';
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
