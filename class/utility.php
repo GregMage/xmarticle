@@ -357,4 +357,22 @@ class XmarticleUtility
 			return 0;
 		}
     }
+	
+	public static function checkReference($reference = '', $article_id = 0)
+    {
+		include __DIR__ . '/../include/common.php';
+		if ($reference == ''){
+			return false;
+		} else {
+			$criteria = new CriteriaCompo();
+			$criteria->add(new Criteria('article_reference', $reference));
+			$criteria->add(new Criteria('article_id', $article_id, '!='));
+			$article_count = $articleHandler->getCount($criteria);
+			if ($article_count == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+    }
 }

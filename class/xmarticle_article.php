@@ -316,7 +316,16 @@ class xmarticle_article extends XoopsObject
         include __DIR__ . '/../include/common.php';
         $helper = \Xmf\Module\Helper::getHelper('xmarticle');
         $error_message = '';
-		$upload_size = 512000;		
+		$upload_size = 512000;
+		
+		// test error
+        if (false === XmarticleUtility::checkReference(Xmf\Request::getString('article_reference', ''), $this->getVar('article_id'))) {
+            $error_message .= _MA_XMARTICLE_ERROR_REFERENCE . '<br>';
+			$this->setVar('article_reference',  '');
+        } else {
+			$this->setVar('article_reference',  Xmf\Request::getString('article_reference', ''));
+		}
+		
         //logo
         $uploadirectory = '/xmarticle/images/article';
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
@@ -336,7 +345,6 @@ class xmarticle_article extends XoopsObject
             $this->setVar('article_logo', Xmf\Request::getString('article_logo', ''));
         }
         $this->setVar('article_name', Xmf\Request::getString('article_name', ''));
-        $this->setVar('article_reference',  Xmf\Request::getString('article_reference', ''));
         $this->setVar('article_description',  Xmf\Request::getText('article_description', ''));
         $article_cid = Xmf\Request::getInt('article_cid', 0);
         $this->setVar('article_cid', $article_cid);

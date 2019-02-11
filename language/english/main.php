@@ -39,6 +39,7 @@ define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the databas
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
+define('_MA_XMARTICLE_ERROR_REFERENCE', 'The reference already exists! The reference must be unique.');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
 // Info message
