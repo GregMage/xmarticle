@@ -41,6 +41,10 @@ define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurabl
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
+// Info message
+define('_MA_XMARTICLE_INFO_ARTICLEDISABLE', 'The article is disabled, you see it because you are allowed to change its status');
+define('_MA_XMARTICLE_INFO_ARTICLEWAITING', 'The article is pending validation, you see it because you are allowed to change its status');
+
 // Shared
 define('_MA_XMARTICLE_ACTION', 'Action');
 define('_MA_XMARTICLE_ADD', 'Add');

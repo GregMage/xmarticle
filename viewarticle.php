@@ -49,8 +49,10 @@ if (empty($article)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 
-if ($category->getVar('category_status') == 0 || $article->getVar('article_status') == 0 || $article->getVar('article_status') == 2) {
-    redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
+if ($helper->isUserAdmin() != true){
+	if ($category->getVar('category_status') == 0 || $article->getVar('article_status') != 1) {
+		redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
+	}
 }
 
 // Category
@@ -72,6 +74,7 @@ if ($article->getVar('article_mdate') != 0) {
 $xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
 $article_img = $article->getVar('article_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_article . $article_img);
+$xoopsTpl->assign('status', $article->getVar('article_status'));
 
 // Field
 $field_arr   = XmarticleUtility::getArticleFields($category->getVar('category_fields'), $article_id);

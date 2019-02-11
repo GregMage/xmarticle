@@ -4,6 +4,16 @@
         <li><a href="viewcat.php?category_id=<{$category_id}>"><{$category_name}></a></li>
         <li class="active"><{$name}></li>
     </ol>
+	<{if $status == 2}>
+	<div class="alert alert-warning" role="alert">
+		<{$smarty.const._MA_XMARTICLE_INFO_ARTICLEWAITING}>
+	</div>
+	<{/if}>
+	<{if $status == 0}>
+	<div class="alert alert-danger" role="alert">
+		<{$smarty.const._MA_XMARTICLE_INFO_ARTICLEDISABLE}>
+	</div>
+	<{/if}>
     <div class="media">
         <div class="media-left">
             <img class="media-object" src="<{$logo}>" alt="<{$name}>">
