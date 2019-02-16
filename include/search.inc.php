@@ -23,6 +23,10 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
 
     $sql = "SELECT article_id, article_cid, article_name, article_reference, article_description, article_date, article_userid FROM " . $xoopsDB->prefix("xmarticle_article") . " WHERE article_status = 1";
 
+	if ( $userid != 0 ) {
+        $sql .= " AND article_userid=" . intval($userid) . " ";
+    }
+	
     if ( is_array($queryarray) && $count = count($queryarray) )
     {
         $sql .= " AND ((article_name LIKE '%$queryarray[0]%' OR article_reference LIKE '%$queryarray[0]%' OR article_description LIKE '%$queryarray[0]%')";
