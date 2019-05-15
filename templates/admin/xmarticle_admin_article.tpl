@@ -25,7 +25,7 @@
 <{/if}>
 <{if $filter}>
 	<div align="right">
-		<form id="form_document_tri" name="form_document_tri" method="get" action="permission.php">
+		<form id="form_article_tri" name="form_article_tri" method="get" action="article.php">
 			<{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
 			<select name="article_filter" id="article_filter" onchange="location='article.php?start=<{$start}>&article_status=<{$article_status}>&article_cid='+this.options[this.selectedIndex].value">
 				<{$article_cid_options}>
