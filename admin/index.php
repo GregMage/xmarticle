@@ -24,6 +24,16 @@ require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->addConfigModuleVersion('system', 212);
+// xmstock
+if (xoops_isActiveModule('xmstock')){
+	if ($helper->getConfig('general_xmstock', 0) == 1) {
+		$moduleAdmin->addConfigModuleVersion('xmstock', 10);
+	} else {
+		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE);
+	}
+} else {
+	$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED);
+}
 // xmdoc
 if (xoops_isActiveModule('xmdoc')){
 	if ($helper->getConfig('general_xmdoc', 0) == 1) {

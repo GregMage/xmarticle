@@ -29,6 +29,8 @@ define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
 // Admin
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmdoc (if you want to add documents)');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'You have not installed the xmstock module, this module is required if you want to view stocks to the articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmstock (if you want to view stocks)');
  
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
@@ -112,6 +114,7 @@ define('_MA_XMARTICLE_USERID', 'Author');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 define('_MA_XMARTICLE_WAITING', 'There are <strong>%s</strong> articles waiting for validation!');
 define('_MA_XMARTICLE_XMDOC', 'Documents');
+define('_MA_XMARTICLE_XMSTOCK', 'Stocks');
 define('_MA_XMARTICLE_READING', 'Reading');
 define('_MA_XMARTICLE_RATING', 'Rating');
 define('_MA_XMARTICLE_VOTES', '(%s Votes)');

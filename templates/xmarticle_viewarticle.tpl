@@ -46,6 +46,16 @@
 			<{/foreach}>
         </div>
     </div>
+	<{if $xmstock_viewstocks == true}>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_XMSTOCK}></h3>
+        </div>
+        <div class="panel-body">
+            <{include file="db:xmstock_viewstocks.tpl"}>
+        </div>
+    </div>
+    <{/if}>
     <{if $xmdoc_viewdocs == true}>
     <div class="panel panel-default">
         <div class="panel-heading">

@@ -124,6 +124,14 @@ if ($counterUpdate == true){
 	$xoopsDB->queryF($sql);
 }
 
+//xmstock
+if (xoops_isActiveModule('xmstock') && $helper->getConfig('general_xmstock', 0) == 1) {
+    xoops_load('utility', 'xmstock');
+    XmstockUtility::renderStocks($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
+} else {
+    $xoopsTpl->assign('xmdoc_viewdocs', false);
+}
+
 //xmdoc
 if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
     xoops_load('utility', 'xmdoc');

@@ -49,6 +49,7 @@ define('_MI_XMARTICLE_BLOCK_WAITING_DESC', 'Display waitting articles');
 define('_MI_XMARTICLE_PREF_HEAD_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span>');
 define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the general view');
 define('_MI_XMARTICLE_PREF_GENERALSEPARATOR', 'Separation characters for multiple data display');
+define('_MI_XMARTICLE_PREF_GENERALXMSTOCK', 'Use xmstock module to view stock');
 define('_MI_XMARTICLE_PREF_GENERALXMDOC', 'Use xmdoc module to add document');
 define('_MI_XMARTICLE_PREF_CAPTCHA', 'Use Captcha?');
 define('_MI_XMARTICLE_PREF_CAPTCHA_DESC', 'Select Yes to use Captcha in the submit form');

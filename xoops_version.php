@@ -178,6 +178,15 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
+    'name'        => 'general_xmstock',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALXMSTOCK',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+];
+
+$modversion['config'][] = [
     'name'        => 'general_xmdoc',
     'title'       => '_MI_XMARTICLE_PREF_GENERALXMDOC',
     'description' => '',
