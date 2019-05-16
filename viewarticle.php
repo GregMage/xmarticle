@@ -79,6 +79,7 @@ $xoopsTpl->assign('status', $article->getVar('article_status'));
 // Field
 $field_arr   = XmarticleUtility::getArticleFields($category->getVar('category_fields'), $article_id);
 $field_count = count($field_arr);
+$xoopsTpl->assign('field_count', $field_count);
 if ($field_count > 0) {
     $count     = 1;
     $count_row = 1;
@@ -127,7 +128,7 @@ if ($counterUpdate == true){
 //xmstock
 if (xoops_isActiveModule('xmstock') && $helper->getConfig('general_xmstock', 0) == 1) {
     xoops_load('utility', 'xmstock');
-    XmstockUtility::renderStocks($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
+    XmstockUtility::renderStocks($xoopsTpl, $xoTheme, $article_id);
 } else {
     $xoopsTpl->assign('xmdoc_viewdocs', false);
 }

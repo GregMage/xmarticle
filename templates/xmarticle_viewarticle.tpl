@@ -24,6 +24,7 @@
         </div>
     </div>
     <br>
+	<{if $field_count > 0}>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_COMPINFORMATION}></h3>
@@ -46,6 +47,7 @@
 			<{/foreach}>
         </div>
     </div>
+	<{/if}>
 	<{if $xmstock_viewstocks == true}>
     <div class="panel panel-default">
         <div class="panel-heading">
