@@ -37,8 +37,8 @@ if (isset($_REQUEST['selArticle'])){
 
 if ($sessionHelper->get('selectionarticle') != False){
 	$xoopsTpl->assign('selected', true);
-	$selarticle  = $articleHandler->get($sessionHelper->get('selectionarticle'));	
-	if (count($selarticle) > 0) {
+	$selarticle  = $articleHandler->get($sessionHelper->get('selectionarticle'));
+	if (!empty($selarticle)) {
 		$selarticle_arr['name']        = $selarticle->getVar('article_name');
 		$selarticle_img            	   = $selarticle->getVar('article_logo') ?: 'blank.gif';
 		$selarticle_arr['logo']        = '<img src="' . $url_logo_article .  $selarticle_img . '" alt="' . $selarticle_img . '" />';	
