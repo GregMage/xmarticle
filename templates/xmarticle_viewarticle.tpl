@@ -48,6 +48,16 @@
         </div>
     </div>
 	<{/if}>
+	<{if $xmdoc_viewdocs == true}>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_XMDOC}></h3>
+        </div>
+        <div class="panel-body">
+            <{include file="db:xmdoc_viewdoc.tpl"}>
+        </div>
+    </div>
+    <{/if}>
 	<{if $xmstock_viewstocks == true}>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -55,16 +65,6 @@
         </div>
         <div class="panel-body">
             <{include file="db:xmstock_viewstocks.tpl"}>
-        </div>
-    </div>
-    <{/if}>
-    <{if $xmdoc_viewdocs == true}>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title"><{$smarty.const._MA_XMARTICLE_XMDOC}></h3>
-        </div>
-        <div class="panel-body">
-            <{include file="db:xmdoc_viewdoc.tpl"}>
         </div>
     </div>
     <{/if}>
