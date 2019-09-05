@@ -321,22 +321,34 @@ class XmarticleUtility
         return $articlelist;
     }
 	
+	/**
+     * Fonction qui permet d'afficher le nom d'un article
+	 * @param int      $articleid	Id de l'article
+     * @param boolean  $uref		Nom sous forme de lien
+     * @param boolean  $ulink		Afficher la référence     
+	 * @return string   			Nom selon les options ou message d'erreur
+     */
+	
 	public static function getArticleName($articleid, $uref = true, $ulink = true)
     {
         include __DIR__ . '/../include/common.php';
 		
 		$article = $articleHandler->get($articleid);
-		if ($uref == true){
-			$ref = ' (' . $article->getVar('article_reference') . ')';
+		if (isset($article)){
+			if ($uref == true){
+				$ref = ' (' . $article->getVar('article_reference') . ')';
+			} else {
+				$ref = '';
+			}
+			if ($ulink == true){
+				$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article->getVar('article_cid') . '&article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
+			} else {
+				$link = $article->getVar('article_name');
+			}		
+			return $link . $ref;
 		} else {
-			$ref = '';
+			return 'Error: The requested item does not exist! (ID-' . $articleid . ')';
 		}
-		if ($ulink == true){
-			$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article->getVar('article_cid') . '&article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
-		} else {
-			$link = $article->getVar('article_name');
-		}		
-        return $link . $ref;
     }
 	
 	public static function renderArticleForm($form, $caption, $itemid = 0)
