@@ -281,7 +281,7 @@ class XmarticleUtility
         }
         include __DIR__ . '/../include/common.php';
         $article = $articleHandler->get($article_id);
-        if (count($article) == 0) {
+        if (empty($article)) {
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
         }
         $newobj  = $articleHandler->create();
@@ -324,8 +324,8 @@ class XmarticleUtility
 	/**
      * Fonction qui permet d'afficher le nom d'un article
 	 * @param int      $articleid	Id de l'article
-     * @param boolean  $uref		Nom sous forme de lien
-     * @param boolean  $ulink		Afficher la référence     
+     * @param boolean  $uref		Afficher la référence
+     * @param boolean  $ulink		Nom sous forme de lien     
 	 * @return string   			Nom selon les options ou message d'erreur
      */
 	
