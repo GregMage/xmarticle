@@ -35,8 +35,8 @@ define('_MI_XMARTICLE_SUB_SEARCH', 'Search');
 // Block
 define('_MI_XMARTICLE_BLOCK_DATE', 'Recent Articles');
 define('_MI_XMARTICLE_BLOCK_DATE_DESC', 'Display Recent Articles');
-define('_MI_XMARTICLE_BLOCK_HITS', 'Top Articles');
-define('_MI_XMARTICLE_BLOCK_HITS_DESC', 'Display Top Articles');
+define('_MI_XMARTICLE_BLOCK_HITS', 'Top Articles (hits)');
+define('_MI_XMARTICLE_BLOCK_HITS_DESC', 'Display Top Articles (hits)');
 define('_MI_XMARTICLE_BLOCK_RATING', 'Top Rated Articles');
 define('_MI_XMARTICLE_BLOCK_RATING_DESC', 'Display Top Rated Articles');
 define('_MI_XMARTICLE_BLOCK_RANDOM', 'Random Articles');
