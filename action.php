@@ -168,7 +168,11 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                         }
                         //Del fielddata
                         XmarticleUtility::delFilddataArticle($article_id);
-                        
+						//xmdoc
+						if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+							xoops_load('utility', 'xmdoc');
+							$error_message .= XmdocUtility::delDocdata('xmarticle', $article_id);
+						}                        
 						//Del Notification and comment
 						$helper = \Xmf\Module\Helper::getHelper('xmarticle');
 						$moduleid = $helper->getModule()->getVar('mid');
