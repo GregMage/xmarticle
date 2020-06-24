@@ -101,8 +101,12 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $obj  = $articleHandler->get($article_id);
-                $form = $obj->getForm();
-                $xoopsTpl->assign('form', $form->render());
+				if (empty($obj)) {
+					$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
+				} else {
+					$form = $obj->getForm();
+					$xoopsTpl->assign('form', $form->render());
+				}
             }
 
             break;
