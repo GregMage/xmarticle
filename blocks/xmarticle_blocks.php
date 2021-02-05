@@ -109,7 +109,7 @@ function block_xmarticle_edit($options) {
     xoops_load('XoopsFormLoader');
 
     $form = new XmarticleBlockForm();
-	$category = new XoopsFormSelect(_MB_XMARTICLE_CATEGORY, 'options[0]', $options[0], 5, true);
+	$category = new XoopsFormSelect(_MB_XMARTICLE_CATEGORY, 'options[0]', explode(',', $options[0]), 5, true);
 	$category->addOption(0, _MB_XMARTICLE_ALLCATEGORY);
 	foreach (array_keys($category_arr) as $i) {
 		$category->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
