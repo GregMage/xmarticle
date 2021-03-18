@@ -86,7 +86,7 @@ if ($article_count > 0) {
 
 //SEO
 // pagetitle
-$xoopsTpl->assign('xoops_pagetitle', \Xmf\Metagen::generateSeoTitle($category->getVar('category_name') . '-' . $xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', $category->getVar('category_name') . '-' . $xoopsModule->name());
 //description   
 $xoTheme->addMeta('meta', 'description', \Xmf\Metagen::generateDescription($category->getVar('category_description'), 30));
 //keywords
