@@ -387,4 +387,13 @@ class XmarticleUtility
 			}
 		}
     }
+	
+	public static function generateDescriptionTagSafe($text, $wordCount = 100)
+    {
+		if (xoops_isActiveModule('xlanguage')){
+			$text = XoopsModules\Xlanguage\Utility::cleanMultiLang($text);
+		}
+		$text = \Xmf\Metagen::generateDescription($text, $wordCount);
+		return $text;
+	}
 }
