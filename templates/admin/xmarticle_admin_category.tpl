@@ -5,21 +5,22 @@
 <div>
     <{$renderbutton}>
 </div>
-<{if $error_message != ''}>
+<{if $error_message|default:'' != ''}>
     <div class="errorMsg" style="text-align: left;">
         <{$error_message}>
     </div>
 <{/if}>
 <div>
-    <{$form}>
+    <{$form|default:''}>
 </div>
-<{if $category_count != 0}>
+<{if $category_count|default:0 != 0}>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
         <tr>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_CATEGORY_LOGO}></th>
             <th class="txtleft width15"><{$smarty.const._MA_XMARTICLE_CATEGORY_NAME}></th>
-            <th class="txtleft"><{$smarty.const._MA_XMARTICLE_CATEGORY_DESC}></th>            
+            <th class="txtleft"><{$smarty.const._MA_XMARTICLE_CATEGORY_DESC}></th>
+			<th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_COLOR}></th>            
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_WEIGHT}></th>
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_STATUS}></th>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ACTION}></th>
@@ -28,9 +29,14 @@
         <tbody>
         <{foreach item=category from=$category}>
             <tr class="<{cycle values='even,odd'}> alignmiddle">
-                <td class="txtcenter"><{$category.logo}></td>
+                <td class="txtcenter">
+				<{if $category.logo != ''}>
+					<img src="<{$category.logo}>" alt="<{$category.name}>" style="max-width:150px">
+				<{/if}>
+				</td>
                 <td class="txtleft"><{$category.name}></td>
-                <td class="txtleft"><{$category.description}></td>                
+                <td class="txtleft"><{$category.description}></td>
+				<td class="txtcenter"><{if $category.color != false}><div style="background-color:<{$category.color}>;width:50px; height:20px;margin-left: auto; margin-right: auto;"></div><{/if}></td> 
                 <td class="txtcenter"><{$category.weight}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$category.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
@@ -53,7 +59,7 @@
         </tbody>
     </table>
     <div class="clear spacer"></div>
-    <{if $nav_menu}>
+    <{if $nav_menu|default:false}>
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>

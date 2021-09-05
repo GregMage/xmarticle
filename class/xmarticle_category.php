@@ -16,6 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Mage Gregory (AKA Mage)
  */
+use Xmf\Request;
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
@@ -36,6 +37,7 @@ class xmarticle_category extends XoopsObject
         // use html
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
         $this->initVar('category_logo', XOBJ_DTYPE_TXTBOX, null, false);
+		$this->initVar('category_color', XOBJ_DTYPE_TXTBOX, '#ffffff', false);
         $this->initVar('category_weight', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('category_status', XOBJ_DTYPE_INT, null, false, 1);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
@@ -60,6 +62,7 @@ class xmarticle_category extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
+		include __DIR__ . '/../include/common.php';
         $error_message = '';
         // test error
         if ((int)$_REQUEST['category_weight'] == 0 && $_REQUEST['category_weight'] != '0') {
@@ -67,10 +70,10 @@ class xmarticle_category extends XoopsObject
             $this->setVar('category_weight', 0);
         }
         //logo
-        $uploadirectory = '/xmarticle/images/category';
+        //$uploadirectory = '/xmarticle/images/category';
         if ($_FILES['category_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_category_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
+            $uploader_category_img = new XoopsMediaUploader($path_logo_category, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
             if ($uploader_category_img->fetchMedia('category_logo')) {
                 $uploader_category_img->setPrefix('category_');
                 if (!$uploader_category_img->upload()) {
@@ -82,11 +85,12 @@ class xmarticle_category extends XoopsObject
                 $error_message .= $uploader_category_img->getErrors();
             }
         } else {
-            $this->setVar('category_logo', Xmf\Request::getString('category_logo', ''));
+            $this->setVar('category_logo', Request::getString('category_logo', ''));
         }
-        $this->setVar('category_name', Xmf\Request::getString('category_name', ''));
-        $this->setVar('category_description', Xmf\Request::getText('category_description', ''));
-        $this->setVar('category_status', Xmf\Request::getInt('category_status', 1));
+        $this->setVar('category_name', Request::getString('category_name', ''));
+        $this->setVar('category_color', Request::getString('category_color', ''));
+		$this->setVar('category_description', Request::getText('category_description', ''));
+        $this->setVar('category_status', Request::getInt('category_status', 1));
 
         $fields = $this->getVar('category_fields');
         // remove field
@@ -108,7 +112,7 @@ class xmarticle_category extends XoopsObject
         }
         $this->setVar('category_fields', $fields);
         if ($error_message == '') {
-            $this->setVar('category_weight', Xmf\Request::getInt('category_weight', 0));
+            $this->setVar('category_weight', Request::getInt('category_weight', 0));
             if ($categoryHandler->insert($this)) {
                 // permissions
                 if ($this->get_new_enreg() == 0) {
@@ -118,12 +122,12 @@ class xmarticle_category extends XoopsObject
                 }
                 $permHelper = new \Xmf\Module\Helper\Permission();
                 // permission view
-                $groups_view = \Xmf\Request::getArray('xmarticle_view_perms', [], 'POST');
+                $groups_view = Request::getArray('xmarticle_view_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_view', $perm_id, $groups_view);
                 // permission submit
-                $groups_submit = \Xmf\Request::getArray('xmarticle_submit_perms', [], 'POST');
+                $groups_submit = Request::getArray('xmarticle_submit_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
-                if ((Xmf\Request::getBool('addmorefields', false)) === true) {
+                if ((Request::getBool('addmorefields', false)) === true) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -172,31 +176,35 @@ class xmarticle_category extends XoopsObject
         $editor_configs           = [];
         $editor_configs['name']   = 'category_description';
         $editor_configs['value']  = $this->getVar('category_description', 'e');
-        $editor_configs['rows']   = 20;
+        $editor_configs['rows']   = 5;
         $editor_configs['cols']   = 160;
         $editor_configs['width']  = '100%';
         $editor_configs['height'] = '400px';
         $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_CATEGORY_DESC, 'category_description', $editor_configs), false);
         // logo
-        $blank_img       = $this->getVar('category_logo') ?: 'blank.gif';
-        $uploadirectory  = '/uploads/xmarticle/images/category';
+        $blank_img       = $this->getVar('category_logo') ?: 'no-image.png';
+		$uploadirectory      = str_replace(XOOPS_URL, '', $url_logo_category);
         $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size / 1000), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_CATEGORY_FORMPATH, $uploadirectory);
         $imageselect_img = new XoopsFormSelect($imgpath_img, 'category_logo', $blank_img);
-        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
-        $imageselect_img->addOption("$blank_img", $blank_img);
+        $image_array_img = XoopsLists::getImgListAsArray($path_logo_category);
+        $imageselect_img->addOption("no-image.png", $blank_img);
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
         $imageselect_img->setExtra("onchange='showImgSelected(\"image_img2\", \"category_logo\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt=''>"));
+        $imgtray_img->addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $blank_img . "' name='image_img2' id='image_img2' alt='' style='max-width:100px'>"));
         $fileseltray_img = new XoopsFormElementTray('<br>', '<br><br>');
         $fileseltray_img->addElement(new XoopsFormFile(_MA_XMARTICLE_CATEGORY_UPLOAD, 'category_logo', $upload_size), false);
         $fileseltray_img->addElement(new XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
+		
+				//color
+		$form->addElement(new XoopsFormColorPicker(_MA_XMARTICLE_CATEGORY_COLOR, 'category_color', $this->getVar('category_color')), false);
+		
         // weight
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
 

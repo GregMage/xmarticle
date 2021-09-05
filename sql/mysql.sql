@@ -3,6 +3,7 @@ CREATE TABLE `xmarticle_category` (
   `category_name`           varchar(255)            NOT NULL DEFAULT '',
   `category_description`    text,
   `category_logo`           varchar(50)             NOT NULL DEFAULT '',
+  `category_color`          varchar(7)              NOT NULL DEFAULT '#ffffff',
   `category_weight`         smallint(5) unsigned    NOT NULL DEFAULT '0',
   `category_status`         tinyint(1)  unsigned    NOT NULL DEFAULT '1',
   `category_fields`    		text,

@@ -49,17 +49,17 @@ function xoops_module_install_xmarticle()
     }
     chmod($dir, 0777);
 
-    //Copy index.html
-    $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.html';
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.html');
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/index.html');
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/index.html');
+    //Copy index.php
+    $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.php';
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.php');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.php');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/index.php');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/index.php');
 
-    //Copy blank.gif
-    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';
-    copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/blank.gif');
-    copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/blank.gif');
+    //Copy no-image.png
+    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/no-image.png';
+    copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/category/no-image.png');
+    copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/no-image.png');
 
     // insert field for test
     $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');

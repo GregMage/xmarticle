@@ -19,6 +19,7 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
+use Xmf\Module\Helper;
 
 require __DIR__ . '/admin_header.php';
 $moduleAdmin = Admin::getInstance();
@@ -50,11 +51,21 @@ switch ($op) {
                 $category_id                 = $category_arr[$i]->getVar('category_id');
                 $category['id']              = $category_id;
                 $category['name']            = $category_arr[$i]->getVar('category_name');
-                $category['description']     = \Xmf\Metagen::generateDescription($category_arr[$i]->getVar('category_description', 'show'), 30);
-                $category['weight']          = $category_arr[$i]->getVar('category_weight');
+                $category['description']     = XmarticleUtility::generateDescriptionTagSafe($category_arr[$i]->getVar('category_description', 'show'), 50);
+				$color					     = $category_arr[$i]->getVar('category_color');
+				if ($color == '#ffffff'){
+					$category['color']	     = false;
+				} else {
+					$category['color']	     = $color;
+				}
+				$category['weight']          = $category_arr[$i]->getVar('category_weight');
                 $category['status']          = $category_arr[$i]->getVar('category_status');
-                $category_img                = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
-                $category['logo']        = '<img src="' . $url_logo_category . $category_img . '" alt="' . $category_img . '">';
+                $category_img                = $category_arr[$i]->getVar('category_logo');
+				if ($category_img == ''){
+					$category['logo']        = '';
+				} else {
+					$category['logo']        = $url_logo_category . $category_img;
+				}
                 $xoopsTpl->append_by_ref('category', $category);
                 unset($category);
             }

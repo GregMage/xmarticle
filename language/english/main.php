@@ -74,6 +74,7 @@ define('_MA_XMARTICLE_FIELDTYPE_CHECKBOX', 'Checkbox');
 define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
 
 // Category
+define('_MA_XMARTICLE_CATEGORY_COLOR', 'Color');
 define('_MA_XMARTICLE_CATEGORY_DESC', 'Description');
 define('_MA_XMARTICLE_CATEGORY_FIELD', 'Fields');
 define('_MA_XMARTICLE_CATEGORY_FORMPATH', 'Files are in: %s');
