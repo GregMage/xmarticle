@@ -7,7 +7,7 @@
 			<{foreach item=category from=$categories}>
 				<div class="col-6 col-sm-4 col-md-3 col-lg-3 p-2">
 					<div class="card xmarticle-border" <{if $category.color != false}>style="border-color : <{$category.color}>;"<{/if}>>
-						<a title="<{$category.name}>" href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category.id}>">
+						<a class="text-decoration-none" title="<{$category.name}>" href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category.id}>">
 							<div class="card-header text-center" <{if $category.color != false}>style="background-color : <{$category.color}>;"<{/if}>>
 								<{$category.name}>
 							</div>
@@ -20,7 +20,7 @@
 											<img class="rounded img-fluid mh-100" src="<{$category.logo}>" alt="<{$category.name}>">
 										</a>
 									<{/if}>
-									<div class="p-2">
+									<div class="col-12 p-2">
 										<{if $category.description != ""}>
 											<button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#xmDesc-<{$category.id}>">+</button>
 										<{else}>
