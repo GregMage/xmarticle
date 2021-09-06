@@ -85,7 +85,11 @@ class xmarticle_category extends XoopsObject
                 $error_message .= $uploader_category_img->getErrors();
             }
         } else {
-            $this->setVar('category_logo', Request::getString('category_logo', ''));
+			$category_logo = Request::getString('category_logo', '');
+			if ($category_logo == 'no-image.png'){
+				$category_logo = '';
+			}
+            $this->setVar('category_logo', $category_logo);
         }
         $this->setVar('category_name', Request::getString('category_name', ''));
         $this->setVar('category_color', Request::getString('category_color', ''));
