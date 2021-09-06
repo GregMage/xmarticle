@@ -123,8 +123,14 @@ class xmarticle_article extends XoopsObject
         }
         // category
         $category = $categoryHandler->get($article_cid);
-        $category_img = $category->getVar('category_logo') ?: 'blank.gif';
-        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" /> <strong>' . $category->getVar('category_name') . '</strong>'));
+		$category_img = $category->getVar('category_logo');
+		if ($category_img == ''){
+			$category_logo = '';
+		} else {
+			$category_logo = '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" style="max-width:100px" /> ';
+		}	
+        
+        $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, $category_logo . '<strong>' . $category->getVar('category_name') . '</strong>'));
         $form->addElement(new XoopsFormHidden('article_cid', $article_cid));
 
         // title

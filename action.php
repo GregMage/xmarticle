@@ -28,6 +28,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $op = Request::getCmd('op', '');
 // Get start pager
 $start = Request::getInt('start', 0);
+$xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 
 if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'loadarticle' || $op == 'save') {
     switch ($op) {
@@ -55,8 +56,18 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 					$category['id']           = $category_id;
 					$category['name']         = $category_arr[$i]->getVar('category_name');
 					$category['description']  = $category_arr[$i]->getVar('category_description', 'show');
-					$category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
-					$category['logo']         = $url_logo_category . $category_img;
+					$category_img             = $category_arr[$i]->getVar('category_logo');
+					if ($category_img == ''){
+						$category['logo']     = '';
+					} else {
+						$category['logo']     = $url_logo_category . $category_img;
+					}
+					$color					  = $category_arr[$i]->getVar('category_color');
+					if ($color == '#ffffff'){
+						$category['color']	  = false;
+					} else {
+						$category['color']	  = $color;
+					}
 					$xoopsTpl->append_by_ref('categories', $category);
 					unset($category);
 				}
