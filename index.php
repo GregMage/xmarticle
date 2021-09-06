@@ -34,6 +34,8 @@ $article_arr = $articleHandler->getall($criteria);
 
 // Get start pager
 $start = Request::getInt('start', 0);
+
+$xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 // Criteria
 $criteria = new CriteriaCompo();
 $criteria->setSort('category_weight ASC, category_name');
@@ -55,8 +57,14 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category['name']         = $category_arr[$i]->getVar('category_name');
         $category['description']  = $category_arr[$i]->getVar('category_description', 'show');
         $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, XmarticleUtility::articlePerCat($category_id, $article_arr));
-        $category_img             = $category_arr[$i]->getVar('category_logo') ?: 'blank.gif';
+        $category_img             = $category_arr[$i]->getVar('category_logo');
         $category['logo']         = $url_logo_category . $category_img;
+		$color					  = $category_arr[$i]->getVar('category_color');
+		if ($color == '#ffffff'){
+			$category['color']	  = false;
+		} else {
+			$category['color']	  = $color;
+		}
         $xoopsTpl->append_by_ref('categories', $category);
         if ($keywords == '') {
             $keywords = $category_arr[$i]->getVar('category_name');

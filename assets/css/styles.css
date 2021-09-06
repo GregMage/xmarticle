@@ -1,5 +1,13 @@
 .xmarticle {
 }
+.xmarticle-border {
+	border-style : solid;
+	border-width : thin;
+}
+
+
+
+
 
 .xm-category-list {
     margin-bottom: 10px;
