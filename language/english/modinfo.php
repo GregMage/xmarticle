@@ -46,7 +46,7 @@ define('_MI_XMARTICLE_BLOCK_WAITING_DESC', 'Display waitting articles');
 
 
 // Pref
-define('_MI_XMARTICLE_PREF_HEAD_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span>');
+define('_MI_XMARTICLE_PREF_HEAD_GENERAL', '<span style="font-size: large;  font-weight: bold;">--- General ---</span>');
 define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the general view');
 define('_MI_XMARTICLE_PREF_GENERALSEPARATOR', 'Separation characters for multiple data display');
 define('_MI_XMARTICLE_PREF_GENERALXMSTOCK', 'Use xmstock module to view stock');
@@ -55,10 +55,10 @@ define('_MI_XMARTICLE_PREF_CAPTCHA', 'Use Captcha?');
 define('_MI_XMARTICLE_PREF_CAPTCHA_DESC', 'Select Yes to use Captcha in the submit form');
 define('_MI_XMARTICLE_PREF_COUNTERTIME', 'Select the time before the article reading counter can be incremented by the same person. [min]');
 define('_MI_XMARTICLE_PREF_COUNTERTIME_DESC', 'Put "0" if you do not want to put any limitation');
-define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Administration ---</span>');
+define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">--- Administration ---</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');
-define('_MI_XMARTICLE_PREF_HEAD_COMNOTI', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Comments and notifications ---</span>');
+define('_MI_XMARTICLE_PREF_HEAD_COMNOTI', '<span style="font-size: large;  font-weight: bold;">--- Comments and notifications ---</span>');
 define('_MI_XMARTICLE_NOTIFICATION_GLOBAL', 'Global');
 define('_MI_XMARTICLE_NOTIFICATION_GLOBAL_DESC', 'Global notification options for articles.');
 define('_MI_XMARTICLE_NOTIFICATION_GLOBAL_NEWARTICLE', 'New article');
