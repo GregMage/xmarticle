@@ -58,7 +58,11 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category['description']  = $category_arr[$i]->getVar('category_description', 'show');
         $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, XmarticleUtility::articlePerCat($category_id, $article_arr));
         $category_img             = $category_arr[$i]->getVar('category_logo');
-        $category['logo']         = $url_logo_category . $category_img;
+		if ($category_img == ''){
+			$category['logo']        = '';
+		} else {
+			$category['logo']         = $url_logo_category . $category_img;
+		}
 		$color					  = $category_arr[$i]->getVar('category_color');
 		if ($color == '#ffffff'){
 			$category['color']	  = false;
