@@ -1,17 +1,23 @@
 <div class="xmarticle">
-	<div class="xmform">
-		<{$form}>
+	<nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="index.php"><{$index_module}></a></li>
+		<li class="breadcrumb-item active" aria-current="page"><{$smarty.const._MA_XMARTICLE_SEARCH}></li>
+	  </ol>
+	</nav>
+	<div>
+		<{$form|default:false}>
 	</div>
-	<{if $article != ""}>
+	<{if $article|default:'' != ""}>
         <h3 class="tdm-title"><{$smarty.const._MA_XMARTICLE_LISTARTICLE}>:</h3>
         <{section name=i loop=$article}><{include file="db:xmarticle_article.tpl" down=$article[i]}><{/section}>
     <{/if}>
     <div class="clear spacer"></div>
-    <{if $nav_menu}>
+    <{if $nav_menu|default:false}>
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>
-    <{if $no_article}>
+    <{if $no_article|default:false}>
         <div class="alert alert-danger" role="alert"><{$smarty.const._MA_XMARTICLE_ERROR_NOARTICLE}></div>
     <{/if}>
 </div><!-- .xmarticle -->

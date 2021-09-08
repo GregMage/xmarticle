@@ -29,6 +29,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 // Get Permission to search
 $permHelper->checkPermissionRedirect('xmarticle_other', 32, 'index.php', 2, _NOPERM);
 
+$xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 // Get values
 $search = Request::getString('search', '');
 $reset  = Request::getString('reset', '');
