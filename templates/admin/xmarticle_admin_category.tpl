@@ -3,7 +3,7 @@
     IMG_OFF = '<{xoAdminIcons cancel.png}>';
 </script>
 <div>
-    <{$renderbutton}>
+    <{$renderbutton|default:''}>
 </div>
 <{if $error_message|default:'' != ''}>
     <div class="errorMsg" style="text-align: left;">
