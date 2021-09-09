@@ -130,6 +130,31 @@ function xoops_module_install_xmarticle()
         $fieldHandler->insert($obj);
         unset($obj);
     }
-
+	
+	// insert data cat
+	$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
+	$category_arr[]  = ['category_name' => 'Catégorie 1', 'category_description' => 'Ceci est la description de la catégorie 1', 'category_color' => '#0080ff', 'category_weight' => 1];
+	$category_arr[]  = ['category_name' => 'Catégorie 2', 'category_description' => 'Ceci est la description de la catégorie 2', 'category_color' => '#008000', 'category_weight' => 2];
+	$category_arr[]  = ['category_name' => 'Catégorie 3', 'category_description' => 'Ceci est la description de la catégorie 3', 'category_color' => '#80ff00', 'category_weight' => 3];
+	$category_arr[]  = ['category_name' => 'Catégorie 4', 'category_description' => 'Ceci est la description de la catégorie 4', 'category_color' => '#804000', 'category_weight' => 4];
+	foreach (array_keys($category_arr) as $i) {
+		$obj = $categoryHandler->create();
+		$obj->setVar('category_name', $category_arr[$i]['category_name']);
+		$obj->setVar('category_description', $category_arr[$i]['category_description']);
+		$obj->setVar('category_logo', '');
+		$obj->setVar('category_color', $category_arr[$i]['category_color']);
+		$obj->setVar('category_douser', 1);
+		$obj->setVar('category_dodate', 1);
+		$obj->setVar('category_domdate', 1);
+		$obj->setVar('category_dorating', 1);
+		$obj->setVar('category_docomment', 1);
+		$obj->setVar('category_weight', $category_arr[$i]['category_weight']);
+		$obj->setVar('category_status', 1);
+		$obj->setVar('category_fields', [0 => 0]);		
+		$obj->setVar('category_status', 1);
+		$categoryHandler->insert($obj);
+		unset($obj);
+	}
+	
     return true;
 }
