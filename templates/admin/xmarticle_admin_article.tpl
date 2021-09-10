@@ -3,14 +3,14 @@
     IMG_OFF = '<{xoAdminIcons cancel.png}>';
 </script>
 <div>
-    <{$renderbutton}>
+    <{$renderbutton|default:''}>
 </div>
-<{if $error_message != ''}>
+<{if $error_message|default:'' != ''}>
     <div class="errorMsg" style="text-align: left;">
         <{$error_message}>
     </div>
 <{/if}>
-<{if $warning_message != ''}>
+<{if $warning_message|default:'' != ''}>
     <div class="xm-warning-msg xo-actions">
         <{$warning_message}>
 		<a class="tooltip" href="article.php?article_status=2" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
@@ -18,12 +18,12 @@
 		</a>
     </div>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
     <div>
         <{$form}>
     </div>
 <{/if}>
-<{if $filter}>
+<{if $filter|default:false}>
 	<div align="right">
 		<form id="form_article_tri" name="form_article_tri" method="get" action="article.php">
 			<{$smarty.const._MA_XMARTICLE_ARTICLE_CATEGORY}>
@@ -37,7 +37,7 @@
 		</form>
 	</div>
 <{/if}>
-<{if $article_count != 0}>
+<{if $article_count|default:0 != 0}>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
         <tr>
@@ -85,7 +85,7 @@
         </tbody>
     </table>
     <div class="clear spacer"></div>
-    <{if $nav_menu}>
+    <{if $nav_menu|default:false}>
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>

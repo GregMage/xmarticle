@@ -3,17 +3,17 @@
     IMG_OFF = '<{xoAdminIcons cancel.png}>';
 </script>
 <div>
-    <{$renderbutton}>
+    <{$renderbutton|default:''}>
 </div>
-<{if $error_message != ''}>
+<{if $error_message|default:'' != ''}>
     <div class="errorMsg" style="text-align: left;">
         <{$error_message}>
     </div>
 <{/if}>
 <div>
-    <{$form}>
+    <{$form|default:''}>
 </div>
-<{if $field_count != 0}>
+<{if $field_count|default:0 != 0}>
     <table id="xo-xmcontact-sorter" cellspacing="1" class="outer tablesorter">
         <thead>
         <tr>
@@ -65,7 +65,7 @@
         </tbody>
     </table>
     <div class="clear spacer"></div>
-    <{if $nav_menu}>
+    <{if $nav_menu|default:false}>
         <div class="floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>
