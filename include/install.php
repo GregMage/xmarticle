@@ -150,7 +150,7 @@ function xoops_module_install_xmarticle()
 		$obj->setVar('category_docomment', 1);
 		$obj->setVar('category_weight', $category_arr[$i]['category_weight']);
 		$obj->setVar('category_status', 1);
-		$obj->setVar('category_fields', [0 => 0]);		
+		$obj->setVar('category_fields', array());		
 		$obj->setVar('category_status', 1);
 		$categoryHandler->insert($obj);
 		unset($obj);
