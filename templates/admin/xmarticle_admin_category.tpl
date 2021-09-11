@@ -34,7 +34,7 @@
 					<img src="<{$category.logo}>" alt="<{$category.name}>" style="max-width:150px">
 				<{/if}>
 				</td>
-                <td class="txtleft"><{$category.name}></td>
+                <td class="txtleft"><a href="../viewcat.php?category_id=<{$category.id}>" title="<{$category.name}>"><{$category.name}></a></td>
                 <td class="txtleft"><{$category.description}></td>
 				<td class="txtcenter"><{if $category.color != false}><div style="background-color:<{$category.color}>;width:50px; height:20px;margin-left: auto; margin-right: auto;"></div><{/if}></td> 
                 <td class="txtcenter"><{$category.weight}></td>
@@ -48,11 +48,9 @@
                 </td>
                 <td class="xo-actions txtcenter">
                     <a class="tooltip" href="category.php?op=edit&amp;category_id=<{$category.id}>" title="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                    </a>
+                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>"></a>
                     <a class="tooltip" href="category.php?op=del&amp;category_id=<{$category.id}>" title="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                    </a>
+                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>"></a>
                 </td>
             </tr>
         <{/foreach}>

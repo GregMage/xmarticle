@@ -54,8 +54,8 @@
         <{foreach item=article from=$article}>
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter"><img src="<{$article.logo}>" alt="<{$article.name}>" style="max-width:150px"></td>
-                <td class="txtleft"><{$article.category}></td>
-                <td class="txtleft"><{$article.name}></td>
+                <td class="txtleft"><a href="../viewcat.php?category_id=<{$article.cid}>" title="<{$article.category}>"><{$article.category}></a></td>
+                <td class="txtleft"><a href="../viewarticle.php?category_id=<{$article.cid}>&article_id=<{$article.id}>" title="<{$article.name}>"><{$article.name}></a></td>
                 <td class="txtleft"><{$article.reference}></td>
                 <td class="txtleft"><{$article.description}></td>
                 <td class="xo-actions txtcenter">
@@ -68,17 +68,13 @@
                 </td>
                 <td class="xo-actions txtcenter">
 					<a class="tooltip" href="../viewarticle.php?category_id=<{$article.cid}>&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
-                        <img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>">
-                    </a>
+                        <img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>"></a>
 					<a class="tooltip" href="article.php?op=clone&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_CLONE}>">
-                        <img src="<{xoAdminIcons clone.png}>" alt="<{$smarty.const._MA_XMARTICLE_CLONE}>">
-                    </a>
+                        <img src="<{xoAdminIcons clone.png}>" alt="<{$smarty.const._MA_XMARTICLE_CLONE}>"></a>
                     <a class="tooltip" href="article.php?op=edit&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>">
-                    </a>
+                        <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._MA_XMARTICLE_EDIT}>"></a>
                     <a class="tooltip" href="article.php?op=del&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>">
-                    </a>
+                        <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._MA_XMARTICLE_DEL}>"></a>
                 </td>
             </tr>
         <{/foreach}>
