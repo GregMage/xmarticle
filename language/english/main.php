@@ -31,6 +31,14 @@ define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'You have not inst
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmdoc (if you want to add documents)');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'You have not installed the xmstock module, this module is required if you want to view stocks to the articles');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmstock (if you want to view stocks)');
+define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Server status');
+define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Information taken from PHP ini file:</span>");
+define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");
+define('_MA_XMARTICLE_INDEX_OFF', "<span style='font-weight: bold;'>OFF</span>");
+define('_MA_XMARTICLE_INDEX_SERVERUPLOADSTATUS', 'Server uploads status: ');
+define('_MA_XMARTICLE_INDEX_MAXPOSTSIZE', 'Max post size permitted (post_max_size directive in php.ini): ');
+define('_MA_XMARTICLE_INDEX_MAXUPLOADSIZE', 'Max upload size permitted (upload_max_filesize directive in php.ini): ');
+define('_MA_XMARTICLE_INDEX_MEMORYLIMIT', 'Memory limit (memory_limit directive in php.ini): ');
  
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
@@ -42,6 +50,7 @@ define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_REFERENCE', 'The reference already exists! The reference must be unique.');
+define('_MA_XMARTICLE_ERROR_SIZE', "The size in préférence (Max uploaded files size) exceeds the maximum values defined in 'post_max_size' or 'upload_max_filesize' in your configuration in php.ini");
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
 // Info message
@@ -58,6 +67,8 @@ define('_MA_XMARTICLE_STATUS', 'Status');
 define('_MA_XMARTICLE_STATUS_A', 'Active');
 define('_MA_XMARTICLE_STATUS_NA', 'Disabled');
 define('_MA_XMARTICLE_VIEW', 'View');
+
+
 
 // Field type
 define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');

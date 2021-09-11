@@ -104,7 +104,6 @@ class xmarticle_article extends XoopsObject
     {
         global $xoopsUser;
 		
-		$upload_size = 500000;
         $helper = Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
@@ -160,7 +159,7 @@ class xmarticle_article extends XoopsObject
         // logo
         $blank_img 		 = $this->getVar('article_logo') ?: 'no-image.png';
 		$uploadirectory  = str_replace(XOOPS_URL, '', $url_logo_article);
-        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size / 1000), '<br>');
+        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size / 1024), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
         $imageselect_img = new XoopsFormSelect($imgpath_img, 'article_logo', $blank_img);
         $image_array_img = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
@@ -357,7 +356,6 @@ class xmarticle_article extends XoopsObject
         include __DIR__ . '/../include/common.php';
         $helper = Helper::getHelper('xmarticle');
         $error_message = '';
-		$upload_size = 512000;
 		
 		// test error
         if (false === XmarticleUtility::checkReference(Request::getString('article_reference', ''), $this->getVar('article_id'))) {

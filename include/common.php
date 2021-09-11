@@ -27,6 +27,8 @@ $path_logo_category = XOOPS_UPLOAD_PATH . '/xmarticle/images/category/';
 $url_logo_article   = XOOPS_UPLOAD_URL . '/xmarticle/images/article/';
 $path_logo_article  = XOOPS_UPLOAD_PATH . '/xmarticle/images/article/';
 
+$upload_size = $helper->getConfig('general_maxuploadsize', 104858);
+
 // Get handler
 $categoryHandler  = $helper->getHandler('xmarticle_category');
 $fieldHandler     = $helper->getHandler('xmarticle_field');

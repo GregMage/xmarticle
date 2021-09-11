@@ -162,7 +162,6 @@ class xmarticle_category extends XoopsObject
      */
     public function getForm($action = false)
     {
-        $upload_size = 500000;
         $helper      = \Xmf\Module\Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
@@ -201,7 +200,7 @@ class xmarticle_category extends XoopsObject
         // logo
         $blank_img       = $this->getVar('category_logo') ?: 'no-image.png';
 		$uploadirectory  = str_replace(XOOPS_URL, '', $url_logo_category);
-        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size / 1000), '<br>');
+        $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_CATEGORY_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_CATEGORY_UPLOADSIZE, $upload_size / 1024), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_CATEGORY_FORMPATH, $uploadirectory);
         $imageselect_img = new XoopsFormSelect($imgpath_img, 'category_logo', $blank_img);
         $image_array_img = XoopsLists::getImgListAsArray($path_logo_category);

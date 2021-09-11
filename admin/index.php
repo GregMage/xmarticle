@@ -23,6 +23,14 @@ require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
+
+$iniPostMaxSize = XmarticleUtility::returnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = XmarticleUtility::returnBytes(ini_get('upload_max_filesize'));
+if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_maxuploadsize', 104858)) {
+	echo '<div class="errorMsg" style="text-align: left;">' . _MA_XMARTICLE_ERROR_SIZE . '</div>';	
+}
+
+
 $moduleAdmin->addConfigModuleVersion('system', 212);
 // xmstock
 if (xoops_isActiveModule('xmstock')){
@@ -52,5 +60,5 @@ foreach (array_keys( $folder) as $i) {
     $moduleAdmin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
 }
 $moduleAdmin->displayIndex();
-
+echo XmarticleUtility::getServerStats();
 require __DIR__ . '/admin_footer.php';
