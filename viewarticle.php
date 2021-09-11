@@ -58,8 +58,15 @@ if ($helper->isUserAdmin() != true){
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
 $xoopsTpl->assign('category_id', $category_id);
+$color = $category->getVar('category_color');
+if ($color == '#ffffff'){
+	$xoopsTpl->assign('category_color', false);
+} else {
+	$xoopsTpl->assign('category_color', $color);
+}
 
 // Article
+$xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 $xoopsTpl->assign('article_id', $article_id);
 $xoopsTpl->assign('name', $article->getVar('article_name'));
 $xoopsTpl->assign('description', $article->getVar('article_description'));

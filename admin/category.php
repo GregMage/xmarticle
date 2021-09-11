@@ -62,7 +62,7 @@ switch ($op) {
                 $category['status']          = $category_arr[$i]->getVar('category_status');
                 $category_img                = $category_arr[$i]->getVar('category_logo');
 				if ($category_img == ''){
-					$category['logo']        = '';
+					$category['logo']        = $url_logo_category . 'no-image.png';
 				} else {
 					$category['logo']        = $url_logo_category . $category_img;
 				}

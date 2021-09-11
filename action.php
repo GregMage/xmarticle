@@ -199,9 +199,9 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                         $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
                     }
                 } else {
-                    $article_img = $obj->getVar('article_logo') ?: 'blank.gif';
+                    $article_img = $obj->getVar('article_logo') ?: 'no-image.png';
                     xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br \>
-                                        <img src="' . $url_logo_article . $article_img . '" title="' . $obj->getVar('article_name') . '"><br \>');
+                                        <img src="' . $url_logo_article . $article_img . '" title="' . $obj->getVar('article_name') . '" style="max-width:100px"s><br \>');
                 }
             }
             break;

@@ -98,10 +98,14 @@ switch ($op) {
 				$article['cid']             = $article_arr[$i]->getVar('article_cid');
                 $article['name']            = $article_arr[$i]->getVar('article_name');
                 $article['reference']       = $article_arr[$i]->getVar('article_reference');
-                $article['description']     = \Xmf\Metagen::generateDescription($article_arr[$i]->getVar('article_description', 'show'), 30);
+                $article['description']     = XmarticleUtility::generateDescriptionTagSafe($article_arr[$i]->getVar('article_description', 'show'), 50);
                 $article['status']          = $article_arr[$i]->getVar('article_status');
-                $article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
-                $article['logo']          = '<img src="' . $url_logo_article . $article_img . '" alt="' . $article_img . '">';
+				$article_img                = $article_arr[$i]->getVar('article_logo');
+				if ($article_img == ''){
+					$article['logo']        = $url_logo_article . 'no-image.png';
+				} else {
+					$article['logo']        = $url_logo_article . $article_img;
+				}
                 $xoopsTpl->append_by_ref('article', $article);
                 unset($article);
             }
@@ -234,7 +238,7 @@ switch ($op) {
                 xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], 
                                     sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>
                                     <img src="' . $url_logo_article . $article_img . '" title="' . 
-                                    $obj->getVar('article_name') . '"><br>');
+                                    $obj->getVar('article_name') . '" style="max-width:100px"><br>');
             }
         }
         

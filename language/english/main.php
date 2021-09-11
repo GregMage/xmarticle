@@ -76,6 +76,13 @@ define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
 // Category
 define('_MA_XMARTICLE_CATEGORY_COLOR', 'Color');
 define('_MA_XMARTICLE_CATEGORY_DESC', 'Description');
+define('_MA_XMARTICLE_CATEGORY_DOCOMMENT', 'View comments');
+define('_MA_XMARTICLE_CATEGORY_DODSC', 'Default value for new article in this category');
+define('_MA_XMARTICLE_CATEGORY_DODATE', 'View date');
+define('_MA_XMARTICLE_CATEGORY_DOHITS', 'View hits');
+define('_MA_XMARTICLE_CATEGORY_DOMDATE', 'View modified date');
+define('_MA_XMARTICLE_CATEGORY_DORATING', 'View rating');
+define('_MA_XMARTICLE_CATEGORY_DOUSER', 'View user');
 define('_MA_XMARTICLE_CATEGORY_FIELD', 'Fields');
 define('_MA_XMARTICLE_CATEGORY_FORMPATH', 'Files are in: %s');
 define('_MA_XMARTICLE_CATEGORY_LOGO', 'Logo');

@@ -53,10 +53,10 @@
         <tbody>
         <{foreach item=article from=$article}>
             <tr class="<{cycle values='even,odd'}> alignmiddle">
-                <td class="txtcenter"><{$article.logo}></td>
+                <td class="txtcenter"><img src="<{$article.logo}>" alt="<{$article.name}>" style="max-width:150px"></td>
                 <td class="txtleft"><{$article.category}></td>
                 <td class="txtleft"><{$article.name}></td>
-                <td class="txtleft"><{$article.cat_reference}><{$article.reference}></td>
+                <td class="txtleft"><{$article.reference}></td>
                 <td class="txtleft"><{$article.description}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$article.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
