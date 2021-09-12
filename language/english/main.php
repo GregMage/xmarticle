@@ -138,6 +138,9 @@ define('_MA_XMARTICLE_READING', 'Reading');
 define('_MA_XMARTICLE_RATING', 'Rating');
 define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 
+define('_MA_XMARTICLE_ARTICLE_MDATE_BT', 'Update');
+define('_MA_XMARTICLE_ARTICLE_PUBLISHED_BT', 'Publication');
+
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');
 define('_MA_XMARTICLE_PERMISSION_VIEW_DSC', 'Select groups that can view an article in categories');

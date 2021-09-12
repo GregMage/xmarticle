@@ -54,6 +54,10 @@ if ($helper->isUserAdmin() != true){
 		redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NACTIVE);
 	}
 }
+//permission
+$xoopsTpl->assign('perm_clone', true);
+$xoopsTpl->assign('perm_edit', true);
+$xoopsTpl->assign('perm_del', true);
 
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
@@ -81,6 +85,11 @@ if ($article->getVar('article_mdate') != 0) {
 $xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
 $article_img = $article->getVar('article_logo') ?: 'blank.gif';
 $xoopsTpl->assign('logo', $url_logo_article . $article_img);
+$xoopsTpl->assign('douser', $article->getVar('article_douser'));
+$xoopsTpl->assign('dodate', $article->getVar('article_dodate'));
+$xoopsTpl->assign('domdate', $article->getVar('article_domdate'));
+$xoopsTpl->assign('dohits', $article->getVar('article_dohits'));
+$xoopsTpl->assign('docomment', $article->getVar('article_docomment'));
 $xoopsTpl->assign('status', $article->getVar('article_status'));
 
 // Field
