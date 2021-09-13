@@ -59,9 +59,7 @@ if ($category_img == ''){
 }
 $color = $category->getVar('category_color');
 if ($color == '#ffffff'){
-	$xoopsTpl->assign('color', false);
-} else {
-	$xoopsTpl->assign('color', $color);
+	$color = false;
 }
 
 // Get article
@@ -101,10 +99,15 @@ if ($article_count > 0) {
 		$article['domdate']         = $article_arr[$i]->getVar('article_domdate');
 		$article['dohits']          = $article_arr[$i]->getVar('article_dohits');
 		$article['dorating']        = $article_arr[$i]->getVar('article_dorating');		
-		$article_img                = $article_arr[$i]->getVar('article_logo');
-        $article['logo']            = $url_logo_article .  $article_img;
-		if ($article['logo'] == ''){
+		$article['color']           = $color;		
+		$article_img                = $article_arr[$i]->getVar('article_logo');        
+		if ($article_img  == ''){
 			$article['logo']        = '';
+		} else {
+			$article['logo']        = $url_logo_article .  $article_img;	
+		}
+		if ($xmsocial == true){
+			$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
 		}
         $xoopsTpl->append('article', $article);
         unset($article);

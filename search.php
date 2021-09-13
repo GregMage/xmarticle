@@ -85,6 +85,14 @@ if ($search != '') {
     $articleHandler->field_object = "article_cid";
     $article_arr                  = $articleHandler->getByLink($criteria);
     $article_count                = $articleHandler->getCount($criteria);
+	//xmsocial
+	if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0) == 1) {
+		$xmsocial = true;
+		xoops_load('utility', 'xmsocial');
+	} else {
+		$xmsocial = false;
+	}
+	$xoopsTpl->assign('xmsocial', $xmsocial);
     if ($article_count > 0) {
         foreach (array_keys($article_arr) as $i) {
             $article_id             = $article_arr[$i]->getVar('article_id');
@@ -94,9 +102,31 @@ if ($search != '') {
             $article['reference']   = $article_arr[$i]->getVar('article_reference');
             $article['description'] = $article_arr[$i]->getVar('article_description', 'show');
             $article['date']        = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
-            $article['author']      = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
-            $article_img            = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
-            $article['logo']        = $url_logo_article . $article_img;
+			if ($article_arr[$i]->getVar('article_mdate') != 0) {
+				$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
+			}
+			$article['author']      = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
+			$article_img            = $article_arr[$i]->getVar('article_logo');						
+			if ($article_img == ''){
+				$article['logo']    = '';
+			} else {
+				$article['logo']    = $url_logo_article .  $article_img;
+			}
+			$color					= $article_arr[$i]->getVar('category_color');
+			if ($color == '#ffffff'){
+				$article['color']	= false;
+			} else {
+				$article['color']   = $color;
+			}
+			if ($xmsocial == true){
+				$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
+			}
+			$article['counter']         = $article_arr[$i]->getVar('article_counter');
+			$article['douser']      = $article_arr[$i]->getVar('article_douser');
+			$article['dodate']      = $article_arr[$i]->getVar('article_dodate');
+			$article['domdate']     = $article_arr[$i]->getVar('article_domdate');
+			$article['dohits']      = $article_arr[$i]->getVar('article_dohits');
+			$article['dorating']    = $article_arr[$i]->getVar('article_dorating');
             $xoopsTpl->append('article', $article);
             unset($article);
         }

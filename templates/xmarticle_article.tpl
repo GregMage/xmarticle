@@ -1,6 +1,6 @@
 <div class="col mb-3">
-	<div class="card h-100 xmnews-border" <{if $color != false}>style="border-color : <{$color}>;"<{/if}>>
-		<div class="card-header" <{if $color != false}>style="background-color : <{$color}>;"<{/if}>>
+	<div class="card h-100 xmnews-border" <{if $down.color != false}>style="border-color : <{$down.color}>;"<{/if}>>
+		<div class="card-header" <{if $down.color != false}>style="background-color : <{$down.color}>;"<{/if}>>
 			<div class="d-flex justify-content-center text-center">
 				<h5 class="mb-0 text-white"><{$down.name}></h5>
 			</div>

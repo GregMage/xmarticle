@@ -10,8 +10,10 @@
 	</div>
 	<{if $article|default:'' != ""}>
         <h3 class="tdm-title"><{$smarty.const._MA_XMARTICLE_LISTARTICLE}>:</h3>
-        <{section name=i loop=$article}><{include file="db:xmarticle_article.tpl" down=$article[i]}><{/section}>
-    <{/if}>
+		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 justify-content-center">
+			<{section name=i loop=$article}><{include file="db:xmarticle_article.tpl" down=$article[i]}><{/section}>
+		</div>
+	<{/if}>
     <div class="clear spacer"></div>
     <{if $nav_menu|default:false}>
         <div class="floatright"><{$nav_menu}></div>
