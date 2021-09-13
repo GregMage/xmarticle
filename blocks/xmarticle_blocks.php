@@ -87,12 +87,30 @@ function block_xmarticle_show($options) {
 			$article['reference']       = $article_arr[$i]->getVar('article_reference');
 			$article['description']     = $article_arr[$i]->getVar('article_description', 'n');
 			$article['date']            = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
+			if ($article_arr[$i]->getVar('article_mdate') != 0) {
+				$article['mdate'] = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
+			}
 			$article['author']          = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
-			$article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
+			$article_img                = $article_arr[$i]->getVar('article_logo');
 			$article['logo']            = $url_logo_article .  $article_img;
+			if ($article_img == ''){
+				$article['logo']        = '';
+			}
+			$color = $article_arr[$i]->getVar('category_color');
+			if ($color == '#ffffff'){
+				$article['color'] = false;				
+			} else {
+				$article['color'] = $color;
+			}
 			$article['hits']            = $article_arr[$i]->getVar('article_counter');
-			$article['rating']          = $article_arr[$i]->getVar('article_rating');
-			$article['votes']           = $article_arr[$i]->getVar('article_votes');
+			if ($block['xmsocial'] == true){
+				$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
+			}
+			$article['douser']     		= $article_arr[$i]->getVar('article_douser');
+			$article['dodate']     		= $article_arr[$i]->getVar('article_dodate');
+			$article['domdate']    	 	= $article_arr[$i]->getVar('article_domdate');
+			$article['dohits']     	 	= $article_arr[$i]->getVar('article_dohits');
+			$article['dorating']     	= $article_arr[$i]->getVar('article_dorating');
 			$article['type']            = $options[2];
 			$block['article'][] = $article;
 			unset($article);

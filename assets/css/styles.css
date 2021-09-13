@@ -4,9 +4,21 @@
 	border-style : solid;
 	border-width : thin;
 }
+.xmarticle-data.row {
+    font-weight: bold;
+    color: #999;
+    font-size: 0.8em;
+}
 
+.xmarticle-data {
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #999;
+}
 
-
+.xmarticle-border {
+border-style : solid;
+border-width : thin;
+}
 
 
 .xm-category-list {

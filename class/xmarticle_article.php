@@ -54,6 +54,7 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_status', XOBJ_DTYPE_INT, 1);
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
+		$this->initVar('category_color', XOBJ_DTYPE_TXTBOX, '#ffffff', false);
     }
 
     /**
