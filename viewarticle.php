@@ -83,8 +83,12 @@ if ($article->getVar('article_mdate') != 0) {
     $xoopsTpl->assign('mdate', formatTimestamp($article->getVar('article_mdate'), 's'));
 }
 $xoopsTpl->assign('author', XoopsUser::getUnameFromId($article->getVar('article_userid')));
-$article_img = $article->getVar('article_logo') ?: 'blank.gif';
-$xoopsTpl->assign('logo', $url_logo_article . $article_img);
+$article_img = $article->getVar('article_logo');
+if ($article_img == ''){
+	$xoopsTpl->assign('logo', '');
+} else {
+	$xoopsTpl->assign('logo', $url_logo_article . $article_img);
+}
 $xoopsTpl->assign('douser', $article->getVar('article_douser'));
 $xoopsTpl->assign('dodate', $article->getVar('article_dodate'));
 $xoopsTpl->assign('domdate', $article->getVar('article_domdate'));

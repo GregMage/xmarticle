@@ -367,7 +367,6 @@ class xmarticle_article extends XoopsObject
 		}
 		
         //logo
-        $uploadirectory = '/xmarticle/images/article';
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader_article_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
@@ -382,7 +381,11 @@ class xmarticle_article extends XoopsObject
                 $error_message .= $uploader_article_img->getErrors();
             }
         } else {
-            $this->setVar('article_logo', Request::getString('article_logo', ''));
+			$article_logo = Request::getString('article_logo', '');
+			if ($article_logo == 'no-image.png'){
+				$article_logo = '';
+			}
+            $this->setVar('article_logo', $article_logo);
         }
         $this->setVar('article_name', Request::getString('article_name', ''));
         $this->setVar('article_description',  Request::getText('article_description', ''));

@@ -76,7 +76,6 @@ class xmarticle_category extends XoopsObject
             $this->setVar('category_weight', 0);
         }
         //logo
-        //$uploadirectory = '/xmarticle/images/category';
         if ($_FILES['category_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader_category_img = new XoopsMediaUploader($path_logo_category, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
