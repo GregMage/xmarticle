@@ -165,11 +165,11 @@ if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1
 }
 //SEO
 // pagetitle
-$xoopsTpl->assign('xoops_pagetitle', $article->getVar('article_name') . '-' . $xoopsModule->name());
+$xoopsTpl->assign('xoops_pagetitle', strip_tags($article->getVar('article_name')) . '-' . $xoopsModule->name());
 //description
-$xoTheme->addMeta('meta', 'description', \Xmf\Metagen::generateDescription($article->getVar('article_description'), 30));
+$xoTheme->addMeta('meta', 'description', XmarticleUtility::generateDescriptionTagSafe($article->getVar('article_description'), 80));
 //keywords
-$keywords = \Xmf\Metagen::generateKeywords($article->getVar('article_description'), 10);
+$keywords = \Xmf\Metagen::generateKeywords(XmarticleUtility::TagSafe($article->getVar('article_description')), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 
 include XOOPS_ROOT_PATH.'/include/comment_view.php';

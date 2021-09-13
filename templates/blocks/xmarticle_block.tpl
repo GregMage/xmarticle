@@ -37,7 +37,7 @@
 							<{/if}>
 						</div>
 						<div class="col-12 pt-2 text-left">					
-							<{$blockarticle.description}>				
+							<{$blockarticle.description|truncateHtml:30:'...'}>				
 						</div>
 						<div class="col-12 pt-2">
 							<a class="btn btn-primary btn-sm" href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$blockarticle.cid}>&amp;article_id=<{$blockarticle.id}>"><{$smarty.const._MA_XMARTICLE_MOREDETAILS}></a>

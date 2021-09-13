@@ -87,7 +87,7 @@ if ($article_count > 0) {
         $article['cid']             = $article_arr[$i]->getVar('article_cid');
         $article['name']            = $article_arr[$i]->getVar('article_name');
         $article['reference']       = $article_arr[$i]->getVar('article_reference');
-        $article['description']     = $article_arr[$i]->getVar('article_description', 'n');
+        $article['description']     = XmarticleUtility::TagSafe($article_arr[$i]->getVar('article_description', 'n'));
         $article['date']            = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
 		if ($article_arr[$i]->getVar('article_mdate') != 0) {
 			$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
@@ -123,9 +123,9 @@ if ($article_count > 0) {
 // pagetitle
 $xoopsTpl->assign('xoops_pagetitle', $category->getVar('category_name') . '-' . $xoopsModule->name());
 //description   
-$xoTheme->addMeta('meta', 'description', \Xmf\Metagen::generateDescription($category->getVar('category_description'), 30));
+$xoTheme->addMeta('meta', 'description', XmarticleUtility::generateDescriptionTagSafe($category->getVar('category_description'), 80));
 //keywords
-$keywords = \Xmf\Metagen::generateKeywords($category->getVar('category_description'), 10);    
+$keywords = \Xmf\Metagen::generateKeywords(XmarticleUtility::TagSafe($category->getVar('category_description')), 10);    
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 
 include XOOPS_ROOT_PATH.'/footer.php';

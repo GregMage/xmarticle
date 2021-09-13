@@ -55,7 +55,7 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
         $category_id              = $category_arr[$i]->getVar('category_id');
         $category['id']           = $category_id;
         $category['name']         = $category_arr[$i]->getVar('category_name');
-        $category['description']  = $category_arr[$i]->getVar('category_description', 'show');
+        $category['description']  = XmarticleUtility::TagSafe($category_arr[$i]->getVar('category_description', 'show'));
         $category['totalarticle'] = sprintf(_MA_XMARTICLE_CATEGORY_THEREAREARTICLE, XmarticleUtility::articlePerCat($category_id, $article_arr));
         $category_img             = $category_arr[$i]->getVar('category_logo');
 		if ($category_img == ''){
@@ -71,9 +71,9 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
 		}
         $xoopsTpl->append_by_ref('categories', $category);
         if ($keywords == '') {
-            $keywords = $category_arr[$i]->getVar('category_name');
+            $keywords = XmarticleUtility::TagSafe($category_arr[$i]->getVar('category_name'));
         } else {
-            $keywords = $keywords . ',' . $category_arr[$i]->getVar('category_name');
+            $keywords = $keywords . ',' . XmarticleUtility::TagSafe($category_arr[$i]->getVar('category_name'));
         }
         unset($category);
     }
