@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped table-hover table-sm">
 	<thead class="thead-light">
 		<tr>
 			<th scope="col"><{$smarty.const._MA_XMARTICLE_ARTICLE_NAME}></th>
@@ -9,15 +9,15 @@
 		</tr>
 	</thead>
 	<tbody>
-<{foreach item=article from=$block.article}>
+<{foreach item=waitingarticle from=$block.article}>
 	<tr>
-		<td><{$article.name}></td>
-		<td><{$article.reference}></td>
-		<td><{$article.description|truncateHtml:50:'...'}></td>
-		<td><{$article.author}></td>
+		<td><{$waitingarticle.name}></td>
+		<td><{$waitingarticle.reference}></td>
+		<td><{$waitingarticle.description}></td>
+		<td><{$waitingarticle.author}></td>
 		<td>
 			<a href="<{$xoops_url}>/modules/xmarticle/action.php?op=edit&amp;article_id=<{$article.id}>">
-				<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> <{$smarty.const._MA_XMARTICLE_EDIT}></button>
+				<button type="button" class="btn btn-outline-primary"><i class="fa fa-edit"></i></button>
 			</a>
 		</td>
 	</tr>
