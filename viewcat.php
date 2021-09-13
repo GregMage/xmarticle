@@ -27,6 +27,8 @@ $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname
 
 $category_id = Request::getInt('category_id', 0);
 
+$xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
+
 if ($category_id == 0) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
@@ -49,8 +51,18 @@ $start = Request::getInt('start', 0);
 // Category
 $xoopsTpl->assign('name', $category->getVar('category_name'));
 $xoopsTpl->assign('description' , $category->getVar('category_description', 'show'));
-$category_img = $category->getVar('category_logo') ?: 'blank.gif';
-$xoopsTpl->assign('logo', $url_logo_category .  $category_img);
+$category_img = $category->getVar('category_logo');
+if ($category_img == ''){
+	$xoopsTpl->assign('logo', '');
+} else {
+	$xoopsTpl->assign('logo', $url_logo_category . $category_img);
+}
+$color = $category->getVar('category_color');
+if ($color == '#ffffff'){
+	$xoopsTpl->assign('color', false);
+} else {
+	$xoopsTpl->assign('color', $color);
+}
 
 // Get article
 $criteria = new CriteriaCompo();
@@ -62,6 +74,14 @@ $criteria->add(new Criteria('article_status', 1));
 $criteria->add(new Criteria('article_cid', $category_id));
 $article_count = $articleHandler->getCount($criteria);
 $article_arr = $articleHandler->getall($criteria);
+//xmsocial
+if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0) == 1) {
+	$xmsocial = true;
+	xoops_load('utility', 'xmsocial');
+} else {
+    $xmsocial = false;
+}
+$xoopsTpl->assign('xmsocial', $xmsocial);
 if ($article_count > 0) {
     foreach (array_keys($article_arr) as $i) {
         $article_id                 = $article_arr[$i]->getVar('article_id');
@@ -71,9 +91,21 @@ if ($article_count > 0) {
         $article['reference']       = $article_arr[$i]->getVar('article_reference');
         $article['description']     = $article_arr[$i]->getVar('article_description', 'n');
         $article['date']            = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
+		if ($article_arr[$i]->getVar('article_mdate') != 0) {
+			$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
+		}
 		$article['author']          = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
-        $article_img                = $article_arr[$i]->getVar('article_logo') ?: 'blank.gif';
+		$article['counter']         = $article_arr[$i]->getVar('article_counter');
+		$article['douser']          = $article_arr[$i]->getVar('article_douser');
+		$article['dodate']          = $article_arr[$i]->getVar('article_dodate');
+		$article['domdate']         = $article_arr[$i]->getVar('article_domdate');
+		$article['dohits']          = $article_arr[$i]->getVar('article_dohits');
+		$article['dorating']        = $article_arr[$i]->getVar('article_dorating');		
+		$article_img                = $article_arr[$i]->getVar('article_logo');
         $article['logo']            = $url_logo_article .  $article_img;
+		if ($article['logo'] == ''){
+			$article['logo']        = '';
+		}
         $xoopsTpl->append('article', $article);
         unset($article);
     }
