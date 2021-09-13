@@ -140,6 +140,7 @@ define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 
 define('_MA_XMARTICLE_ARTICLE_MDATE_BT', 'Update');
 define('_MA_XMARTICLE_ARTICLE_PUBLISHED_BT', 'Publication');
+define('_MA_XMARTICLE_BLOCKS_NOWAITING', 'There are no articles awaiting validation');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');

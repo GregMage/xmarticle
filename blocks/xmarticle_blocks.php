@@ -71,6 +71,13 @@ function block_xmarticle_show($options) {
 	$articleHandler->field_link = "category_id";
 	$articleHandler->field_object = "article_cid";
 	$article_arr = $articleHandler->getByLink($criteria);
+	//xmsocial
+	if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0) == 1) {
+		$block['xmsocial'] = true;
+		xoops_load('utility', 'xmsocial');
+	} else {
+		$block['xmsocial'] = false;
+	}
 	if (count($article_arr) > 0 && !empty($viewPermissionCat)) {
 		foreach (array_keys($article_arr) as $i) {
 			$article_id                 = $article_arr[$i]->getVar('article_id');
