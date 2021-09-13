@@ -97,27 +97,12 @@ $field_arr   = XmarticleUtility::getArticleFields($category->getVar('category_fi
 $field_count = count($field_arr);
 $xoopsTpl->assign('field_count', $field_count);
 if ($field_count > 0) {
-    $count     = 1;
-    $count_row = 1;
     foreach (array_keys($field_arr) as $i) {
         $field['name']        = $field_arr[$i][0];
         $field['description'] = $field_arr[$i][1];
         $field['value']       = $field_arr[$i][2];
-        $field['count']       = $count;
-        if ($count_row == $count) {
-            $field['row'] = true;
-            $count_row    = $count_row + 2;
-        } else {
-            $field['row'] = false;
-        }
-        if ($count == $field_count) {
-            $field['end'] = true;
-        } else {
-            $field['end'] = false;
-        }
         $xoopsTpl->append_by_ref('field', $field);
         unset($field);
-        $count++;
     }
 }
 
