@@ -174,7 +174,7 @@ define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');
 define('_MA_XMARTICLE_FIELD_SORTVHL', 'Sort value high to low');
 define('_MA_XMARTICLE_FIELD_SORTKLH', 'Sort key low to high');
 define('_MA_XMARTICLE_FIELD_SORTKHL', 'Sort key high to low');
-define('_MA_XMARTICLE_FIELD_SUREDEL', 'Sure to delete this field? %s');
+define('_MA_XMARTICLE_FIELD_SUREDEL', 'Sure to delete this field? %s<br><span style="font-size: large;  font-weight: bold;">Warning</span> by deleting this field, you will delete the data from this field for all the articles that use it. ');
 define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
