@@ -168,7 +168,16 @@ switch ($op) {
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
-							
+							//xmdoc
+							if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+								xoops_load('utility', 'xmdoc');
+								$xoopsTpl->assign('error_message', XmdocUtility::delDocdata('xmarticle', $i));
+							}
+							//xmsocial
+							if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0) == 1) {
+								xoops_load('utility', 'xmsocial');
+								$xoopsTpl->assign('error_message', XmsocialUtility::delRatingdata('xmarticle', $id));
+							}
 							//Del Notification and comment
 							$helper = \Xmf\Module\Helper::getHelper('xmarticle');
 							$moduleid = $helper->getModule()->getVar('mid');
