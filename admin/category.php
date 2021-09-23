@@ -140,7 +140,7 @@ switch ($op) {
                 }
                 if ($categoryHandler->delete($obj)) {
                     //Del logo
-                    if ($obj->getVar('category_logo') != 'blank.gif') {
+                    if ($obj->getVar('category_logo') != 'no-image.png') {
                         // Test if the image is used
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('category_logo', $obj->getVar('category_logo')));

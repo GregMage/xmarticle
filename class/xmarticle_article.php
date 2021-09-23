@@ -369,7 +369,7 @@ class xmarticle_article extends XoopsObject
         //logo
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_article_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . $uploadirectory, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
+            $uploader_article_img = new XoopsMediaUploader($path_logo_article, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
             if ($uploader_article_img->fetchMedia('article_logo')) {
                 $uploader_article_img->setPrefix('article_');
                 if (!$uploader_article_img->upload()) {
@@ -763,11 +763,17 @@ class xmarticle_article extends XoopsObject
 		include __DIR__ . '/../include/common.php';
 		if ($articleHandler->delete($this)) {
 			//Del logo
-			if ($this->getVar('article_logo') != 'blank.gif') {
-				$urlfile = $path_logo_article . $this->getVar('article_logo');
-				if (is_file($urlfile)) {
-					chmod($urlfile, 0777);
-					unlink($urlfile);
+			if ($this->getVar('article_logo') != 'no-image.png') {
+				// Test if the image is used
+				$criteria = new CriteriaCompo();
+				$criteria->add(new Criteria('article_logo', $this->getVar('article_logo')));
+				$article_count = $articleHandler->getCount($criteria);
+				if ($article_count == 0){
+					$urlfile = $path_logo_article . $this->getVar('article_logo');
+					if (is_file($urlfile)) {
+						chmod($urlfile, 0777);
+						unlink($urlfile);
+					}
 				}
 			}
 			//Del fielddata
