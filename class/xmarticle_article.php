@@ -25,8 +25,8 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
  * Class xmarticle_article
  */
 class xmarticle_article extends XoopsObject
-{   
-    
+{
+
     // constructor
     /**
      * xmarticle_article constructor.
@@ -36,7 +36,7 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_id', XOBJ_DTYPE_INT, null);
         $this->initVar('article_cid', XOBJ_DTYPE_INT, null);
         $this->initVar('article_reference', XOBJ_DTYPE_TXTBOX, null);
-        $this->initVar('article_name', XOBJ_DTYPE_TXTBOX, null);        
+        $this->initVar('article_name', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('article_description', XOBJ_DTYPE_TXTAREA);
         $this->initVar('article_logo', XOBJ_DTYPE_TXTBOX, null);
 		$this->initVar('article_userid', XOBJ_DTYPE_INT, 0);
@@ -67,13 +67,13 @@ class xmarticle_article extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        include __DIR__ . '/../include/common.php';  
+        include __DIR__ . '/../include/common.php';
 
         // Get Permission to submit
-        $submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');        
-        
+        $submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
+
         $form = new XoopsThemeForm(_MA_XMARTICLE_ADD, 'form', $action, 'post', true);
-        // type        
+        // type
         $field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'article_cid', $this->getVar('article_cid'));
         $criteria = new CriteriaCompo();
 		$criteria->add(new Criteria('category_status', 1));
@@ -82,20 +82,20 @@ class xmarticle_article extends XoopsObject
         if (!empty($submitPermissionCat)){
             $criteria->add(new Criteria('category_id', '(' . implode(',', $submitPermissionCat) . ')','IN'));
         }
-        $category_arr = $categoryHandler->getall($criteria);        
+        $category_arr = $categoryHandler->getall($criteria);
         if (count($category_arr) == 0 || empty($submitPermissionCat)){
             redirect_header($action, 3, _MA_XMARTICLE_ERROR_NOACESSCATEGORY);
         }
         foreach (array_keys($category_arr) as $i) {
             $field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
         }
-        $form->addElement($field_cat, true);   
-        $form->addElement(new XoopsFormHidden('op', 'loadarticle'));        
+        $form->addElement($field_cat, true);
+        $form->addElement(new XoopsFormHidden('op', 'loadarticle'));
         // submit
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
-    } 
+    }
 
     /**
     * @param bool $action
@@ -104,20 +104,20 @@ class xmarticle_article extends XoopsObject
     public function getForm($article_cid = 0, $old_article_cid = 0, $action = false, $clone = false)
     {
         global $xoopsUser;
-		
+
         $helper = Helper::getHelper('xmarticle');
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         include __DIR__ . '/../include/common.php';
-        
+
         //form title
         $title = $this->isNew() ? sprintf(_MA_XMARTICLE_ADD) : sprintf(_MA_XMARTICLE_EDIT);
-        
+
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
-        
+
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $article_cid = $this->getVar('article_cid');
@@ -136,17 +136,17 @@ class xmarticle_article extends XoopsObject
 			$category_logo = '';
 		} else {
 			$category_logo = '<img src="' . $url_logo_category .  $category_img . '" alt="' . $category_img . '" style="max-width:100px" /> ';
-		}	
-        
+		}
+
         $form->addElement(new xoopsFormLabel (_MA_XMARTICLE_ARTICLE_CATEGORY, $category_logo . '<strong>' . $category->getVar('category_name') . '</strong>'));
         $form->addElement(new XoopsFormHidden('article_cid', $article_cid));
 
         // title
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'article_name', 50, 255, $this->getVar('article_name')), true);
-        
+
         // reference
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'article_reference', 20, 50, $this->getVar('article_reference')), true);
-		
+
         // description
         $editor_configs           = [];
         $editor_configs['name']   = 'article_description';
@@ -176,14 +176,14 @@ class xmarticle_article extends XoopsObject
         $fileseltray_img->addElement(new XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
-		
+
         //xmdoc
         if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
             xoops_load('utility', 'xmdoc');
             XmdocUtility::renderDocForm($form, 'xmarticle', $this->getVar('article_id'));
         }
-		
-		// field		
+
+		// field
 		$criteria = new CriteriaCompo();
         $criteria->setSort('field_weight ASC, field_name');
         $criteria->setOrder('ASC');
@@ -248,7 +248,7 @@ class xmarticle_article extends XoopsObject
                 case 'radio_yn':
                     $form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
                     break;
-                case 'radio':                    
+                case 'radio':
                     $radio_field = new XoopsFormRadio($caption, $name, $value);
                     $radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
                     $form->addElement($radio_field, $required);
@@ -264,30 +264,30 @@ class xmarticle_article extends XoopsObject
             }
 			unset($value);
         }
-		if (!$this->isNew() || $clone == true) {		
+		if (!$this->isNew() || $clone == true) {
 			// douser
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'article_douser', $this->getVar('article_douser')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'article_douser', $this->getVar('article_douser')));
 			// dodate
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DODATE, 'article_dodate', $this->getVar('article_dodate')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DODATE, 'article_dodate', $this->getVar('article_dodate')));
 			// domdate
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOMDATE, 'article_domdate', $this->getVar('article_domdate')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOMDATE, 'article_domdate', $this->getVar('article_domdate')));
 			// dohits
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOHITS, 'article_dohits', $this->getVar('article_dohits')));		
-			// dorating 
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DORATING, 'article_dorating', $this->getVar('article_dorating')));	
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOHITS, 'article_dohits', $this->getVar('article_dohits')));
+			// dorating
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DORATING, 'article_dorating', $this->getVar('article_dorating')));
 			// docomment
 			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOCOMMENT, 'article_docomment', $this->getVar('article_docomment')));
 		} else {
 			// douser
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'article_douser', $category->getVar('category_douser')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'article_douser', $category->getVar('category_douser')));
 			// dodate
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DODATE, 'article_dodate', $category->getVar('category_dodate')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DODATE, 'article_dodate', $category->getVar('category_dodate')));
 			// domdate
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOMDATE, 'article_domdate', $category->getVar('category_domdate')));		
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOMDATE, 'article_domdate', $category->getVar('category_domdate')));
 			// dohits
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOHITS, 'article_dohits', $category->getVar('category_dohits')));		
-			// dorating 
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DORATING, 'article_dorating', $category->getVar('category_dorating')));	
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOHITS, 'article_dohits', $category->getVar('category_dohits')));
+			// dorating
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DORATING, 'article_dorating', $category->getVar('category_dorating')));
 			// docomment
 			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOCOMMENT, 'article_docomment', $category->getVar('category_docomment')));
 		}
@@ -299,7 +299,7 @@ class xmarticle_article extends XoopsObject
 			}
 			// userid
 			$form->addElement(new XoopsFormSelectUser(_MA_XMARTICLE_USERID, 'article_userid', true, $userid, 1, false), true);
-			
+
 			// date and mdate
 			if (!$this->isNew()) {
 				$selection_date = new XoopsFormElementTray(_MA_XMARTICLE_DATEUPDATE);
@@ -331,9 +331,9 @@ class xmarticle_article extends XoopsObject
             $form->addElement($form_status);
         } else {
 			// Notification article:approve_article
-			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_NOTIFY, 'article_notify', true));	
+			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_NOTIFY, 'article_notify', true));
 		}
-		//captcha		
+		//captcha
 		if ($helper->getConfig('general_captcha', 0) == 1) {
 			$form->addElement(new XoopsFormCaptcha(), true);
 		}
@@ -357,7 +357,7 @@ class xmarticle_article extends XoopsObject
         include __DIR__ . '/../include/common.php';
         $helper = Helper::getHelper('xmarticle');
         $error_message = '';
-		
+
 		// test error
         if (false === XmarticleUtility::checkReference(Request::getString('article_reference', ''), $this->getVar('article_id'))) {
             $error_message .= _MA_XMARTICLE_ERROR_REFERENCE . '<br>';
@@ -365,7 +365,7 @@ class xmarticle_article extends XoopsObject
         } else {
 			$this->setVar('article_reference', Request::getString('article_reference', ''));
 		}
-		
+
         //logo
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -425,7 +425,7 @@ class xmarticle_article extends XoopsObject
             $this->setVar('article_status', 2);
         } else {
             $this->setVar('article_status', Request::getInt('article_status', 1));
-        }      
+        }
 		// Captcha
         if ($helper->getConfig('general_captcha', 0) == 1) {
             xoops_load('xoopscaptcha');
@@ -470,7 +470,7 @@ class xmarticle_article extends XoopsObject
 				//Notification global: submit_article
 				if ($this->getVar('article_status') == 2){
 					$tags['WAITINGARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/admin/article.php?article_status=2';
-					$notificationHandler->triggerEvent('global', 0, 'submit_article', $tags);					
+					$notificationHandler->triggerEvent('global', 0, 'submit_article', $tags);
 				}
 				//Notification article: modified_article
 				if ($this->get_new_enreg() == 0){
@@ -480,7 +480,7 @@ class xmarticle_article extends XoopsObject
 				if (Request::getInt('article_notify', 0) == 1){
 					$notificationHandler->subscribe('article', $fielddata_aid, 'approve_article', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
 				}
-				
+
 				if ($error_message == ''){
 					if ($this->getVar('article_status') == 2 && $action != 'article.php'){
 						redirect_header('index.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -510,7 +510,7 @@ class xmarticle_article extends XoopsObject
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         include __DIR__ . '/../include/common.php';
-		
+
 		// Get Permission to view cat
 		$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
 		$criteria          = new CriteriaCompo();
@@ -747,8 +747,52 @@ class xmarticle_article extends XoopsObject
 		$button->addElement(new XoopsFormButton('', 'reset', _RESET, 'submit'));
 		$form->addElement($button);
 		$xoopsTpl->assign('form', $form->render());
-		
+
 		return $fielddata_aid_arr;
+	}
+
+		/**
+     * @return mixed
+     */
+    public function delArticle($articleHandler, $article_id, $action = false)
+    {
+		if ($action === false) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+		$error_message = '';
+		include __DIR__ . '/../include/common.php';
+		if ($articleHandler->delete($this)) {
+			//Del logo
+			if ($this->getVar('article_logo') != 'blank.gif') {
+				$urlfile = $path_logo_article . $this->getVar('article_logo');
+				if (is_file($urlfile)) {
+					chmod($urlfile, 0777);
+					unlink($urlfile);
+				}
+			}
+			//Del fielddata
+			XmarticleUtility::delFilddataArticle($article_id);
+			//xmdoc
+			if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
+				xoops_load('utility', 'xmdoc');
+				XmdocUtility::delDocdata('xmarticle', $article_id);
+			}
+			//xmsocial
+			if (xoops_isActiveModule('xmsocial')) {
+				xoops_load('utility', 'xmsocial');
+				echo XmsocialUtility::delRatingdata('xmarticle', $article_id);
+			}
+			//Del Notification and comment
+			$helper = \Xmf\Module\Helper::getHelper('xmarticle');
+			$moduleid = $helper->getModule()->getVar('mid');
+			xoops_notification_deletebyitem($moduleid, 'article', $article_id);
+			xoops_comment_delete($moduleid, $article_id);
+
+			redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+		} else {
+			$error_message .= $obj->getHtmlErrors();
+		}
+		return $error_message;
 	}
 
     /**

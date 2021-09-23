@@ -38,7 +38,7 @@ switch ($op) {
 		// Get start pager
         $start = Request::getInt('start', 0);
 		$xoopsTpl->assign('start', $start);
-        
+
         $xoopsTpl->assign('filter', true);
 		// Category
 		$article_cid = Request::getInt('article_cid', 0);
@@ -46,7 +46,7 @@ switch ($op) {
 		$criteria = new CriteriaCompo();
 		$criteria->setSort('category_weight ASC, category_name');
 		$criteria->setOrder('ASC');
-		$category_arr = $categoryHandler->getall($criteria);		
+		$category_arr = $categoryHandler->getall($criteria);
 		if (count($category_arr) > 0) {
 			$article_cid_options = '<option value="0"' . ($article_cid == 0 ? ' selected="selected"' : '') . '>' . _ALL .'</option>';
 			foreach (array_keys($category_arr) as $i) {
@@ -63,15 +63,15 @@ switch ($op) {
             $article_status_options .= '<option value="' . $i . '"' . ($article_status == $i ? ' selected="selected"' : '') . '>' . $status_options[$i] . '</option>';
         }
         $xoopsTpl->assign('article_status_options', $article_status_options);
-		
+
 		// Waiting article
         $criteria = new CriteriaCompo();
 		$criteria->add(new Criteria('article_status', 2));
 		$Waiting_article = $articleHandler->getCount($criteria);
 		if ($Waiting_article > 0){
 			$xoopsTpl->assign('warning_message', sprintf(_MA_XMARTICLE_WAITING, $Waiting_article));
-		}		
-        
+		}
+
         // Criteria
         $criteria = new CriteriaCompo();
         $criteria->setSort('article_name');
@@ -83,7 +83,7 @@ switch ($op) {
 		}
         if ($article_status != 10){
 			$criteria->add(new Criteria('article_status', $article_status));
-		}    
+		}
         $articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
         $articleHandler->field_link = "category_id";
         $articleHandler->field_object = "article_cid";
@@ -118,12 +118,12 @@ switch ($op) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
         }
         break;
-    
+
     // Add
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $obj  = $articleHandler->create();
         $form = $obj->getFormCategory('article.php');
@@ -134,7 +134,7 @@ switch ($op) {
     case 'loadarticle':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());  
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         $article_cid = Request::getInt('article_cid', 0);
         if ($article_cid == 0) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -144,12 +144,12 @@ switch ($op) {
             $xoopsTpl->assign('form', $form->render());
         }
         break;
-        
+
     // Edit
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_ARTICLE_LIST, 'article.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $article_id = Request::getInt('article_id', 0);
         if ($article_id == 0) {
@@ -157,11 +157,11 @@ switch ($op) {
         } else {
             $obj = $articleHandler->get($article_id);
             $form = $obj->getForm();
-            $xoopsTpl->assign('form', $form->render()); 
+            $xoopsTpl->assign('form', $form->render());
         }
 
         break;
-	
+
 	// Clone
     case 'clone':
         $article_id = Request::getInt('article_id', 0);
@@ -173,7 +173,7 @@ switch ($op) {
             $xoopsTpl->assign('form', $form->render());
         }
         break;
-		
+
     // Save
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -192,11 +192,11 @@ switch ($op) {
 			$form = $obj->getForm($article_cid);
             $xoopsTpl->assign('form', $form->render());
         }
-        
+
         break;
-        
+
     // del
-    case 'del':    
+    case 'del':
         $article_id = Request::getInt('article_id', 0);
         if ($article_id == 0) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
@@ -207,48 +207,21 @@ switch ($op) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header('article.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
-                if ($articleHandler->delete($obj)) {
-                    //Del logo
-                    if ($obj->getVar('article_logo') != 'blank.gif') {
-                        $urlfile = $path_logo_article . $obj->getVar('article_logo');
-                        if (is_file($urlfile)) {
-                            chmod($urlfile, 0777);
-                            unlink($urlfile);
-                        }
-                    }
-                    //Del fielddata
-                    XmarticleUtility::delFilddataArticle($article_id);
-					//xmdoc
-					if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
-						xoops_load('utility', 'xmdoc');
-						XmdocUtility::delDocdata('xmarticle', $article_id);
-					}
-					//xmsocial
-					if (xoops_isActiveModule('xmsocial')) {
-						xoops_load('utility', 'xmsocial');
-						echo XmsocialUtility::delRatingdata('xmarticle', $article_id);
-					}						
-					//Del Notification and comment
-					$helper = \Xmf\Module\Helper::getHelper('xmarticle');
-					$moduleid = $helper->getModule()->getVar('mid');
-					xoops_notification_deletebyitem($moduleid, 'article', $article_id);
-					xoops_comment_delete($moduleid, $article_id);
-						
-                    redirect_header('article.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                } else {
-                    $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
-                }
+				$error_message = $obj->delArticle($articleHandler, $article_id, 'article.php');
+				if ($error_message != ''){
+					$xoopsTpl->assign('error_message', $error_message);
+				}
             } else {
                 $article_img = $obj->getVar('article_logo') ?: 'blank.gif';
-                xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], 
+                xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'],
                                     sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>
-                                    <img src="' . $url_logo_article . $article_img . '" title="' . 
+                                    <img src="' . $url_logo_article . $article_img . '" title="' .
                                     $obj->getVar('article_name') . '" style="max-width:100px"><br>');
             }
         }
-        
+
         break;
-        
+
     // Update status
     case 'article_update_status':
         $article_id = Request::getInt('article_id', 0);

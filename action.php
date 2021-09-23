@@ -33,7 +33,7 @@ $xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'loadarticle' || $op == 'save') {
     switch ($op) {
         // Add
-        case 'add':           
+        case 'add':
             // permission to submitt
 			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
 			// Get Permission to submit
@@ -79,12 +79,12 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 			} else {
 				$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
 			}
-            
-            
+
+
             break;
 
         // Loadtype
-        case 'loadarticle':            
+        case 'loadarticle':
             // permission to submitt
 			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
 			// Get Permission to submit in category
@@ -172,37 +172,10 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                     if (!$GLOBALS['xoopsSecurity']->check()) {
                         redirect_header('index.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                     }
-                    if ($articleHandler->delete($obj)) {
-                        //Del logo
-                        if ($obj->getVar('article_logo') != 'blank.gif') {
-                            $urlfile = $path_logo_article . $obj->getVar('article_logo');
-                            if (is_file($urlfile)) {
-                                chmod($urlfile, 0777);
-                                unlink($urlfile);
-                            }
-                        }
-                        //Del fielddata
-                        XmarticleUtility::delFilddataArticle($article_id);
-						//xmdoc
-						if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
-							xoops_load('utility', 'xmdoc');
-							XmdocUtility::delDocdata('xmarticle', $article_id);
-						}   
-						//xmsocial
-						if (xoops_isActiveModule('xmsocial')) {
-							xoops_load('utility', 'xmsocial');
-							echo XmsocialUtility::delRatingdata('xmarticle', $article_id);
-						}						
-						//Del Notification and comment
-						$helper = \Xmf\Module\Helper::getHelper('xmarticle');
-						$moduleid = $helper->getModule()->getVar('mid');
-						xoops_notification_deletebyitem($moduleid, 'article', $article_id);
-						xoops_comment_delete($moduleid, $article_id);
-						
-						redirect_header('index.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
-                    } else {
-                        $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
-                    }
+					$error_message = $obj->delArticle($articleHandler, $article_id, 'index.php');
+					if ($error_message != ''){
+						$xoopsTpl->assign('error_message', $error_message);
+					}
                 } else {
                     $article_img = $obj->getVar('article_logo') ?: 'no-image.png';
                     xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br \>
