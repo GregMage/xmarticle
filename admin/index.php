@@ -27,7 +27,7 @@ $moduleAdmin->displayNavigation('index.php');
 $iniPostMaxSize = XmarticleUtility::returnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = XmarticleUtility::returnBytes(ini_get('upload_max_filesize'));
 if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_maxuploadsize', 104858)) {
-	echo '<div class="errorMsg" style="text-align: left;">' . _MA_XMARTICLE_ERROR_SIZE . '</div>';	
+	echo '<div class="errorMsg" style="text-align: left;">' . _MA_XMARTICLE_ERROR_SIZE . '</div>';
 }
 
 
@@ -51,6 +51,16 @@ if (xoops_isActiveModule('xmdoc')){
 	}
 } else {
 	$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED);
+}
+// xmsocial
+if (xoops_isActiveModule('xmsocial')){
+	if ($helper->getConfig('general_xmsocial', 0) == 1){
+		$moduleAdmin->addConfigModuleVersion('xmsocial', 100);
+	} else {
+		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE);
+	}
+} else {
+	$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED);
 }
 
 $folder[] = $path_logo_category;

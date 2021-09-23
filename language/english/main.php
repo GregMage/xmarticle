@@ -25,12 +25,14 @@ define('_MA_XMARTICLE_CATEGORY_LIST', 'Category list');
 define('_MA_XMARTICLE_FIELD_ADD', 'Add field');
 define('_MA_XMARTICLE_FIELD_LIST', 'Field list');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Successfully saved');
- 
+
 // Admin
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'You have not installed the xmdoc module, this module is required if you want to add documents to the articles');
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmdoc (if you want to add documents)');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'You have not installed the xmstock module, this module is required if you want to view stocks to the articles');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmstock (if you want to view stocks)');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED', 'You have not installed the xmsocial module, this module is required if you want to rate article');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmsocial (if you want to rate article)');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Server status');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Information taken from PHP ini file:</span>");
 define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");
@@ -39,7 +41,7 @@ define('_MA_XMARTICLE_INDEX_SERVERUPLOADSTATUS', 'Server uploads status: ');
 define('_MA_XMARTICLE_INDEX_MAXPOSTSIZE', 'Max post size permitted (post_max_size directive in php.ini): ');
 define('_MA_XMARTICLE_INDEX_MAXUPLOADSIZE', 'Max upload size permitted (upload_max_filesize directive in php.ini): ');
 define('_MA_XMARTICLE_INDEX_MEMORYLIMIT', 'Memory limit (memory_limit directive in php.ini): ');
- 
+
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
