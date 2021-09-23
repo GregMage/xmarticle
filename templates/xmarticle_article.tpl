@@ -48,7 +48,7 @@
 				<{if $xmsocial == true}>
 					<div class="row">
 						<div class="col">
-							<span class="fa fa-star" aria-hidden="true"></span> <{$smarty.const._MA_XMNEWS_NEWS_RATING}> <{$news.rating}>
+							<span class="fa fa-star" aria-hidden="true"></span> <{$smarty.const._MA_XMARTICLE_RATING}> <{$down.rating}>
 						</div>
 					</div>
 				<{/if}>

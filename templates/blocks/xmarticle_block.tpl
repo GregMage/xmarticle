@@ -23,7 +23,7 @@
 							<{/if}>
 						</div>
 						<div class="col-12 pt-2 text-left text-muted xmarticle-data">
-							<{if $blockarticle.type == "date" || $blocknews.type == "random"}>
+							<{if $blockarticle.type == "date" || $blockarticle.type == "random"}>
 								<div class="d-block d-lg-none d-xl-block"><span class="fa fa-calendar" aria-hidden="true"></span> <{$smarty.const._MA_XMARTICLE_DATE}>: <{$blockarticle.date}></div>
 								<div class="d-none d-lg-block d-xl-none"><br /><span class="fa fa-calendar" aria-hidden="true"></span> <{$smarty.const._MA_XMARTICLE_DATE}>: <{$blockarticle.date|truncate:10:''}></div>
 							<{/if}>

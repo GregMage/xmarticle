@@ -51,6 +51,7 @@ define('_MI_XMARTICLE_PREF_GENERALITEMPERPAGE', 'Number of items per page in the
 define('_MI_XMARTICLE_PREF_GENERALSEPARATOR', 'Separation characters for multiple data display');
 define('_MI_XMARTICLE_PREF_GENERALXMSTOCK', 'Use xmstock module to view stock');
 define('_MI_XMARTICLE_PREF_GENERALXMDOC', 'Use xmdoc module to add document');
+define('_MI_XMARTICLE_PREF_GENERALXMSOCIAL', 'Use xmsocial module to rate news');
 define('_MI_XMARTICLE_PREF_CAPTCHA', 'Use Captcha?');
 define('_MI_XMARTICLE_PREF_CAPTCHA_DESC', 'Select Yes to use Captcha in the submit form');
 define('_MI_XMARTICLE_PREF_COUNTERTIME', 'Select the time before the article reading counter can be incremented by the same person. [min]');

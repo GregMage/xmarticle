@@ -187,7 +187,12 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 						if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
 							xoops_load('utility', 'xmdoc');
 							XmdocUtility::delDocdata('xmarticle', $article_id);
-						}                        
+						}   
+						//xmsocial
+						if (xoops_isActiveModule('xmsocial')) {
+							xoops_load('utility', 'xmsocial');
+							echo XmsocialUtility::delRatingdata('xmarticle', $article_id);
+						}						
 						//Del Notification and comment
 						$helper = \Xmf\Module\Helper::getHelper('xmarticle');
 						$moduleid = $helper->getModule()->getVar('mid');

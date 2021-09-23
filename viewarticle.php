@@ -142,17 +142,12 @@ if (xoops_isActiveModule('xmstock') && $helper->getConfig('general_xmstock', 0) 
 if (xoops_isActiveModule('xmsocial')){
 	xoops_load('utility', 'xmsocial');
 	if ($helper->getConfig('general_xmsocial', 0) == 1){
-		$xmsocial_arr = XmsocialUtility::renderRating($xoTheme, 'xmnews', $news_id, 5, $news->getVar('news_rating'), $news->getVar('news_votes'));
+		$options['cat'] = $category_id;
+		$xmsocial_arr = XmsocialUtility::renderRating($xoTheme, 'xmarticle', $article_id, 5, $article->getVar('article_rating'), $article->getVar('article_votes'), $options);
 		$xoopsTpl->assign('xmsocial_arr', $xmsocial_arr);
-		$xoopsTpl->assign('dorating', $news->getVar('news_dorating'));
+		$xoopsTpl->assign('dorating', $article->getVar('article_dorating'));
 	} else {
 		 $xoopsTpl->assign('dorating', 0);
-	}
-	if ($helper->getConfig('general_xmsocial_social', 0) == 1) {
-		XmsocialUtility::renderSocial($xoopsTpl,'xmnews', $news_id, XOOPS_URL . '/modules/xmnews/article.php?news_id=' . $news_id);
-		$xoopsTpl->assign('social', true);
-	} else {
-		$xoopsTpl->assign('social', false);
 	}
 }
 

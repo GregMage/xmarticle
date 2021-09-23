@@ -196,6 +196,15 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
+    'name'        => 'general_xmsocial',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALXMSOCIAL',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+];
+
+$modversion['config'][] = [
     'name'        => 'general_captcha',
     'title'       => '_MI_XMARTICLE_PREF_CAPTCHA',
     'description' => '_MI_XMARTICLE_PREF_CAPTCHA_DESC',
