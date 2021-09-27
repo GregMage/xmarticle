@@ -151,12 +151,12 @@ define('_MA_XMARTICLE_PERMISSION_VIEW_THIS', 'Select groups that can view in thi
 define('_MA_XMARTICLE_PERMISSION_SUBMIT', 'Submit permission');
 define('_MA_XMARTICLE_PERMISSION_SUBMIT_DSC', 'Select groups that can submit an article in categories');
 define('_MA_XMARTICLE_PERMISSION_SUBMIT_THIS', 'Select groups that can submit in this category');
-define('_MA_XMARTICLE_PERMISSION_OTHER', 'Other permissions');
-define('_MA_XMARTICLE_PERMISSION_OTHER_DSC', 'Select groups that can:');
-define('_MA_XMARTICLE_PERMISSION_OTHER_4', 'Submit an article');
-define('_MA_XMARTICLE_PERMISSION_OTHER_8', 'Auto approve submitted articles');
-define('_MA_XMARTICLE_PERMISSION_OTHER_16', 'Delete an article');
-define('_MA_XMARTICLE_PERMISSION_OTHER_32', 'To do a search');
+define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE', 'Edit and approve permission');
+define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE_DSC', 'Select groups that can edit and approve a news in categories');
+define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE_THIS', 'Select groups that can edit and approve in this category');
+define('_MA_XMARTICLE_PERMISSION_DELETE', 'Delete permission');
+define('_MA_XMARTICLE_PERMISSION_DELETE_DSC', 'Select groups that can delete a news in categories');
+define('_MA_XMARTICLE_PERMISSION_DELETE_THIS', 'Select groups that can delete in this category');
 
 // Field
 define('_MA_XMARTICLE_FIELD_ADDFIELD', 'Add fields');

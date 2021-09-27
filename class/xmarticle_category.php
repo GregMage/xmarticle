@@ -142,7 +142,15 @@ class xmarticle_category extends XoopsObject
                 // permission submit
                 $groups_submit = Request::getArray('xmarticle_submit_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_submit', $perm_id, $groups_submit);
-                if ((Request::getBool('addmorefields', false)) === true) {
+                // permission edit and approve
+                $groups_editapprove = Request::getArray('xmarticle_editapprove_perms', [], 'POST');
+                $permHelper->savePermissionForItem('xmarticle_editapprove', $perm_id, $groups_editapprove);
+                // permission delete
+                $groups_delete = Request::getArray('xmarticle_delete_perms', [], 'POST');
+                $permHelper->savePermissionForItem('xmarticle_delete', $perm_id, $groups_delete);
+                
+				
+				if ((Request::getBool('addmorefields', false)) === true) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
@@ -300,6 +308,8 @@ class xmarticle_category extends XoopsObject
         $permHelper = new \Xmf\Module\Helper\Permission();
         $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_view', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_VIEW_THIS, 'xmarticle_view_perms', true));
         $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_submit', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_SUBMIT_THIS, 'xmarticle_submit_perms', true));
+        $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_editapprove', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_EDITAPPROVE_THIS, 'xmarticle_editapprove_perms', true));
+        $form->addElement($permHelper->getGroupSelectFormForItem('xmarticle_delete', $this->getVar('category_id'), _MA_XMARTICLE_PERMISSION_DELETE_THIS, 'xmarticle_delete_perms', true));
 
         $form->addElement(new XoopsFormHidden('op', 'save'));
         // submit

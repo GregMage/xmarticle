@@ -34,7 +34,7 @@ switch ($op) {
         $xoTheme->addScript('modules/system/js/admin.js');
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_ADD, 'category.php?op=add', 'add');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Get start pager
         $start = Request::getInt('start', 0);
         // Criteria
@@ -78,23 +78,23 @@ switch ($op) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
         }
         break;
-    
+
     // Add
     case 'add':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
         $xoopsTpl->assign('form', $form->render());
         break;
-        
+
     // Edit
     case 'edit':
         // Module admin
         $moduleAdmin->addItemButton(_MA_XMARTICLE_CATEGORY_LIST, 'category.php', 'list');
-        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());        
+        $xoopsTpl->assign('renderbutton', $moduleAdmin->renderButton());
         // Form
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
@@ -102,7 +102,7 @@ switch ($op) {
         } else {
             $obj = $categoryHandler->get($category_id);
             $form = $obj->getForm();
-            $xoopsTpl->assign('form', $form->render()); 
+            $xoopsTpl->assign('form', $form->render());
         }
 
         break;
@@ -113,7 +113,7 @@ switch ($op) {
         }
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
-            $obj = $categoryHandler->create();            
+            $obj = $categoryHandler->create();
         } else {
             $obj = $categoryHandler->get($category_id);
         }
@@ -123,11 +123,11 @@ switch ($op) {
             $form = $obj->getForm();
             $xoopsTpl->assign('form', $form->render());
         }
-        
+
         break;
-        
+
     // del
-    case 'del':    
+    case 'del':
         $category_id = Request::getInt('category_id', 0);
         if ($category_id == 0) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
@@ -157,6 +157,8 @@ switch ($op) {
                     $permHelper = new \Xmf\Module\Helper\Permission();
                     $permHelper->deletePermissionForItem('xmarticle_view', $category_id);
                     $permHelper->deletePermissionForItem('xmarticle_submit', $category_id);
+					$permHelper->deletePermissionForItem('xmarticle_editapprove', $category_id);
+                    $permHelper->deletePermissionForItem('xmarticle_delete', $category_id);
                     // Del article and fielddata
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('article_cid', $category_id));
@@ -164,7 +166,7 @@ switch ($op) {
                     if (count($article_arr) > 0){
                         foreach (array_keys($article_arr) as $i) {
                             // Del fielddata
-                             XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));                            
+                             XmarticleUtility::delFilddataArticle($article_arr[$i]->getVar('article_id'));
                             // Del article
                             $objarticle = $articleHandler->get($article_arr[$i]->getVar('article_id'));
                             $articleHandler->delete($objarticle) or $objarticle->getHtmlErrors();
@@ -185,10 +187,10 @@ switch ($op) {
 							xoops_comment_delete($moduleid, $i);
                         }
                     }
-					
+
 					//Del Notification
 					xoops_notification_deletebyitem($moduleid, 'category', $category_id);
-                    
+
                     redirect_header('category.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
                     $xoopsTpl->assign('error_message', $obj->getHtmlErrors());
@@ -199,9 +201,9 @@ switch ($op) {
                                     <img src="' . $url_logo_category . $category_img . '" title="' . $obj->getVar('category_name') . '"><br>' . XmarticleUtility::articleNamePerCat($category_id));
             }
         }
-        
+
         break;
-        
+
     // Update status
     case 'category_update_status':
         $category_id = Request::getInt('category_id', 0);

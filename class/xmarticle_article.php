@@ -322,7 +322,7 @@ class xmarticle_article extends XoopsObject
 		}
         // permission Auto approve submitted article
         $permHelper = new \Xmf\Module\Helper\Permission();
-        $permission = $permHelper->checkPermission('xmarticle_other', 8);
+        $permission = $permHelper->checkPermission('xmarticle_editapprove', $article_cid);
         if ($permission == true || $helper->isUserAdmin() == true){
             // status
             $form_status = new XoopsFormRadio(_MA_XMARTICLE_STATUS, 'article_status', $this->getVar('article_status'));
@@ -420,7 +420,7 @@ class xmarticle_article extends XoopsObject
         }
         // permission Auto approve submitted article
         $permHelper = new \Xmf\Module\Helper\Permission();
-        $permission = $permHelper->checkPermission('xmarticle_other', 8);
+        $permission = $permHelper->checkPermission('xmarticle_editapprove', $article_cid);
         if ($permission == false){
             $this->setVar('article_status', 2);
         } else {
