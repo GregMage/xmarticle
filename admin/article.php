@@ -169,7 +169,7 @@ switch ($op) {
             $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
         } else {
             $cloneobj = XmarticleUtility::cloneArticle($article_id, 'article.php');
-            $form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php');
+            $form = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'article.php', true);
             $xoopsTpl->assign('form', $form->render());
         }
         break;

@@ -118,7 +118,7 @@ class xmarticle_article extends XoopsObject
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
 
-        if (!$this->isNew()) {
+        if (!$this->isNew() || $clone == true) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $article_cid = $this->getVar('article_cid');
             $article_cid_fielddata = $this->getVar('article_id');
