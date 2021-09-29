@@ -124,7 +124,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $cloneobj = XmarticleUtility::cloneArticle($article_id);
-                				// Get Permission to edit in category
+				// Get Permission to edit in category
 				$permHelper->checkPermissionRedirect('xmarticle_editapprove', $cloneobj->getVar('article_cid'), 'index.php', 2, _NOPERM);
 				$form     = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'action.php', true);
                 $xoopsTpl->assign('form', $form->render());
