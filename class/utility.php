@@ -290,6 +290,13 @@ class XmarticleUtility
         $newobj->setVar('article_reference', $article->getVar('article_reference') . '-' . $rand_id);
         $newobj->setVar('article_description', $article->getVar('article_description', 'e'));
         $newobj->setVar('article_cid', $article->getVar('article_cid'));
+		$newobj->setVar('article_logo', $article->getVar('article_logo'));
+        $newobj->setVar('article_douser', $article->getVar('article_douser'));
+        $newobj->setVar('article_dodate', $article->getVar('article_dodate'));
+        $newobj->setVar('article_domdate', $article->getVar('article_domdate'));
+        $newobj->setVar('article_dohits', $article->getVar('article_dohits'));
+        $newobj->setVar('article_dorating', $article->getVar('article_dorating'));
+        $newobj->setVar('article_docomment', $article->getVar('article_docomment'));
         $newobj->setVar('article_userid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
         $newobj->setVar('article_date', time());
         $newobj->setVar('article_status', 1);
