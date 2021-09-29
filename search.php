@@ -22,12 +22,8 @@ use \Xmf\Request;
 include_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'xmarticle_search.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
-//include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
-
-// Get Permission to search
-$permHelper->checkPermissionRedirect('xmarticle_other', 32, 'index.php', 2, _NOPERM);
 
 $xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 // Get values
@@ -121,7 +117,7 @@ if ($search != '') {
 			if ($xmsocial == true){
 				$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
 			}
-			$article['counter']         = $article_arr[$i]->getVar('article_counter');
+			$article['counter']     = $article_arr[$i]->getVar('article_counter');
 			$article['douser']      = $article_arr[$i]->getVar('article_douser');
 			$article['dodate']      = $article_arr[$i]->getVar('article_dodate');
 			$article['domdate']     = $article_arr[$i]->getVar('article_domdate');

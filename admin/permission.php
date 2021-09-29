@@ -77,18 +77,6 @@ if (count($category_arr) > 0) {
 				$global_perms_array[$i] = $category_arr[$i]->getVar('category_name');
 			}
 			break;
-
-				/*case 3:    // Other permission
-			$formTitle = _MA_XMARTICLE_PERMISSION_OTHER;
-			$permissionName = 'xmarticle_other';
-			$permissionDescription = _MA_XMARTICLE_PERMISSION_OTHER_DSC;
-			$global_perms_array    = [
-				'4' => _MA_XMARTICLE_PERMISSION_OTHER_4 ,
-				'8' => _MA_XMARTICLE_PERMISSION_OTHER_8,
-				'16' => _MA_XMARTICLE_PERMISSION_OTHER_16,
-				'32' => _MA_XMARTICLE_PERMISSION_OTHER_32
-			];
-			break;*/
 	}
 	
 	$permissionsForm = new XoopsGroupPermForm($formTitle, $helper->getModule()->getVar('mid'), $permissionName, $permissionDescription, 'admin/permission.php?permission=' . $permission);

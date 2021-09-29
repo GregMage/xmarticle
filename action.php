@@ -34,10 +34,11 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
     switch ($op) {
         // Add
         case 'add':
-            // permission to submitt
-			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
 			// Get Permission to submit
 			$submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
+			if (empty($submitPermissionCat)){
+				redirect_header('index.php', 2, _NOPERM);
+			}
 			$criteria = new CriteriaCompo();
 			$criteria->add(new Criteria('category_status', 1));
 			$criteria->setSort('category_weight ASC, category_name');
@@ -85,28 +86,20 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // Loadtype
         case 'loadarticle':
-            // permission to submitt
-			$permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
-			// Get Permission to submit in category
-			$submitPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_submit');
 			$category_id = Request::getInt('category_id', 0);
-			if (!in_array($category_id, $submitPermissionCat)) {
-				redirect_header('action.php?op=add', 2, _NOPERM);
-			}
 			if ($category_id == 0) {
 				$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOCATEGORY);
 			} else {
+				// Get Permission to submit in category
+				$permHelper->checkPermissionRedirect('xmarticle_submit', $category_id, 'action.php?op=add', 2, _NOPERM);
                 $obj  = $articleHandler->create();
                 $form = $obj->getForm($category_id);
-                $xoopsTpl->assign('form', $form->render());;
+                $xoopsTpl->assign('form', $form->render());
 			}
             break;
 
         // Edit
         case 'edit':
-			// permission to submitt
-            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
-            // Form
             $article_id = Request::getInt('article_id', 0);
             if ($article_id == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
@@ -115,6 +108,8 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 				if (empty($obj)) {
 					$xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
 				} else {
+					// Get Permission to edit in category
+					$permHelper->checkPermissionRedirect('xmarticle_editapprove', $obj->getVar('article_cid'), 'index.php', 2, _NOPERM);
 					$form = $obj->getForm();
 					$xoopsTpl->assign('form', $form->render());
 				}
@@ -124,22 +119,23 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // Clone
         case 'clone':
-			// permission to submitt
-            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
             $article_id = Request::getInt('article_id', 0);
             if ($article_id == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $cloneobj = XmarticleUtility::cloneArticle($article_id);
-                $form     = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'action.php');
+                				// Get Permission to edit in category
+				$permHelper->checkPermissionRedirect('xmarticle_editapprove', $cloneobj->getVar('article_cid'), 'index.php', 2, _NOPERM);
+				$form     = $cloneobj->getForm($cloneobj->getVar('article_cid'), $article_id, 'action.php', true);
                 $xoopsTpl->assign('form', $form->render());
             }
             break;
 
         // Save
         case 'save':
+			$article_cid = Request::getInt('article_cid', 0);
             // permission to submitt
-            $permHelper->checkPermissionRedirect('xmarticle_other', 4, 'index.php', 2, _NOPERM);
+			$permHelper->checkPermissionRedirect('xmarticle_submit', $article_cid, 'index.php', 2, _NOPERM);
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('index.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -160,14 +156,14 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 
         // del
         case 'del':
-            // permission to del
-            $permHelper->checkPermissionRedirect('xmarticle_other', 16, 'index.php', 2, _NOPERM);
             $article_id = Request::getInt('article_id', 0);
-            if ($article_id == 0) {
+			if ($article_id == 0) {
                 $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
             } else {
                 $surdel = Request::getBool('surdel', false);
                 $obj    = $articleHandler->get($article_id);
+				// Get Permission to delete in category
+				$permHelper->checkPermissionRedirect('xmarticle_delete', $obj->getVar('article_cid'), 'index.php', 2, _NOPERM);
                 if ($surdel === true) {
                     if (!$GLOBALS['xoopsSecurity']->check()) {
                         redirect_header('index.php', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
