@@ -5,7 +5,6 @@
     <meta http-equiv="content-language" content="<{$xoops_langcode}>">
     <title>Xmarticle manager</title>
     <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl xoops.css}>">
-	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl modules/system/css/imagemanager.css}>">
 	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl modules/system/css/admin.css}>">
     <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/font-awesome/css/font-awesome.min.css}>">
 	<{if $bootstrap_css != ''}>
@@ -36,8 +35,8 @@
 				<div class="card-footer">
 					<form class="text-center" name="selreset" id="selreset" action="articlemanager.php" method="post">
 						<input type="hidden" name="selectreset" value="true" />
-						<input type='submit' class='formButton' name='subselect'  id='subselect' value='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>' title='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>'  />
-						<input value="<{$smarty.const._MA_XMARTICLE_FORMARTICLE_VALIDATE}>" type="button" onclick="window.close();"/>
+						<input type='submit' class='btn btn-warning' name='subselect'  id='subselect' value='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>' title='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_RESETSELECTED}>'  />
+						<input class='btn btn-success' value="<{$smarty.const._MA_XMARTICLE_FORMARTICLE_VALIDATE}>" type="button" onclick="window.close();"/>
 					</form>
 				</div>
 			<{else}>
@@ -58,7 +57,7 @@
 						<{/if}>
 					</div>
 					<div class="col-3">
-						<a href="<{$xoops_url}>/modules/xmarticle/action.php?op=add" class="btn btn-primary btn-sm" target="_blank" role="button" aria-pressed="true" title="<{$smarty.const._MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD}>">
+						<a href="<{$xoops_url}>/modules/xmarticle/action.php?op=add" class="btn btn-secondary btn-sm" target="_blank" role="button" aria-pressed="true" title="<{$smarty.const._MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD}>">
 							<{$smarty.const._MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD}>
 						</a>
 					</div>
@@ -105,7 +104,7 @@
 									<{/foreach}>
 									</tbody>
 								</table>
-							<input type='submit' class='formButton' name='select'  id='select' value='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}>' title='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}>'  />
+							<input type='submit' class='btn btn-success' name='select'  id='select' value='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}>' title='<{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}>'  />
 							</form>
 						</div>
 					<{/if}>
@@ -119,7 +118,7 @@
 		<{/if}>
 	</div><!-- .xmdoc -->
 	<div id="footer" class="text-center">
-		<input value="<{$smarty.const._CLOSE}>" type="button" onclick="window.close();"/>
+		<input value="<{$smarty.const._CLOSE}>" type="button" class='btn btn-secondary' onclick="window.close();"/>
 	</div>
 </body>
 </html>
