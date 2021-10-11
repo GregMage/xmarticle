@@ -9,7 +9,7 @@
 		<{$form|default:false}>
 	</div>
 	<{if $article|default:'' != ""}>
-        <h3 class="tdm-title"><{$smarty.const._MA_XMARTICLE_LISTARTICLE}>:</h3>
+        <h3 class="tdm-title"><{$smarty.const._MA_XMARTICLE_LISTARTICLE}> <span class="badge badge-pill badge-info"><{$article_count}></span>:</h3>
 		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 justify-content-center">
 			<{section name=i loop=$article}><{include file="db:xmarticle_article.tpl" down=$article[i]}><{/section}>
 		</div>

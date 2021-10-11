@@ -73,7 +73,7 @@
 								<table class="table table-hover table-striped table-bordered mt-4" id="">
 									<thead>
 										<tr class="table-secondary">
-											<th class="text-center" colspan="4" ><{$smarty.const._MA_XMARTICLE_FORMARTICLE_LISTARTICLE}></th>
+											<th class="text-center" colspan="4" ><{$smarty.const._MA_XMARTICLE_FORMARTICLE_LISTARTICLE}> <span class="badge badge-pill badge-info"><{$article_count}></span></th>
 										</tr>
 										<tr class="table-secondary">
 											<th class="text-center"><{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}></th>

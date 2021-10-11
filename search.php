@@ -33,19 +33,24 @@ if ($reset == '') {
     $s_name = Request::getString('s_name', '');
     $s_ref  = Request::getString('s_ref', '');
     $s_desc = Request::getString('s_desc', '');
+    $s_aid = Request::getString('s_aid', '');
     $s_cat  = Request::getInt('s_cat', 0);
+	$start = Request::getInt('start', 0);
 } else {
     $s_name = '';
     $s_ref  = '';
     $s_desc  = '';
+	$s_aid = '';
     $s_cat  = 0;
+	$start = 0;
+	$arguments = '';
 }
-// Get start pager
-$start = Request::getInt('start', 0);
 // Form
 $obj  = $articleHandler->create();
 $fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat);
-
+if (count($fielddata_aid_arr) > 0) {
+	$s_aid = serialize($fielddata_aid_arr);
+}
 if ($search != '') {
     $arguments = 's_cat=' . $s_cat . '&amp;';
     // Criteria
@@ -62,13 +67,17 @@ if ($search != '') {
         $criteria->add(new Criteria('article_description', '%' . $s_desc . '%', 'LIKE'));
         $arguments .= 's_desc=' . $s_desc . '&amp;';
     }
+	if ($s_aid != '') {
+        $criteria->add(new Criteria('article_id', '(' . implode(',', unserialize($s_aid)) . ')', 'IN'));
+        $arguments .= 's_aid=' . $s_aid . '&amp;';
+    }
     if (count($fielddata_aid_arr) > 0) {
         $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
     }
     $criteria->setSort('article_name');
     $criteria->setOrder('ASC');
-    //$criteria->setStart($start);
-    //$criteria->setLimit($nb_limit);
+    $criteria->setStart($start);
+    $criteria->setLimit($nb_limit);
     if ($s_cat != 0) {
         $criteria->add(new Criteria('article_cid', $s_cat));
     } else {		
@@ -89,6 +98,7 @@ if ($search != '') {
 		$xmsocial = false;
 	}
 	$xoopsTpl->assign('xmsocial', $xmsocial);
+	$xoopsTpl->assign('article_count', $article_count);
     if ($article_count > 0) {
         foreach (array_keys($article_arr) as $i) {
             $article_id             = $article_arr[$i]->getVar('article_id');
@@ -127,10 +137,10 @@ if ($search != '') {
             unset($article);
         }
         // Display Page Navigation
-        /*if ($article_count > $nb_limit) {
+        if ($article_count > $nb_limit) {
             $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
             $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
-        }*/
+        }
     } else {
         $xoopsTpl->assign('no_article', true);
     }
