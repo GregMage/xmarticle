@@ -354,4 +354,4 @@ $modversion['module_website_url']  = 'github.com/GregMage';
 $modversion['module_website_name'] = 'github.com/GregMage';
 
 $modversion['min_xoops'] = '2.5.10';
-$modversion['min_php']   = '7.0';
+$modversion['min_php']   = '7.3';
