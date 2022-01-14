@@ -114,10 +114,23 @@
 						</div>
 					<{/if}>
 					<div class="w-100"></div>
-					<{if $xmdoc_viewdocs|default:false == true}>
+					<{if $xmstock_viewstocks|default:false == true}>
 					<div class="col-12 pl-2 pr-2 pb-2">
 						<div class="card">
 							<div class="card-header">
+								<{$smarty.const._MA_XMARTICLE_XMSTOCK}>
+							</div>
+							<div class="card-body">
+								<{include file="db:xmstock_viewstocks.tpl"}>
+							</div>
+						</div>
+					</div>
+					<div class="w-100"></div>
+					<{/if}>
+					<{if $xmdoc_viewdocs|default:false == true}>
+					<div class="col-12 pl-2 pr-2 pb-2">
+						<div class="card">
+							<div class="card">
 								<{$smarty.const._MA_XMARTICLE_XMDOC}>
 							</div>
 							<div class="card-body">

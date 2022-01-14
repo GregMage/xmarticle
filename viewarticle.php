@@ -142,7 +142,7 @@ if (xoops_isActiveModule('xmstock') && $helper->getConfig('general_xmstock', 0) 
     xoops_load('utility', 'xmstock');
     XmstockUtility::renderStocks($xoopsTpl, $xoTheme, $article_id);
 } else {
-    $xoopsTpl->assign('xmdoc_viewdocs', false);
+    $xoopsTpl->assign('xmstock_viewstocks', false);
 }
 
 //xmsocial
