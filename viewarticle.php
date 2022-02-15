@@ -140,7 +140,7 @@ if ($counterUpdate == true){
 //xmstock
 if (xoops_isActiveModule('xmstock') && $helper->getConfig('general_xmstock', 0) == 1) {
     xoops_load('utility', 'xmstock');
-    XmstockUtility::renderStocks($xoopsTpl, $xoTheme, $article_id);
+    XmstockUtility::renderStocks($article_id);
 } else {
     $xoopsTpl->assign('xmstock_viewstocks', false);
 }
