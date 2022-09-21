@@ -47,7 +47,7 @@ class XmarticleFormArticle extends XoopsFormElementTray
 		}
 		// add article
 		$add_text = "<br>";
-		$add_text .= "<button type='button' class='btn btn-default btn-sm' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
+		$add_text .= "<button type='button' class='btn btn-secondary btn-sm' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
 		$add_text .= "<span class='fa fa-file' aria-hidden='true'></span>";
 		$add_text .= "<small> " . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "</small>";
 		$add_text .= "</button>";
