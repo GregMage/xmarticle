@@ -30,10 +30,10 @@ class XmarticleFormArticle extends XoopsFormElementTray
      */
     public function __construct($caption, $itemid = 0)
     {
-        
+
 		include __DIR__ . '/../include/common.php';
 		xoops_loadLanguage('main', 'xmarticle');
-        
+
         $sessionHelper = new \Xmf\Module\Helper\Session('xmarticle');
 		if ($itemid != 0){
 			$sessionHelper->set('selectionarticle', $itemid);
@@ -46,8 +46,35 @@ class XmarticleFormArticle extends XoopsFormElementTray
 			$this->addElement(new XoopsFormLabel('', XmarticleUtility::getArticleName($itemid, true, true)));
 		}
 		// add article
-		$add_text = "<br>";
-		$add_text .= "<button type='button' class='btn btn-secondary btn-sm' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
+		$add_text = "<script>
+		setInterval(function getArticle()
+		{
+			let xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function()
+			{
+				if(this.readyState == 4 && this.status == 200)
+				{
+					let datas = xhttp.response;
+					articleId =  datas['id'];
+					if(articleId != 0)
+					{
+						document.getElementById('articleName').innerHTML = datas['name'] + '(' + datas['reference'] + ')';
+						document.getElementById('articleLogo').src = datas['logo'];
+						document.getElementById('addArticle').style.display = 'none';
+					} else {
+						document.getElementById('addArticle').style.display = 'block';
+					}
+				}
+			};
+			xhttp.open('GET', '" . XOOPS_URL . "/modules/xmarticle/articleajax.php', true);
+			xhttp.responseType = 'json';
+			xhttp.send();
+		}, 1000);
+		</script>";
+		$add_text .= "<span class='font-weight-bold' id='articleName'></span>";
+		$add_text .= "<br><img src='' id='articleLogo' alt='' style='max-width:100px'>";
+		$add_text .= "<br>";
+		$add_text .= "<button type='button' class='btn btn-secondary btn-sm' id='addArticle' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
 		$add_text .= "<span class='fa fa-file' aria-hidden='true'></span>";
 		$add_text .= "<small> " . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "</small>";
 		$add_text .= "</button>";

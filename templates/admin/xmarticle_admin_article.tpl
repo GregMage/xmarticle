@@ -86,5 +86,3 @@
         <div class="clear spacer"></div>
     <{/if}>
 <{/if}>
-
-

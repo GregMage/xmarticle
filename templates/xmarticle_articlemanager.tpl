@@ -28,9 +28,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="alert alert-warning" role="alert">
-						<{$smarty.const._MA_XMARTICLE_FORMARTICLE_WARNING}>
-					</div>
 				</div>
 				<div class="card-footer">
 					<form class="text-center" name="selreset" id="selreset" action="articlemanager.php" method="post">
