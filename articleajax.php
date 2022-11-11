@@ -13,9 +13,8 @@ $GLOBALS['xoopsLogger']->activated = false;
 error_reporting(E_ALL);
 
 include __DIR__ . '/include/common.php';
-// claims we want to assert (verify)
-$uid = (is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->uid() : 0;
-$assertClaims = array('aud' => basename(__FILE__), 'uid' => $uid);
+
+define('PROTECTOR_SKIP_DOS_CHECK', 1);
 
 $sessionHelper = new Helper\Session();
 
