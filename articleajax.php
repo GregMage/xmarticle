@@ -6,6 +6,7 @@ use Xmf\Jwt\TokenReader;
 use Xmf\Module\Helper;
 use Xmf\Request;
 
+define('PROTECTOR_SKIP_DOS_CHECK', 1);
 $path = dirname(dirname(__DIR__));
 require_once $path . '/mainfile.php';
 
@@ -13,8 +14,6 @@ $GLOBALS['xoopsLogger']->activated = false;
 error_reporting(E_ALL);
 
 include __DIR__ . '/include/common.php';
-
-define('PROTECTOR_SKIP_DOS_CHECK', 1);
 
 $sessionHelper = new Helper\Session();
 
