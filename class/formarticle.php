@@ -46,6 +46,12 @@ class XmarticleFormArticle extends XoopsFormElementTray
 			$this->addElement(new XoopsFormLabel('', XmarticleUtility::getArticleName($itemid, true, true)));
 		}
 		// add article
+		$payload = array(
+            'aud' => 'articleajax.php',
+            'cat' => '',
+            'uid' => (is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->uid() : 0
+        );
+		$jwt = \Xmf\Jwt\TokenFactory::build('article', $payload, 60*10); // token good for 10 minutes
 		$add_text = "<script>
 		setInterval(function getArticle()
 		{
@@ -66,7 +72,7 @@ class XmarticleFormArticle extends XoopsFormElementTray
 					}
 				}
 			};
-			xhttp.open('GET', '" . XOOPS_URL . "/modules/xmarticle/articleajax.php', true);
+			xhttp.open('GET', '" . XOOPS_URL . "/modules/xmarticle/articleajax.php?Authorization=" . $jwt . "', true);
 			xhttp.responseType = 'json';
 			xhttp.send();
 		}, 1000);
