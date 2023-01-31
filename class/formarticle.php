@@ -46,44 +46,47 @@ class XmarticleFormArticle extends XoopsFormElementTray
 			$this->addElement(new XoopsFormLabel('', XmarticleUtility::getArticleName($itemid, true, true)));
 		}
 		// add article
-		$payload = array(
-            'aud' => 'articleajax.php',
-            'cat' => '',
-            'uid' => (is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->uid() : 0
-        );
-		$jwt = \Xmf\Jwt\TokenFactory::build('article', $payload, 60*10); // token good for 10 minutes
-		$add_text = "<script>
-		setInterval(function getArticle()
-		{
-			let xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function()
+		if ($itemid == 0){
+			$payload = array(
+				'aud' => 'articleajax.php',
+				'cat' => '',
+				'uid' => (is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->uid() : 0
+			);
+			$jwt = \Xmf\Jwt\TokenFactory::build('article', $payload, 60*10); // token good for 10 minutes
+			$add_text = "<script>
+			let articleId = 0;
+			setInterval(function getArticle()
 			{
-				if(this.readyState == 4 && this.status == 200)
+				let xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function()
 				{
-					let datas = xhttp.response;
-					articleId =  datas['id'];
-					if(articleId != 0)
+					if(this.readyState == 4 && this.status == 200)
 					{
-						document.getElementById('articleName').innerHTML = datas['name'] + '(' + datas['reference'] + ')';
-						document.getElementById('articleLogo').src = datas['logo'];
-						document.getElementById('addArticle').style.display = 'none';
-					} else {
-						document.getElementById('addArticle').style.display = 'block';
+						let datas = xhttp.response;
+						articleId =  datas['id'];
+						if(articleId != 0)
+						{
+							document.getElementById('articleName').innerHTML = datas['name'] + '(' + datas['reference'] + ')';
+							document.getElementById('articleLogo').src = datas['logo'];
+							document.getElementById('addArticle').style.display = 'none';
+						} else {
+							document.getElementById('addArticle').style.display = 'block';
+						}
 					}
-				}
-			};
-			xhttp.open('GET', '" . XOOPS_URL . "/modules/xmarticle/articleajax.php?Authorization=" . $jwt . "', true);
-			xhttp.responseType = 'json';
-			xhttp.send();
-		}, 1000);
-		</script>";
-		$add_text .= "<span class='font-weight-bold' id='articleName'></span>";
-		$add_text .= "<br><img src='' id='articleLogo' alt='' style='max-width:100px'>";
-		$add_text .= "<br>";
-		$add_text .= "<button type='button' class='btn btn-secondary btn-sm' id='addArticle' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
-		$add_text .= "<span class='fa fa-file' aria-hidden='true'></span>";
-		$add_text .= "<small> " . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "</small>";
-		$add_text .= "</button>";
-		$this->addElement(new XoopsFormLabel('', $add_text));
+				};
+				xhttp.open('GET', '" . XOOPS_URL . "/modules/xmarticle/articleajax.php?Authorization=" . $jwt . "', true);
+				xhttp.responseType = 'json';
+				xhttp.send();
+			}, 1000);
+			</script>";
+			$add_text .= "<span class='font-weight-bold' id='articleName'></span>";
+			$add_text .= "<br><img src='' id='articleLogo' alt='' style='max-width:100px'>";
+			$add_text .= "<br>";
+			$add_text .= "<button type='button' class='btn btn-secondary btn-sm' id='addArticle' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/xmarticle/articlemanager.php\",\"articlemanager\",400,430);' onmouseover='style.cursor=\"hand\"' title='" . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "'>";
+			$add_text .= "<span class='fa fa-file' aria-hidden='true'></span>";
+			$add_text .= "<small> " . _MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD . "</small>";
+			$add_text .= "</button>";
+			$this->addElement(new XoopsFormLabel('', $add_text));
+		}
     }
 }
