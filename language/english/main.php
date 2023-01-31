@@ -44,12 +44,12 @@ define('_MA_XMARTICLE_INDEX_MEMORYLIMIT', 'Memory limit (memory_limit directive 
 
 // Error message
 define('_MA_XMARTICLE_ERROR', 'Error');
+define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Error: Disable content!');
 define('_MA_XMARTICLE_ERROR_NOACESSCATEGORY', 'You don\'t have access to any categories');
 define('_MA_XMARTICLE_ERROR_NOARTICLE', 'There are no articles in the database');
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
-define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Error: field not configurable (no field type)');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
 define('_MA_XMARTICLE_ERROR_REFERENCE', 'The reference already exists! The reference must be unique.');
 define('_MA_XMARTICLE_ERROR_SIZE', "The size in préférence (Max uploaded files size) exceeds the maximum values defined in 'post_max_size' or 'upload_max_filesize' in your configuration in php.ini");
@@ -70,21 +70,19 @@ define('_MA_XMARTICLE_STATUS_A', 'Active');
 define('_MA_XMARTICLE_STATUS_NA', 'Disabled');
 define('_MA_XMARTICLE_VIEW', 'View');
 
-
-
 // Field type
+define('_MA_XMARTICLE_FIELDTYPE_CHECKBOX', 'Checkbox');
 define('_MA_XMARTICLE_FIELDTYPE_LABEL', 'Label');
-define('_MA_XMARTICLE_FIELDTYPE_VSTEXT', 'Text with 25 characters');
-define('_MA_XMARTICLE_FIELDTYPE_STEXT', 'Text with 50 characters');
-define('_MA_XMARTICLE_FIELDTYPE_MTEXT', 'Text with 100 characters');
 define('_MA_XMARTICLE_FIELDTYPE_LTEXT', 'Text with 255 characters');
-define('_MA_XMARTICLE_FIELDTYPE_TEXT', 'Long text');
+define('_MA_XMARTICLE_FIELDTYPE_MTEXT', 'Text with 100 characters');
+define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
+define('_MA_XMARTICLE_FIELDTYPE_RADIO', 'Radio buttons');
+define('_MA_XMARTICLE_FIELDTYPE_RADIOYN', 'Radio Yes/No');
 define('_MA_XMARTICLE_FIELDTYPE_SELECT', 'Select');
 define('_MA_XMARTICLE_FIELDTYPE_SELECTMULTI', 'Multi select');
-define('_MA_XMARTICLE_FIELDTYPE_RADIOYN', 'Radio Yes/No');
-define('_MA_XMARTICLE_FIELDTYPE_RADIO', 'Radio buttons');
-define('_MA_XMARTICLE_FIELDTYPE_CHECKBOX', 'Checkbox');
-define('_MA_XMARTICLE_FIELDTYPE_NUMBER', 'Number');
+define('_MA_XMARTICLE_FIELDTYPE_STEXT', 'Text with 50 characters');
+define('_MA_XMARTICLE_FIELDTYPE_TEXT', 'Long text');
+define('_MA_XMARTICLE_FIELDTYPE_VSTEXT', 'Text with 25 characters');
 
 // Category
 define('_MA_XMARTICLE_CATEGORY_COLOR', 'Color');
@@ -116,12 +114,15 @@ define('_MA_XMARTICLE_ARTICLE_DESC', 'Description');
 define('_MA_XMARTICLE_ARTICLE_FORMPATH', 'Files are in: %s');
 define('_MA_XMARTICLE_ARTICLE_LOGO', 'Logo');
 define('_MA_XMARTICLE_ARTICLE_LOGOFILE', 'Logo file');
+define('_MA_XMARTICLE_ARTICLE_MDATE_BT', 'Update');
 define('_MA_XMARTICLE_ARTICLE_NAME', 'Name');
+define('_MA_XMARTICLE_ARTICLE_PUBLISHED_BT', 'Publication');
 define('_MA_XMARTICLE_ARTICLE_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_ARTICLE_UPLOADSIZE', 'Maximum size: %s kB');
 define('_MA_XMARTICLE_ARTICLE_REFERENCE', 'Reference');
 define('_MA_XMARTICLE_ARTICLE_SUREDEL', 'Sure to delete this article? %s');
 define('_MA_XMARTICLE_AUTHOR', 'Author');
+define('_MA_XMARTICLE_BLOCKS_NOWAITING', 'There are no articles awaiting validation');
 define('_MA_XMARTICLE_CLONE_NAME', 'CLONE');
 define('_MA_XMARTICLE_COMPINFORMATION', 'Complementary informations');
 define('_MA_XMARTICLE_DATE', 'Creation date');
@@ -130,19 +131,15 @@ define('_MA_XMARTICLE_GENINFORMATION', 'General informations');
 define('_MA_XMARTICLE_MDATE', 'Modification date');
 define('_MA_XMARTICLE_MDATEUPDATE', 'Update the modification date');
 define('_MA_XMARTICLE_NOTIFY', 'Notify me of the publication?');
+define('_MA_XMARTICLE_RATING', 'Rating');
+define('_MA_XMARTICLE_READING', 'Reading');
 define('_MA_XMARTICLE_RESETMDATE', 'Reset (empty date)');
 define('_MA_XMARTICLE_USERID', 'Author');
+define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 define('_MA_XMARTICLE_WFV', 'Waiting for validation');
 define('_MA_XMARTICLE_WAITING', 'There are <strong>%s</strong> articles waiting for validation!');
 define('_MA_XMARTICLE_XMDOC', 'Documents');
 define('_MA_XMARTICLE_XMSTOCK', 'Stocks');
-define('_MA_XMARTICLE_READING', 'Reading');
-define('_MA_XMARTICLE_RATING', 'Rating');
-define('_MA_XMARTICLE_VOTES', '(%s Votes)');
-
-define('_MA_XMARTICLE_ARTICLE_MDATE_BT', 'Update');
-define('_MA_XMARTICLE_ARTICLE_PUBLISHED_BT', 'Publication');
-define('_MA_XMARTICLE_BLOCKS_NOWAITING', 'There are no articles awaiting validation');
 
 // permission
 define('_MA_XMARTICLE_PERMISSION_VIEW', 'View Permissions');
