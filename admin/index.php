@@ -31,11 +31,11 @@ if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_ma
 }
 
 
-$moduleAdmin->addConfigModuleVersion('system', 212);
+$moduleAdmin->addConfigModuleVersion('system', '2.1.2');
 // xmstock
 if (xoops_isActiveModule('xmstock')){
 	if ($helper->getConfig('general_xmstock', 0) == 1) {
-		$moduleAdmin->addConfigModuleVersion('xmstock', 10);
+		$moduleAdmin->addConfigModuleVersion('xmstock', '1.0.0');
 	} else {
 		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE);
 	}
@@ -45,7 +45,7 @@ if (xoops_isActiveModule('xmstock')){
 // xmdoc
 if (xoops_isActiveModule('xmdoc')){
 	if ($helper->getConfig('general_xmdoc', 0) == 1) {
-		$moduleAdmin->addConfigModuleVersion('xmdoc', 50);
+		$moduleAdmin->addConfigModuleVersion('xmdoc', '1.4.0');
 	} else {
 		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE);
 	}
@@ -55,7 +55,7 @@ if (xoops_isActiveModule('xmdoc')){
 // xmsocial
 if (xoops_isActiveModule('xmsocial')){
 	if ($helper->getConfig('general_xmsocial', 0) == 1){
-		$moduleAdmin->addConfigModuleVersion('xmsocial', 100);
+		$moduleAdmin->addConfigModuleVersion('xmsocial', '2.1.0');
 	} else {
 		$moduleAdmin->addConfigWarning(_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE);
 	}
