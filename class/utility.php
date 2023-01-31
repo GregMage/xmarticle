@@ -303,7 +303,7 @@ class XmarticleUtility
 
         return $newobj;
     }
-	
+
 	public static function getArticleList($efl = false)
     {
         include __DIR__ . '/../include/common.php';
@@ -327,19 +327,19 @@ class XmarticleUtility
 		}
         return $articlelist;
     }
-	
+
 	/**
      * Fonction qui permet d'afficher le nom d'un article
 	 * @param int      $articleid	Id de l'article
      * @param boolean  $uref		Afficher la référence
-     * @param boolean  $ulink		Nom sous forme de lien     
+     * @param boolean  $ulink		Nom sous forme de lien
 	 * @return string   			Nom selon les options ou message d'erreur
      */
-	
+
 	public static function getArticleName($articleid, $uref = true, $ulink = true)
     {
         include __DIR__ . '/../include/common.php';
-		
+
 		$article = $articleHandler->get($articleid);
 		if (isset($article)){
 			if ($uref == true){
@@ -351,20 +351,20 @@ class XmarticleUtility
 				$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article->getVar('article_cid') . '&article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
 			} else {
 				$link = $article->getVar('article_name');
-			}		
+			}
 			return $link . $ref;
 		} else {
 			return 'Error: The requested item does not exist! (ID-' . $articleid . ')';
 		}
     }
-	
+
 	public static function renderArticleForm($form, $caption, $itemid = 0)
     {
         xoops_load('formarticle', 'xmarticle');
-        $form->addElement(new XmarticleFormArticle($caption, $itemid), false);
+		$form->addElement(new XmarticleFormArticle($caption, $itemid), false);
         return $form;
     }
-	
+
 	public static function renderArticleIdSave()
     {
 		$sessionHelper = new \Xmf\Module\Helper\Session('xmarticle');
@@ -376,7 +376,7 @@ class XmarticleUtility
 			return 0;
 		}
     }
-	
+
 	public static function checkReference($reference = '', $article_id = 0)
     {
 		include __DIR__ . '/../include/common.php';
@@ -394,7 +394,7 @@ class XmarticleUtility
 			}
 		}
     }
-	
+
 	public static function returnBytes($val)
 	{
 		switch (mb_substr($val, -1)) {
@@ -411,7 +411,7 @@ class XmarticleUtility
 				return $val;
 		}
 	}
-	
+
 	public static function getServerStats()
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
@@ -433,7 +433,7 @@ class XmarticleUtility
 
         return $html;
     }
-	
+
 	public static function generateDescriptionTagSafe($text, $wordCount = 100)
     {
 		if (xoops_isActiveModule('xlanguage')){
@@ -442,7 +442,7 @@ class XmarticleUtility
 		$text = \Xmf\Metagen::generateDescription($text, $wordCount);
 		return $text;
 	}
-	
+
 	public static function TagSafe($text)
     {
 		if (xoops_isActiveModule('xlanguage')){
