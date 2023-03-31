@@ -145,7 +145,9 @@ class xmarticle_article extends XoopsObject
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'article_name', 50, 255, $this->getVar('article_name')), true);
 
         // reference
-        $form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'article_reference', 20, 50, $this->getVar('article_reference')), true);
+		if (!$this->isNew()) {
+        	$form->addElement(new XoopsFormLabel(_MA_XMARTICLE_ARTICLE_REFERENCE, $this->getVar('article_reference')));
+		}
 
         // description
         $editor_configs           = [];
@@ -360,14 +362,6 @@ class xmarticle_article extends XoopsObject
         $helper = Helper::getHelper('xmarticle');
         $error_message = '';
 
-		// test error
-        if (false === XmarticleUtility::checkReference(Request::getString('article_reference', ''), $this->getVar('article_id'))) {
-            $error_message .= _MA_XMARTICLE_ERROR_REFERENCE . '<br>';
-			$this->setVar('article_reference',  '');
-        } else {
-			$this->setVar('article_reference', Request::getString('article_reference', ''));
-		}
-
         //logo
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -437,9 +431,25 @@ class xmarticle_article extends XoopsObject
             }
         }
         if ($error_message == '') {
+			$category = $categoryHandler->get($article_cid);
+			//reference edit article
+			if (!empty($this->getVar('article_id'))){
+				$this->setVar('article_reference',  $category->getVar('category_reference') . '-' . $this->getVar('article_id'));
+			}
             if ($articleHandler->insert($this)) {
+				if ($this->get_new_enreg() == 0){
+					$fielddata_aid = $this->getVar('article_id');
+				} else {
+					$fielddata_aid = $this->get_new_enreg();
+					//reference new article
+					$obj = $articleHandler->get($fielddata_aid);
+					$obj->setVar('article_reference',  $category->getVar('category_reference') . '-' . $obj->getVar('article_id'));
+					if (!$articleHandler->insert($obj)) {
+						$error_message .=  $this->getHtmlErrors();
+					}
+				}
+
 				// fields and fielddata
-				$category = $categoryHandler->get($article_cid);
 				if (!empty($category->getVar('category_fields'))) {
 					$criteria = new CriteriaCompo();
 					$criteria->setSort('field_weight ASC, field_name');
@@ -447,11 +457,6 @@ class xmarticle_article extends XoopsObject
 					$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
 					$criteria->add(new Criteria('field_status', 0, '!='));
 					$field_arr = $fieldHandler->getall($criteria);
-					if ($this->get_new_enreg() == 0){
-						$fielddata_aid = $this->getVar('article_id');
-					} else {
-						$fielddata_aid = $this->get_new_enreg();
-					}
 					foreach (array_keys($field_arr) as $i) {
 						$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
 					}
@@ -496,7 +501,7 @@ class xmarticle_article extends XoopsObject
                     }
 				}
             } else {
-                $error_message =  $this->getHtmlErrors();
+                $error_message .=  $this->getHtmlErrors();
             }
         }
 

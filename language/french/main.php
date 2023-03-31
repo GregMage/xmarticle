@@ -51,7 +51,6 @@ define('_MA_XMARTICLE_ERROR_NOARTICLE', 'Il n\'y a pas d\'articles dans la base 
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'Il n\'y a pas de catégories dans la base de données');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'Il n\'y a pas de champs dans la base de données');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'Il n\'y a pas de type de champ');
-define('_MA_XMARTICLE_ERROR_REFERENCE', 'La référence existe déjà ! La référence doit être unique.');
 define('_MA_XMARTICLE_ERROR_SIZE', "La taille dans les préférences du module (taille maximale des fichiers téléchargés) dépasse les valeurs maximales définies dans 'post_max_size' ou 'upload_max_filesize' dans la configuration du fichier php.ini.");
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Le poids doit être un nombre');
 
