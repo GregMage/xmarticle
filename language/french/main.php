@@ -100,6 +100,7 @@ define('_MA_XMARTICLE_CATEGORY_LOGO', 'Logo de la catégorie');
 define('_MA_XMARTICLE_CATEGORY_LOGOFILE', 'Fichier de logo');
 define('_MA_XMARTICLE_CATEGORY_NAME', 'Nom');
 define('_MA_XMARTICLE_CATEGORY_REFERENCE', 'Référence');
+define('_MA_XMARTICLE_CATEGORY_REFERENCE_DSC', 'Cette référence permet de générer les références article');
 define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Supprimer des champs');
 define('_MA_XMARTICLE_CATEGORY_SUREDEL', 'Voulez-vous vraiment supprimer cette catégorie? %s');
 define('_MA_XMARTICLE_CATEGORY_THEREAREARTICLE', 'Il y a <strong>%s</strong> articles dans cette catégorie!');

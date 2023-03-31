@@ -2,6 +2,7 @@ CREATE TABLE `xmarticle_category` (
   `category_id`             smallint(5) unsigned    NOT NULL AUTO_INCREMENT,
   `category_name`           varchar(255)            NOT NULL DEFAULT '',
   `category_description`    text,
+  `category_reference`      varchar(50)             NOT NULL DEFAULT '',
   `category_logo`           varchar(50)             NOT NULL DEFAULT '',
   `category_color`          varchar(7)              NOT NULL DEFAULT '#ffffff',
   `category_douser`         tinyint(1)  unsigned    NOT NULL DEFAULT '1',
@@ -13,7 +14,7 @@ CREATE TABLE `xmarticle_category` (
   `category_weight`         smallint(5) unsigned    NOT NULL DEFAULT '0',
   `category_status`         tinyint(1)  unsigned    NOT NULL DEFAULT '1',
   `category_fields`    		text,
-  
+
   PRIMARY KEY (`category_id`)
 ) ENGINE=MyISAM;
 
@@ -29,7 +30,7 @@ CREATE TABLE `xmarticle_field` (
   `field_status`        tinyint(1)  unsigned    NOT NULL default '0',
   `field_sort`      	varchar(3)              NOT NULL default '',
   `field_options`       text,
-  
+
   PRIMARY KEY  (`field_id`)
 ) ENGINE=MyISAM;
 
@@ -41,7 +42,7 @@ CREATE TABLE `xmarticle_fielddata` (
   `fielddata_value2`        text,
   `fielddata_value3`        varchar(255)             NOT NULL default '',
   `fielddata_value4`        double(9,3),
-  
+
   PRIMARY KEY  (`fielddata_id`),
   KEY `fielddata_fid` (`fielddata_fid`),
   KEY `fielddata_aid` (`fielddata_aid`)
@@ -67,7 +68,7 @@ CREATE TABLE `xmarticle_article` (
   `article_dorating`       tinyint(1)  unsigned    NOT NULL DEFAULT '1',
   `article_docomment`      tinyint(1)  unsigned    NOT NULL DEFAULT '1',
   `article_status`         tinyint(1)   unsigned   NOT NULL default '0',
-  
+
   PRIMARY KEY  (`article_id`),
   KEY `article_cid` (`article_cid`)
 ) ENGINE=MyISAM;

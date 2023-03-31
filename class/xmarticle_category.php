@@ -33,6 +33,7 @@ class xmarticle_category extends XoopsObject
     {
         $this->initVar('category_id', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('category_name', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('category_reference', XOBJ_DTYPE_TXTBOX, null, false, 50);
         $this->initVar('category_description', XOBJ_DTYPE_TXTAREA, null, false);
         // use html
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
@@ -97,6 +98,7 @@ class xmarticle_category extends XoopsObject
             $this->setVar('category_logo', $category_logo);
         }
         $this->setVar('category_name', Request::getString('category_name', ''));
+        $this->setVar('category_reference', Request::getString('category_reference', ''));
         $this->setVar('category_color', Request::getString('category_color', ''));
 		$this->setVar('category_description', Request::getText('category_description', ''));
 		$this->setVar('category_douser', Request::getInt('category_douser', 1));
@@ -148,8 +150,8 @@ class xmarticle_category extends XoopsObject
                 // permission delete
                 $groups_delete = Request::getArray('xmarticle_delete_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_delete', $perm_id, $groups_delete);
-                
-				
+
+
 				if ((Request::getBool('addmorefields', false)) === true) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);
                 } else {
@@ -194,6 +196,16 @@ class xmarticle_category extends XoopsObject
         // title
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_NAME, 'category_name', 50, 255, $this->getVar('category_name')), true);
 
+        // reference
+        if ($this->isNew()) {
+            $reference = new XoopsFormText(_MA_XMARTICLE_CATEGORY_REFERENCE, 'category_reference', 20, 50, $this->getVar('category_reference'));
+        } else {
+            $reference = new XoopsFormLabel(_MA_XMARTICLE_CATEGORY_REFERENCE, $this->getVar('category_reference'));
+            $form->addElement(new XoopsFormHidden('category_reference', $this->getVar('category_reference')));
+        }
+        $reference->setDescription(_MA_XMARTICLE_CATEGORY_REFERENCE_DSC);
+        $form->addElement($reference, true);
+
         // description
         $editor_configs           = [];
         $editor_configs['name']   = 'category_description';
@@ -204,6 +216,7 @@ class xmarticle_category extends XoopsObject
         $editor_configs['height'] = '400px';
         $editor_configs['editor'] = $helper->getConfig('admin_editor', 'Plain Text');
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_CATEGORY_DESC, 'category_description', $editor_configs), false);
+
         // logo
         $blank_img       = $this->getVar('category_logo') ?: 'no-image.png';
 		$uploadirectory  = str_replace(XOOPS_URL, '', $url_logo_category);
@@ -223,40 +236,40 @@ class xmarticle_category extends XoopsObject
         $fileseltray_img->addElement(new XoopsFormLabel(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $form->addElement($imgtray_img);
-		
+
 		//color
 		$form->addElement(new XoopsFormColorPicker(_MA_XMARTICLE_CATEGORY_COLOR, 'category_color', $this->getVar('category_color')), false);
-		
+
 		// douser
 		$douser = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'category_douser', $this->getVar('category_douser'));
 		$douser->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($douser, false);
-		
+
 		// dodate
 		$dodate = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DODATE, 'category_dodate', $this->getVar('category_dodate'));
 		$dodate->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($dodate, false);
-		
+
 		// domdate
 		$domdate = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOMDATE, 'category_domdate', $this->getVar('category_domdate'));
 		$domdate->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($domdate, false);
-		
+
 		// dohits
 		$dohits = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOHITS, 'category_dohits', $this->getVar('category_dohits'));
 		$dohits->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($dohits, false);
-		
-		// dorating 
+
+		// dorating
 		$dorating = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DORATING, 'category_dorating', $this->getVar('category_dorating'));
 		$dorating->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($dorating, false);
-		
+
 		// docomment
 		$docomment = new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOCOMMENT, 'category_docomment', $this->getVar('category_docomment'));
 		$docomment->setDescription(_MA_XMARTICLE_CATEGORY_DODSC);
 		$form->addElement($docomment, false);
-		
+
         // weight
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_CATEGORY_WEIGHT, 'category_weight', 5, 5, $weight), true);
 

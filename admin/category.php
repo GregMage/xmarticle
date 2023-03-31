@@ -51,6 +51,7 @@ switch ($op) {
                 $category_id                 = $category_arr[$i]->getVar('category_id');
                 $category['id']              = $category_id;
                 $category['name']            = $category_arr[$i]->getVar('category_name');
+                $category['reference']       = $category_arr[$i]->getVar('category_reference');
                 $category['description']     = XmarticleUtility::generateDescriptionTagSafe($category_arr[$i]->getVar('category_description', 'show'), 50);
 				$color					     = $category_arr[$i]->getVar('category_color');
 				if ($color == '#ffffff'){

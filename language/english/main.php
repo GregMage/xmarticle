@@ -100,6 +100,7 @@ define('_MA_XMARTICLE_CATEGORY_LOGO', 'Logo');
 define('_MA_XMARTICLE_CATEGORY_LOGOFILE', 'Logo file');
 define('_MA_XMARTICLE_CATEGORY_NAME', 'Name');
 define('_MA_XMARTICLE_CATEGORY_REFERENCE', 'Reference');
+define('_MA_XMARTICLE_CATEGORY_REFERENCE_DSC', 'This reference is used to generate the article references');
 define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Remove fields');
 define('_MA_XMARTICLE_CATEGORY_SUREDEL', 'Sure to delete this category? %s');
 define('_MA_XMARTICLE_CATEGORY_THEREAREARTICLE', 'There are <strong>%s</strong> articles in this category!');

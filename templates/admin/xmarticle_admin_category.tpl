@@ -19,8 +19,9 @@
         <tr>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_CATEGORY_LOGO}></th>
             <th class="txtleft width15"><{$smarty.const._MA_XMARTICLE_CATEGORY_NAME}></th>
+            <th class="txtleft width10"><{$smarty.const._MA_XMARTICLE_CATEGORY_REFERENCE}></th>
             <th class="txtleft"><{$smarty.const._MA_XMARTICLE_CATEGORY_DESC}></th>
-			<th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_COLOR}></th>            
+			<th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_COLOR}></th>
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_CATEGORY_WEIGHT}></th>
             <th class="txtcenter width5"><{$smarty.const._MA_XMARTICLE_STATUS}></th>
             <th class="txtcenter width10"><{$smarty.const._MA_XMARTICLE_ACTION}></th>
@@ -35,8 +36,9 @@
 				<{/if}>
 				</td>
                 <td class="txtleft"><a href="../viewcat.php?category_id=<{$category.id}>" title="<{$category.name}>"><{$category.name}></a></td>
+                <td class="txtleft"><{$category.reference}></td>
                 <td class="txtleft"><{$category.description}></td>
-				<td class="txtcenter"><{if $category.color != false}><div style="background-color:<{$category.color}>;width:50px; height:20px;margin-left: auto; margin-right: auto;"></div><{/if}></td> 
+				<td class="txtcenter"><{if $category.color != false}><div style="background-color:<{$category.color}>;width:50px; height:20px;margin-left: auto; margin-right: auto;"></div><{/if}></td>
                 <td class="txtcenter"><{$category.weight}></td>
                 <td class="xo-actions txtcenter">
                     <img id="loading_sml<{$category.id}>" src="../assets/images/spinner.gif" style="display:none;" title="<{$smarty.const._AM_SYSTEM_LOADING}>"
