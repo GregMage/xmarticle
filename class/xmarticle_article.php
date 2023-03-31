@@ -184,86 +184,88 @@ class xmarticle_article extends XoopsObject
         }
 
 		// field
-		$criteria = new CriteriaCompo();
-        $criteria->setSort('field_weight ASC, field_name');
-        $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
-        $criteria->add(new Criteria('field_status', 0, '!='));
-		$field_arr = $fieldHandler->getall($criteria);
-        foreach (array_keys($field_arr) as $i) {
-            $caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
-            if ($field_arr[$i]->getVar('field_required') == 1){
-                $required = true;
-            } else {
-                $required = false;
-            }
-            $value = XmarticleUtility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
-            if ($value == ''){
-				if ($field_arr[$i]->getVar('field_type') == 'text'){
-					$value = $field_arr[$i]->getVar('field_default', 'e');
-				} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
-					if ($field_arr[$i]->getVar('field_default', 'n') != ''){
-						$value =  implode(',', array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
-					}
+		if (!empty($category->getVar('category_fields'))) {
+			$criteria = new CriteriaCompo();
+			$criteria->setSort('field_weight ASC, field_name');
+			$criteria->setOrder('ASC');
+        	$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+			$criteria->add(new Criteria('field_status', 0, '!='));
+			$field_arr = $fieldHandler->getall($criteria);
+			foreach (array_keys($field_arr) as $i) {
+				$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+				if ($field_arr[$i]->getVar('field_required') == 1){
+					$required = true;
 				} else {
-					$value = $field_arr[$i]->getVar('field_default');
+					$required = false;
 				}
+				$value = XmarticleUtility::getFielddata($article_cid_fielddata, $field_arr[$i]->getVar('field_id'));
+				if ($value == ''){
+					if ($field_arr[$i]->getVar('field_type') == 'text'){
+						$value = $field_arr[$i]->getVar('field_default', 'e');
+					} elseif ($field_arr[$i]->getVar('field_type') == 'select_multi' || $field_arr[$i]->getVar('field_type') == 'checkbox'){
+						if ($field_arr[$i]->getVar('field_default', 'n') != ''){
+							$value =  implode(',', array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
+						}
+					} else {
+						$value = $field_arr[$i]->getVar('field_default');
+					}
+				}
+				$name = 'field_' . $i;
+				switch ($field_arr[$i]->getVar('field_type')) {
+					case 'label':
+						$form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
+						$form->addElement(new XoopsFormHidden($name, $value));
+						break;
+					case 'vs_text':
+						$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
+						break;
+					case 's_text':
+						$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
+						break;
+					case 'm_text':
+						$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
+						break;
+					case 'l_text':
+						$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
+						break;
+					case 'text':
+						$editor_configs           = [];
+						$editor_configs['name']   = $name;
+						$editor_configs['value']  = $value;
+						$editor_configs['rows']   = 2;
+						$editor_configs['editor'] = 'Plain Text';
+						$form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
+						break;
+					case 'select':
+						$select_field = new XoopsFormSelect($caption, $name, $value);
+						$select_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+						$form->addElement($select_field, $required);
+						break;
+					case 'select_multi':
+						$select_multi_field = new XoopsFormSelect($caption, $name, explode(',', $value), 5, true);
+						$select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+						$form->addElement($select_multi_field, $required);
+						break;
+					case 'radio_yn':
+						$form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
+						break;
+					case 'radio':
+						$radio_field = new XoopsFormRadio($caption, $name, $value);
+						$radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+						$form->addElement($radio_field, $required);
+						break;
+					case 'checkbox':
+						$checkbox_field = new XoopsFormCheckBox($caption, $name, explode(',', $value));
+						$checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
+						$form->addElement($checkbox_field, $required);
+						break;
+					case 'number':
+						$form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
+						break;
+				}
+				unset($value);
 			}
-            $name = 'field_' . $i;
-            switch ($field_arr[$i]->getVar('field_type')) {
-                case 'label':
-                    $form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
-                    $form->addElement(new XoopsFormHidden($name, $value));
-                    break;
-                case 'vs_text':
-                    $form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
-                    break;
-                case 's_text':
-                    $form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
-                    break;
-                case 'm_text':
-                    $form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
-                    break;
-                case 'l_text':
-                    $form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
-                    break;
-                case 'text':
-                    $editor_configs           = [];
-                    $editor_configs['name']   = $name;
-                    $editor_configs['value']  = $value;
-                    $editor_configs['rows']   = 2;
-                    $editor_configs['editor'] = 'Plain Text';
-                    $form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
-                    break;
-                case 'select':
-                    $select_field = new XoopsFormSelect($caption, $name, $value);
-                    $select_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
-                    $form->addElement($select_field, $required);
-                    break;
-                case 'select_multi':
-                    $select_multi_field = new XoopsFormSelect($caption, $name, explode(',', $value), 5, true);
-                    $select_multi_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
-                    $form->addElement($select_multi_field, $required);
-                    break;
-                case 'radio_yn':
-                    $form->addElement(new XoopsFormRadioYN($caption, $name, $value), $required);
-                    break;
-                case 'radio':
-                    $radio_field = new XoopsFormRadio($caption, $name, $value);
-                    $radio_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
-                    $form->addElement($radio_field, $required);
-                    break;
-                case 'checkbox':
-                    $checkbox_field = new XoopsFormCheckBox($caption, $name, explode(',', $value));
-                    $checkbox_field ->addOptionArray($field_arr[$i]->getVar('field_options'));
-                    $form->addElement($checkbox_field, $required);
-                    break;
-                case 'number':
-                    $form->addElement(new XoopsFormText($caption, $name, 15, 50, $value), $required);
-                    break;
-            }
-			unset($value);
-        }
+		}
 		if (!$this->isNew() || $clone == true) {
 			// douser
 			$form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_CATEGORY_DOUSER, 'article_douser', $this->getVar('article_douser')));
@@ -438,19 +440,21 @@ class xmarticle_article extends XoopsObject
             if ($articleHandler->insert($this)) {
 				// fields and fielddata
 				$category = $categoryHandler->get($article_cid);
-				$criteria = new CriteriaCompo();
-				$criteria->setSort('field_weight ASC, field_name');
-				$criteria->setOrder('ASC');
-				$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
-				$criteria->add(new Criteria('field_status', 0, '!='));
-				$field_arr = $fieldHandler->getall($criteria);
-				if ($this->get_new_enreg() == 0){
-					$fielddata_aid = $this->getVar('article_id');
-				} else {
-					$fielddata_aid = $this->get_new_enreg();
-				}
-				foreach (array_keys($field_arr) as $i) {
-					$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+				if (!empty($category->getVar('category_fields'))) {
+					$criteria = new CriteriaCompo();
+					$criteria->setSort('field_weight ASC, field_name');
+					$criteria->setOrder('ASC');
+					$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+					$criteria->add(new Criteria('field_status', 0, '!='));
+					$field_arr = $fieldHandler->getall($criteria);
+					if ($this->get_new_enreg() == 0){
+						$fielddata_aid = $this->getVar('article_id');
+					} else {
+						$fielddata_aid = $this->get_new_enreg();
+					}
+					foreach (array_keys($field_arr) as $i) {
+						$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+					}
 				}
                 //xmdoc
                 if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
