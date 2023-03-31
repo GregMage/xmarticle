@@ -51,7 +51,6 @@ define('_MA_XMARTICLE_ERROR_NOARTICLE', 'There are no articles in the database')
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
-define('_MA_XMARTICLE_ERROR_REFERENCE', 'The reference already exists! The reference must be unique.');
 define('_MA_XMARTICLE_ERROR_SIZE', "The size in préférence (Max uploaded files size) exceeds the maximum values defined in 'post_max_size' or 'upload_max_filesize' in your configuration in php.ini");
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
