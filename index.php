@@ -69,7 +69,7 @@ if ($category_count > 0 && !empty($viewPermissionCat)) {
 		} else {
 			$category['color']	  = $color;
 		}
-        $xoopsTpl->append_by_ref('categories', $category);
+        $xoopsTpl->appendByRef('categories', $category);
         if ($keywords == '') {
             $keywords = XmarticleUtility::TagSafe($category_arr[$i]->getVar('category_name'));
         } else {

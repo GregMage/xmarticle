@@ -106,7 +106,7 @@ switch ($op) {
 				} else {
 					$article['logo']        = $url_logo_article . $article_img;
 				}
-                $xoopsTpl->append_by_ref('article', $article);
+                $xoopsTpl->appendByRef('article', $article);
                 unset($article);
             }
             // Display Page Navigation

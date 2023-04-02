@@ -69,7 +69,7 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 					} else {
 						$category['color']	  = $color;
 					}
-					$xoopsTpl->append_by_ref('categories', $category);
+					$xoopsTpl->appendByRef('categories', $category);
 					unset($category);
 				}
 				// Display Page Navigation

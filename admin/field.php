@@ -57,7 +57,7 @@ switch ($op) {
                 $field['required']    = $field_arr[$i]->getVar('field_required');
                 $field['search']      = $field_arr[$i]->getVar('field_search');
                 $field['status']      = $field_arr[$i]->getVar('field_status');
-                $xoopsTpl->append_by_ref('field', $field);
+                $xoopsTpl->appendByRef('field', $field);
                 unset($field);
             }
             // Display Page Navigation

@@ -105,7 +105,7 @@ if ($field_count > 0) {
         $field['name']        = $field_arr[$i][0];
         $field['description'] = $field_arr[$i][1];
         $field['value']       = $field_arr[$i][2];
-        $xoopsTpl->append_by_ref('field', $field);
+        $xoopsTpl->appendByRef('field', $field);
         unset($field);
     }
 }
