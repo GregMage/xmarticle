@@ -4,9 +4,9 @@
     <meta http-equiv="content-type" content="text/html; charset=<{$xoops_charset}>">
     <meta http-equiv="content-language" content="<{$xoops_langcode}>">
     <title>Xmarticle manager</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl xoops.css}>">
-	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl modules/system/css/admin.css}>">
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/font-awesome/css/font-awesome.min.css}>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'xoops.css'}>">
+	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'modules/system/css/admin.css'}>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/font-awesome/css/font-awesome.min.css'}>">
 	<{if $bootstrap_css != ''}>
 	<link rel="stylesheet" type="text/css" media="screen" href="<{$bootstrap_css}>">
 	<{/if}>
@@ -79,7 +79,7 @@
 										</tr>
 									<thead>
 									<tbody>
-									<{foreach item=article from=$article}>
+									<{foreach item=article from=$articles}>
 										<tr class="table-primary" scope="row">
 											<td class="align-middle text-center">
 												<fieldset>
@@ -113,7 +113,7 @@
 			<div class="floatright"><{$nav_menu}></div>
 			<div class="clear spacer"></div>
 		<{/if}>
-	</div><!-- .xmdoc -->
+	</div>
 	<div id="footer" class="text-center">
 		<input value="<{$smarty.const._CLOSE}>" type="button" class='btn btn-secondary' onclick="window.close();"/>
 	</div>

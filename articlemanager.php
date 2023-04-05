@@ -160,7 +160,7 @@ if ($search != '') {
 			} else {
 				$article['logo']        = $url_logo_article . $article_img;
 			}
-			$xoopsTpl->appendByRef('article', $article);
+			$xoopsTpl->appendByRef('articles', $article);
 			unset($article);
         }
         // Display Page Navigation
