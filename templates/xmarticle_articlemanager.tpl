@@ -64,7 +64,7 @@
 							<{$error_message}>
 						</div>
 					<{/if}>
-					<{if $article|default:'' != ""}>
+					<{if $articles|default:'' != ""}>
 						<div class="">
 							<form name="formsel" id="formsel" action="articlemanager.php" method="post">
 								<table class="table table-hover table-striped table-bordered mt-4" id="">
