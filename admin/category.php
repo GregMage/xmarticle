@@ -67,7 +67,7 @@ switch ($op) {
 				} else {
 					$category['logo']        = $url_logo_category . $category_img;
 				}
-                $xoopsTpl->appendByRef('category', $category);
+                $xoopsTpl->appendByRef('categories', $category);
                 unset($category);
             }
             // Display Page Navigation
