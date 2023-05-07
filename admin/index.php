@@ -77,12 +77,33 @@ echo XmarticleUtility::getServerStats();
 
 // export en csv
 if ($op == 'export'){
-	$csv = fopen('php://output', 'w');
-	fputcsv($csv, array('this','is some', 'csv "stuff", you know.'));
-	fclose($csv);
- echo 'trop cool';
+	$name_csv 	= 'Export_' . time() . '.csv';
+	$path_csv 	= XOOPS_UPLOAD_PATH . '/xmarticle/' . $name_csv;
+	$url_csv 	= XOOPS_UPLOAD_URL . '/xmarticle/' . $name_csv;
+	$separator 	= ';';
+
+	//supression des anciens fichiers
+	$csv_list = XoopsLists::getFileListByExtension(XOOPS_UPLOAD_PATH . '/xmarticle/', array('csv'));
+	foreach ($csv_list as $file) {
+		unlink(XOOPS_UPLOAD_PATH . '/xmarticle/' . $file);
+	}
+
+	// Création du fichier d'export
+	$criteria = new CriteriaCompo();
+	$criteria->add(new Criteria('article_status', 1));
+	$articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
+	$articleHandler->field_link = "category_id";
+	$articleHandler->field_object = "article_cid";
+	$article_arr = $articleHandler->getByLink($criteria);
+	if (count($article_arr) > 0) {
+		$csv = fopen($path_csv, 'w+');
+		//add BOM to fix UTF-8 in Excel
+		fputs($csv, $bom = ( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+		foreach (array_keys($article_arr) as $i) {
+			fputcsv($csv, array($article_arr[$i]->getVar('article_reference'), $article_arr[$i]->getVar('article_name'), $article_arr[$i]->getVar('category_name'), '', '', 'Standard'), $separator);
+		}
+		fclose($csv);
+		header("Location: $url_csv");
+	}
 }
-
-
-
 require __DIR__ . '/admin_footer.php';
