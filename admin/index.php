@@ -18,18 +18,21 @@
  */
 
 use Xmf\Module\Admin;
+use Xmf\Request;
 
 require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
+$op = Request::getCmd('op', '');
 
 $iniPostMaxSize = XmarticleUtility::returnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = XmarticleUtility::returnBytes(ini_get('upload_max_filesize'));
 if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_maxuploadsize', 104858)) {
 	echo '<div class="errorMsg" style="text-align: left;">' . _MA_XMARTICLE_ERROR_SIZE . '</div>';
 }
-
+$moduleAdmin->addItemButton(_MA_XMARTICLE_INDEX_EXPORT, 'index.php?op=export', 'list');
+echo $moduleAdmin->renderButton();
 
 $moduleAdmin->addConfigModuleVersion('system', '2.1.2');
 // xmstock
@@ -71,4 +74,15 @@ foreach (array_keys( $folder) as $i) {
 }
 $moduleAdmin->displayIndex();
 echo XmarticleUtility::getServerStats();
+
+// export en csv
+if ($op == 'export'){
+	$csv = fopen('php://output', 'w');
+	fputcsv($csv, array('this','is some', 'csv "stuff", you know.'));
+	fclose($csv);
+ echo 'trop cool';
+}
+
+
+
 require __DIR__ . '/admin_footer.php';

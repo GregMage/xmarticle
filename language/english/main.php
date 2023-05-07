@@ -33,6 +33,7 @@ define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'You have not in
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmstock (if you want to view stocks)');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED', 'You have not installed the xmsocial module, this module is required if you want to rate article');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'You must enable in xmarticle preferences the use of xmsocial (if you want to rate article)');
+define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporting articles');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Server status');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Information taken from PHP ini file:</span>");
 define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");
