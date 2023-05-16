@@ -38,6 +38,8 @@ class xmarticle_article extends XoopsObject
         $this->initVar('article_reference', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('article_name', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('article_description', XOBJ_DTYPE_TXTAREA);
+		// use html
+		$this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
         $this->initVar('article_logo', XOBJ_DTYPE_TXTBOX, null);
 		$this->initVar('article_userid', XOBJ_DTYPE_INT, 0);
 		$this->initVar('article_date', XOBJ_DTYPE_INT, 0);
