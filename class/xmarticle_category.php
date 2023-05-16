@@ -282,7 +282,7 @@ class xmarticle_category extends XoopsObject
             $criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
             $field_arr = $fieldHandler->getall($criteria);
             foreach (array_keys($field_arr) as $key) {
-                $field_temp_arr[$key] = $field_arr[$key]->getVar('field_name');
+                $field_temp_arr[$key] = $field_arr[$key]->getVar('field_name') . ' - ' . $field_arr[$key]->getVar('field_weight');
             }
             $remove_fields->addOptionArray($field_temp_arr);
             $form->addElement($remove_fields);
@@ -296,7 +296,7 @@ class xmarticle_category extends XoopsObject
         $field_arr  = $fieldHandler->getall($criteria);
         $sel_option = '<option value=""> </option>';
         foreach (array_keys($field_arr) as $i) {
-            $sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') . '</option>';
+            $sel_option .= '<option value="' . $field_arr[$i]->getVar('field_id') . '">' . $field_arr[$i]->getVar('field_name') . ' - ' . $field_arr[$i]->getVar('field_weight') .'</option>';
         }
         $field_text = "<table  cellspacing='1'><tr><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td><td width='50%'>" . _MA_XMARTICLE_CATEGORY_FIELD . "</td></tr>";
         $sel_id     = 0;
