@@ -737,11 +737,11 @@ class xmarticle_article extends XoopsObject
 						break;
 					case 'number':
 						$number  = new XoopsFormElementTray($caption);
-						$exactly = new XoopsFormText('Exactly', 'fnex_' . $i, 10, 255, $value_fnex);
+						$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $i, 10, 255, $value_fnex);
 						$number->addElement($exactly);
-						$min = new XoopsFormText('Min', 'fnmi_' . $i, 10, 255, $value_fnmi);
+						$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $i, 10, 255, $value_fnmi);
 						$number->addElement($min);
-						$max = new XoopsFormText('Max', 'fnma_' . $i, 10, 255, $value_fnma);
+						$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $i, 10, 255, $value_fnma);
 						$number->addElement($max);
 						$form->addElement($number, $required);
 						$form->addElement(new XoopsFormHidden($name, true));

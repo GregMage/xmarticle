@@ -188,6 +188,9 @@ define('_MA_XMARTICLE_LISTARTICLE', 'List of articles');
 define('_MA_XMARTICLE_MOREDETAILS', 'More details');
 define('_MA_XMARTICLE_SEARCH', 'Search');
 define('_MA_XMARTICLE_SEARCHFORM', 'Search form');
+define('_MA_XMARTICLE_SEARCH_EXACTLY', 'Exactly');
+define('_MA_XMARTICLE_SEARCH_MIN', 'Lower');
+define('_MA_XMARTICLE_SEARCH_MAX', 'Upper');
 define('_MA_XMARTICLE_SELECTCATEGORY', 'Select a category to add an item to');
 
 // formArticle
