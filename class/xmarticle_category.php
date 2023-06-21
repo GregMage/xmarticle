@@ -79,9 +79,9 @@ class xmarticle_category extends XoopsObject
         //logo
         if ($_FILES['category_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_category_img = new XoopsMediaUploader($path_logo_category, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null);
+            $uploader_category_img = new XoopsMediaUploader($path_logo_category, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null, true);
             if ($uploader_category_img->fetchMedia('category_logo')) {
-                $uploader_category_img->setPrefix('category_');
+                //$uploader_category_img->setPrefix('category_');
                 if (!$uploader_category_img->upload()) {
                     $error_message .= $uploader_category_img->getErrors() . '<br>';
                 } else {
