@@ -62,7 +62,7 @@ function xoops_module_install_xmarticle()
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/article/no-image.png');
 
     // insert field for test
-    $fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
+    /*$fieldHandler = xoops_getModuleHandler('xmarticle_field', 'xmarticle');
     $field_arr[]  = ['field_type' => 'label', 'field_name' => 'name label', 'field_description' => 'dsc label', 'field_required' => 0, 'field_weight' => 1, 'field_default' => 'def label', 'field_search' => 1, 'field_status' => 1, 'field_options' => ''];
     $field_arr[]  = ['field_type' => 'vs_text', 'field_name' => 'name vs_text', 'field_description' => 'dsc vs_text', 'field_required' => 1, 'field_weight' => 2, 'field_default' => 'def vs_text', 'field_search' => 1, 'field_status' => 1, 'field_options' => ''];
     $field_arr[]  = ['field_type' => 's_text', 'field_name' => 'name s_text', 'field_description' => 'dsc s_text', 'field_required' => 1, 'field_weight' => 3, 'field_default' => 'def s_text', 'field_search' => 1, 'field_status' => 1, 'field_options' => ''];
@@ -130,7 +130,7 @@ function xoops_module_install_xmarticle()
         $fieldHandler->insert($obj);
         unset($obj);
     }
-	
+
 	// insert data cat
 	$categoryHandler = xoops_getModuleHandler('xmarticle_category', 'xmarticle');
 	$category_arr[]  = ['category_name' => 'Catégorie 1', 'category_description' => 'Ceci est la description de la catégorie 1', 'category_color' => '#0080ff', 'category_weight' => 1];
@@ -150,11 +150,11 @@ function xoops_module_install_xmarticle()
 		$obj->setVar('category_docomment', 1);
 		$obj->setVar('category_weight', $category_arr[$i]['category_weight']);
 		$obj->setVar('category_status', 1);
-		$obj->setVar('category_fields', array());		
+		$obj->setVar('category_fields', array());
 		$obj->setVar('category_status', 1);
 		$categoryHandler->insert($obj);
 		unset($obj);
-	}
-	
+	}*/
+
     return true;
 }
