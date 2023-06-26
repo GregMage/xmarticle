@@ -75,6 +75,7 @@
 										<tr class="table-secondary">
 											<th class="text-center"><{$smarty.const._MA_XMARTICLE_FORMARTICLE_SELECT}></th>
 											<th class="text-center"><{$smarty.const._MA_XMARTICLE_ARTICLE_LOGO}></th>
+											<th class="text-center"><{$smarty.const._MA_XMARTICLE_ARTICLE_REFERENCE}></th>
 											<th class="text-left"><{$smarty.const._MA_XMARTICLE_ARTICLE_NAME}></th>
 										</tr>
 									<thead>
@@ -93,6 +94,9 @@
 											</td>
 											<td class="align-middle text-center">
 												<img src="<{$article.logo}>" alt="<{$article.name}>" style="max-width:150px">
+											</td>
+											<td class="align-middle text-center">
+												<{$article.reference}>
 											</td>
 											<td class="align-middle text-left">
 												<{$article.name}>

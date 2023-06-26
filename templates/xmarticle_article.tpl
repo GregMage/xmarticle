@@ -2,7 +2,7 @@
 	<div class="card h-100 xmnews-border" <{if $down.color != false}>style="border-color : <{$down.color}>;"<{/if}>>
 		<div class="card-header" <{if $down.color != false}>style="background-color : <{$down.color}>;"<{/if}>>
 			<div class="d-flex justify-content-center text-center">
-				<h5 class="mb-0 text-white"><{$down.name}></h5>
+				<h5 class="mb-0 text-white"><{$down.reference}> <{$down.name}></h5>
 			</div>
 		</div>
 

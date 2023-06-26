@@ -5,7 +5,7 @@
 			<div class="card xmarticle-border" <{if $blockarticle.color != false}>style="border-color : <{$blockarticle.color}>;"<{/if}>>
 				<div class="card-header text-center text-truncate d-none d-sm-block" <{if $blockarticle.color != false}>style="background-color : <{$blockarticle.color}>;"<{/if}>>
 					<a class="text-decoration-none text-white" href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$blockarticle.cid}>&amp;article_id=<{$blockarticle.id}>">
-						<{$blockarticle.name}>
+						<{$blockarticle.reference}> <{$blockarticle.name}>
 					</a>
 				</div>
 				<div class="card-header text-center d-block d-sm-none">
@@ -36,8 +36,8 @@
 							<{/if}>
 							<{/if}>
 						</div>
-						<div class="col-12 pt-2 text-left">					
-							<{$blockarticle.description|truncateHtml:30:'...'}>				
+						<div class="col-12 pt-2 text-left">
+							<{$blockarticle.description|truncateHtml:30:'...'}>
 						</div>
 						<div class="col-12 pt-2">
 							<a class="btn btn-primary btn-sm" href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$blockarticle.cid}>&amp;article_id=<{$blockarticle.id}>"><{$smarty.const._MA_XMARTICLE_MOREDETAILS}></a>

@@ -345,7 +345,7 @@ class XmarticleUtility
 		$article = $articleHandler->get($articleid);
 		if (isset($article)){
 			if ($uref == true){
-				$ref = ' (' . $article->getVar('article_reference') . ')';
+				$ref = $article->getVar('article_reference') . " ";
 			} else {
 				$ref = '';
 			}
@@ -354,7 +354,7 @@ class XmarticleUtility
 			} else {
 				$link = $article->getVar('article_name');
 			}
-			return $link . $ref;
+			return $ref . $link;
 		} else {
 			return 'Error: The requested item does not exist! (ID-' . $articleid . ')';
 		}

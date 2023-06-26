@@ -153,6 +153,7 @@ if ($search != '') {
             $article['id']          = $article_id;
             $article['cid']         = $article_arr[$i]->getVar('article_cid');
             $article['name']        = $article_arr[$i]->getVar('article_name');
+            $article['reference']   = $article_arr[$i]->getVar('article_reference');
             $article['description'] = $article_arr[$i]->getVar('article_description', 'show');
             $article_img            = $article_arr[$i]->getVar('article_logo');
 			if ($article_img == ''){
