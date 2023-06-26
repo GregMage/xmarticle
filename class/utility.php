@@ -112,14 +112,16 @@ class XmarticleUtility
         $error_message = '';
         if ($field_type == 'select_multi' || $field_type == 'checkbox') {
             $fielddataHandler->deleteAll($criteria);
-            foreach (array_keys($fielddata_value) as $i) {
-                $obj = $fielddataHandler->create();
-                $obj->setVar('fielddata_fid', $fielddata_fid);
-                $obj->setVar('fielddata_aid', $fielddata_aid);
-                $obj->setVar($fieldname_bdd, $fielddata_value[$i]);
-                if ($error_message == '') {
-                    if (!$fielddataHandler->insert($obj)) {
-                        $error_message = $obj->getHtmlErrors();
+            if (!empty($fielddata_value)){
+                foreach (array_keys($fielddata_value) as $i) {
+                    $obj = $fielddataHandler->create();
+                    $obj->setVar('fielddata_fid', $fielddata_fid);
+                    $obj->setVar('fielddata_aid', $fielddata_aid);
+                    $obj->setVar($fieldname_bdd, $fielddata_value[$i]);
+                    if ($error_message == '') {
+                        if (!$fielddataHandler->insert($obj)) {
+                            $error_message = $obj->getHtmlErrors();
+                        }
                     }
                 }
             }
