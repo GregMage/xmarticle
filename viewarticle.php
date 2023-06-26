@@ -156,6 +156,8 @@ if (xoops_isActiveModule('xmsocial')){
 	} else {
 		 $xoopsTpl->assign('dorating', 0);
 	}
+} else {
+	$xoopsTpl->assign('dorating', 0);
 }
 
 //xmdoc
