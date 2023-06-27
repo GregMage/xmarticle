@@ -34,6 +34,19 @@ if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_ma
 $moduleAdmin->addItemButton(_MA_XMARTICLE_INDEX_EXPORT, 'index.php?op=export', 'list');
 echo $moduleAdmin->renderButton();
 
+// article
+$criteria = new CriteriaCompo();
+$criteria->add(new Criteria('article_status', 1));
+$article_active = $articleHandler->getCount($criteria);
+$criteria = new CriteriaCompo();
+$criteria->add(new Criteria('article_status', 0));
+$article_notactive = $articleHandler->getCount($criteria);
+$moduleAdmin->addInfoBox(_MA_XMARTICLE_INDEX_ARTICLE);
+$ret = '<span style=\'font-weight: bold; color: green;\'>' . $article_active . '</span>';
+$moduleAdmin->addInfoBoxLine(sprintf( $ret . ' ' . _MA_XMARTICLE_INDEX_ARTICLE_ACTIVE));
+$ret = '<span style=\'font-weight: bold; color: red;\'>' . $article_notactive . '</span>';
+$moduleAdmin->addInfoBoxLine(sprintf( $ret . ' ' . _MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE));
+
 $moduleAdmin->addConfigModuleVersion('system', '2.1.2');
 // xmstock
 if (xoops_isActiveModule('xmstock')){

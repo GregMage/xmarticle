@@ -33,6 +33,9 @@ define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'Vous n\'avez pa
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmstock (si vous voulez voir les stocks)');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmsocial, ce module est nécessaire si vous souhaitez noter l\'article');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmsocial (si vous souhaitez noter l\'article)');
+define('_MA_XMARTICLE_INDEX_ARTICLE', 'Articles');
+define('_MA_XMARTICLE_INDEX_ARTICLE_ACTIVE', 'Articles actifs');
+define('_MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE', 'Articles désactivés');
 define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporter les articles');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Statut du serveur');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Informations extraites du fichier php.ini :</span>");
