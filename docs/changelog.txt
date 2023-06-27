@@ -1,4 +1,18 @@
 ﻿-------------------------------------------------
+Version: 1.1.0 Stable
+Date:    27.06.2023
+-------------------------------------------------
+Correction de bogues:
+	- Le système de clone ne clonait pas les champs correctement
+
+Améliorations:
+	- Affichage des articles dans l'ordre de l'id.
+
+Sécurités:
+	- /
+
+
+-------------------------------------------------
 Version: 1.0.0 Stable
 Date:    26.06.2023
 -------------------------------------------------
