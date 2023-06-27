@@ -2,7 +2,7 @@
     <{if $error_message|default:false}>
         <div class="alert alert-danger" role="alert"><{$error_message}></div>
     <{/if}>
-	<{if $form|default:false}>	
+	<{if $form|default:false}>
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="index.php"><{$index_module}></a></li>
@@ -39,15 +39,15 @@
 									</a>
 									<{/if}>
 								</div>
-								<div class="col-12 pt-2">	
+								<div class="col-12 pt-2">
 									<{if $category.description != ""}>
 										<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#xmDesc-<{$category.id}>">+</button>
 									<{else}>
 										<button class="btn btn-primary btn-sm" data-toggle="modal" disabled>+</button>
 									<{/if}>
-								</div>								
-							</div>				
-						</div>				
+								</div>
+							</div>
+						</div>
 				</div>
 			</div>
 			<div class="modal fade" id="xmDesc-<{$category.id}>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -65,5 +65,5 @@
 			</div>
 			<{/foreach}>
 		</div>
-	<{/if}>		
+	<{/if}>
 </div><!-- .xmarticle -->
