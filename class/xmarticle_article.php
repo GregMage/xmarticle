@@ -123,7 +123,11 @@ class xmarticle_article extends XoopsObject
         if (!$this->isNew() || $clone == true) {
             $form->addElement(new XoopsFormHidden('article_id', $this->getVar('article_id')));
             $article_cid = $this->getVar('article_cid');
-            $article_cid_fielddata = $this->getVar('article_id');
+			if ($clone == true) {
+				$article_cid_fielddata = $old_article_cid;
+			} else {
+				$article_cid_fielddata = $this->getVar('article_id');
+			}
         } else {
 			if ($old_article_cid != 0){
                 $article_cid_fielddata = $old_article_cid;
