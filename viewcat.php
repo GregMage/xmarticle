@@ -64,7 +64,7 @@ if ($color == '#ffffff'){
 
 // Get article
 $criteria = new CriteriaCompo();
-$criteria->setSort('article_name');
+$criteria->setSort('article_id');
 $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
@@ -98,13 +98,13 @@ if ($article_count > 0) {
 		$article['dodate']          = $article_arr[$i]->getVar('article_dodate');
 		$article['domdate']         = $article_arr[$i]->getVar('article_domdate');
 		$article['dohits']          = $article_arr[$i]->getVar('article_dohits');
-		$article['dorating']        = $article_arr[$i]->getVar('article_dorating');		
-		$article['color']           = $color;		
-		$article_img                = $article_arr[$i]->getVar('article_logo');        
+		$article['dorating']        = $article_arr[$i]->getVar('article_dorating');
+		$article['color']           = $color;
+		$article_img                = $article_arr[$i]->getVar('article_logo');
 		if ($article_img  == ''){
 			$article['logo']        = '';
 		} else {
-			$article['logo']        = $url_logo_article .  $article_img;	
+			$article['logo']        = $url_logo_article .  $article_img;
 		}
 		if ($xmsocial == true){
 			$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
@@ -122,10 +122,10 @@ if ($article_count > 0) {
 //SEO
 // pagetitle
 $xoopsTpl->assign('xoops_pagetitle', $category->getVar('category_name') . '-' . $xoopsModule->name());
-//description   
+//description
 $xoTheme->addMeta('meta', 'description', XmarticleUtility::generateDescriptionTagSafe($category->getVar('category_description'), 80));
 //keywords
-$keywords = \Xmf\Metagen::generateKeywords(XmarticleUtility::TagSafe($category->getVar('category_description')), 10);    
+$keywords = \Xmf\Metagen::generateKeywords(XmarticleUtility::TagSafe($category->getVar('category_description')), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 
 include XOOPS_ROOT_PATH.'/footer.php';
