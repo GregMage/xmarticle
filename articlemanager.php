@@ -46,7 +46,7 @@ if (file_exists($bootstrap) || file_exists($bootstrap_min)){
 	} else {
 		$xoopsTpl->assign('bootstrap_css', XOOPS_THEME_URL . '/' . $GLOBALS['xoopsConfig']['theme_set'] . '/css/bootstrap.css');
 	}
-	include_once XOOPS_ROOT_PATH . '\class\xoopsform\renderer\XoopsFormRendererBootstrap4.php';
+	include_once XOOPS_ROOT_PATH . '/class/xoopsform/renderer/XoopsFormRendererBootstrap4.php';
 	XoopsFormRenderer::getInstance()->set(new XoopsFormRendererBootstrap4());
 } else{
 	$xoopsTpl->assign('bootstrap_css', '');
