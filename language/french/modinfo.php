@@ -58,6 +58,8 @@ define('_MI_XMARTICLE_PREF_COUNTERTIME_DESC', 'Mettez "0" si vous ne voulez pas 
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE', 'Taille maximale des fichiers uploadés');
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_DESC', 'Cela concerne les logos uploadés pour les catégories et les actualités');
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_MBYTES', 'Mb');
+define('_MI_XMARTICLE_PREF_GENERALCLONE', 'Ajout d\'un préfixe');
+define('_MI_XMARTICLE_PREF_GENERALCLONE_DESC', 'Lors du clone d\'un article, ajouter un préfixe');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">Administration</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Éditeur de texte');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Nombre d\'éléments par page dans la vue d\'administration');

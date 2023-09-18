@@ -59,6 +59,8 @@ define('_MI_XMARTICLE_PREF_COUNTERTIME_DESC', 'Put "0" if you do not want to put
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE', 'Max uploaded files size');
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_DESC', 'This concerns the logos that are uploaded for categories and news');
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_MBYTES', 'MB');
+define('_MI_XMARTICLE_PREF_GENERALCLONE', 'Adding a prefix');
+define('_MI_XMARTICLE_PREF_GENERALCLONE_DESC', 'When cloning an article, add a prefix');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">--- Administration ---</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');

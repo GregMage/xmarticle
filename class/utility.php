@@ -17,6 +17,8 @@
  * @author          Mage Gregory (AKA Mage)
  */
 
+use Xmf\Module\Helper;
+
 /**
  * Class XmarticleUtility
  */
@@ -287,8 +289,13 @@ class XmarticleUtility
             redirect_header($action, 2, _MA_XMARTICLE_ERROR_NOARTICLE);
         }
         $newobj  = $articleHandler->create();
-        $rand_id = rand(1, 10000);
-        $newobj->setVar('article_name', _MA_XMARTICLE_CLONE_NAME . $rand_id . '- ' . $article->getVar('article_name'));
+
+        if ($helper->getConfig('general_clone', 0) == 1){
+            $rand_id = rand(1, 10000);
+            $newobj->setVar('article_name', _MA_XMARTICLE_CLONE_NAME . $rand_id . '- ' . $article->getVar('article_name'));
+        } else {
+            $newobj->setVar('article_name', $article->getVar('article_name'));
+        }
         $newobj->setVar('article_description', $article->getVar('article_description', 'e'));
         $newobj->setVar('article_cid', $article->getVar('article_cid'));
 		$newobj->setVar('article_logo', $article->getVar('article_logo'));

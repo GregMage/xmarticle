@@ -18,7 +18,7 @@
  */
 $modversion['dirname']     = basename(__DIR__);
 $modversion['name']        = ucfirst(basename(__DIR__));
-$modversion['version']     = '1.1.0-Stable';
+$modversion['version']     = '1.1.1-Stable';
 $modversion['description'] = _MI_XMARTICLE_DESC;
 $modversion['author']      = 'Grégory Mage (Mage)';
 $modversion['url']         = 'https://github.com/GregMage';
@@ -240,6 +240,15 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
+    'name'        => 'general_clone',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALCLONE',
+    'description' => '_MI_XMARTICLE_PREF_GENERALCLONE_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0
+];
+
+$modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
     'description' => '',
@@ -346,7 +355,7 @@ $modversion['notification']['event'][] = [
 ];
 
 // About stuff
-$modversion['release_date']  = '2023/06/27';
+$modversion['release_date']  = '2023/09/18';
 
 $modversion['developer_lead']      = 'Mage';
 $modversion['module_website_url']  = 'github.com/GregMage';
