@@ -64,7 +64,7 @@ if ($color == '#ffffff'){
 
 // Get article
 $criteria = new CriteriaCompo();
-$criteria->setSort('article_id');
+$criteria->setSort('article_name');
 $criteria->setOrder('ASC');
 $criteria->setStart($start);
 $criteria->setLimit($nb_limit);
