@@ -18,7 +18,7 @@
 	</div>
     <{if $article|default:'' != ""}>
         <h3><{$smarty.const._MA_XMARTICLE_LISTARTICLE}>:</h3>
-		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 justify-content-center">
+		<div class="row row-cols-lg-4 row-cols-md-3 row-cols-1 justify-content-center">
 			<{section name=i loop=$article}><{include file="db:xmarticle_article.tpl" down=$article[i]}><{/section}>
 		</div>
     <{/if}>
