@@ -60,6 +60,8 @@ define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_DESC', 'Cela concerne les logos upload�
 define('_MI_XMARTICLE_PREF_MAXUPLOADSIZE_MBYTES', 'Mb');
 define('_MI_XMARTICLE_PREF_GENERALCLONE', 'Ajout d\'un préfixe');
 define('_MI_XMARTICLE_PREF_GENERALCLONE_DESC', 'Lors du clone d\'un article, ajouter un préfixe');
+define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD', 'Afficher les champs vides?');
+define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD_DESC', 'Les champs vident peuvent être cachées dans la vue article');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">Administration</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Éditeur de texte');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Nombre d\'éléments par page dans la vue d\'administration');

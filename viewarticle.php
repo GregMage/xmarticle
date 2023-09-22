@@ -99,16 +99,21 @@ $xoopsTpl->assign('status', $article->getVar('article_status'));
 // Field
 $field_arr   = XmarticleUtility::getArticleFields($category->getVar('category_fields'), $article_id);
 $field_count = count($field_arr);
-$xoopsTpl->assign('field_count', $field_count);
+
 if ($field_count > 0) {
     foreach (array_keys($field_arr) as $i) {
-        $field['name']        = $field_arr[$i][0];
-        $field['description'] = $field_arr[$i][1];
-        $field['value']       = $field_arr[$i][2];
-        $xoopsTpl->appendByRef('fields', $field);
+		if (empty($field_arr[$i][2]) && $helper->getConfig('general_displayEmptyField', 1) == 0) {
+			$field_count--;
+		} else {
+			$field['name']        = $field_arr[$i][0];
+			$field['description'] = $field_arr[$i][1];
+			$field['value']       = $field_arr[$i][2];
+			$xoopsTpl->appendByRef('fields', $field);
+		}
         unset($field);
     }
 }
+$xoopsTpl->assign('field_count', $field_count);
 
 //counter
 $counterUpdate = false;

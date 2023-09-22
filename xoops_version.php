@@ -249,6 +249,15 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
+    'name'        => 'general_displayEmptyField',
+    'title'       => '_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD',
+    'description' => '_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1
+];
+
+$modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_XMARTICLE_PREF_HEAD_ADMIN',
     'description' => '',
