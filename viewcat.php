@@ -62,12 +62,56 @@ if ($color == '#ffffff'){
 	$color = false;
 }
 
+//filters
+$order = Request::getInt('order', 1);
+$xoopsTpl->assign('order', $order);
+$sort = Request::getInt('sort', 0);
+$xoopsTpl->assign('sort', $sort);
+$filter = Request::getInt('filter', 10);
+$xoopsTpl->assign('filter', $filter);
+$display = Request::getInt('display', 0);
+$xoopsTpl->assign('display', $display);
+
 // Get article
 $criteria = new CriteriaCompo();
-$criteria->setSort('article_name');
-$criteria->setOrder('ASC');
+switch ($order) {
+    default:
+	case 1:
+        $criteria->setSort('article_name');
+		if ($sort == 0){
+			$criteria->setOrder('ASC');
+		} else {
+			$criteria->setOrder('DESC');
+		}
+        break;
+    case 2:
+        $criteria->setSort('article_date');
+		if ($sort == 0){
+			$criteria->setOrder('DESC');
+		} else {
+			$criteria->setOrder('ASC');
+		}
+        break;
+    case 3:
+        $criteria->setSort('article_counter');
+		if ($sort == 0){
+			$criteria->setOrder('DESC');
+		} else {
+			$criteria->setOrder('ASC');
+		}
+        break;
+	case 4:
+		$criteria->setSort('article_reference');
+		if ($sort == 0){
+			$criteria->setOrder('DESC');
+		} else {
+			$criteria->setOrder('ASC');
+		}
+		break;
+}
+
 $criteria->setStart($start);
-$criteria->setLimit($nb_limit);
+$criteria->setLimit($filter);
 $criteria->add(new Criteria('article_status', 1));
 $criteria->add(new Criteria('article_cid', $category_id));
 $article_count = $articleHandler->getCount($criteria);
@@ -79,6 +123,8 @@ if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0
 } else {
     $xmsocial = false;
 }
+
+$xoopsTpl->assign('category_id', $category_id);
 $xoopsTpl->assign('xmsocial', $xmsocial);
 if ($article_count > 0) {
     foreach (array_keys($article_arr) as $i) {
@@ -109,12 +155,12 @@ if ($article_count > 0) {
 		if ($xmsocial == true){
 			$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
 		}
-        $xoopsTpl->append('article', $article);
+        $xoopsTpl->append('articles', $article);
         unset($article);
     }
     // Display Page Navigation
-    if ($article_count > $nb_limit) {
-        $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'category_id=' . $category_id);
+    if ($article_count > $filter) {
+        $nav = new XoopsPageNav($article_count, $filter, $start, 'start', 'category_id=' . $category_id .'&order=' . $order .'&sort=' . $sort . '&filter=' . $filter . '&display=' . $display);
         $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
     }
 }

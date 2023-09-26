@@ -68,6 +68,14 @@ define('_MA_XMARTICLE_ADD', 'Ajouter');
 define('_MA_XMARTICLE_CLONE', 'Cloner');
 define('_MA_XMARTICLE_DEL', 'Effacer');
 define('_MA_XMARTICLE_EDIT', 'Modifier');
+define('_MA_XMARTICLE_FILTER_PERPAGE', 'par page');
+define('_MA_XMARTICLE_FILTER_TYPE', 'Ordre');
+define('_MA_XMARTICLE_ORDER', 'Ordre');
+define('_MA_XMARTICLE_ORDER_NAME', 'Nom');
+define('_MA_XMARTICLE_ORDER_DATE', 'Date');
+define('_MA_XMARTICLE_ORDER_VIEW', 'Vue');
+define('_MA_XMARTICLE_ORDER_REF', 'Référence');
+
 define('_MA_XMARTICLE_STATUS', 'Statut');
 define('_MA_XMARTICLE_STATUS_A', 'Activé');
 define('_MA_XMARTICLE_STATUS_NA', 'Désactivé');
