@@ -1,4 +1,32 @@
 ﻿-------------------------------------------------
+Version: 1.2.0 Stable
+Date:    27.09.2023
+-------------------------------------------------
+Correction de bogues:
+	- /
+
+Améliorations:
+	- Possibilité de ne pas afficher un champs suplémentaire si il est vide (dans la vue article)
+	- Ajout d'un système de filtre dans la visualisation des articles dans la recherche et dans les catégories
+	- Ajout d'une vue sous forme de liste dans la visualisation des articles dans la recherche et dans les catégories
+
+Sécurités:
+	- /
+-------------------------------------------------
+Version: 1.1.1 Stable
+Date:    18.09.2023
+-------------------------------------------------
+Correction de bogues:
+	- Fix problème de chemin pour charger bootstrap dans l'articlemanager
+
+Améliorations:
+	- En vue vignette, il y a maintenant 4 vignettes par ligne
+	- Le préfix lors du clonage d'un article est maintenant optionel
+
+Sécurités:
+	- /
+
+-------------------------------------------------
 Version: 1.1.0 Stable
 Date:    27.06.2023
 -------------------------------------------------
