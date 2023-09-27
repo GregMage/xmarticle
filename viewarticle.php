@@ -102,7 +102,7 @@ $field_count = count($field_arr);
 
 if ($field_count > 0) {
     foreach (array_keys($field_arr) as $i) {
-		if (empty($field_arr[$i][2]) && $helper->getConfig('general_displayEmptyField', 1) == 0) {
+		if ((empty($field_arr[$i][2]) || $field_arr[$i][2] == 0) && $helper->getConfig('general_displayEmptyField', 1) == 0) {
 			$field_count--;
 		} else {
 			$field['name']        = $field_arr[$i][0];
