@@ -52,9 +52,21 @@ if (count($fielddata_aid_arr) > 0) {
 	$s_aid = serialize($fielddata_aid_arr);
 }
 if ($search != '') {
+    //filters
+    $order = Request::getInt('order', 1);
+    $xoopsTpl->assign('order', $order);
+    $sort = Request::getInt('sort', 0);
+    $xoopsTpl->assign('sort', $sort);
+    $filter = Request::getInt('filter', 10);
+    $xoopsTpl->assign('filter', $filter);
+    $display = Request::getInt('display', 0);
+    $xoopsTpl->assign('display', $display);
+    //$xoopsTpl->assign('s_cat', $s_cat);
+
     $arguments = 's_cat=' . $s_cat . '&amp;';
     // Criteria
     $criteria = new CriteriaCompo();
+
     if ($s_name != '') {
         $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
         $arguments .= 's_name=' . $s_name . '&amp;';
@@ -74,13 +86,47 @@ if ($search != '') {
     if (count($fielddata_aid_arr) > 0) {
         $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
     }
-    $criteria->setSort('article_name');
-    $criteria->setOrder('ASC');
+    $xoopsTpl->assign('arguments', $arguments);
+    switch ($order) {
+        default:
+        case 1:
+            $criteria->setSort('article_name');
+            if ($sort == 0){
+                $criteria->setOrder('ASC');
+            } else {
+                $criteria->setOrder('DESC');
+            }
+            break;
+        case 2:
+            $criteria->setSort('article_date');
+            if ($sort == 0){
+                $criteria->setOrder('DESC');
+            } else {
+                $criteria->setOrder('ASC');
+            }
+            break;
+        case 3:
+            $criteria->setSort('article_counter');
+            if ($sort == 0){
+                $criteria->setOrder('DESC');
+            } else {
+                $criteria->setOrder('ASC');
+            }
+            break;
+        case 4:
+            $criteria->setSort('article_reference');
+            if ($sort == 0){
+                $criteria->setOrder('DESC');
+            } else {
+                $criteria->setOrder('ASC');
+            }
+            break;
+    }
     $criteria->setStart($start);
-    $criteria->setLimit($nb_limit);
+    $criteria->setLimit($filter);
     if ($s_cat != 0) {
         $criteria->add(new Criteria('article_cid', $s_cat));
-    } else {		
+    } else {
 		$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
 		$criteria->add(new Criteria('article_cid', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
 	}
@@ -112,7 +158,7 @@ if ($search != '') {
 				$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
 			}
 			$article['author']      = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
-			$article_img            = $article_arr[$i]->getVar('article_logo');						
+			$article_img            = $article_arr[$i]->getVar('article_logo');
 			if ($article_img == ''){
 				$article['logo']    = '';
 			} else {
@@ -133,12 +179,12 @@ if ($search != '') {
 			$article['domdate']     = $article_arr[$i]->getVar('article_domdate');
 			$article['dohits']      = $article_arr[$i]->getVar('article_dohits');
 			$article['dorating']    = $article_arr[$i]->getVar('article_dorating');
-            $xoopsTpl->append('article', $article);
+            $xoopsTpl->append('articles', $article);
             unset($article);
         }
         // Display Page Navigation
-        if ($article_count > $nb_limit) {
-            $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
+        if ($article_count > $filter) {
+            $nav = new XoopsPageNav($article_count, $filter, $start, 'start', 'search=Y&amp;' . $arguments . 'order=' . $order . '&amp;' . 'sort=' . $sort . '&amp;' . 'filter=' . $filter . '&amp;' . 'display=' . $display);
             $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
         }
     } else {
