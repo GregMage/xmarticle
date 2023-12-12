@@ -28,26 +28,19 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $xoopsTpl->assign('index_module', $helper->getModule()->getVar('name'));
 // Get values
 $search = Request::getString('search', '');
-$reset  = Request::getString('reset', '');
-if ($reset == '') {
-    $s_name = Request::getString('s_name', '');
-    $s_ref  = Request::getString('s_ref', '');
-    $s_desc = Request::getString('s_desc', '');
-    $s_aid  = Request::getString('s_aid', '');
-    $s_cat  = Request::getInt('s_cat', 0);
-	$start  = Request::getInt('start', 0);
-} else {
-    $s_name = '';
-    $s_ref  = '';
-    $s_desc  = '';
-	$s_aid = '';
-    $s_cat  = 0;
-	$start = 0;
-	$arguments = '';
+if ($search != '') {
+    $start = 0;
 }
+$s_name = Request::getString('s_name', '');
+$s_ref  = Request::getString('s_ref', '');
+$s_desc = Request::getString('s_desc', '');
+$s_aid  = Request::getString('s_aid', '');
+$s_cat  = Request::getInt('s_cat', 0);
+$start  = Request::getInt('start', 0);
+
 // Form
 $obj  = $articleHandler->create();
-$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat);
+$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat, XOOPS_URL . '/modules/xmarticle/search.php');
 if (count($fielddata_aid_arr) > 0) {
 	$s_aid = serialize($fielddata_aid_arr);
 }
