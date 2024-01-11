@@ -102,21 +102,30 @@ if ($op == 'export'){
 	}
 
 	// Création du fichier d'export
-	$criteria = new CriteriaCompo();
-	$criteria->add(new Criteria('article_status', 1));
-	$articleHandler->table_link = $articleHandler->db->prefix("xmarticle_category");
-	$articleHandler->field_link = "category_id";
-	$articleHandler->field_object = "article_cid";
-	$article_arr = $articleHandler->getByLink($criteria);
-	if (count($article_arr) > 0) {
-		$csv = fopen($path_csv, 'w+');
-		//add BOM to fix UTF-8 in Excel
-		fputs($csv, $bom = ( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
-		foreach (array_keys($article_arr) as $i) {
-			fputcsv($csv, array($article_arr[$i]->getVar('article_reference'), $article_arr[$i]->getVar('article_name'), $article_arr[$i]->getVar('category_name'), '', '', 'Standard'), $separator);
+	$sql = "SELECT o.*, l.* , k.* , m.* FROM " . $xoopsDB->prefix('xmarticle_article') . " AS o LEFT JOIN " . $xoopsDB->prefix('xmarticle_category') . " AS l ON o.article_cid = l.category_id";
+	$sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_stock') . " AS k ON o.article_id = k.stock_articleid";
+	$sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_area') . " AS m ON k.stock_areaid = m.area_id";
+	$sql .= " GROUP BY article_id ORDER BY article_id ASC";
+	$article_arr = $xoopsDB->query($sql);
+	$csv = fopen($path_csv, 'w+');
+	//add BOM to fix UTF-8 in Excel
+	fputs($csv, $bom = ( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+	while($myrow = $xoopsDB->fetchArray($article_arr)){
+		if ($myrow['area_name'] != ''){
+			$stock = $myrow['area_name'];
+			if ($myrow['stock_location'] != ''){
+				$stock .= "-" . $myrow['stock_location'];
+			}
+			if ($myrow['stock_amount'] != ''){
+				$amount = $myrow['stock_amount'];
+			}
+		} else {
+			$stock = '';
+			$amount = '';
 		}
-		fclose($csv);
-		header("Location: $url_csv");
+		fputcsv($csv, array($myrow['article_reference'], $myrow['article_name'], $myrow['category_name'], $stock, $amount, 'Standard'), $separator);
 	}
+	fclose($csv);
+	header("Location: $url_csv");
 }
 require __DIR__ . '/admin_footer.php';
