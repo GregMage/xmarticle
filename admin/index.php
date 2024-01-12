@@ -123,7 +123,11 @@ if ($op == 'export'){
 			$stock = '';
 			$amount = '';
 		}
-		fputcsv($csv, array($myrow['article_reference'], $myrow['article_name'], $myrow['category_name'], $stock, $amount, 'Standard'), $separator);
+		$name = $myrow['article_name'];
+		if (strlen($name) > 70){
+			$name = substr($name, 0, 70) . '...';
+		}
+		fputcsv($csv, array($myrow['article_reference'], $name, $myrow['category_name'], $stock, $amount, 'Standard'), $separator);
 	}
 	fclose($csv);
 	header("Location: $url_csv");
