@@ -199,9 +199,9 @@ define('_MA_XMARTICLE_LISTARTICLE', 'Liste des articles');
 define('_MA_XMARTICLE_MOREDETAILS', 'Plus de détails');
 define('_MA_XMARTICLE_SEARCH', 'Recherche');
 define('_MA_XMARTICLE_SEARCHFORM', 'Formulaire de recherche');
-define('_MA_XMARTICLE_SEARCH_EXACTLY', 'Exactement');
-define('_MA_XMARTICLE_SEARCH_MIN', 'Inférieur');
-define('_MA_XMARTICLE_SEARCH_MAX', 'Supérieur');
+define('_MA_XMARTICLE_SEARCH_EXACTLY', 'Valeur exacte');
+define('_MA_XMARTICLE_SEARCH_MIN', 'Inférieur à:');
+define('_MA_XMARTICLE_SEARCH_MAX', 'Supérieur à:');
 define('_MA_XMARTICLE_SELECTCATEGORY', 'Sélectionnez une catégorie à laquelle ajouter un élément');
 
 // formArticle

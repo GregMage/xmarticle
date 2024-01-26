@@ -664,10 +664,10 @@ class xmarticle_article extends XoopsObject
 								}
 							}
 							if ($value_fnmi != '') {
-								$criteria->add(new Criteria('fielddata_value4', $value_fnmi, '>='));
+								$criteria->add(new Criteria('fielddata_value4', $value_fnmi, '<='));
 							}
 							if ($value_fnma != '') {
-								$criteria->add(new Criteria('fielddata_value4', $value_fnma, '<='));
+								$criteria->add(new Criteria('fielddata_value4', $value_fnma, '>='));
 							}
 							break;
 					}
@@ -743,10 +743,10 @@ class xmarticle_article extends XoopsObject
 						$number  = new XoopsFormElementTray($caption);
 						$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $i, 10, 255, $value_fnex);
 						$number->addElement($exactly);
-						$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $i, 10, 255, $value_fnmi);
-						$number->addElement($min);
 						$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $i, 10, 255, $value_fnma);
 						$number->addElement($max);
+						$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $i, 10, 255, $value_fnmi);
+						$number->addElement($min);
 						$form->addElement($number, $required);
 						break;
 				}
