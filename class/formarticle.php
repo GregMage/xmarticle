@@ -44,6 +44,8 @@ class XmarticleFormArticle extends XoopsFormElementTray
 		parent::__construct($caption, '<br>');
 		if ($itemid != 0){
 			$this->addElement(new XoopsFormLabel('', XmarticleUtility::getArticleName($itemid, true, true)));
+			$add_text = "<script>let articleId = " . $itemid . ";</script>";
+			$this->addElement(new XoopsFormLabel('', $add_text));
 		}
 		// add article
 		if ($itemid == 0){
