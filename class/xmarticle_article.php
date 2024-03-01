@@ -372,9 +372,8 @@ class xmarticle_article extends XoopsObject
         //logo
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_article_img = new XoopsMediaUploader($path_logo_article . $article_cid . '/', ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null, true);
+            $uploader_article_img = new XoopsMediaUploader($path_logo_article . $article_cid . '/', ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null, false);
             if ($uploader_article_img->fetchMedia('article_logo')) {
-                //$uploader_article_img->setPrefix('article_');
                 if (!$uploader_article_img->upload()) {
                     $error_message .= $uploader_article_img->getErrors() . '<br>';
                 } else {
