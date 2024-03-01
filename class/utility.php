@@ -440,4 +440,16 @@ class XmarticleUtility
 		}
 		return $text;
 	}
+
+    public static function creatFolder($path = '', $id = 0)
+    {
+        $dir = $path . $id;
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777);
+        }
+        //Copy index.php
+        $indexFile = XOOPS_ROOT_PATH . '/modules/xmarticle/include/index.php';
+        copy($indexFile, $dir . '/index.php');
+        return true;
+    }
 }

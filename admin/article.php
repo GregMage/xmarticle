@@ -104,7 +104,7 @@ switch ($op) {
 				if ($article_img == ''){
 					$article['logo']        = $url_logo_article . 'no-image.png';
 				} else {
-					$article['logo']        = $url_logo_article . $article_img;
+					$article['logo']        = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
 				}
                 $xoopsTpl->appendByRef('articles', $article);
                 unset($article);
@@ -215,7 +215,7 @@ switch ($op) {
                 $article_img = $obj->getVar('article_logo') ?: 'no-image.png';
                 xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'],
                                     sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>
-                                    <img src="' . $url_logo_article . $article_img . '" title="' .
+                                    <img src="' . $url_logo_article . $obj->getVar('article_cid') . '/' . $article_img . '" title="' .
                                     $obj->getVar('article_name') . '" style="max-width:100px"><br>');
             }
         }

@@ -20,15 +20,15 @@ use Xmf\Module\Helper;
 function block_xmarticle_show($options) {
 	include __DIR__ . '/../include/common.php';
 	include_once __DIR__ . '/../class/utility.php';
-	
+
 	$helper = Helper::getHelper('xmarticle');
 	$helper->loadLanguage('main');
-	
+
 	// Get Permission to view
 	$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
-	
+
 	$block = array();
-	
+
 	$criteria = new CriteriaCompo();
 	switch ($options[2]) {
         case "date":
@@ -53,7 +53,7 @@ function block_xmarticle_show($options) {
 			$criteria->add(new Criteria('article_status', 1));
             $criteria->setSort('RAND()');
         break;
-		
+
 		case "waiting":
 			$criteria->add(new Criteria('article_status', 2));
             $criteria->setSort('article_date DESC, article_name');
@@ -92,13 +92,13 @@ function block_xmarticle_show($options) {
 			}
 			$article['author']          = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
 			$article_img                = $article_arr[$i]->getVar('article_logo');
-			$article['logo']            = $url_logo_article .  $article_img;
+			$article['logo']            = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
 			if ($article_img == ''){
 				$article['logo']        = '';
 			}
 			$color = $article_arr[$i]->getVar('category_color');
 			if ($color == '#ffffff'){
-				$article['color'] = false;				
+				$article['color'] = false;
 			} else {
 				$article['color'] = $color;
 			}
@@ -129,7 +129,7 @@ function block_xmarticle_edit($options) {
 	$criteria->setOrder('ASC');
 	$criteria->add(new Criteria('category_status', 1));
 	$category_arr = $categoryHandler->getall($criteria);
-	
+
 	include_once XOOPS_ROOT_PATH . '/modules/xmarticle/class/blockform.php';
     xoops_load('XoopsFormLoader');
 
@@ -139,7 +139,7 @@ function block_xmarticle_edit($options) {
 	foreach (array_keys($category_arr) as $i) {
 		$category->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 	}
-	
+
 	$form->addElement($category);
 	$form->addElement(new XoopsFormText(_MB_XMARTICLE_NBARTICLE, 'options[1]', 5, 5, $options[1]), true);
 	$form->addElement(new XoopsFormHidden('options[2]', $options[2]));

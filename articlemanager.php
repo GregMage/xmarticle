@@ -70,7 +70,7 @@ if ($sessionHelper->get('selectionarticle') != False){
 		if ($selarticle_img == ''){
 			$selarticle_arr['logo']    = $url_logo_article . 'no-image.png';
 		} else {
-			$selarticle_arr['logo']    = $url_logo_article . $selarticle_img;
+			$selarticle_arr['logo']    = $url_logo_article . $selarticle->getVar('article_cid') . '/' . $selarticle_img;
 		}
 		$xoopsTpl->assign('selarticle_arr', $selarticle_arr);
 	} else {
@@ -152,7 +152,7 @@ if ($search != '') {
 			if ($article_img == ''){
 				$article['logo']        = $url_logo_article . 'no-image.png';
 			} else {
-				$article['logo']        = $url_logo_article . $article_img;
+				$article['logo']        = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
 			}
 			$xoopsTpl->appendByRef('articles', $article);
 			unset($article);

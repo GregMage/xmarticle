@@ -150,7 +150,7 @@ if ($article_count > 0) {
 		if ($article_img  == ''){
 			$article['logo']        = '';
 		} else {
-			$article['logo']        = $url_logo_article .  $article_img;
+			$article['logo']        = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
 		}
 		if ($xmsocial == true){
 			$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));

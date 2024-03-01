@@ -45,7 +45,7 @@ if ($sessionHelper->get('selectionarticle') != false){
 		if ($selarticle_img == ''){
 			$selarticle_arr['logo']    = $url_logo_article . 'no-image.png';
 		} else {
-			$selarticle_arr['logo']    = $url_logo_article . $selarticle_img;
+			$selarticle_arr['logo']    = $url_logo_article . $selarticle->getVar('article_cid') . '/' . $selarticle_img;
 		}
 		echo json_encode($selarticle_arr, $jsonFlags);
 		exit;

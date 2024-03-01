@@ -155,7 +155,7 @@ if ($search != '') {
 			if ($article_img == ''){
 				$article['logo']    = '';
 			} else {
-				$article['logo']    = $url_logo_article .  $article_img;
+				$article['logo']    = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
 			}
 			$color					= $article_arr[$i]->getVar('category_color');
 			if ($color == '#ffffff'){

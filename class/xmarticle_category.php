@@ -150,7 +150,8 @@ class xmarticle_category extends XoopsObject
                 // permission delete
                 $groups_delete = Request::getArray('xmarticle_delete_perms', [], 'POST');
                 $permHelper->savePermissionForItem('xmarticle_delete', $perm_id, $groups_delete);
-
+                // creat folder
+                XmarticleUtility::creatFolder($path_logo_article, $perm_id);
 
 				if ((Request::getBool('addmorefields', false)) === true) {
                     redirect_header($action . '?op=edit&amp;category_id=' . $this->getVar('category_id'), 2, _MA_XMARTICLE_REDIRECT_SAVE);

@@ -167,7 +167,7 @@ class xmarticle_article extends XoopsObject
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_ARTICLE_DESC, 'article_description', $editor_configs), false);
         // logo
         $blank_img 		 = $this->getVar('article_logo') ?: 'no-image.png';
-		$uploadirectory  = str_replace(XOOPS_URL, '', $url_logo_article);
+		$uploadirectory  = str_replace(XOOPS_URL, '', $url_logo_article) . $article_cid . '/';
         $imgtray_img     = new XoopsFormElementTray(_MA_XMARTICLE_ARTICLE_LOGOFILE . '<br><br>' . sprintf(_MA_XMARTICLE_ARTICLE_UPLOADSIZE, $upload_size / 1024), '<br>');
         $imgpath_img     = sprintf(_MA_XMARTICLE_ARTICLE_FORMPATH, $uploadirectory);
         $imageselect_img = new XoopsFormSelect($imgpath_img, 'article_logo', $blank_img);
@@ -368,10 +368,11 @@ class xmarticle_article extends XoopsObject
         $helper = Helper::getHelper('xmarticle');
         $error_message = '';
 
+		$article_cid = Request::getInt('article_cid', 0);
         //logo
         if ($_FILES['article_logo']['error'] != UPLOAD_ERR_NO_FILE) {
             include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader_article_img = new XoopsMediaUploader($path_logo_article, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null, true);
+            $uploader_article_img = new XoopsMediaUploader($path_logo_article . $article_cid . '/', ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $upload_size, null, null, true);
             if ($uploader_article_img->fetchMedia('article_logo')) {
                 //$uploader_article_img->setPrefix('article_');
                 if (!$uploader_article_img->upload()) {
@@ -397,7 +398,6 @@ class xmarticle_article extends XoopsObject
         $this->setVar('article_dohits', Request::getInt('article_dohits', 1));
         $this->setVar('article_dorating', Request::getInt('article_dorating', 1));
         $this->setVar('article_docomment', Request::getInt('article_docomment', 1));
-        $article_cid = Request::getInt('article_cid', 0);
         $this->setVar('article_cid', $article_cid);
 		if (isset($_POST['article_userid'])) {
             $this->setVar('article_userid', Request::getInt('article_userid', 0));
@@ -782,7 +782,7 @@ class xmarticle_article extends XoopsObject
 				$criteria->add(new Criteria('article_logo', $this->getVar('article_logo')));
 				$article_count = $articleHandler->getCount($criteria);
 				if ($article_count == 0){
-					$urlfile = $path_logo_article . $this->getVar('article_logo');
+					$urlfile = $path_logo_article . $this->getVar('article_cid') . '/' . $this->getVar('article_logo');
 					if (is_file($urlfile)) {
 						chmod($urlfile, 0777);
 						unlink($urlfile);

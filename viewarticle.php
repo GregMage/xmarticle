@@ -87,7 +87,7 @@ $article_img = $article->getVar('article_logo');
 if ($article_img == ''){
 	$xoopsTpl->assign('logo', '');
 } else {
-	$xoopsTpl->assign('logo', $url_logo_article . $article_img);
+	$xoopsTpl->assign('logo', $url_logo_article . $article->getVar('article_cid') . '/' . $article_img);
 }
 $xoopsTpl->assign('douser', $article->getVar('article_douser'));
 $xoopsTpl->assign('dodate', $article->getVar('article_dodate'));
