@@ -26,7 +26,7 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
 	if ( $userid != 0 ) {
         $sql .= " AND article_userid=" . intval($userid) . " ";
     }
-	
+
     if ( is_array($queryarray) && $count = count($queryarray) )
     {
         $sql .= " AND ((article_name LIKE '%$queryarray[0]%' OR article_reference LIKE '%$queryarray[0]%' OR article_description LIKE '%$queryarray[0]%')";
@@ -39,7 +39,7 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
         $sql .= ")";
     }
 
-    $sql .= " ORDER BY article_date DESC";
+    $sql .= " ORDER BY article_name ASC";
     $result = $xoopsDB->query($sql,$limit,$offset);
     $ret = array();
     $i = 0;
