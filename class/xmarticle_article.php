@@ -516,7 +516,8 @@ class xmarticle_article extends XoopsObject
     * @param bool $action
     * @return XoopsThemeForm
     */
-    public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
+    //public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
+    public function getFormSearch($action = false)
     {
 		global $xoopsTpl;
         if ($action === false) {
@@ -540,23 +541,125 @@ class xmarticle_article extends XoopsObject
 
 		$form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', $action, 'post', true);
 		// title
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'name', 50, 255, $this->getVar('article_name')));
 		//reference
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_ref', 50, 255, $s_ref));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'ref', 50, 255, $this->getVar('article_reference')));
 		//description
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 's_desc', 50, 255, $s_desc));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 'des', 50, 255, $this->getVar('article_description')));
 		//cat
-		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 's_cat', $s_cat);
+		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'cid', $this->getVar('article_cid'));
 		$field_cat->addOption(0, _ALL);
 		foreach (array_keys($category_arr) as $i) {
 			$field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 		}
-		$field_cat->setExtra("onchange=\"location='" . $action . "?s_name=" . $s_name . "&s_ref=" . $s_ref . "&s_desc=" . $s_desc . "&s_cat='+this.options[this.selectedIndex].value\"");
+		$field_cat->setExtra("onchange=\"var formulaire = document.getElementById('form');formulaire.submit()\"");
 		$form->addElement($field_cat);
+		if ($this->getVar('article_cid')) {
+			$category = $categoryHandler->get($this->getVar('article_cid'));
+			if (!empty($category->getVar('category_fields'))) {
+				$criteria = new CriteriaCompo();
+				$criteria->setSort('field_weight ASC, field_name');
+				$criteria->setOrder('ASC');
+				$criteria->add(new Criteria('field_id', '(' . implode(',', $category->getVar('category_fields')) . ')', 'IN'));
+				$criteria->add(new Criteria('field_status', 0, '!='));
+				$criteria->add(new Criteria('field_search', 0, '!='));
+				$field_arr = $fieldHandler->getall($criteria);
+				$value = '';
+				$value_fnex = '';
+				$value_fnma = '';
+				$value_fnmi = '';
+				$cpt = 0;
+				foreach (array_keys($field_arr) as $i) {
+					$cpt++;
+					$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+					$name = 'f_' . $cpt;
+					$form->addElement(new XoopsFormHidden('t_' . $cpt, $field_arr[$i]->getVar('field_type')));
+					switch ($field_arr[$i]->getVar('field_type')) {
+						case 'label':
+							$form->addElement(new XoopsFormLabel($caption, $value, $name));
+							$form->addElement(new XoopsFormHidden($name, $value));
+							break;
+						case 'vs_text':
+							$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value));
+							break;
+						case 's_text':
+							$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value));
+							break;
+						case 'm_text':
+							$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value));
+							break;
+						case 'l_text':
+							$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value));
+							break;
+						case 'text':
+							$editor_configs           = [];
+							$editor_configs['name']   = $name;
+							$editor_configs['value']  = $value;
+							$editor_configs['rows']   = 2;
+							$editor_configs['editor'] = 'Plain Text';
+							$form->addElement(new XoopsFormEditor($caption, $name, $editor_configs));
+							break;
+						case 'select':
+						case 'select_multi':
+							$select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
+							$select_multi_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+							$form->addElement($select_multi_field);
+							break;
+						case 'radio_yn':
+							if ($value == '') {
+								$value = 999;
+							}
+							$radio_yn_field = new XoopsFormSelect($caption, $name, $value);
+							$radio_yn_field->addOption(999, '&nbsp;');
+							$radio_yn_field->addOption(1, _YES);
+							$radio_yn_field->addOption(0, _NO);
+							$form->addElement($radio_yn_field);
+							break;
+						case 'radio':
+							if ($value == '') {
+								$value = 999;
+							}
+							$radio_field = new XoopsFormSelect($caption, $name, $value);
+							$radio_field->addOption(999, '&nbsp;');
+							$radio_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+							$form->addElement($radio_field);
+							break;
+						case 'checkbox':
+							$checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
+							$checkbox_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+							$form->addElement($checkbox_field);
+							break;
+						case 'number':
+							$number  = new XoopsFormElementTray($caption);
+							$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $cpt, 10, 255, $value_fnex);
+							$number->addElement($exactly);
+							$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $cpt, 10, 255, $value_fnma);
+							$number->addElement($max);
+							$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $cpt, 10, 255, $value_fnmi);
+							$number->addElement($min);
+							$form->addElement($number);
+							break;
+					}
+					//unset($value);
+				}
+			}
+			$form->addElement(new XoopsFormHidden('n_field', $cpt));
+		} else {
+			echo 'no cat';
+		}
+		$form->addElement(new XoopsFormHidden('op', 'search'));
+		// search
+		$button = new XoopsFormElementTray('');
+		$button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
+		$button_reset = new XoopsFormButton('', 'reset', _RESET, 'button');
+		$button_reset->setExtra("onclick='window.location.href = \"" . $action . "\";'");
+		$button->addElement($button_reset);
+		$form->addElement($button);
+
 
 		//fields
-		$fielddata_aid_arr = [];
-		if ($s_cat != 0) {
+		//$fielddata_aid_arr = [];
+		/*if ($s_cat != 0) {
 			// field
 			$category = $categoryHandler->get($s_cat);
 			if (!empty($category->getVar('category_fields'))) {
@@ -567,8 +670,9 @@ class xmarticle_article extends XoopsObject
 				$criteria->add(new Criteria('field_status', 0, '!='));
 				$criteria->add(new Criteria('field_search', 0, '!='));
 				$field_arr = $fieldHandler->getall($criteria);
+
 				$value = '';
-				foreach (array_keys($field_arr) as $i) {
+				/*foreach (array_keys($field_arr) as $i) {
 					$criteria = new CriteriaCompo();
 					$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
 					$name = 'f_' . $i;
@@ -753,7 +857,8 @@ class xmarticle_article extends XoopsObject
 					unset($value);
 				}
 			}
-		}
+		}*/
+		/*$form->addElement(new XoopsFormHidden('op', 'search'));
 		// search
 		$button = new XoopsFormElementTray('');
 		$button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
@@ -761,8 +866,8 @@ class xmarticle_article extends XoopsObject
 		$button_reset->setExtra("onclick='window.location.href = \"" . $action . "\";'");
 		$button->addElement($button_reset);
 		$form->addElement($button);
-		$xoopsTpl->assign('form', $form->render());
-		return $fielddata_aid_arr;
+		//$xoopsTpl->assign('form', $form->render());*/
+		return $form;
 	}
 
 		/**
