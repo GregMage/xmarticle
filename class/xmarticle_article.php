@@ -517,7 +517,7 @@ class xmarticle_article extends XoopsObject
     * @return XoopsThemeForm
     */
     //public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
-    public function getFormSearch($action = false)
+    public function getFormSearch($action = false, $values = array())
     {
 		global $xoopsTpl;
         if ($action === false) {
@@ -564,16 +564,31 @@ class xmarticle_article extends XoopsObject
 				$criteria->add(new Criteria('field_status', 0, '!='));
 				$criteria->add(new Criteria('field_search', 0, '!='));
 				$field_arr = $fieldHandler->getall($criteria);
-				$value = '';
-				$value_fnex = '';
-				$value_fnma = '';
-				$value_fnmi = '';
 				$cpt = 0;
 				foreach (array_keys($field_arr) as $i) {
+					$value = '';
+					$value_fnex = '';
+					$value_fnma = '';
+					$value_fnmi = '';
+					if(isset($values[$i])) {
+						if(isset($values[$i]['value'])) {
+							$value = $values[$i]['value'];
+						}
+						if(isset($values[$i]['fnex'])) {
+							$value_fnex = $values[$i]['fnex'];
+						}
+						if(isset($values[$i]['fnmi'])) {
+							$value_fnmi = $values[$i]['fnmi'];
+						}
+						if(isset($values[$i]['fnma'])) {
+							$value_fnma = $values[$i]['fnma'];
+						}
+					}
 					$cpt++;
 					$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
 					$name = 'f_' . $cpt;
 					$form->addElement(new XoopsFormHidden('t_' . $cpt, $field_arr[$i]->getVar('field_type')));
+					$form->addElement(new XoopsFormHidden('fid_' . $cpt, $i));
 					switch ($field_arr[$i]->getVar('field_type')) {
 						case 'label':
 							$form->addElement(new XoopsFormLabel($caption, $value, $name));

@@ -37,6 +37,7 @@ switch ($op) {
         break;
 
     case 'search':
+        $values = array();
         // Form
         $article_name = Request::getString('name', '');
         $article_reference = Request::getString('ref', '');
@@ -122,37 +123,135 @@ switch ($op) {
         }
         // recherche sur les champs sup.
         if ($n_field != 0){
-            $useFieldSearch = false;
+            $fielddata_aid_arr = [];
             for ($i = 1; $i <= $n_field; $i++) {
+                $criteria_field = new CriteriaCompo();
+                $value_fnex = '';
+                $value_fnma = '';
+                $value_fnmi = '';
+                $useFieldSearch = false;
+                if (isset($_POST['fid_' . $i])) {
+                    $fid = $_POST['fid_' . $i];
+                }
                 if (isset($_POST['f_' . $i])) {
                     $value = $_POST['f_' . $i];
                     if ($value != '' && $value != 999) {
-                        echo 'f_' . $i  . ': ' . $value . '<br>';
+                        //echo 'f_' . $i  . ': ' . $value . '<br>';
+                        $values[$fid]['value'] = $value;
                         $useFieldSearch = true;
                     }
                 }
                 if (isset($_POST['fnex_' . $i])) {
                     $value_fnex = $_POST['fnex_' . $i];
                     if ($value_fnex != '') {
+                        $values[$fid]['fnex'] = $value_fnex;
                         $useFieldSearch = true;
                     }
                 }
                 if (isset($_POST['fnmi_' . $i]) && $value_fnex == '') {
                     $value_fnmi = $_POST['fnmi_' . $i];
                     if ($value_fnmi != '') {
+                        $values[$fid]['fnmi'] = $value_fnmi;
                         $useFieldSearch = true;
                     }
                 }
                 if (isset($_POST['fnma_' . $i]) && $value_fnex == '') {
                     $value_fnma = $_POST['fnma_' . $i];
                     if ($value_fnma != '') {
+                        $values[$fid]['fnma'] = $value_fnma;
                         $useFieldSearch = true;
                     }
                 }
                 if (isset($_POST['t_' . $i])) {
                     $type = $_POST['t_' . $i];
-                    echo 't_' . $i  . ': ' . $type . '<br>';
+					if ($useFieldSearch == true) {
+                        if (isset($_POST['fid_' . $i])) {
+                            $criteria_field->add(new Criteria('fielddata_fid', $_POST['fid_' . $i]));
+                        }
+						switch ($type) {
+							case 'vs_text':
+							case 's_text':
+							case 'm_text':
+							case 'l_text':
+								$criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+								break;
+
+							case 'select':
+								if ($value != '') {
+									$value_bdd = '';
+									foreach (array_keys($value) as $k) {
+										if ($value_bdd == '') {
+											$seperator = '';
+										} else {
+											$seperator = ', ';
+										}
+										$value_bdd .= $seperator . '"' . $value[$k] . '"';
+									}
+									$value_bdd = '(' . $value_bdd . ')';
+								}
+								$criteria_field->add(new Criteria('fielddata_value1', $value_bdd, 'IN'));
+								break;
+
+							case 'radio_yn':
+							case 'radio':
+								$criteria_field->add(new Criteria('fielddata_value1', $value));;
+								break;
+
+							case 'label':
+							case 'text':
+								$criteria_field->add(new Criteria('fielddata_value2', $value));
+								break;
+
+							case 'select_multi':
+							case 'checkbox':
+								if ($value != '') {
+									$value_bdd = '';
+									foreach (array_keys($value) as $k) {
+										if ($value_bdd == '') {
+											$seperator = '';
+										} else {
+											$seperator = ', ';
+										}
+										$value_bdd .= $seperator . '"' . $value[$k] . '"';
+									}
+									$value_bdd = '(' . $value_bdd . ')';
+								}
+								$criteria_field->add(new Criteria('fielddata_value3', $value_bdd, 'IN'));
+								break;
+
+							case 'number':
+								if (isset($_POST['fnex_' . $i])) {
+									$value_fnex = $_POST['fnex_' . $i];
+									if ($value_fnex != '') {
+										$criteria_field->add(new Criteria('fielddata_value4', $value_fnex));
+									}
+								}
+								if ($value_fnmi != '') {
+									$criteria_field->add(new Criteria('fielddata_value4', $value_fnmi, '<='));
+								}
+								if ($value_fnma != '') {
+									$criteria_field->add(new Criteria('fielddata_value4', $value_fnma, '>='));
+								}
+								break;
+						}
+						if (count($fielddata_aid_arr) > 0) {
+							$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
+							$fielddata_aid_arr = [];
+						}
+						$fielddata_arr = $fielddataHandler->getall($criteria_field);
+						if (count($fielddata_arr) == 0) {
+							$fielddata_aid_arr[] = 0;
+						} else {
+							foreach (array_keys($fielddata_arr) as $j) {
+								$fielddata_aid_arr[] = $fielddata_arr[$j]->getVar('fielddata_aid');
+							}
+						}
+                    }
                 }
+                unset($value);
+            }
+            if (count($fielddata_aid_arr) > 0) {
+                $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
             }
         }
         $criteria->setStart($start);
@@ -223,7 +322,7 @@ switch ($op) {
         $obj->setVar('article_reference', $article_reference);
         $obj->setVar('article_description', $article_description);
         $obj->setVar('article_cid', $article_cid);
-        $form = $obj->getFormSearch(XOOPS_URL . '/modules/xmarticle/search.php');
+        $form = $obj->getFormSearch(XOOPS_URL . '/modules/xmarticle/search.php', $values);
         $xoopsTpl->assign('form', $form->render());
         break;
 }
