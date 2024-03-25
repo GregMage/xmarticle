@@ -545,7 +545,7 @@ class xmarticle_article extends XoopsObject
 		//reference
 		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'ref', 50, 255, $this->getVar('article_reference')));
 		//description
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 'des', 50, 255, $this->getVar('article_description')));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 'desc', 50, 255, $this->getVar('article_description')));
 		//cat
 		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'cid', $this->getVar('article_cid'));
 		$field_cat->addOption(0, _ALL);

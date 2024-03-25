@@ -72,11 +72,11 @@ switch ($op) {
         }
         if ($article_reference != '') {
             $criteria->add(new Criteria('article_reference', '%' . $article_reference . '%', 'LIKE'));
-            $arguments .= '&amp;ref=' . $ref;
+            $arguments .= '&amp;ref=' . $article_reference;
         }
         if ($article_description != '') {
             $criteria->add(new Criteria('article_description', '%' . $article_description . '%', 'LIKE'));
-            $arguments .= '&amp;desc=' . $desc;
+            $arguments .= '&amp;desc=' . $article_description;
         }
         switch ($order) {
             default:
