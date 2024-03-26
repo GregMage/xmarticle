@@ -47,12 +47,7 @@ switch ($op) {
         $start  = Request::getInt('start', 0);
         $xoopsTpl->assign('start', $start);
         $arguments = 'cid=' . $article_cid;
-        /*echo 'article_name: ' . $article_name . '<br>';
-        echo 'article_reference: ' . $article_reference . '<br>';
-        echo 'article_description: ' . $article_description . '<br>';
-        echo 'article_cid: ' . $article_cid . '<br>';
-        echo 'n_field: ' . $n_field . '<br>';*/
-
+        $arguments .= '&amp;n_field=' . $n_field;
         //filters
         $order = Request::getInt('order', 1);
         $xoopsTpl->assign('order', $order);
@@ -130,55 +125,70 @@ switch ($op) {
                 $value_fnma = '';
                 $value_fnmi = '';
                 $useFieldSearch = false;
-                if (isset($_POST['fid_' . $i])) {
-                    $fid = $_POST['fid_' . $i];
+                if (isset($_REQUEST ['fid_' . $i])) {
+                    $fid = $_REQUEST ['fid_' . $i];
+                    $arguments .= '&amp;fid_' . $i . '=' . $fid;
                 }
-                if (isset($_POST['f_' . $i])) {
-                    $value = $_POST['f_' . $i];
+                // uniquement pour récupérer les valeur depuis l'url si c'est des tableaux
+                if (isset($_GET ['sp_' . $i])) {
+                    $value = unserialize(str_replace("'", '"', $_GET ['sp_' . $i]));
+                    $arguments .= '&amp;sp_' . $i . '=' . $_GET ['sp_' . $i];
                     if ($value != '' && $value != 999) {
-                        //echo 'f_' . $i  . ': ' . $value . '<br>';
                         $values[$fid]['value'] = $value;
                         $useFieldSearch = true;
                     }
                 }
-                if (isset($_POST['fnex_' . $i])) {
-                    $value_fnex = $_POST['fnex_' . $i];
+                if (isset($_REQUEST ['f_' . $i])) {
+                    $value = $_REQUEST ['f_' . $i];
+                    if ($value != '' && $value != 999) {
+                        $values[$fid]['value'] = $value;
+                        $useFieldSearch = true;
+                    }
+                }
+                if (isset($_REQUEST ['fnex_' . $i])) {
+                    $value_fnex = $_REQUEST ['fnex_' . $i];
                     if ($value_fnex != '') {
+                        $arguments .= '&amp;fnex_' . $i . '=' . $value_fnex;
                         $values[$fid]['fnex'] = $value_fnex;
                         $useFieldSearch = true;
                     }
                 }
-                if (isset($_POST['fnmi_' . $i]) && $value_fnex == '') {
-                    $value_fnmi = $_POST['fnmi_' . $i];
+                if (isset($_REQUEST ['fnmi_' . $i]) && $value_fnex == '') {
+                    $value_fnmi = $_REQUEST ['fnmi_' . $i];
                     if ($value_fnmi != '') {
+                        $arguments .= '&amp;fnmi_' . $i . '=' . $value_fnmi;
                         $values[$fid]['fnmi'] = $value_fnmi;
                         $useFieldSearch = true;
                     }
                 }
-                if (isset($_POST['fnma_' . $i]) && $value_fnex == '') {
-                    $value_fnma = $_POST['fnma_' . $i];
+                if (isset($_REQUEST ['fnma_' . $i]) && $value_fnex == '') {
+                    $value_fnma = $_REQUEST ['fnma_' . $i];
                     if ($value_fnma != '') {
+                        $arguments .= '&amp;fnma_' . $i . '=' . $value_fnma;
                         $values[$fid]['fnma'] = $value_fnma;
                         $useFieldSearch = true;
                     }
                 }
-                if (isset($_POST['t_' . $i])) {
-                    $type = $_POST['t_' . $i];
+                if (isset($_REQUEST ['t_' . $i])) {
+                    $type = $_REQUEST ['t_' . $i];
 					if ($useFieldSearch == true) {
-                        if (isset($_POST['fid_' . $i])) {
-                            $criteria_field->add(new Criteria('fielddata_fid', $_POST['fid_' . $i]));
+                        if (isset($_REQUEST ['fid_' . $i])) {
+                            $criteria_field->add(new Criteria('fielddata_fid', $_REQUEST ['fid_' . $i]));
                         }
+                        $arguments .= '&amp;t_' . $i . '=' . $type;
 						switch ($type) {
 							case 'vs_text':
 							case 's_text':
 							case 'm_text':
 							case 'l_text':
+                                $arguments .= '&amp;f_' . $i . '=' . $value;
 								$criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
 								break;
 
 							case 'select':
 								if ($value != '') {
 									$value_bdd = '';
+                                    $arguments .= '&amp;sp_' . $i . '=' . str_replace('"', "'", serialize($value));
 									foreach (array_keys($value) as $k) {
 										if ($value_bdd == '') {
 											$seperator = '';
@@ -194,11 +204,13 @@ switch ($op) {
 
 							case 'radio_yn':
 							case 'radio':
-								$criteria_field->add(new Criteria('fielddata_value1', $value));;
+                                $arguments .= '&amp;f_' . $i . '=' . $value;
+								$criteria_field->add(new Criteria('fielddata_value1', $value));
 								break;
 
 							case 'label':
 							case 'text':
+                                $arguments .= '&amp;f_' . $i . '=' . $value;
 								$criteria_field->add(new Criteria('fielddata_value2', $value));
 								break;
 
@@ -206,6 +218,7 @@ switch ($op) {
 							case 'checkbox':
 								if ($value != '') {
 									$value_bdd = '';
+                                    $arguments .= '&amp;sp_' . $i . '=' . str_replace('"', "'", serialize($value));
 									foreach (array_keys($value) as $k) {
 										if ($value_bdd == '') {
 											$seperator = '';
@@ -220,8 +233,8 @@ switch ($op) {
 								break;
 
 							case 'number':
-								if (isset($_POST['fnex_' . $i])) {
-									$value_fnex = $_POST['fnex_' . $i];
+								if (isset($_REQUEST ['fnex_' . $i])) {
+									$value_fnex = $_REQUEST ['fnex_' . $i];
 									if ($value_fnex != '') {
 										$criteria_field->add(new Criteria('fielddata_value4', $value_fnex));
 									}
@@ -326,167 +339,6 @@ switch ($op) {
         $xoopsTpl->assign('form', $form->render());
         break;
 }
-
-
-/*
-
-$search = Request::getString('search', '');
-if ($search != '') {
-    $start = 0;
-}
-$s_name = Request::getString('s_name', '');
-$s_ref  = Request::getString('s_ref', '');
-$s_desc = Request::getString('s_desc', '');
-$s_aid  = Request::getString('s_aid', '');
-$s_cat  = Request::getInt('s_cat', 0);
-$start  = Request::getInt('start', 0);
-
-// Form
-$obj  = $articleHandler->create();
-$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat, XOOPS_URL . '/modules/xmarticle/search.php');
-if (count($fielddata_aid_arr) > 0) {
-	$s_aid = serialize($fielddata_aid_arr);
-}
-if ($search != '') {
-    //filters
-    $order = Request::getInt('order', 1);
-    $xoopsTpl->assign('order', $order);
-    $sort = Request::getInt('sort', 0);
-    $xoopsTpl->assign('sort', $sort);
-    $filter = Request::getInt('filter', 10);
-    $xoopsTpl->assign('filter', $filter);
-    $display = Request::getInt('display', 0);
-    $xoopsTpl->assign('display', $display);
-    //$xoopsTpl->assign('s_cat', $s_cat);
-
-    $arguments = 's_cat=' . $s_cat . '&amp;';
-    // Criteria
-    $criteria = new CriteriaCompo();
-
-    if ($s_name != '') {
-        $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
-        $arguments .= 's_name=' . $s_name . '&amp;';
-    }
-    if ($s_ref != '') {
-        $criteria->add(new Criteria('article_reference', '%' . $s_ref . '%', 'LIKE'));
-        $arguments .= 's_ref=' . $s_ref . '&amp;';
-    }
-	if ($s_desc != '') {
-        $criteria->add(new Criteria('article_description', '%' . $s_desc . '%', 'LIKE'));
-        $arguments .= 's_desc=' . $s_desc . '&amp;';
-    }
-	if ($s_aid != '') {
-        $criteria->add(new Criteria('article_id', '(' . implode(',', unserialize($s_aid)) . ')', 'IN'));
-        $arguments .= 's_aid=' . $s_aid . '&amp;';
-    }
-    if (count($fielddata_aid_arr) > 0) {
-        $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
-    }
-    $xoopsTpl->assign('arguments', $arguments);
-    switch ($order) {
-        default:
-        case 1:
-            $criteria->setSort('article_name');
-            if ($sort == 0){
-                $criteria->setOrder('ASC');
-            } else {
-                $criteria->setOrder('DESC');
-            }
-            break;
-        case 2:
-            $criteria->setSort('article_date');
-            if ($sort == 0){
-                $criteria->setOrder('DESC');
-            } else {
-                $criteria->setOrder('ASC');
-            }
-            break;
-        case 3:
-            $criteria->setSort('article_counter');
-            if ($sort == 0){
-                $criteria->setOrder('DESC');
-            } else {
-                $criteria->setOrder('ASC');
-            }
-            break;
-        case 4:
-            $criteria->setSort('article_reference');
-            if ($sort == 0){
-                $criteria->setOrder('DESC');
-            } else {
-                $criteria->setOrder('ASC');
-            }
-            break;
-    }
-    $criteria->setStart($start);
-    $criteria->setLimit($filter);
-    if ($s_cat != 0) {
-        $criteria->add(new Criteria('article_cid', $s_cat));
-    } else {
-		$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
-		$criteria->add(new Criteria('article_cid', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
-	}
-    $criteria->add(new Criteria('article_status', 1));
-    $articleHandler->table_link   = $articleHandler->db->prefix("xmarticle_category");
-    $articleHandler->field_link   = "category_id";
-    $articleHandler->field_object = "article_cid";
-    $article_arr                  = $articleHandler->getByLink($criteria);
-    $article_count                = $articleHandler->getCount($criteria);
-	//xmsocial
-	if (xoops_isActiveModule('xmsocial') && $helper->getConfig('general_xmsocial', 0) == 1) {
-		$xmsocial = true;
-		xoops_load('utility', 'xmsocial');
-	} else {
-		$xmsocial = false;
-	}
-	$xoopsTpl->assign('xmsocial', $xmsocial);
-	$xoopsTpl->assign('article_count', $article_count);
-    if ($article_count > 0) {
-        foreach (array_keys($article_arr) as $i) {
-            $article_id             = $article_arr[$i]->getVar('article_id');
-            $article['id']          = $article_id;
-            $article['cid']         = $article_arr[$i]->getVar('article_cid');
-            $article['name']        = $article_arr[$i]->getVar('article_name');
-            $article['reference']   = $article_arr[$i]->getVar('article_reference');
-            $article['description'] = XmarticleUtility::TagSafe($article_arr[$i]->getVar('article_description', 'show'));
-            $article['date']        = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
-			if ($article_arr[$i]->getVar('article_mdate') != 0) {
-				$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
-			}
-			$article['author']      = XoopsUser::getUnameFromId($article_arr[$i]->getVar('article_userid'));
-			$article_img            = $article_arr[$i]->getVar('article_logo');
-			if ($article_img == ''){
-				$article['logo']    = '';
-			} else {
-				$article['logo']    = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
-			}
-			$color					= $article_arr[$i]->getVar('category_color');
-			if ($color == '#ffffff'){
-				$article['color']	= false;
-			} else {
-				$article['color']   = $color;
-			}
-			if ($xmsocial == true){
-				$article['rating'] = XmsocialUtility::renderVotes($article_arr[$i]->getVar('article_rating'), $article_arr[$i]->getVar('article_votes'));
-			}
-			$article['counter']     = $article_arr[$i]->getVar('article_counter');
-			$article['douser']      = $article_arr[$i]->getVar('article_douser');
-			$article['dodate']      = $article_arr[$i]->getVar('article_dodate');
-			$article['domdate']     = $article_arr[$i]->getVar('article_domdate');
-			$article['dohits']      = $article_arr[$i]->getVar('article_dohits');
-			$article['dorating']    = $article_arr[$i]->getVar('article_dorating');
-            $xoopsTpl->append('articles', $article);
-            unset($article);
-        }
-        // Display Page Navigation
-        if ($article_count > $filter) {
-            $nav = new XoopsPageNav($article_count, $filter, $start, 'start', 'search=Y&amp;' . $arguments . 'order=' . $order . '&amp;' . 'sort=' . $sort . '&amp;' . 'filter=' . $filter . '&amp;' . 'display=' . $display);
-            $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
-        }
-    } else {
-        $xoopsTpl->assign('no_article', true);
-    }
-}*/
 
 //SEO
 // pagetitle
