@@ -29,10 +29,10 @@
 						<label class="form-check-label" for="inlineRadio2"><span class="fa fa-arrow-up"></span></label></label>
 					</div>
 					<select class="form-control form-control-sm" id="statut_filter" onchange="location='search.php?op=search&<{$arguments}>&order=<{$order}>&sort=<{$sort}>&display=<{$display}>&filter='+this.options[this.selectedIndex].value">
-						<option value=1 <{if $filter == 1}>selected="selected"<{/if}>>1&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
-						<option value=2 <{if $filter == 2}>selected="selected"<{/if}>>2&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
-						<option value=5 <{if $filter == 5}>selected="selected"<{/if}>>5&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 						<option value=10 <{if $filter == 10}>selected="selected"<{/if}>>10&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
+						<option value=20 <{if $filter == 20}>selected="selected"<{/if}>>20&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
+						<option value=50 <{if $filter == 50}>selected="selected"<{/if}>>50&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
+						<option value=100 <{if $filter == 100}>selected="selected"<{/if}>>100&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 					</select>
 				</div>
 				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/search.php?op=search&start=<{$start}>&<{$arguments}>&order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=0" <{if $display == 0}>disabled<{/if}>><span class="fa fa-id-card-o"></span></button>
