@@ -632,7 +632,7 @@ class XmarticleUtility
 							case 'label':
 							case 'text':
                                 $arguments .= '&amp;f_' . $i . '=' . $value;
-								$criteria_field->add(new Criteria('fielddata_value2', $value));
+                                $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
 								break;
 
 							case 'select_multi':
