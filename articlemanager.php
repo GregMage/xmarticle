@@ -79,93 +79,18 @@ if ($sessionHelper->get('selectionarticle') != False){
 	$reset = '';
 }
 
-// Get values
-$search = Request::getString('search', '');
-if ($search != '') {
-    $start = 0;
-}
-$s_name = Request::getString('s_name', '');
-$s_ref  = Request::getString('s_ref', '');
-$s_desc = Request::getString('s_desc', '');
-$s_aid  = Request::getString('s_aid', '');
-$s_cat  = Request::getInt('s_cat', 0);
-$start  = Request::getInt('start', 0);
+$op = Request::getCmd('op', 'form');
+switch ($op) {
+    case 'form':
+        // Form
+        $obj  = $articleHandler->create();
+        $form = $obj->getFormSearch(XOOPS_URL . '/modules/xmarticle/articlemanager.php');
+        $xoopsTpl->assign('form', $form->render());
+        break;
 
-$helper = Helper::getHelper('xmarticle');
-$nb_limit = $helper->getConfig('general_perpage', 15);
-
-// Form
-$obj  = $articleHandler->create();
-$fielddata_aid_arr = $obj->getFormSearch($s_name, $s_ref, $s_desc, $s_cat, XOOPS_URL . '/modules/xmarticle/articlemanager.php');
-if (count($fielddata_aid_arr) > 0) {
-	$s_aid = serialize($fielddata_aid_arr);
-}
-if ($search != '') {
-    $arguments = 's_cat=' . $s_cat . '&amp;';
-    // Criteria
-    $criteria = new CriteriaCompo();
-	$criteria->add(new Criteria('article_status', 1));
-    if ($s_name != '') {
-        $criteria->add(new Criteria('article_name', '%' . $s_name . '%', 'LIKE'));
-        $arguments .= 's_name=' . $s_name . '&amp;';
-    }
-    if ($s_ref != '') {
-        $criteria->add(new Criteria('article_reference', '%' . $s_ref . '%', 'LIKE'));
-        $arguments .= 's_ref=' . $s_ref . '&amp;';
-    }
-	if ($s_desc != '') {
-        $criteria->add(new Criteria('article_description', '%' . $s_desc . '%', 'LIKE'));
-        $arguments .= 's_desc=' . $s_desc . '&amp;';
-    }
-	if ($s_aid != '') {
-        $criteria->add(new Criteria('article_id', '(' . implode(',', unserialize($s_aid)) . ')', 'IN'));
-        $arguments .= 's_aid=' . $s_aid . '&amp;';
-    }
-    if (count($fielddata_aid_arr) > 0) {
-        $criteria->add(new Criteria('article_id', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
-    }
-	if ($s_cat != 0) {
-        $criteria->add(new Criteria('article_cid', $s_cat));
-    } else {
-		$criteria->add(new Criteria('article_cid', '(' . implode(',', $viewPermissionCat) . ')', 'IN'));
-	}
-    $criteria->setSort('article_name');
-    $criteria->setOrder('ASC');
-    $criteria->setStart($start);
-    $criteria->setLimit($nb_limit);
-
-    $articleHandler->table_link   = $articleHandler->db->prefix("xmarticle_category");
-    $articleHandler->field_link   = "category_id";
-    $articleHandler->field_object = "article_cid";
-    $article_arr                  = $articleHandler->getByLink($criteria);
-    $article_count                = $articleHandler->getCount($criteria);
-	$xoopsTpl->assign('article_count', $article_count);
-    if ($article_count > 0) {
-        foreach (array_keys($article_arr) as $i) {
-            $article_id             = $article_arr[$i]->getVar('article_id');
-            $article['id']          = $article_id;
-            $article['cid']         = $article_arr[$i]->getVar('article_cid');
-            $article['name']        = $article_arr[$i]->getVar('article_name');
-            $article['reference']   = $article_arr[$i]->getVar('article_reference');
-            $article['description'] = $article_arr[$i]->getVar('article_description', 'show');
-            $article_img            = $article_arr[$i]->getVar('article_logo');
-			if ($article_img == ''){
-				$article['logo']        = $url_logo_article . 'no-image.png';
-			} else {
-				$article['logo']        = $url_logo_article . $article_arr[$i]->getVar('article_cid') . '/' . $article_img;
-			}
-			$xoopsTpl->appendByRef('articles', $article);
-			unset($article);
-        }
-        // Display Page Navigation
-        if ($article_count > $nb_limit) {
-			include_once $GLOBALS['xoops']->path('class/pagenav.php');
-            $nav = new XoopsPageNav($article_count, $nb_limit, $start, 'start', 'search=Y&amp;' . $arguments);
-            $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
-        }
-    } else {
-        $xoopsTpl->assign('error_message', _MA_XMARTICLE_ERROR_NOARTICLE);
-    }
+    case 'search':
+        XmarticleUtility::search($xoopsTpl, XOOPS_URL . '/modules/xmarticle/articlemanager.php');
+        break;
 }
 
 $xoopsTpl->display('db:xmarticle_articlemanager.tpl');
