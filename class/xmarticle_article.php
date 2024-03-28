@@ -516,7 +516,7 @@ class xmarticle_article extends XoopsObject
     * @param bool $action
     * @return XoopsThemeForm
     */
-    public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
+    public function getFormSearch($action = false, $values = array())
     {
 		global $xoopsTpl;
         if ($action === false) {
@@ -540,25 +540,21 @@ class xmarticle_article extends XoopsObject
 
 		$form = new XoopsThemeForm(_MA_XMARTICLE_SEARCHFORM, 'form', $action, 'post', true);
 		// title
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 's_name', 50, 255, $s_name));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_NAME, 'name', 50, 255, $this->getVar('article_name')));
 		//reference
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 's_ref', 50, 255, $s_ref));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_REFERENCE, 'ref', 50, 255, $this->getVar('article_reference')));
 		//description
-		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 's_desc', 50, 255, $s_desc));
+		$form->addElement(new XoopsFormText(_MA_XMARTICLE_ARTICLE_DESC, 'desc', 50, 255, $this->getVar('article_description')));
 		//cat
-		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 's_cat', $s_cat);
+		$field_cat = new XoopsFormSelect(_MA_XMARTICLE_ARTICLE_CATEGORY, 'cid', $this->getVar('article_cid'));
 		$field_cat->addOption(0, _ALL);
 		foreach (array_keys($category_arr) as $i) {
 			$field_cat->addOption($category_arr[$i]->getVar('category_id'), $category_arr[$i]->getVar('category_name'));
 		}
-		$field_cat->setExtra("onchange=\"location='" . $action . "?s_name=" . $s_name . "&s_ref=" . $s_ref . "&s_desc=" . $s_desc . "&s_cat='+this.options[this.selectedIndex].value\"");
+		$field_cat->setExtra("onchange=\"var formulaire = document.getElementById('form');formulaire.submit()\"");
 		$form->addElement($field_cat);
-
-		//fields
-		$fielddata_aid_arr = [];
-		if ($s_cat != 0) {
-			// field
-			$category = $categoryHandler->get($s_cat);
+		if ($this->getVar('article_cid')) {
+			$category = $categoryHandler->get($this->getVar('article_cid'));
 			if (!empty($category->getVar('category_fields'))) {
 				$criteria = new CriteriaCompo();
 				$criteria->setSort('field_weight ASC, field_name');
@@ -567,139 +563,47 @@ class xmarticle_article extends XoopsObject
 				$criteria->add(new Criteria('field_status', 0, '!='));
 				$criteria->add(new Criteria('field_search', 0, '!='));
 				$field_arr = $fieldHandler->getall($criteria);
-				$value = '';
+				$cpt = 0;
 				foreach (array_keys($field_arr) as $i) {
-					$criteria = new CriteriaCompo();
-					$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
-					$name = 'f_' . $i;
 					$value = '';
-					$value_fnmi = '';
-					$value_fnma = '';
 					$value_fnex = '';
-					$required = false;
-					$useFieldSearch = false;
-					if (isset($_POST['f_' . $i])) {
-						$value = $_POST['f_' . $i];
-						if ($value != '' && $value != 999) {
-							$useFieldSearch = true;
+					$value_fnma = '';
+					$value_fnmi = '';
+					if(isset($values[$i])) {
+						if(isset($values[$i]['value'])) {
+							$value = $values[$i]['value'];
 						}
-
-					}
-					if (isset($_POST['fnex_' . $i])) {
-						$value_fnex = $_POST['fnex_' . $i];
-						if ($value_fnex != '') {
-							$useFieldSearch = true;
+						if(isset($values[$i]['fnex'])) {
+							$value_fnex = $values[$i]['fnex'];
 						}
-					}
-					if (isset($_POST['fnmi_' . $i]) && $value_fnex == '') {
-						$value_fnmi = $_POST['fnmi_' . $i];
-						if ($value_fnmi != '') {
-							$useFieldSearch = true;
+						if(isset($values[$i]['fnmi'])) {
+							$value_fnmi = $values[$i]['fnmi'];
+						}
+						if(isset($values[$i]['fnma'])) {
+							$value_fnma = $values[$i]['fnma'];
 						}
 					}
-					if (isset($_POST['fnma_' . $i]) && $value_fnex == '') {
-						$value_fnma = $_POST['fnma_' . $i];
-						if ($value_fnma != '') {
-							$useFieldSearch = true;
-						}
-					}
-					if ($useFieldSearch == true) {
-						$criteria->add(new Criteria('fielddata_fid', $i));
-						switch ($field_arr[$i]->getVar('field_type')) {
-							case 'vs_text':
-							case 's_text':
-							case 'm_text':
-							case 'l_text':
-								$criteria->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
-								break;
-
-							case 'select':
-								if ($value != '') {
-									$value_bdd = '';
-									foreach (array_keys($value) as $k) {
-										if ($value_bdd == '') {
-											$seperator = '';
-										} else {
-											$seperator = ', ';
-										}
-										$value_bdd .= $seperator . '"' . $value[$k] . '"';
-									}
-									$value_bdd = '(' . $value_bdd . ')';
-								}
-								$criteria->add(new Criteria('fielddata_value1', $value_bdd, 'IN'));
-								break;
-
-							case 'radio_yn':
-							case 'radio':
-								$criteria->add(new Criteria('fielddata_value1', $value));;
-								break;
-
-							case 'label':
-							case 'text':
-								$criteria->add(new Criteria('fielddata_value2', $value));
-								break;
-
-							case 'select_multi':
-							case 'checkbox':
-								if ($value != '') {
-									$value_bdd = '';
-									foreach (array_keys($value) as $k) {
-										if ($value_bdd == '') {
-											$seperator = '';
-										} else {
-											$seperator = ', ';
-										}
-										$value_bdd .= $seperator . '"' . $value[$k] . '"';
-									}
-									$value_bdd = '(' . $value_bdd . ')';
-								}
-								$criteria->add(new Criteria('fielddata_value3', $value_bdd, 'IN'));
-								break;
-
-							case 'number':
-								if (isset($_POST['fnex_' . $i])) {
-									$value_fnex = $_POST['fnex_' . $i];
-									if ($value_fnex != '') {
-										$criteria->add(new Criteria('fielddata_value4', $value_fnex));
-									}
-								}
-								if ($value_fnmi != '') {
-									$criteria->add(new Criteria('fielddata_value4', $value_fnmi, '<='));
-								}
-								if ($value_fnma != '') {
-									$criteria->add(new Criteria('fielddata_value4', $value_fnma, '>='));
-								}
-								break;
-						}
-						if (count($fielddata_aid_arr) > 0) {
-							$criteria->add(new Criteria('fielddata_aid', '(' . implode(',', $fielddata_aid_arr) . ')', 'IN'));
-							$fielddata_aid_arr = [];
-						}
-						$fielddata_arr = $fielddataHandler->getall($criteria);
-						if (count($fielddata_arr) == 0) {
-							$fielddata_aid_arr[] = 0;
-						} else {
-							foreach (array_keys($fielddata_arr) as $j) {
-								$fielddata_aid_arr[] = $fielddata_arr[$j]->getVar('fielddata_aid');
-							}
-						}
-					}
+					$cpt++;
+					$caption = $field_arr[$i]->getVar('field_name') . '<br><span style="font-weight:normal;">' . $field_arr[$i]->getVar('field_description', 'show') . '</span>';
+					$name = 'f_' . $cpt;
+					$form->addElement(new XoopsFormHidden('t_' . $cpt, $field_arr[$i]->getVar('field_type')));
+					$form->addElement(new XoopsFormHidden('fid_' . $cpt, $i));
 					switch ($field_arr[$i]->getVar('field_type')) {
 						case 'label':
-							$form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
+							$form->addElement(new XoopsFormLabel($caption, $value, $name));
 							$form->addElement(new XoopsFormHidden($name, $value));
 							break;
 						case 'vs_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
+							$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value));
 							break;
 						case 's_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value), $required);
+							$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value));
 							break;
 						case 'm_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value), $required);
+							$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value));
 							break;
 						case 'l_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value), $required);
+							$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value));
 							break;
 						case 'text':
 							$editor_configs           = [];
@@ -707,13 +611,13 @@ class xmarticle_article extends XoopsObject
 							$editor_configs['value']  = $value;
 							$editor_configs['rows']   = 2;
 							$editor_configs['editor'] = 'Plain Text';
-							$form->addElement(new XoopsFormEditor($caption, $name, $editor_configs), $required);
+							$form->addElement(new XoopsFormEditor($caption, $name, $editor_configs));
 							break;
 						case 'select':
 						case 'select_multi':
 							$select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
 							$select_multi_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-							$form->addElement($select_multi_field, $required);
+							$form->addElement($select_multi_field);
 							break;
 						case 'radio_yn':
 							if ($value == '') {
@@ -723,7 +627,7 @@ class xmarticle_article extends XoopsObject
 							$radio_yn_field->addOption(999, '&nbsp;');
 							$radio_yn_field->addOption(1, _YES);
 							$radio_yn_field->addOption(0, _NO);
-							$form->addElement($radio_yn_field, $required);
+							$form->addElement($radio_yn_field);
 							break;
 						case 'radio':
 							if ($value == '') {
@@ -732,28 +636,29 @@ class xmarticle_article extends XoopsObject
 							$radio_field = new XoopsFormSelect($caption, $name, $value);
 							$radio_field->addOption(999, '&nbsp;');
 							$radio_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-							$form->addElement($radio_field, $required);
+							$form->addElement($radio_field);
 							break;
 						case 'checkbox':
 							$checkbox_field = new XoopsFormCheckBox($caption, $name, $value);
 							$checkbox_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-							$form->addElement($checkbox_field, $required);
+							$form->addElement($checkbox_field);
 							break;
 						case 'number':
 							$number  = new XoopsFormElementTray($caption);
-							$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $i, 10, 255, $value_fnex);
+							$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $cpt, 10, 255, $value_fnex);
 							$number->addElement($exactly);
-							$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $i, 10, 255, $value_fnma);
+							$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $cpt, 10, 255, $value_fnma);
 							$number->addElement($max);
-							$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $i, 10, 255, $value_fnmi);
+							$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $cpt, 10, 255, $value_fnmi);
 							$number->addElement($min);
-							$form->addElement($number, $required);
+							$form->addElement($number);
 							break;
 					}
-					unset($value);
 				}
 			}
+			$form->addElement(new XoopsFormHidden('n_field', $cpt));
 		}
+		$form->addElement(new XoopsFormHidden('op', 'search'));
 		// search
 		$button = new XoopsFormElementTray('');
 		$button->addElement(new XoopsFormButton('', 'search', _SEARCH, 'submit'));
@@ -761,8 +666,7 @@ class xmarticle_article extends XoopsObject
 		$button_reset->setExtra("onclick='window.location.href = \"" . $action . "\";'");
 		$button->addElement($button_reset);
 		$form->addElement($button);
-		$xoopsTpl->assign('form', $form->render());
-		return $fielddata_aid_arr;
+		return $form;
 	}
 
 		/**

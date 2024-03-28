@@ -14,30 +14,30 @@
 			<div class="btn-toolbar mb-2 mb-md-0">
 				<div class="btn-group mr-2">
 					<label class="my-1 mr-2"><{$smarty.const._MA_XMARTICLE_ORDER}> </label>
-					<select class="form-control form-control-sm" id="order_filter" onchange="location='search.php?search=Y&<{$arguments}>sort=<{$sort}>&filter=<{$filter}>&display=<{$display}>&order='+this.options[this.selectedIndex].value">
+					<select class="form-control form-control-sm" id="order_filter" onchange="location='search.php?op=search&<{$arguments}>&sort=<{$sort}>&filter=<{$filter}>&display=<{$display}>&order='+this.options[this.selectedIndex].value">
 						<option value=1 <{if $order == 1}>selected="selected"<{/if}>><{$smarty.const._MA_XMARTICLE_ORDER_NAME}></option>
 						<option value=2 <{if $order == 2}>selected="selected"<{/if}>><{$smarty.const._MA_XMARTICLE_ORDER_DATE}></option>
 						<option value=3 <{if $order == 3}>selected="selected"<{/if}>><{$smarty.const._MA_XMARTICLE_ORDER_VIEW}></option>
 						<option value=4 <{if $order == 4}>selected="selected"<{/if}>><{$smarty.const._MA_XMARTICLE_ORDER_REF}></option>
 					</select>
 					<div class="form-check form-check-inline">
-						&nbsp;<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" <{if $sort == 0}>checked<{/if}> onchange="location='search.php?search=Y&<{$arguments}>order=<{$order}>&sort=0&filter=<{$filter}>&display=<{$display}>'">
+						&nbsp;<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" <{if $sort == 0}>checked<{/if}> onchange="location='search.php?op=search&<{$arguments}>&order=<{$order}>&sort=0&filter=<{$filter}>&display=<{$display}>'">
 						<label class="form-check-label" for="inlineRadio1"><span class="fa fa-arrow-down"></span></label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" <{if $sort == 1}>checked<{/if}> onchange="location='search.php?search=Y&<{$arguments}>order=<{$order}>&sort=1&filter=<{$filter}>&display=<{$display}>'">
+						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" <{if $sort == 1}>checked<{/if}> onchange="location='search.php?op=search&<{$arguments}>&order=<{$order}>&sort=1&filter=<{$filter}>&display=<{$display}>'">
 						<label class="form-check-label" for="inlineRadio2"><span class="fa fa-arrow-up"></span></label></label>
 					</div>
-					<select class="form-control form-control-sm" id="statut_filter" onchange="location='search.php?search=Y&<{$arguments}>order=<{$order}>&sort=<{$sort}>&display=<{$display}>&filter='+this.options[this.selectedIndex].value">
+					<select class="form-control form-control-sm" id="statut_filter" onchange="location='search.php?op=search&<{$arguments}>&order=<{$order}>&sort=<{$sort}>&display=<{$display}>&filter='+this.options[this.selectedIndex].value">
 						<option value=10 <{if $filter == 10}>selected="selected"<{/if}>>10&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 						<option value=20 <{if $filter == 20}>selected="selected"<{/if}>>20&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 						<option value=50 <{if $filter == 50}>selected="selected"<{/if}>>50&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 						<option value=100 <{if $filter == 100}>selected="selected"<{/if}>>100&nbsp;<{$smarty.const._MA_XMARTICLE_FILTER_PERPAGE}></option>
 					</select>
 				</div>
-				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/search.php?search=Y&<{$arguments}>order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=0" <{if $display == 0}>disabled<{/if}>><span class="fa fa-id-card-o"></span></button>
+				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/search.php?op=search&start=<{$start}>&<{$arguments}>&order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=0" <{if $display == 0}>disabled<{/if}>><span class="fa fa-id-card-o"></span></button>
 				&nbsp;
-				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/search.php?search=Y&<{$arguments}>order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=1" <{if $display == 1}>disabled<{/if}>><span class="fa fa-list-alt"></span></button>
+				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/search.php?op=search&start=<{$start}>&<{$arguments}>&order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=1" <{if $display == 1}>disabled<{/if}>><span class="fa fa-list-alt"></span></button>
 			</div>
 		</div>
 		<{if $display|default:0 == 0}>
