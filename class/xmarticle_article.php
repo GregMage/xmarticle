@@ -516,7 +516,6 @@ class xmarticle_article extends XoopsObject
     * @param bool $action
     * @return XoopsThemeForm
     */
-    //public function getFormSearch($s_name, $s_ref, $s_desc, $s_cat, $action = false)
     public function getFormSearch($action = false, $values = array())
     {
 		global $xoopsTpl;
