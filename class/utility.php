@@ -454,9 +454,10 @@ class XmarticleUtility
         return true;
     }
 
-    public static function search($xoopsTpl)
+    public static function search($xoopsTpl, $action)
     {
         include __DIR__ . '/../include/common.php';
+        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $values = array();
         // Form
         $article_name = Request::getString('name', '');
@@ -755,7 +756,7 @@ class XmarticleUtility
         $obj->setVar('article_reference', $article_reference);
         $obj->setVar('article_description', $article_description);
         $obj->setVar('article_cid', $article_cid);
-        $form = $obj->getFormSearch(XOOPS_URL . '/modules/xmarticle/search.php', $values);
+        $form = $obj->getFormSearch($action, $values);
         $xoopsTpl->assign('form', $form->render());
 
         return true;

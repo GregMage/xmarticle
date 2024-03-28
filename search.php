@@ -37,7 +37,7 @@ switch ($op) {
         break;
 
     case 'search':
-        XmarticleUtility::search($xoopsTpl);
+        XmarticleUtility::search($xoopsTpl, XOOPS_URL . '/modules/xmarticle/search.php');
         break;
 }
 
