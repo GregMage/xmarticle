@@ -38,6 +38,7 @@ class xmarticle_field extends XoopsObject
         $this->initVar('field_weight', XOBJ_DTYPE_INT, 0);
         $this->initVar('field_default', XOBJ_DTYPE_TXTAREA, '');
         $this->initVar('field_search', XOBJ_DTYPE_INT, 0);
+        $this->initVar('field_selsearch', XOBJ_DTYPE_INT, 0);
         $this->initVar('field_status', XOBJ_DTYPE_INT, 0);
         $this->initVar('field_sort', XOBJ_DTYPE_TXTBOX, null);
         $this->initVar('field_options', XOBJ_DTYPE_ARRAY, []);
@@ -91,6 +92,7 @@ class xmarticle_field extends XoopsObject
             $field_name = $field_arr[$this->getVar('field_type')];
             $field_type = $this->getVar('field_type');
             $weight     = $this->getVar('field_weight');
+            $selsearch  = $this->getVar('field_selsearch');
             $search     = $this->getVar('field_search');
             $required   = $this->getVar('field_required');
             $status     = $this->getVar('field_status');
@@ -100,6 +102,7 @@ class xmarticle_field extends XoopsObject
         } else {
             $field_name = $field_arr[$field_type];
             $weight     = $this->getVar('field_weight') ?: 0;
+            $selsearch  = $this->getVar('field_selsearch') ?: 0;
             $search     = $this->getVar('field_search') ?: 1;
             $required   = $this->getVar('field_required') ?: 1;
             $status     = $this->getVar('field_status') ?: 1;
@@ -119,6 +122,7 @@ class xmarticle_field extends XoopsObject
         $editor_configs['editor'] = 'Plain Text';
         $form->addElement(new XoopsFormEditor(_MA_XMARTICLE_FIELD_DESC, 'field_description', $editor_configs), false);
 
+        $field_selsearch = false;
         // options
         switch ($field_type) {
             case 'select':
@@ -185,22 +189,25 @@ class xmarticle_field extends XoopsObject
                 $sort->addOptionArray($sort_arr);
                 $form->addElement($sort, true);
                 break;
-        }
-        // default
-        switch ($field_type) {
+
             case 'label':
+                $field_selsearch = true;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')), true);
                 break;
             case 'vs_text':
+                $field_selsearch = true;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 25, $this->getVar('field_default')));
                 break;
             case 's_text':
+                $field_selsearch = true;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 50, $this->getVar('field_default')));
                 break;
             case 'm_text':
+                $field_selsearch = true;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 100, $this->getVar('field_default')));
                 break;
             case 'l_text':
+                $field_selsearch = true;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default')));
                 break;
             case 'text':
@@ -221,6 +228,13 @@ class xmarticle_field extends XoopsObject
 
         // weight
         $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_WEIGHT, 'field_weight', 5, 5, $weight), true);
+
+        // select
+        if ($field_selsearch == false) {
+            $form->addElement(new XoopsFormHidden('field_selsearch', 0));
+        } else {
+            $form->addElement(new XoopsFormRadioYN(_MA_XMARTICLE_FIELD_SELSEARCH, 'field_selsearch', $selsearch));
+        }
 
         // required and search
         if ($field_type == 'label') {
@@ -278,6 +292,7 @@ class xmarticle_field extends XoopsObject
         $this->setVar('field_name', Xmf\Request::getString('field_name', ''));
         $this->setVar('field_description', Xmf\Request::getText('field_description', ''));
         $this->setVar('field_required', Xmf\Request::getInt('field_required', 1));
+        $this->setVar('field_selsearch', Xmf\Request::getInt('field_selsearch', 0));
         $this->setVar('field_search', Xmf\Request::getInt('field_search', 1));
         $this->setVar('field_status', Xmf\Request::getInt('field_status', 1));
 

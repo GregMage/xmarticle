@@ -18,7 +18,7 @@
  */
 $modversion['dirname']     = basename(__DIR__);
 $modversion['name']        = ucfirst(basename(__DIR__));
-$modversion['version']     = '1.3.0-Stable';
+$modversion['version']     = '1.4.0-Stable';
 $modversion['description'] = _MI_XMARTICLE_DESC;
 $modversion['author']      = 'Grégory Mage (Mage)';
 $modversion['url']         = 'https://github.com/GregMage';
@@ -63,7 +63,7 @@ $modversion['adminmenu']   = 'admin/menu.php';
 
 // Install and update
 $modversion['onInstall']        = 'include/install.php';
-//$modversion['onUpdate']         = 'include/update.php';
+$modversion['onUpdate']         = 'include/update.php';
 
 // Tables
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
@@ -364,7 +364,7 @@ $modversion['notification']['event'][] = [
 ];
 
 // About stuff
-$modversion['release_date']  = '2024/03/01';
+$modversion['release_date']  = '2024/03/30';
 
 $modversion['developer_lead']      = 'Mage';
 $modversion['module_website_url']  = 'github.com/GregMage';

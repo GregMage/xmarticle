@@ -178,6 +178,7 @@ define('_MA_XMARTICLE_FIELD_NAME', 'Field name');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');
 define('_MA_XMARTICLE_FIELD_REQUIRED', 'Field required');
 define('_MA_XMARTICLE_FIELD_SEARCH', 'Field display in search page');
+define('_MA_XMARTICLE_FIELD_SELSEARCH', 'Ajout d\'un menu déroulant dans la recherche avec les valeurs enregistrées');
 define('_MA_XMARTICLE_FIELD_SORT', 'Sort');
 define('_MA_XMARTICLE_FIELD_SORTDEF', 'Sort according to record');
 define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');

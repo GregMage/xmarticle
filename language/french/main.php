@@ -179,6 +179,7 @@ define('_MA_XMARTICLE_FIELD_NAME', 'Nom du champ');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Supprimer');
 define('_MA_XMARTICLE_FIELD_REQUIRED', 'Champ obligatoire');
 define('_MA_XMARTICLE_FIELD_SEARCH', 'Affichage du champ dans la page de recherche');
+define('_MA_XMARTICLE_FIELD_SELSEARCH', 'Ajout d\'un menu déroulant dans la recherche avec les valeurs enregistrées');
 define('_MA_XMARTICLE_FIELD_SORT', 'Trier');
 define('_MA_XMARTICLE_FIELD_SORTDEF', 'Trier selon l\'enregistrement');
 define('_MA_XMARTICLE_FIELD_SORTVLH', 'Trier la valeur de bas en haut');

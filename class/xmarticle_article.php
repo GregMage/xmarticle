@@ -524,7 +524,6 @@ class xmarticle_article extends XoopsObject
         }
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         include __DIR__ . '/../include/common.php';
-
 		// Get Permission to view cat
 		$viewPermissionCat = XmarticleUtility::getPermissionCat('xmarticle_view');
 		$criteria          = new CriteriaCompo();
@@ -556,6 +555,15 @@ class xmarticle_article extends XoopsObject
 		if ($this->getVar('article_cid')) {
 			$category = $categoryHandler->get($this->getVar('article_cid'));
 			if (!empty($category->getVar('category_fields'))) {
+				// liste des articles concernés par la catégorie
+				$criteria = new CriteriaCompo();
+				$criteria->add(new Criteria('article_cid', $this->getVar('article_cid')));
+				$article_arr = $articleHandler->getall($criteria);
+				$article_ids = array();
+				foreach (array_keys($article_arr) as $i) {
+					$article_ids[] = $i;
+				}
+
 				$criteria = new CriteriaCompo();
 				$criteria->setSort('field_weight ASC, field_name');
 				$criteria->setOrder('ASC');
@@ -590,20 +598,100 @@ class xmarticle_article extends XoopsObject
 					$form->addElement(new XoopsFormHidden('fid_' . $cpt, $i));
 					switch ($field_arr[$i]->getVar('field_type')) {
 						case 'label':
-							$form->addElement(new XoopsFormLabel($caption, $value, $name));
-							$form->addElement(new XoopsFormHidden($name, $value));
+							if ($field_arr[$i]->getVar('field_selsearch') == 1){
+								$criteria_field = new CriteriaCompo();
+								$criteria_field->add(new Criteria('fielddata_fid', $i));
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$fielddata_arr = $fielddataHandler->getall($criteria_field);
+								if (count($fielddata_arr) > 0) {
+									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+									$select_field->addOption('', '');
+									foreach (array_keys($fielddata_arr) as $j) {
+										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+									}
+									$form->addElement($select_field);
+								}
+							} else {
+								$form->addElement(new XoopsFormLabel($caption, $value, $name));
+								$form->addElement(new XoopsFormHidden($name, $value));
+							}
 							break;
 						case 'vs_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value));
+							if ($field_arr[$i]->getVar('field_selsearch') == 1){
+								$criteria_field = new CriteriaCompo();
+								$criteria_field->add(new Criteria('fielddata_fid', $i));
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$fielddata_arr = $fielddataHandler->getall($criteria_field);
+								if (count($fielddata_arr) > 0) {
+									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+									$select_field->addOption('', '');
+									foreach (array_keys($fielddata_arr) as $j) {
+										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+									}
+									$form->addElement($select_field);
+								}
+							} else {
+								$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value));
+							}
 							break;
 						case 's_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value));
+							if ($field_arr[$i]->getVar('field_selsearch') == 1){
+								$criteria_field = new CriteriaCompo();
+								$criteria_field->add(new Criteria('fielddata_fid', $i));
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$fielddata_arr = $fielddataHandler->getall($criteria_field);
+								if (count($fielddata_arr) > 0) {
+									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+									$select_field->addOption('', '');
+									foreach (array_keys($fielddata_arr) as $j) {
+										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+									}
+									$form->addElement($select_field);
+								}
+							} else {
+								$form->addElement(new XoopsFormText($caption, $name, 50, 50, $value));
+							}
 							break;
 						case 'm_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value));
+							if ($field_arr[$i]->getVar('field_selsearch') == 1){
+								$criteria_field = new CriteriaCompo();
+								$criteria_field->add(new Criteria('fielddata_fid', $i));
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$fielddata_arr = $fielddataHandler->getall($criteria_field);
+								if (count($fielddata_arr) > 0) {
+									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+									$select_field->addOption('', '');
+									foreach (array_keys($fielddata_arr) as $j) {
+										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+									}
+									$form->addElement($select_field);
+								}
+							} else {
+								$form->addElement(new XoopsFormText($caption, $name, 50, 100, $value));
+							}
 							break;
 						case 'l_text':
-							$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value));
+							if ($field_arr[$i]->getVar('field_selsearch') == 1){
+								$criteria_field = new CriteriaCompo();
+								$criteria_field->add(new Criteria('fielddata_fid', $i));
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$fielddata_arr = $fielddataHandler->getall($criteria_field);
+								if (count($fielddata_arr) > 0) {
+									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
+									$select_field->addOption('', '');
+									foreach (array_keys($fielddata_arr) as $j) {
+										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+									}
+									$form->addElement($select_field);
+								}
+							} else {
+								$form->addElement(new XoopsFormText($caption, $name, 50, 255, $value));
+							}
 							break;
 						case 'text':
 							$editor_configs           = [];

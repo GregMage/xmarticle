@@ -27,8 +27,9 @@ CREATE TABLE `xmarticle_field` (
   `field_weight`        smallint(5) unsigned    NOT NULL default '0',
   `field_default`       text,
   `field_search`        tinyint(1)  unsigned    NOT NULL default '0',
+  `field_selsearch`     tinyint(1)  unsigned    NOT NULL default '0',
   `field_status`        tinyint(1)  unsigned    NOT NULL default '0',
-  `field_sort`      	varchar(3)              NOT NULL default '',
+  `field_sort`      	  varchar(3)              NOT NULL default '',
   `field_options`       text,
 
   PRIMARY KEY  (`field_id`)
