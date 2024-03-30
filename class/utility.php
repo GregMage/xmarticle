@@ -467,8 +467,8 @@ class XmarticleUtility
         $n_field = Request::getInt('n_field', 0);
         $start  = Request::getInt('start', 0);
         $xoopsTpl->assign('start', $start);
-        $arguments = 'cid=' . $article_cid;
-        $arguments .= '&amp;n_field=' . $n_field;
+        $arguments['cid'] = $article_cid;
+        $arguments['n_field'] = $n_field;
         //filters
         $order = Request::getInt('order', 1);
         $xoopsTpl->assign('order', $order);
@@ -485,15 +485,15 @@ class XmarticleUtility
 
         if ($article_name != '') {
             $criteria->add(new Criteria('article_name', '%' . $article_name . '%', 'LIKE'));
-            $arguments .= '&amp;name=' . $article_name;
+            $arguments['name'] = $article_name;
         }
         if ($article_reference != '') {
             $criteria->add(new Criteria('article_reference', '%' . $article_reference . '%', 'LIKE'));
-            $arguments .= '&amp;ref=' . $article_reference;
+            $arguments['ref'] = $article_reference;
         }
         if ($article_description != '') {
             $criteria->add(new Criteria('article_description', '%' . $article_description . '%', 'LIKE'));
-            $arguments .= '&amp;desc=' . $article_description;
+            $arguments['desc'] = $article_description;
         }
         switch ($order) {
             default:
@@ -548,28 +548,21 @@ class XmarticleUtility
                 $useFieldSearch = false;
                 if (isset($_REQUEST ['fid_' . $i])) {
                     $fid = $_REQUEST ['fid_' . $i];
-                    $arguments .= '&amp;fid_' . $i . '=' . $fid;
+                    $arguments['fid_' . $i] = $fid;
                 }
-                // uniquement pour récupérer les valeur depuis l'url si c'est des tableaux
-                if (isset($_GET ['sp_' . $i])) {
-                    $value = unserialize(str_replace("'", '"', $_GET ['sp_' . $i]));
-                    $arguments .= '&amp;sp_' . $i . '=' . $_GET ['sp_' . $i];
-                    if ($value != '' && $value != 999) {
-                        $values[$fid]['value'] = $value;
-                        $useFieldSearch = true;
-                    }
-                }
+
                 if (isset($_REQUEST ['f_' . $i])) {
                     $value = $_REQUEST ['f_' . $i];
                     if ($value != '' && $value != 999) {
                         $values[$fid]['value'] = $value;
                         $useFieldSearch = true;
+                        $arguments['f_' . $i] = $value;
                     }
                 }
                 if (isset($_REQUEST ['fnex_' . $i])) {
                     $value_fnex = $_REQUEST ['fnex_' . $i];
                     if ($value_fnex != '') {
-                        $arguments .= '&amp;fnex_' . $i . '=' . $value_fnex;
+                        $arguments['fnex_' . $i] = $value_fnex;
                         $values[$fid]['fnex'] = $value_fnex;
                         $useFieldSearch = true;
                     }
@@ -577,7 +570,7 @@ class XmarticleUtility
                 if (isset($_REQUEST ['fnmi_' . $i]) && $value_fnex == '') {
                     $value_fnmi = $_REQUEST ['fnmi_' . $i];
                     if ($value_fnmi != '') {
-                        $arguments .= '&amp;fnmi_' . $i . '=' . $value_fnmi;
+                        $arguments['fnmi_' . $i] = $value_fnmi;
                         $values[$fid]['fnmi'] = $value_fnmi;
                         $useFieldSearch = true;
                     }
@@ -585,7 +578,7 @@ class XmarticleUtility
                 if (isset($_REQUEST ['fnma_' . $i]) && $value_fnex == '') {
                     $value_fnma = $_REQUEST ['fnma_' . $i];
                     if ($value_fnma != '') {
-                        $arguments .= '&amp;fnma_' . $i . '=' . $value_fnma;
+                        $arguments['fnma_' . $i] = $value_fnma;
                         $values[$fid]['fnma'] = $value_fnma;
                         $useFieldSearch = true;
                     }
@@ -596,20 +589,18 @@ class XmarticleUtility
                         if (isset($_REQUEST ['fid_' . $i])) {
                             $criteria_field->add(new Criteria('fielddata_fid', $_REQUEST ['fid_' . $i]));
                         }
-                        $arguments .= '&amp;t_' . $i . '=' . $type;
+                        $arguments['t_' . $i] = $type;
 						switch ($type) {
 							case 'vs_text':
 							case 's_text':
 							case 'm_text':
 							case 'l_text':
-                                $arguments .= '&amp;f_' . $i . '=' . $value;
 								$criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
 								break;
 
 							case 'select':
 								if ($value != '') {
 									$value_bdd = '';
-                                    $arguments .= '&amp;sp_' . $i . '=' . str_replace('"', "'", serialize($value));
 									foreach (array_keys($value) as $k) {
 										if ($value_bdd == '') {
 											$seperator = '';
@@ -625,13 +616,11 @@ class XmarticleUtility
 
 							case 'radio_yn':
 							case 'radio':
-                                $arguments .= '&amp;f_' . $i . '=' . $value;
 								$criteria_field->add(new Criteria('fielddata_value1', $value));
 								break;
 
 							case 'label':
 							case 'text':
-                                $arguments .= '&amp;f_' . $i . '=' . $value;
                                 $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
 								break;
 
@@ -639,7 +628,6 @@ class XmarticleUtility
 							case 'checkbox':
 								if ($value != '') {
 									$value_bdd = '';
-                                    $arguments .= '&amp;sp_' . $i . '=' . str_replace('"', "'", serialize($value));
 									foreach (array_keys($value) as $k) {
 										if ($value_bdd == '') {
 											$seperator = '';
@@ -702,7 +690,9 @@ class XmarticleUtility
         } else {
             $xmsocial = false;
         }
-        $xoopsTpl->assign('arguments', $arguments);
+		// Encode arguments en url
+        $arguments_url = http_build_query($arguments);
+        $xoopsTpl->assign('arguments', $arguments_url);
         $xoopsTpl->assign('xmsocial', $xmsocial);
         $xoopsTpl->assign('article_count', $article_count);
         if ($article_count > 0) {
@@ -744,7 +734,7 @@ class XmarticleUtility
             }
             // Display Page Navigation
             if ($article_count > $filter) {
-                $nav = new XoopsPageNav($article_count, $filter, $start, 'start', 'op=search&amp;' . $arguments . '&amp;order=' . $order . '&amp;' . 'sort=' . $sort . '&amp;' . 'filter=' . $filter . '&amp;' . 'display=' . $display);
+                $nav = new XoopsPageNav($article_count, $filter, $start, 'start', 'op=search&amp;' . $arguments_url . '&amp;order=' . $order . '&amp;' . 'sort=' . $sort . '&amp;' . 'filter=' . $filter . '&amp;' . 'display=' . $display);
                 $xoopsTpl->assign('nav_menu', $nav->renderNav(4));
             }
         } else {
