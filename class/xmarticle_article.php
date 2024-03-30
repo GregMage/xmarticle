@@ -708,7 +708,7 @@ class xmarticle_article extends XoopsObject
 							break;
 						case 'select':
 						case 'select_multi':
-							$select_multi_field = new XoopsFormSelect($caption, $name, $value, 5, true);
+							$select_multi_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 							$select_multi_field->addOptionArray($field_arr[$i]->getVar('field_options'));
 							$form->addElement($select_multi_field);
 							break;
@@ -738,12 +738,13 @@ class xmarticle_article extends XoopsObject
 							break;
 						case 'number':
 							$number  = new XoopsFormElementTray($caption);
-							$exactly = new XoopsFormText(_MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $cpt, 10, 255, $value_fnex);
+							$exactly = new XoopsFormText("<div class='row'><div class='col'><p class='text-left'>" . _MA_XMARTICLE_SEARCH_EXACTLY, 'fnex_' . $cpt, 10, 255, $value_fnex);
 							$number->addElement($exactly);
-							$max = new XoopsFormText(_MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $cpt, 10, 255, $value_fnma);
+							$max = new XoopsFormText("</p></div><div class='col'><p class='text-left'>" . _MA_XMARTICLE_SEARCH_MAX, 'fnma_' . $cpt, 10, 255, $value_fnma);
 							$number->addElement($max);
-							$min = new XoopsFormText(_MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $cpt, 10, 255, $value_fnmi);
+							$min = new XoopsFormText("</p></div><div class='col'><p class='text-left'>" . _MA_XMARTICLE_SEARCH_MIN, 'fnmi_' . $cpt, 10, 255, $value_fnmi);
 							$number->addElement($min);
+							$number->addElement(new XoopsFormLabel("</p></div></div>"));
 							$form->addElement($number);
 							break;
 					}
