@@ -746,6 +746,10 @@ class XmarticleUtility
         $obj->setVar('article_reference', $article_reference);
         $obj->setVar('article_description', $article_description);
         $obj->setVar('article_cid', $article_cid);
+        $obj->setVar('order', $order);
+        $obj->setVar('sort', $sort);
+        $obj->setVar('filter', $filter);
+        $obj->setVar('display', $display);
         $form = $obj->getFormSearch($action, $values);
         $xoopsTpl->assign('form', $form->render());
 

@@ -57,6 +57,11 @@ class xmarticle_article extends XoopsObject
         $this->initVar('category_name',XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('category_fields', XOBJ_DTYPE_ARRAY, []);
 		$this->initVar('category_color', XOBJ_DTYPE_TXTBOX, '#ffffff', false);
+		// pour la recherche
+		$this->initVar('order', XOBJ_DTYPE_INT, null, false, 4);
+		$this->initVar('sort', XOBJ_DTYPE_INT, null, false, 1);
+		$this->initVar('filter', XOBJ_DTYPE_INT, null, false, 4);
+		$this->initVar('display', XOBJ_DTYPE_INT, null, false, 1);
     }
 
     /**
@@ -746,6 +751,10 @@ class xmarticle_article extends XoopsObject
 			}
 			$form->addElement(new XoopsFormHidden('n_field', $cpt));
 		}
+		$form->addElement(new XoopsFormHidden('order', $this->getVar('order')));
+		$form->addElement(new XoopsFormHidden('sort', $this->getVar('sort')));
+		$form->addElement(new XoopsFormHidden('filter', $this->getVar('filter')));
+		$form->addElement(new XoopsFormHidden('display', $this->getVar('display')));
 		$form->addElement(new XoopsFormHidden('op', 'search'));
 		// search
 		$button = new XoopsFormElementTray('');
