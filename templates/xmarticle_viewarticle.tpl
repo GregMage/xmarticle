@@ -162,19 +162,23 @@
 		</div>
 	<{/if}>
 	<{if $docomment == 1}>
-	<div style="text-align: center; padding: 3px; margin:3px;">
-        <{$commentsnav}>
-        <{$lang_notice}>
-    </div>
-    <div style="margin:3px; padding: 3px;">
-        <{if $comment_mode == "flat"}>
-        <{include file="db:system_comments_flat.tpl"}>
-        <{elseif $comment_mode == "thread"}>
-        <{include file="db:system_comments_thread.tpl"}>
-        <{elseif $comment_mode == "nest"}>
-        <{include file="db:system_comments_nest.tpl"}>
-        <{/if}>
-    </div>
+		<{if isset($commentsnav) && isset($lang_notice)}>
+		<div style="text-align: center; padding: 3px; margin:3px;">
+			<{$commentsnav}>
+			<{$lang_notice}>
+		</div>
+		<{/if}>
+		<{if isset($comment_mode)}>
+			<div style="margin:3px; padding: 3px;">
+				<{if $comment_mode == "flat"}>
+				<{include file="db:system_comments_flat.tpl"}>
+				<{elseif $comment_mode == "thread"}>
+				<{include file="db:system_comments_thread.tpl"}>
+				<{elseif $comment_mode == "nest"}>
+				<{include file="db:system_comments_nest.tpl"}>
+				<{/if}>
+			</div>
+		<{/if}>
 	<{/if}>
 		<div style="margin:3px; padding: 3px;">
 		<{include file='db:system_notification_select.tpl'}>
