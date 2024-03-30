@@ -32,6 +32,10 @@ switch ($op) {
     case 'form':
         // Form
         $obj  = $articleHandler->create();
+        $obj->setVar('order', 1);
+        $obj->setVar('sort', 0);
+        $obj->setVar('filter', 10);
+        $obj->setVar('display', 0);
         $form = $obj->getFormSearch(XOOPS_URL . '/modules/xmarticle/search.php');
         $xoopsTpl->assign('form', $form->render());
         break;
