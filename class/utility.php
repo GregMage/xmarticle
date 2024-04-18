@@ -596,7 +596,7 @@ class XmarticleUtility
 							case 's_text':
 							case 'm_text':
 							case 'l_text':
-                                if ($value = '[empty]'){
+                                if ($value == '[empty]'){
                                     $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
                                 } else {
                                     $criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
@@ -625,7 +625,7 @@ class XmarticleUtility
 								break;
 
 							case 'label':
-                                if ($value = '[empty]'){
+                                if ($value == '[empty]'){
                                     $criteria_field->add(new CriteriaAllowEmpty('fielddata_value2', ''));
                                 } else {
                                     $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
