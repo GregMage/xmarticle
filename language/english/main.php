@@ -173,6 +173,7 @@ define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Add more options');
 define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Add options');
 define('_MA_XMARTICLE_FIELD_DEFAULT', 'Default');
 define('_MA_XMARTICLE_FIELD_DESC', 'Field description');
+define('_MA_XMARTICLE_FIELD_EMPTY', '[Empty field]');
 define('_MA_XMARTICLE_FIELD_KEY', 'Value to be stored');
 define('_MA_XMARTICLE_FIELD_NAME', 'Field name');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');

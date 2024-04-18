@@ -540,6 +540,7 @@ class XmarticleUtility
         // recherche sur les champs sup.
         if ($n_field != 0){
             $fielddata_aid_arr = [];
+            include_once XOOPS_ROOT_PATH . '/modules/xmarticle/class/criteriaempty.php';
             for ($i = 1; $i <= $n_field; $i++) {
                 $criteria_field = new CriteriaCompo();
                 $value_fnex = '';
@@ -595,7 +596,11 @@ class XmarticleUtility
 							case 's_text':
 							case 'm_text':
 							case 'l_text':
-								$criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                                if ($value = '[empty]'){
+                                    $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
+                                } else {
+                                    $criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                                }
 								break;
 
 							case 'select':
@@ -620,6 +625,13 @@ class XmarticleUtility
 								break;
 
 							case 'label':
+                                if ($value = '[empty]'){
+                                    $criteria_field->add(new CriteriaAllowEmpty('fielddata_value2', ''));
+                                } else {
+                                    $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
+                                }
+                                break;
+
 							case 'text':
                                 $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
 								break;

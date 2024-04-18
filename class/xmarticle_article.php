@@ -615,6 +615,7 @@ class xmarticle_article extends XoopsObject
 									foreach (array_keys($fielddata_arr) as $j) {
 										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
 									}
+									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
 								}
 							} else {
@@ -635,6 +636,7 @@ class xmarticle_article extends XoopsObject
 									foreach (array_keys($fielddata_arr) as $j) {
 										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
 									}
+									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
 								}
 							} else {
@@ -654,6 +656,7 @@ class xmarticle_article extends XoopsObject
 									foreach (array_keys($fielddata_arr) as $j) {
 										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
 									}
+									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
 								}
 							} else {
@@ -673,6 +676,7 @@ class xmarticle_article extends XoopsObject
 									foreach (array_keys($fielddata_arr) as $j) {
 										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
 									}
+									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
 								}
 							} else {
@@ -692,6 +696,7 @@ class xmarticle_article extends XoopsObject
 									foreach (array_keys($fielddata_arr) as $j) {
 										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
 									}
+									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
 								}
 							} else {

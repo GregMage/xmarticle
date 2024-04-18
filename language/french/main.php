@@ -174,6 +174,7 @@ define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Ajouter plus d\'options');
 define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Ajouter des options');
 define('_MA_XMARTICLE_FIELD_DEFAULT', 'Défaut');
 define('_MA_XMARTICLE_FIELD_DESC', 'Description du champ');
+define('_MA_XMARTICLE_FIELD_EMPTY', '[Champ vide]');
 define('_MA_XMARTICLE_FIELD_KEY', 'Valeur à stocker');
 define('_MA_XMARTICLE_FIELD_NAME', 'Nom du champ');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Supprimer');
