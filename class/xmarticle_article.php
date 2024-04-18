@@ -607,6 +607,8 @@ class xmarticle_article extends XoopsObject
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$criteria_field->setSort('fielddata_value2');
+								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
 									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
@@ -628,6 +630,8 @@ class xmarticle_article extends XoopsObject
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$criteria_field->setSort('fielddata_value1');
+								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
 									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
@@ -648,6 +652,8 @@ class xmarticle_article extends XoopsObject
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$criteria_field->setSort('fielddata_value1');
+								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
 									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
@@ -668,6 +674,8 @@ class xmarticle_article extends XoopsObject
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$criteria_field->setSort('fielddata_value1');
+								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
 									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
@@ -688,6 +696,8 @@ class xmarticle_article extends XoopsObject
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								$criteria_field->setSort('fielddata_value1');
+								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
 									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
