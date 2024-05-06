@@ -442,6 +442,80 @@ class XmarticleUtility
 		return $text;
 	}
 
+    public static function CheckArticleUse($article_id)
+    {
+		$text = '';
+        if (xoops_isActiveModule('xmprod')){
+            $helper_xmprod = Helper::getHelper('xmprod');
+
+            $nomenclatureHandler = $helper_xmprod->getHandler('xmprod_nomenclature');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('nomenclature_articleid', $article_id));
+            if($nomenclatureHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans une nomenclature';
+            }
+
+            $ofsHandler = $helper_xmprod->getHandler('xmprod_ofs');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('ofs_articleid', $article_id));
+            if($ofsHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un OF';
+            }
+
+            $oasHandler = $helper_xmprod->getHandler('xmprod_oas');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('oas_articleid', $article_id));
+            if($oasHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un OA';
+            }
+
+            $needsHandler = $helper_xmprod->getHandler('xmprod_needs');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('needs_articleid', $article_id));
+            if($needsHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un besoin';
+            }
+		}
+        if (xoops_isActiveModule('xmstock')){
+            $helper_stock = Helper::getHelper('xmstock');
+            $stockHandler = $helper_stock->getHandler('xmstock_stock');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('stock_articleid', $article_id));
+            if($stockHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un stock';
+            }
+
+            $transferHandler = $helper_stock->getHandler('xmstock_transfer');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('transfer_articleid', $article_id));
+            if($transferHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un transfert';
+            }
+
+            $itemorderHandler = $helper_stock->getHandler('xmstock_itemorder');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('itemorder_articleid', $article_id));
+            if($itemorderHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans une commande';
+            }
+
+            $loanHandler = $helper_stock->getHandler('xmstock_loan');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('loan_articleid', $article_id));
+            if($loanHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans un prêt';
+            }
+
+            $priceHandler = $helper_stock->getHandler('xmstock_price');
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('price_articleid', $article_id));
+            if($priceHandler->getCount($criteria) > 0) {
+                $text .= '<br>' . 'L\'article est utilisé dans la table de prix';
+            }
+		}
+		return $text;
+	}
+
     public static function creatFolder($path = '', $id = 0)
     {
         $dir = $path . $id;

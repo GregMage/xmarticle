@@ -179,8 +179,9 @@ if ($op == 'clone' || $op == 'edit' || $op == 'del' || $op == 'add' || $op == 'l
 					} else {
 						$img = '<img src="' . $url_logo_article . $obj->getVar('article_cid') . '/' . $article_img . '" title="' . $obj->getVar('article_name') . '" style="max-width:100px"><br>';
 					}
+					$use = XmarticleUtility::CheckArticleUse($article_id);
                     $article_img = $obj->getVar('article_logo') ?: 'no-image.png';
-                    xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], '<p>' . sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>' . $img . '</p>');
+                    xoops_confirm(['surdel' => true, 'article_id' => $article_id, 'op' => 'del'], $_SERVER['REQUEST_URI'], '<p>' . sprintf(_MA_XMARTICLE_ARTICLE_SUREDEL, $obj->getVar('article_name')) . '<br>' . $img . $use . '</p>');
                 }
             }
             break;
