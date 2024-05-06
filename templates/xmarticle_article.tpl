@@ -13,7 +13,9 @@
 		<div class="card-body">
 			<{$down.description|truncateHtml:30:'...'}>
 			<div class="text-right mt-1 ">
-				<button type="button" class="btn btn-primary btn-sm text-right" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$down.cid}>&amp;article_id=<{$down.id}>"><span class="fa fa-book" aria-hidden="true"></span> <{$smarty.const._MA_XMARTICLE_MOREDETAILS}></button>
+				<a title="<{$smarty.const._MA_XMARTICLE_MOREDETAILS}>" class="btn-primary btn-sm text-right" href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$down.cid}>&amp;article_id=<{$down.id}>">
+					<span class="fa fa-book"></span> <{$smarty.const._MA_XMARTICLE_MOREDETAILS}>
+				</a>
 			</div>
 		</div>
 		<div class="card-footer text-secondary">
