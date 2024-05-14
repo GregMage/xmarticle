@@ -55,9 +55,9 @@ if ($helper->isUserAdmin() != true){
 	}
 }
 //permission
-$xoopsTpl->assign('perm_clone', true);
-$xoopsTpl->assign('perm_edit', true);
-$xoopsTpl->assign('perm_del', true);
+$xoopsTpl->assign('perm_clone', $permHelper->checkPermission('xmarticle_submit', $category_id));
+$xoopsTpl->assign('perm_edit', $permHelper->checkPermission('xmarticle_submit', $category_id));
+$xoopsTpl->assign('perm_del', $permHelper->checkPermission('xmarticle_delete', $category_id));
 
 // Category
 $xoopsTpl->assign('category_name', $category->getVar('category_name'));
