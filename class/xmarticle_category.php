@@ -111,9 +111,13 @@ class xmarticle_category extends XoopsObject
 
         $fields = $this->getVar('category_fields');
         // remove field
-        if (isset($_REQUEST['removeFields']) && is_array($_REQUEST['removeFields'])) {
-            foreach ($_REQUEST['removeFields'] as $index) {
-                unset($fields[$index]);
+        if (isset($_REQUEST['removeFields'])) {
+            if (is_array($_REQUEST['removeFields'])) {
+                foreach ($_REQUEST['removeFields'] as $index) {
+                    unset($fields[$index]);
+                }
+            } else {
+                unset($fields[$_REQUEST['removeFields']]);
             }
         }
 
