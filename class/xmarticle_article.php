@@ -557,6 +557,7 @@ class xmarticle_article extends XoopsObject
 		}
 		$field_cat->setExtra("onchange=\"var formulaire = document.getElementById('form');formulaire.submit()\"");
 		$form->addElement($field_cat);
+		$cpt = 0;
 		if ($this->getVar('article_cid')) {
 			$category = $categoryHandler->get($this->getVar('article_cid'));
 			if (!empty($category->getVar('category_fields'))) {
@@ -606,7 +607,9 @@ class xmarticle_article extends XoopsObject
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								if (!empty($article_ids)){
+									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								}
 								$criteria_field->setSort('fielddata_value2');
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
@@ -629,7 +632,9 @@ class xmarticle_article extends XoopsObject
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								if (!empty($article_ids)){
+									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								}
 								$criteria_field->setSort('fielddata_value1');
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
@@ -651,7 +656,9 @@ class xmarticle_article extends XoopsObject
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								if (!empty($article_ids)){
+									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								}
 								$criteria_field->setSort('fielddata_value1');
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
@@ -673,7 +680,9 @@ class xmarticle_article extends XoopsObject
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								if (!empty($article_ids)){
+									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								}
 								$criteria_field->setSort('fielddata_value1');
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
@@ -695,7 +704,9 @@ class xmarticle_article extends XoopsObject
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
 								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								if (!empty($article_ids)){
+									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+								}
 								$criteria_field->setSort('fielddata_value1');
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
