@@ -71,6 +71,9 @@ class XmarticleFormArticle extends XoopsFormElementTray
 							document.getElementById('articleName').innerHTML = datas['name'] + '(' + datas['reference'] + ')';
 							document.getElementById('articleLogo').src = datas['logo'];
 							document.getElementById('addArticle').style.display = 'none';
+							if (document.getElementById('transfer_ar_areaid')) {
+								document.getElementById('transfer_ar_areaid').disabled = false;
+							}
 						} else {
 							document.getElementById('addArticle').style.display = 'block';
 						}
