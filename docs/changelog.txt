@@ -1,4 +1,55 @@
 ﻿-------------------------------------------------
+Version: 1.5.0 Stable
+Date:    16.10.2024
+-------------------------------------------------
+Correction de bogues:
+	- Problème de pager
+	- Problème commentaires
+	- Erreur de logo dans le message pour supprimer un article
+	- Les autorisation pour cloner, etc n'étaient pas implémentée
+	- Bogue recherche si pas de valeur dans champs sup!
+	- Un champ sup seul n'était pas supprimé
+	- Le lien dans les champs de type label ne fonctionnaient pas.
+
+Améliorations:
+	- Modifiaction pour garder en mémoir les valeurs de filtre lors d'une recherche
+	- Les grandeursdans la recherche sont maintenant sur une ligne
+	- Ajout d'un recherche sur champ vide
+	- tri des valeur dans les menus déroulants de la recherche (par valeur)
+	- Le lien "plus de détails" peu être ouvert dans une nouvelle fenêtre
+	- Ajout d'un système qui permet de savoir si un article est utilisé dans un autre module
+	- Ajout compatibilité pour le transfert stock (module xmstock)
+	- Le champ de type label n'est plus enregistré dans fielddata mais affiché directement.
+
+Sécurités:
+	- /
+-------------------------------------------------
+Version: 1.4.0 Stable
+Date:    30.03.2024
+-------------------------------------------------
+Correction de bogues:
+	- /
+
+Améliorations:
+	- Ajout de la possibilité d'avoir un select dans la recherche avec les valeurs enregistrées dans un champ texte
+	- Optimisation de la recherche
+
+Sécurités:
+	- /
+
+-------------------------------------------------
+Version: 1.3.0 Stable
+Date:    28.03.2024
+-------------------------------------------------
+Correction de bogues:
+	- Bogue recherche
+
+Améliorations:
+	- Réécriture de la recherche
+
+Sécurités:
+	- /
+-------------------------------------------------
 Version: 1.2.0 Stable
 Date:    27.09.2023
 -------------------------------------------------
