@@ -12,8 +12,8 @@ Correction de bogues:
 	- Le lien dans les champs de type label ne fonctionnaient pas.
 
 Améliorations:
-	- Modifiaction pour garder en mémoir les valeurs de filtre lors d'une recherche
-	- Les grandeursdans la recherche sont maintenant sur une ligne
+	- Modification pour garder en mémoire les valeurs de filtre lors d'une recherche
+	- Les grandeurs dans la recherche sont maintenant sur une ligne
 	- Ajout d'un recherche sur champ vide
 	- tri des valeur dans les menus déroulants de la recherche (par valeur)
 	- Le lien "plus de détails" peu être ouvert dans une nouvelle fenêtre
