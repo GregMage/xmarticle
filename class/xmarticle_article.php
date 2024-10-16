@@ -227,7 +227,6 @@ class xmarticle_article extends XoopsObject
 				switch ($field_arr[$i]->getVar('field_type')) {
 					case 'label':
 						$form->addElement(new XoopsFormLabel($caption, $value, $name), $required);
-						$form->addElement(new XoopsFormHidden($name, $value));
 						break;
 					case 'vs_text':
 						$form->addElement(new XoopsFormText($caption, $name, 50, 25, $value), $required);
@@ -468,7 +467,9 @@ class xmarticle_article extends XoopsObject
 					$criteria->add(new Criteria('field_status', 0, '!='));
 					$field_arr = $fieldHandler->getall($criteria);
 					foreach (array_keys($field_arr) as $i) {
-						$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+						if ($field_arr[$i]->getVar('field_type') != 'label'){
+							$error_message .= XmarticleUtility::saveFielddata($field_arr[$i]->getVar('field_type'), $field_arr[$i]->getVar('field_id'), $fielddata_aid, $_POST['field_' . $i]);
+						}
 					}
 				}
                 //xmdoc

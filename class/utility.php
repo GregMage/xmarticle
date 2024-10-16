@@ -199,6 +199,9 @@ class XmarticleUtility
                 $criteria->add(new Criteria('fielddata_fid', $field_arr[$i]->getVar('field_id')));
                 $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
                 $fielddata_arr = $fielddataHandler->getall($criteria);
+                if ($field_arr[$i]->getVar('field_type') == 'label') {
+                    $fielddata_value = $field_arr[$i]->getVar('field_default');
+                }
                 foreach (array_keys($fielddata_arr) as $j) {
                     switch ($field_arr[$i]->getVar('field_type')) {
                         case 'vs_text':
@@ -221,7 +224,6 @@ class XmarticleUtility
                             $fielddata_value = $field_arr[$i]->getVar('field_options')[$fielddata_arr[$j]->getVar('fielddata_value1')];
                             break;
 
-                        case 'label':
                         case 'text':
                             $fielddata_value = $fielddata_arr[$j]->getVar('fielddata_value2', 'e');
                             break;
