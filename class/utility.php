@@ -200,7 +200,7 @@ class XmarticleUtility
                 $criteria->add(new Criteria('fielddata_aid', $fielddata_aid));
                 $fielddata_arr = $fielddataHandler->getall($criteria);
                 if ($field_arr[$i]->getVar('field_type') == 'label') {
-                    $fielddata_value = $field_arr[$i]->getVar('field_default');
+                    $fielddata_value = $field_arr[$i]->getVar('field_default', 'n');
                 }
                 foreach (array_keys($fielddata_arr) as $j) {
                     switch ($field_arr[$i]->getVar('field_type')) {
