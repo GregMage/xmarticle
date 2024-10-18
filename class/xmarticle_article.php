@@ -569,6 +569,7 @@ class xmarticle_article extends XoopsObject
 				// liste des articles concernés par la catégorie
 				$criteria = new CriteriaCompo();
 				$criteria->add(new Criteria('article_cid', $this->getVar('article_cid')));
+				$criteria->add(new Criteria('article_status', 1));
 				$article_arr = $articleHandler->getall($criteria);
 				$article_ids = array();
 				foreach (array_keys($article_arr) as $i) {
