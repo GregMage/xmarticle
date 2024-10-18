@@ -191,7 +191,7 @@ class xmarticle_field extends XoopsObject
                 break;
 
             case 'label':
-                $field_selsearch = true;
+                $field_selsearch = false;
                 $form->addElement(new XoopsFormText(_MA_XMARTICLE_FIELD_DEFAULT, 'field_default', 50, 255, $this->getVar('field_default', 'n')), true);
                 break;
             case 'vs_text':

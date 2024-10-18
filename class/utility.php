@@ -662,6 +662,7 @@ class XmarticleUtility
                 }
                 if (isset($_REQUEST ['t_' . $i])) {
                     $type = $_REQUEST ['t_' . $i];
+                    $selsearch = $_REQUEST ['sels_' . $i];
 					if ($useFieldSearch == true) {
                         if (isset($_REQUEST ['fid_' . $i])) {
                             $criteria_field->add(new Criteria('fielddata_fid', $_REQUEST ['fid_' . $i]));
@@ -675,7 +676,11 @@ class XmarticleUtility
                                 if ($value == '[empty]'){
                                     $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
                                 } else {
-                                    $criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                                    if ($selsearch == 1) {
+                                        $criteria_field->add(new Criteria('fielddata_value1', $value, 'LIKE'));
+                                    } else {
+                                        $criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
+                                    }
                                 }
 								break;
 
@@ -699,14 +704,6 @@ class XmarticleUtility
 							case 'radio':
 								$criteria_field->add(new Criteria('fielddata_value1', $value));
 								break;
-
-							case 'label':
-                                if ($value == '[empty]'){
-                                    $criteria_field->add(new CriteriaAllowEmpty('fielddata_value2', ''));
-                                } else {
-                                    $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));
-                                }
-                                break;
 
 							case 'text':
                                 $criteria_field->add(new Criteria('fielddata_value2', '%' . $value . '%', 'LIKE'));

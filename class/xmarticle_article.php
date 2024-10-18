@@ -608,32 +608,8 @@ class xmarticle_article extends XoopsObject
 					$name = 'f_' . $cpt;
 					$form->addElement(new XoopsFormHidden('t_' . $cpt, $field_arr[$i]->getVar('field_type')));
 					$form->addElement(new XoopsFormHidden('fid_' . $cpt, $i));
+					$form->addElement(new XoopsFormHidden('sels_' . $cpt, $field_arr[$i]->getVar('field_selsearch')));
 					switch ($field_arr[$i]->getVar('field_type')) {
-						case 'label':
-							if ($field_arr[$i]->getVar('field_selsearch') == 1){
-								$criteria_field = new CriteriaCompo();
-								$criteria_field->add(new Criteria('fielddata_fid', $i));
-								if (!empty($article_ids)){
-									$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
-								}
-								$criteria_field->setSort('fielddata_value2');
-								$criteria_field->setOrder('ASC');
-								$fielddata_arr = $fielddataHandler->getall($criteria_field);
-								if (count($fielddata_arr) > 0) {
-									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
-									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-									$select_field->addOption('', '');
-									foreach (array_keys($fielddata_arr) as $j) {
-										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
-									}
-									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
-									$form->addElement($select_field);
-								}
-							} else {
-								$form->addElement(new XoopsFormLabel($caption, $value, $name));
-								$form->addElement(new XoopsFormHidden($name, $value));
-							}
-							break;
 						case 'vs_text':
 							if ($field_arr[$i]->getVar('field_selsearch') == 1){
 								$criteria_field = new CriteriaCompo();
