@@ -220,7 +220,11 @@ class xmarticle_article extends XoopsObject
 							$value =  implode(',', array_flip(unserialize($field_arr[$i]->getVar('field_default', 'n'))));
 						}
 					} else {
-						$value = $field_arr[$i]->getVar('field_default');
+						if ($field_arr[$i]->getVar('field_type') == 'label'){
+							$value = $field_arr[$i]->getVar('field_default', 'n');
+						} else {
+							$value = $field_arr[$i]->getVar('field_default');
+						}
 					}
 				}
 				$name = 'field_' . $i;
