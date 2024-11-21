@@ -55,7 +55,7 @@ define('_MA_XMARTICLE_ERROR_NOARTICLE', 'There are no articles in the database')
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'There are no categories in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'There are no fields in the database');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'There are no field type');
-define('_MA_XMARTICLE_ERROR_SIZE', "The size in préférence (Max uploaded files size) exceeds the maximum values defined in 'post_max_size' or 'upload_max_filesize' in your configuration in php.ini");
+define('_MA_XMARTICLE_ERROR_SIZE', "The size in preference (Max uploaded files size) exceeds the maximum values defined in 'post_max_size' or 'upload_max_filesize' in your configuration in php.ini");
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Weight must be a number');
 
 // Info message
@@ -179,14 +179,14 @@ define('_MA_XMARTICLE_FIELD_NAME', 'Field name');
 define('_MA_XMARTICLE_FIELD_REMOVE', 'Remove');
 define('_MA_XMARTICLE_FIELD_REQUIRED', 'Field required');
 define('_MA_XMARTICLE_FIELD_SEARCH', 'Field display in search page');
-define('_MA_XMARTICLE_FIELD_SELSEARCH', 'Ajout d\'un menu déroulant dans la recherche avec les valeurs enregistrées');
+define('_MA_XMARTICLE_FIELD_SELSEARCH', 'Addition of a drop-down menu in the search with saved values');
 define('_MA_XMARTICLE_FIELD_SORT', 'Sort');
 define('_MA_XMARTICLE_FIELD_SORTDEF', 'Sort according to record');
 define('_MA_XMARTICLE_FIELD_SORTVLH', 'Sort value low to high');
 define('_MA_XMARTICLE_FIELD_SORTVHL', 'Sort value high to low');
 define('_MA_XMARTICLE_FIELD_SORTKLH', 'Sort key low to high');
 define('_MA_XMARTICLE_FIELD_SORTKHL', 'Sort key high to low');
-define('_MA_XMARTICLE_FIELD_SUREDEL', 'Sure to delete this field? %s<br><span style="font-size: large;  font-weight: bold;">Warning</span> by deleting this field, you will delete the data from this field for all the articles that use it. ');
+define('_MA_XMARTICLE_FIELD_SUREDEL', 'Are you sure to delete this field? %s<br><span style="font-size: large; font-weight: bold;">Warning</span> by deleting this field, you will delete the data from this field for all the articles that use it ');
 define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Required?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Searchable?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Weight');
