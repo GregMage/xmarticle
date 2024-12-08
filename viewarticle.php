@@ -126,15 +126,18 @@ $options = array(
 	'samesite' => 'strict',
 );
 if (isset($_COOKIE['xmarticleCounterId'])) {
-	$counterIds = unserialize($_COOKIE['xmarticleCounterId']);
-	if (!in_array($article_id, $counterIds)){
-		array_push($counterIds, $article_id);
-		setcookie("xmarticleCounterId", serialize($counterIds), $options);
-		$counterUpdate = true;
-	}
+	$cookieValue = $_COOKIE['xmarticleCounterId'];
+	$counterIds = json_decode($cookieValue, true);
+	if (json_last_error() === JSON_ERROR_NONE && is_array($counterIds)) {
+		if (!in_array($article_id, $counterIds)){
+			array_push($counterIds, $article_id);
+			setcookie("xmarticleCounterId", json_encode($counterIds), $options);
+			$counterUpdate = true;
+		}
+    }
 } else {
 	$counterId[] = $article_id;
-	setcookie("xmarticleCounterId", serialize($counterId), $options);
+	setcookie("xmarticleCounterId",  json_encode($counterId), $options);
 	$counterUpdate = true;
 }
 if ($counterUpdate == true){
