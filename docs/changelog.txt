@@ -1,4 +1,26 @@
 ﻿-------------------------------------------------
+Version: 1.5.2 Stable
+Date:    09.12.2024
+-------------------------------------------------
+Bug fixes:
+	- /
+
+Improvements:
+	- /
+
+Security:
+	- Malicious code could be injected from a cookie (mcdruid)
+
+Correction de bogues:
+	- /
+
+Améliorations:
+	- /
+
+Sécurités:
+	- Il était possible d'injecter un code malveillant depuis un cookie (mcdruid)
+
+-------------------------------------------------
 Version: 1.5.0 Stable
 Date:    16.10.2024
 -------------------------------------------------
