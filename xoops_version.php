@@ -18,7 +18,7 @@
  */
 $modversion['dirname']     = basename(__DIR__);
 $modversion['name']        = ucfirst(basename(__DIR__));
-$modversion['version']     = '1.5.3-Stable';
+$modversion['version']     = '1.5.4-Alpha';
 $modversion['description'] = _MI_XMARTICLE_DESC;
 $modversion['author']      = 'Grégory Mage (Mage)';
 $modversion['url']         = 'https://github.com/GregMage';
