@@ -3,7 +3,7 @@ Version: 1.5.4 Alpha
 Date:    ??.??.2025
 -------------------------------------------------
 Bug fixes:
-	- /
+	- Language Define Errors
 
 Improvements:
 	- /
@@ -12,7 +12,7 @@ Security:
 	- /
 
 Correction de bogues:
-	- /
+	- Erreurs define de langue
 
 Améliorations:
 	- /
