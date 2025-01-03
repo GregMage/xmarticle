@@ -171,7 +171,7 @@ define('_MA_XMARTICLE_FIELD_ADDFIELD', 'Ajouter des champs');
 define('_MA_XMARTICLE_FIELD_ADDMOREFIELDS', 'Ajouter plus de champs');
 define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Ajouter plus d\'options');
 define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Ajouter des options');
-define('_MA_XMARTICLE_FIELD_ADDOPTION_DESC', 'Ajouter un champ avec la valeur "N/A" dans "Texte à afficher" pour une valeur qui ne doit pas être affichée.');
+define('_MA_XMARTICLE_FIELD_ADDOPTION_DESC', 'Ajouter un champ avec la valeur "%s" dans "Texte à afficher" pour une valeur qui ne doit pas être affichée.');
 define('_MA_XMARTICLE_FIELD_DEFAULT', 'Défaut');
 define('_MA_XMARTICLE_FIELD_DESC', 'Description du champ');
 define('_MA_XMARTICLE_FIELD_EMPTY', '[Champ vide]');

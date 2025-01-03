@@ -62,6 +62,8 @@ define('_MI_XMARTICLE_PREF_GENERALCLONE', 'Ajout d\'un préfixe');
 define('_MI_XMARTICLE_PREF_GENERALCLONE_DESC', 'Lors du clone d\'un article, ajouter un préfixe');
 define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD', 'Afficher les champs vides?');
 define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD_DESC', 'Les champs vident peuvent être cachées dans la vue article');
+define('_MI_XMARTICLE_PREF_GENERALVALUEEMPTYFIELD', 'Valeur qui indique qu\'un champ est vide (fonctionne pour: Select, multiselect, radio et checkbox)');
+define('_MI_XMARTICLE_PREF_GENERALVALUEEMPTYFIELD_DESC', 'Fonctionne uniquement si l\'option "Afficher les champs vides?" est sur oui. Plus d\'informations directement sur la page de gestion des champs');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">Administration</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Éditeur de texte');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Nombre d\'éléments par page dans la vue d\'administration');

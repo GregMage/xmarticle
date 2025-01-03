@@ -6,7 +6,7 @@ Bug fixes:
 	- Language Define Errors
 
 Improvements:
-	- /
+	- Added an option in preferences to set the value that indicates a field is empty (works for: Select, multiselect, radio and checkbox). Previously the value was in the code (N/A).
 
 Security:
 	- /
@@ -15,7 +15,7 @@ Correction de bogues:
 	- Erreurs define de langue
 
 Améliorations:
-	- /
+	- Ajout d'une option dans les préférences pour définir la valeur qui indique qu\'un champ est vide (fonctionne pour: Select, multiselect, radio et checkbox). Avant la valeur était dans le code (N/A).
 
 Sécurités:
 	- /

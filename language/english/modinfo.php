@@ -63,6 +63,8 @@ define('_MI_XMARTICLE_PREF_GENERALCLONE', 'Adding a prefix');
 define('_MI_XMARTICLE_PREF_GENERALCLONE_DESC', 'When cloning an article, add a prefix');
 define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD', 'Show empty fields?');
 define('_MI_XMARTICLE_PREF_GENERALDISPLAYEMPTYFIELD_DESC', 'Empty fields can be hidden in the item view');
+define('_MI_XMARTICLE_PREF_GENERALVALUEEMPTYFIELD', 'Value that indicates that a field is empty (works for: Select, multiselect, radio and checkbox)');
+define('_MI_XMARTICLE_PREF_GENERALVALUEEMPTYFIELD_DESC', 'Only works if the option "Show empty fields?" is set to yes. More informations directly on the field management page');
 define('_MI_XMARTICLE_PREF_HEAD_ADMIN', '<span style="font-size: large;  font-weight: bold;">--- Administration ---</span>');
 define('_MI_XMARTICLE_PREF_EDITOR', 'Text Editor');
 define('_MI_XMARTICLE_PREF_ITEMPERPAGE', 'Number of items per page in the administration view');
