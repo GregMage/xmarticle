@@ -171,6 +171,7 @@ define('_MA_XMARTICLE_FIELD_ADDFIELD', 'Add fields');
 define('_MA_XMARTICLE_FIELD_ADDMOREFIELDS', 'Add more fields');
 define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Add more options');
 define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Add options');
+define('_MA_XMARTICLE_FIELD_ADDOPTION_DESC', 'Add a field with the value "N/A" in "value to store" for a value that should not be displayed.');
 define('_MA_XMARTICLE_FIELD_DEFAULT', 'Default');
 define('_MA_XMARTICLE_FIELD_DESC', 'Field description');
 define('_MA_XMARTICLE_FIELD_EMPTY', '[Empty field]');

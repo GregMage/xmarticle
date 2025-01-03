@@ -75,7 +75,6 @@ define('_MA_XMARTICLE_ORDER_NAME', 'Nom');
 define('_MA_XMARTICLE_ORDER_DATE', 'Date');
 define('_MA_XMARTICLE_ORDER_VIEW', 'Vue');
 define('_MA_XMARTICLE_ORDER_REF', 'Référence');
-
 define('_MA_XMARTICLE_STATUS', 'Statut');
 define('_MA_XMARTICLE_STATUS_A', 'Activé');
 define('_MA_XMARTICLE_STATUS_NA', 'Désactivé');
@@ -172,6 +171,7 @@ define('_MA_XMARTICLE_FIELD_ADDFIELD', 'Ajouter des champs');
 define('_MA_XMARTICLE_FIELD_ADDMOREFIELDS', 'Ajouter plus de champs');
 define('_MA_XMARTICLE_FIELD_ADDMOREOPTIONS', 'Ajouter plus d\'options');
 define('_MA_XMARTICLE_FIELD_ADDOPTION', 'Ajouter des options');
+define('_MA_XMARTICLE_FIELD_ADDOPTION_DESC', 'Ajouter un champ avec la valeur "N/A" dans "valeur à stocker" pour une valeur qui ne doit pas être affichée.');
 define('_MA_XMARTICLE_FIELD_DEFAULT', 'Défaut');
 define('_MA_XMARTICLE_FIELD_DESC', 'Description du champ');
 define('_MA_XMARTICLE_FIELD_EMPTY', '[Champ vide]');

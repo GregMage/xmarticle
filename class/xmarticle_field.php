@@ -182,7 +182,9 @@ class xmarticle_field extends XoopsObject
                 }
                 $option_text .= "</table>";
                 $option_text .= "<label><input type='checkbox' name='addmoreoptions' value='True'>" . _MA_XMARTICLE_FIELD_ADDMOREOPTIONS . "</label>";
-                $form->addElement(new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text), true);
+                $addoption = new XoopsFormLabel(_MA_XMARTICLE_FIELD_ADDOPTION, $option_text);
+                $addoption->setDescription(_MA_XMARTICLE_FIELD_ADDOPTION_DESC);
+                $form->addElement($addoption, true);
                 // sort
                 $sort     = new XoopsFormSelect(_MA_XMARTICLE_FIELD_SORT, 'field_sort', $this->getVar('field_sort'));
                 $sort_arr = ['DEF' => _MA_XMARTICLE_FIELD_SORTDEF, 'VLH' => _MA_XMARTICLE_FIELD_SORTVLH, 'VHL' => _MA_XMARTICLE_FIELD_SORTVHL, 'KLH' => _MA_XMARTICLE_FIELD_SORTKLH, 'KHL' => _MA_XMARTICLE_FIELD_SORTKHL];
