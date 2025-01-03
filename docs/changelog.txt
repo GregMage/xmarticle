@@ -1,4 +1,27 @@
 ﻿-------------------------------------------------
+Version: 1.5.3 Stable
+Date:    03.01.2025
+-------------------------------------------------
+Bug fixes:
+	- /
+
+Improvements:
+	- The drop-down menu in the search on an additional field of type "text" is now compatible with multiple selection
+	- Additional fields that have the value "N/A" are not displayed on the item sheet.
+
+Security:
+	- /
+
+Correction de bogues:
+	- /
+
+Améliorations:
+	- Le menu déroulant dans la recherche sur un champs supplémentaire de type "texte" est maintenant compatible en sélection multiple
+	- Les champs supplémentaires qui ont la valeur "N/A" ne sont pas affichés sur la fiche article
+
+Sécurités:
+	- /
+-------------------------------------------------
 Version: 1.5.2 Stable
 Date:    09.12.2024
 -------------------------------------------------
