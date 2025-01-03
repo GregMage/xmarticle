@@ -621,11 +621,12 @@ class xmarticle_article extends XoopsObject
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
-									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-									$select_field->addOption('', '');
 									foreach (array_keys($fielddata_arr) as $j) {
-										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+											$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										}
 									}
 									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
@@ -645,11 +646,12 @@ class xmarticle_article extends XoopsObject
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
-									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-									$select_field->addOption('', '');
 									foreach (array_keys($fielddata_arr) as $j) {
-										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+											$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										}
 									}
 									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
@@ -669,11 +671,12 @@ class xmarticle_article extends XoopsObject
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
-									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-									$select_field->addOption('', '');
 									foreach (array_keys($fielddata_arr) as $j) {
-										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+											$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										}
 									}
 									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);
@@ -693,11 +696,12 @@ class xmarticle_article extends XoopsObject
 								$criteria_field->setOrder('ASC');
 								$fielddata_arr = $fielddataHandler->getall($criteria_field);
 								if (count($fielddata_arr) > 0) {
-									$select_field = new XoopsFormSelect($caption, $name, $value, 1, false);
+									$select_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 									$select_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-									$select_field->addOption('', '');
 									foreach (array_keys($fielddata_arr) as $j) {
-										$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+											$select_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $fielddata_arr[$j]->getVar('fielddata_value1'));
+										}
 									}
 									$select_field->addOption('[empty]', _MA_XMARTICLE_FIELD_EMPTY);
 									$form->addElement($select_field);

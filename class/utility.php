@@ -673,11 +673,34 @@ class XmarticleUtility
 							case 's_text':
 							case 'm_text':
 							case 'l_text':
-                                if ($value == '[empty]'){
-                                    $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
+                                if ($selsearch == 1) {
+                                    $empty = false;
+                                    if ($value != '') {
+                                        $value_bdd = '';
+                                        foreach (array_keys($value) as $k) {
+                                            if ($value_bdd == '') {
+                                                $seperator = '';
+                                            } else {
+                                                $seperator = ', ';
+                                            }
+                                            if ($value[$k] == '[empty]'){
+                                                $empty = true;
+                                            } else {
+                                                $value_bdd .= $seperator . '"' . $value[$k] . '"';
+                                            }
+                                        }
+                                        if ($empty == true && $value_bdd == ''){
+                                            $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
+                                        }
+                                        if ($value_bdd != ''){
+                                            $value_bdd = '(' . $value_bdd . ')';
+                                            $criteria_field->add(new Criteria('fielddata_value1', $value_bdd, 'IN'));
+                                        }
+
+                                    }
                                 } else {
-                                    if ($selsearch == 1) {
-                                        $criteria_field->add(new Criteria('fielddata_value1', $value, 'LIKE'));
+                                    if ($value == '[empty]'){
+                                        $criteria_field->add(new CriteriaAllowEmpty('fielddata_value1', ''));
                                     } else {
                                         $criteria_field->add(new Criteria('fielddata_value1', '%' . $value . '%', 'LIKE'));
                                     }
@@ -685,8 +708,8 @@ class XmarticleUtility
 								break;
 
 							case 'select':
+                                $value_bdd = '';
 								if ($value != '') {
-									$value_bdd = '';
 									foreach (array_keys($value) as $k) {
 										if ($value_bdd == '') {
 											$seperator = '';
