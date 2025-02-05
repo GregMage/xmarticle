@@ -663,6 +663,7 @@ class XmarticleUtility
                 if (isset($_REQUEST ['t_' . $i])) {
                     $type = $_REQUEST ['t_' . $i];
                     $selsearch = $_REQUEST ['sels_' . $i];
+                    $arguments['sels_' . $i] = $selsearch;
 					if ($useFieldSearch == true) {
                         if (isset($_REQUEST ['fid_' . $i])) {
                             $criteria_field->add(new Criteria('fielddata_fid', $_REQUEST ['fid_' . $i]));

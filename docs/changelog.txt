@@ -4,6 +4,7 @@ Date:    ??.??.2025
 -------------------------------------------------
 Bug fixes:
 	- Language Define Errors
+	- If the search result filters were changed, an error occurred if a text field with select was used for the search.
 
 Improvements:
 	- Added an option in preferences to set the value that indicates a field is empty (works for: Select, multiselect, radio and checkbox). Previously the value was in the code (N/A).
@@ -13,6 +14,7 @@ Security:
 
 Correction de bogues:
 	- Erreurs define de langue
+	- Si on changait les filtres des résultats de la recherche, il y avait une erreur si un champs de type texte avec select pour la recherche était utilisé
 
 Améliorations:
 	- Ajout d'une option dans les préférences pour définir la valeur qui indique qu\'un champ est vide (fonctionne pour: Select, multiselect, radio et checkbox). Avant la valeur était dans le code (N/A).
