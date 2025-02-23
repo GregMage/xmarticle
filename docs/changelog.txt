@@ -14,7 +14,7 @@ Security:
 
 Correction de bogues:
 	- Erreurs define de langue
-	- Si on changait les filtres des résultats de la recherche, il y avait une erreur si un champs de type texte avec select pour la recherche était utilisé
+	- Si on changeait les filtres des résultats de la recherche, il y avait une erreur si un champs de type texte avec select pour la recherche était utilisé
 
 Améliorations:
 	- Ajout d'une option dans les préférences pour définir la valeur qui indique qu\'un champ est vide (fonctionne pour: Select, multiselect, radio et checkbox). Avant la valeur était dans le code (N/A).
