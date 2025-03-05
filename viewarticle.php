@@ -25,28 +25,25 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/assets/css/styles.css', null);
 
-$category_id = Request::getInt('category_id', 0);
 $article_id  = Request::getInt('article_id', 0);
 
+if ($article_id == 0) {
+    redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
+}
+$article  = $articleHandler->get($article_id);
+if (empty($article)) {
+    redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
+}
+$category_id = $article->getVar('article_cid');
 if ($category_id == 0) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
 }
 // permission to view
 $permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php', 2, _NOPERM);
 
-if ($article_id == 0) {
-    redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
-}
-
 $category = $categoryHandler->get($category_id);
-$article  = $articleHandler->get($article_id);
-
 if (empty($category)) {
     redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOCATEGORY);
-}
-
-if (empty($article)) {
-    redirect_header('index.php', 2, _MA_XMARTICLE_ERROR_NOARTICLE);
 }
 
 if ($helper->isUserAdmin() != true){

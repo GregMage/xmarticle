@@ -8,9 +8,10 @@ Bug fixes:
 
 Improvements:
 	- Added an option in preferences to set the value that indicates a field is empty (works for: Select, multiselect, radio and checkbox). Previously the value was in the code (N/A).
+	- The category id is no longer required in the article link (xarticle).
 
 Security:
-	- /
+	- Access to an article in a prohibited category was possible by modifying the category identifier in the URL.
 
 Correction de bogues:
 	- Erreurs define de langue
@@ -18,9 +19,10 @@ Correction de bogues:
 
 Améliorations:
 	- Ajout d'une option dans les préférences pour définir la valeur qui indique qu\'un champ est vide (fonctionne pour: Select, multiselect, radio et checkbox). Avant la valeur était dans le code (N/A).
+	- L'id de la catégorie n'est plus nécessaire dans le lien d'un article (xmarticle).
 
 Sécurités:
-	- /
+	- L'accès à un article dans une catégorie interdite était possible en modifiant l'identifiant de la catégorie dans l'URL.
 -------------------------------------------------
 Version: 1.5.3 Stable
 Date:    03.01.2025
