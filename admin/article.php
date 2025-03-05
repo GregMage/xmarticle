@@ -237,7 +237,7 @@ switch ($op) {
 				//Notification article: approve_article
 				$tags = [];
 				$tags['ARTICLE_NAME'] = $obj->getVar('article_name');
-				$tags['ARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $obj->getVar('article_cid') . '&article_id=' . $article_id;
+				$tags['ARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/viewarticle.php?article_id=' . $article_id;
 				$notificationHandler = xoops_getHandler('notification');
 				$notificationHandler->triggerEvent('article', $article_id, 'approve_article', $tags);
                 exit;

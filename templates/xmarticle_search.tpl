@@ -59,7 +59,7 @@
 				<{foreach item=article from=$articles}>
 					<tr>
 						<td><{$article.reference}></td>
-						<td><a href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?category_id=<{$article.cid}>&amp;article_id=<{$article.id}>" target="_blank"><{$article.name}></a></td>
+						<td><a href="<{$xoops_url}>/modules/xmarticle/viewarticle.php?article_id=<{$article.id}>" target="_blank"><{$article.name}></a></td>
 						<td class="text-center"><{$article.counter}></td>
 						<td class="text-center"><{$article.author}></td>
 						<td class="text-center"><{$article.date}></td>

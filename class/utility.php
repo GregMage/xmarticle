@@ -359,7 +359,7 @@ class XmarticleUtility
 				$ref = '';
 			}
 			if ($ulink == true){
-				$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article->getVar('article_cid') . '&article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
+				$link = '<a href="' . XOOPS_URL . '/modules/xmarticle/viewarticle.php?article_id=' . $article->getVar('article_id') . '" title="' . $article->getVar('article_name') . '" target="_blank">' . $article->getVar('article_name') . '</a>';
 			} else {
 				$link = $article->getVar('article_name');
 			}

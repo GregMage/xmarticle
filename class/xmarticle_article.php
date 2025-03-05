@@ -484,7 +484,7 @@ class xmarticle_article extends XoopsObject
 				//Notification global: new_article, category: new_article, article: approve_article
 				$tags = [];
 				$tags['ARTICLE_NAME'] = Request::getString('article_name', '');
-				$tags['ARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid;
+				$tags['ARTICLE_URL'] = XOOPS_URL . '/modules/xmarticle/viewarticle.php?article_id=' . $fielddata_aid;
 				$tags['CATEGORY_NAME'] = $category->getVar('category_name');
 				$tags['CATEGORY_URL'] =  XOOPS_URL . '/modules/xmarticle/viewcat.php?category_id=' . $article_cid;
 				$notificationHandler = xoops_getHandler('notification');
@@ -510,7 +510,7 @@ class xmarticle_article extends XoopsObject
 						redirect_header('index.php', 2, _MA_XMARTICLE_REDIRECT_SAVE);
 					}
                     if ($action == 'viewarticle.php'){
-                        redirect_header('viewarticle.php?category_id=' . $article_cid . '&article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
+                        redirect_header('viewarticle.php?article_id=' . $fielddata_aid, 2, _MA_XMARTICLE_REDIRECT_SAVE);
                     } else {
                         redirect_header($action, 2, _MA_XMARTICLE_REDIRECT_SAVE);
                     }

@@ -55,7 +55,7 @@
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter"><img src="<{$article.logo}>" alt="<{$article.name}>" style="max-width:150px"></td>
                 <td class="txtleft"><a href="../viewcat.php?category_id=<{$article.cid}>" title="<{$article.category}>"><{$article.category}></a></td>
-                <td class="txtleft"><a href="../viewarticle.php?category_id=<{$article.cid}>&article_id=<{$article.id}>" title="<{$article.name}>"><{$article.name}></a></td>
+                <td class="txtleft"><a href="../viewarticle.php?article_id=<{$article.id}>" title="<{$article.name}>"><{$article.name}></a></td>
                 <td class="txtleft"><{$article.reference}></td>
                 <td class="txtleft"><{$article.description}></td>
                 <td class="xo-actions txtcenter">
@@ -67,7 +67,7 @@
                     title="<{if $article.status == 1}><{$smarty.const._MA_XMARTICLE_STATUS_NA}><{/if}><{if $article.status == 0 || $article.status == 2}><{$smarty.const._MA_XMARTICLE_STATUS_A}><{/if}>">
                 </td>
                 <td class="xo-actions txtcenter">
-					<a class="tooltip" href="../viewarticle.php?category_id=<{$article.cid}>&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
+					<a class="tooltip" href="../viewarticle.php?article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_VIEW}>">
                         <img src="<{xoAdminIcons 'view.png'}>" alt="<{$smarty.const._MA_XMARTICLE_VIEW}>"></a>
 					<a class="tooltip" href="article.php?op=clone&amp;article_id=<{$article.id}>" title="<{$smarty.const._MA_XMARTICLE_CLONE}>">
                         <img src="<{xoAdminIcons 'clone.png'}>" alt="<{$smarty.const._MA_XMARTICLE_CLONE}>"></a>

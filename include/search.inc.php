@@ -46,7 +46,7 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
     while($myrow = $xoopsDB->fetchArray($result))
     {
         $ret[$i]["image"] = "assets/images/xmarticle_search.png";
-        $ret[$i]["link"] = "viewarticle.php?article_id=" . $myrow["article_id"] . '&category_id=' . $myrow["article_cid"];
+        $ret[$i]["link"] = "viewarticle.php?article_id=" . $myrow["article_id"];
         $ret[$i]["title"] = $myrow["article_name"] . '(' . $myrow["article_reference"] . ')';
         $ret[$i]["time"] = $myrow["article_date"];
         $ret[$i]["uid"] = $myrow["article_userid"];
