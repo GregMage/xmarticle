@@ -24,15 +24,24 @@ function xmarticle_search($queryarray, $andor, $limit, $offset, $userid)
     if (xoops_isActiveModule('xmstock')){
         $helper_xmstock = Helper::getHelper('xmstock');
         $helper_xmstock->loadLanguage('main');
+        xoops_load('utility', 'xmstock');
+        // Get Permission to manage
+        $viewPermissionArea = XmstockUtility::getPermissionArea('xmstock_view');
+        // Convertir $viewPermissionArea en une liste sécurisée d'IDs
+        $allowedStockIds = implode(',', array_map('intval', $viewPermissionArea));
         $sql  = "SELECT a.*,";
         $sql .= " GROUP_CONCAT(CASE
-                        WHEN s.stock_type = 4 THEN CONCAT(t.area_name, ': ', '" . _MA_XMSTOCK_STOCK_FREE . "')
-                        ELSE CONCAT(t.area_name, ': ', s.stock_amount, ' ', CASE s.stock_type
-                            WHEN 5 THEN '" . _MA_XMSTOCK_CHECKOUT_UNITS . "'
-                            WHEN 2 THEN '" . _MA_XMSTOCK_CHECKOUT_UNIT . "'
-                            ELSE ''
-                        END)
-                    END SEPARATOR ', ') AS stock_details";
+                    WHEN s.stock_areaid IN ($allowedStockIds) AND t.area_status = 1 THEN
+                        CASE
+                            WHEN s.stock_type = 4 THEN CONCAT(t.area_name, ': ', '" . _MA_XMSTOCK_STOCK_FREE . "')
+                            ELSE CONCAT(t.area_name, ': ', s.stock_amount, ' ', CASE s.stock_type
+                                WHEN 5 THEN '" . _MA_XMSTOCK_CHECKOUT_UNITS . "'
+                                WHEN 2 THEN '" . _MA_XMSTOCK_CHECKOUT_UNIT . "'
+                                ELSE ''
+                            END)
+                        END
+                    ELSE NULL
+                END SEPARATOR ', ') AS stock_details";
         $sql .= " FROM " . $xoopsDB->prefix('xmarticle_article') . " AS a";
         $sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_stock') . " AS s ON a.article_id = s.stock_articleid";
         $sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_area') . " AS t ON s.stock_areaid = t.area_id";
