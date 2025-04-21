@@ -145,7 +145,7 @@ define('_MA_XMARTICLE_NOTIFY', 'M\'avertir de la publication ?');
 define('_MA_XMARTICLE_RATING', 'Note');
 define('_MA_XMARTICLE_READING', 'Lecture');
 define('_MA_XMARTICLE_RESETMDATE', 'Réinitialiser (date vide)');
-define('_MA_XMARTICLE_USERID', 'Author');
+define('_MA_XMARTICLE_USERID', 'Auteur');
 define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 define('_MA_XMARTICLE_WFV', 'En attente de validation');
 define('_MA_XMARTICLE_WAITING', 'Il y a <strong>%s</strong> articles en attente de validation!');
