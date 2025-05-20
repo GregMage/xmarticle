@@ -19,4 +19,4 @@
 // index.php
 define('_MB_XMARTICLE_ALLCATEGORY', 'Toutes les catégories');
 define('_MB_XMARTICLE_CATEGORY', 'Catégorie à afficher :');
-define('_MB_XMARTICLE_NBARTICLE', 'Nombre d\'articles à afficher');
+define('_MB_XMARTICLE_NBARTICLE', 'Nombre de composants à afficher');

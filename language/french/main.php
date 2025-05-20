@@ -18,8 +18,8 @@
  */
 
 // Button
-define('_MA_XMARTICLE_ARTICLE_ADD', 'Ajout d\'un article');
-define('_MA_XMARTICLE_ARTICLE_LIST', 'Liste des articles');
+define('_MA_XMARTICLE_ARTICLE_ADD', 'Ajout d\'un composant');
+define('_MA_XMARTICLE_ARTICLE_LIST', 'Liste des composants');
 define('_MA_XMARTICLE_CATEGORY_ADD', 'Ajout d\'une catégorie');
 define('_MA_XMARTICLE_CATEGORY_LIST', 'Liste des catégories');
 define('_MA_XMARTICLE_FIELD_ADD', 'Ajout d\'un champ');
@@ -27,16 +27,16 @@ define('_MA_XMARTICLE_FIELD_LIST', 'Liste des champs');
 define('_MA_XMARTICLE_REDIRECT_SAVE', 'Enregistré avec succès');
 
 // Admin
-define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmdoc, ce module est requis si vous souhaitez ajouter des documents aux articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmdoc, ce module est requis si vous souhaitez ajouter des documents aux composants');
 define('_MA_XMARTICLE_INDEXCONFIG_XMDOC_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmdoc (si vous souhaitez ajouter des documents)');
-define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmstock, ce module est nécessaire si vous souhaitez visualiser les stocks aux articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmstock, ce module est nécessaire si vous souhaitez visualiser les stocks aux composants');
 define('_MA_XMARTICLE_INDEXCONFIG_XMSTOCK_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmstock (si vous voulez voir les stocks)');
-define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmsocial, ce module est nécessaire si vous souhaitez noter l\'article');
-define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmsocial (si vous souhaitez noter l\'article)');
-define('_MA_XMARTICLE_INDEX_ARTICLE', 'Articles');
-define('_MA_XMARTICLE_INDEX_ARTICLE_ACTIVE', 'Articles actifs');
-define('_MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE', 'Articles désactivés');
-define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporter les articles');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTINSTALLED', 'Vous n\'avez pas installé le module xmsocial, ce module est nécessaire si vous souhaitez noter le composant');
+define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'Vous devez activer dans les préférences du module xmarticle l\'utilisation de xmsocial (si vous souhaitez noter le composant)');
+define('_MA_XMARTICLE_INDEX_ARTICLE', 'Composants');
+define('_MA_XMARTICLE_INDEX_ARTICLE_ACTIVE', 'Composants actifs');
+define('_MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE', 'Composants désactivés');
+define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporter les composants');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Statut du serveur');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Informations extraites du fichier php.ini :</span>");
 define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");
@@ -51,7 +51,7 @@ define('_MA_XMARTICLE_ERROR', 'Erreur');
 define('_MA_XMARTICLE_ERROR_FIELDNOTCONFIGURABLE', 'Erreur : champ non configurable (pas de type de champ)');
 define('_MA_XMARTICLE_ERROR_NACTIVE', 'Erreur : Contenu désactivé!');
 define('_MA_XMARTICLE_ERROR_NOACESSCATEGORY', 'Vous n\'avez accès à aucune catégorie');
-define('_MA_XMARTICLE_ERROR_NOARTICLE', 'Il n\'y a pas d\'articles dans la base de données');
+define('_MA_XMARTICLE_ERROR_NOARTICLE', 'Il n\'y a pas de composants dans la base de données');
 define('_MA_XMARTICLE_ERROR_NOCATEGORY', 'Il n\'y a pas de catégories dans la base de données');
 define('_MA_XMARTICLE_ERROR_NOFIELD', 'Il n\'y a pas de champs dans la base de données');
 define('_MA_XMARTICLE_ERROR_NOFIELDTYPE', 'Il n\'y a pas de type de champ');
@@ -59,8 +59,8 @@ define('_MA_XMARTICLE_ERROR_SIZE', "La taille dans les préférences du module (
 define('_MA_XMARTICLE_ERROR_WEIGHT', 'Le poids doit être un nombre');
 
 // Info message
-define('_MA_XMARTICLE_INFO_ARTICLEDISABLE', 'L\'article est désactivé, vous le voyez car vous êtes autorisé à modifier son statut');
-define('_MA_XMARTICLE_INFO_ARTICLEWAITING', 'L\'article est en attente de validation, vous le voyez car vous êtes autorisé à modifier son statut');
+define('_MA_XMARTICLE_INFO_ARTICLEDISABLE', 'Le composant est désactivé, vous le voyez car vous êtes autorisé à modifier son statut');
+define('_MA_XMARTICLE_INFO_ARTICLEWAITING', 'Le composant est en attente de validation, vous le voyez car vous êtes autorisé à modifier son statut');
 
 // Shared
 define('_MA_XMARTICLE_ACTION', 'Action');
@@ -98,7 +98,7 @@ define('_MA_XMARTICLE_FIELDTYPE_VSTEXT', 'Texte de 25 caractères');
 define('_MA_XMARTICLE_CATEGORY_COLOR', 'Couleur');
 define('_MA_XMARTICLE_CATEGORY_DESC', 'Description');
 define('_MA_XMARTICLE_CATEGORY_DOCOMMENT', 'Voir les commentaires');
-define('_MA_XMARTICLE_CATEGORY_DODSC', 'Valeur par défaut pour un nouvel article dans cette catégorie');
+define('_MA_XMARTICLE_CATEGORY_DODSC', 'Valeur par défaut pour un nouveaux composant dans cette catégorie');
 define('_MA_XMARTICLE_CATEGORY_DODATE', 'Afficher la date');
 define('_MA_XMARTICLE_CATEGORY_DOHITS', 'Afficher les lectures');
 define('_MA_XMARTICLE_CATEGORY_DOMDATE', 'Afficher la date de modification');
@@ -110,10 +110,10 @@ define('_MA_XMARTICLE_CATEGORY_LOGO', 'Logo de la catégorie');
 define('_MA_XMARTICLE_CATEGORY_LOGOFILE', 'Fichier de logo');
 define('_MA_XMARTICLE_CATEGORY_NAME', 'Nom');
 define('_MA_XMARTICLE_CATEGORY_REFERENCE', 'Référence');
-define('_MA_XMARTICLE_CATEGORY_REFERENCE_DSC', 'Cette référence permet de générer les références article');
+define('_MA_XMARTICLE_CATEGORY_REFERENCE_DSC', 'Cette référence permet de générer les références composant');
 define('_MA_XMARTICLE_CATEGORY_REMOVEFIELDS', 'Supprimer des champs');
 define('_MA_XMARTICLE_CATEGORY_SUREDEL', 'Voulez-vous vraiment supprimer cette catégorie? %s');
-define('_MA_XMARTICLE_CATEGORY_THEREAREARTICLE', 'Il y a <strong>%s</strong> articles dans cette catégorie!');
+define('_MA_XMARTICLE_CATEGORY_THEREAREARTICLE', 'Il y a <strong>%s</strong> composants dans cette catégorie!');
 define('_MA_XMARTICLE_CATEGORY_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_CATEGORY_UPLOADSIZE', 'Taille maximum : %s Ko');
 define('_MA_XMARTICLE_CATEGORY_WARNINGDELARTICLE', '<strong>Attention, les éléments suivants seront également supprimés!</strong>');
@@ -123,7 +123,7 @@ define('_MA_XMARTICLE_CATEGORY_WEIGHT', 'Poids');
 define('_MA_XMARTICLE_ARTICLE_CATEGORY', 'Catégorie');
 define('_MA_XMARTICLE_ARTICLE_DESC', 'Description');
 define('_MA_XMARTICLE_ARTICLE_FORMPATH', 'Les fichiers sont dans : %s');
-define('_MA_XMARTICLE_ARTICLE_LOGO', 'Logo de l\'article');
+define('_MA_XMARTICLE_ARTICLE_LOGO', 'Logo du composant');
 define('_MA_XMARTICLE_ARTICLE_LOGOFILE', 'Fichier de logo');
 define('_MA_XMARTICLE_ARTICLE_MDATE_BT', 'Modification');
 define('_MA_XMARTICLE_ARTICLE_NAME', 'Nom');
@@ -131,9 +131,9 @@ define('_MA_XMARTICLE_ARTICLE_PUBLISHED_BT', 'Publication');
 define('_MA_XMARTICLE_ARTICLE_UPLOAD', 'Upload');
 define('_MA_XMARTICLE_ARTICLE_UPLOADSIZE', 'Taille maximum : %s Ko');
 define('_MA_XMARTICLE_ARTICLE_REFERENCE', 'Référence');
-define('_MA_XMARTICLE_ARTICLE_SUREDEL', 'Voulez-vous vraiment supprimer cet article? %s');
+define('_MA_XMARTICLE_ARTICLE_SUREDEL', 'Voulez-vous vraiment supprimer ce composant? %s');
 define('_MA_XMARTICLE_AUTHOR', 'Auteur');
-define('_MA_XMARTICLE_BLOCKS_NOWAITING', 'Il n\'y a pas d\'articles en attente de validation');
+define('_MA_XMARTICLE_BLOCKS_NOWAITING', 'Il n\'y a pas de composants en attente de validation');
 define('_MA_XMARTICLE_CLONE_NAME', 'CLONER');
 define('_MA_XMARTICLE_COMPINFORMATION', 'Informations complémentaires');
 define('_MA_XMARTICLE_DATE', 'Date de création');
@@ -148,22 +148,22 @@ define('_MA_XMARTICLE_RESETMDATE', 'Réinitialiser (date vide)');
 define('_MA_XMARTICLE_USERID', 'Auteur');
 define('_MA_XMARTICLE_VOTES', '(%s Votes)');
 define('_MA_XMARTICLE_WFV', 'En attente de validation');
-define('_MA_XMARTICLE_WAITING', 'Il y a <strong>%s</strong> articles en attente de validation!');
+define('_MA_XMARTICLE_WAITING', 'Il y a <strong>%s</strong> composants en attente de validation!');
 define('_MA_XMARTICLE_XMDOC', 'Documents');
 define('_MA_XMARTICLE_XMSTOCK', 'Stocks');
 
 // permission
-define('_MA_XMARTICLE_PERMISSION_VIEW', 'Autorisation de voir un article');
-define('_MA_XMARTICLE_PERMISSION_VIEW_DSC', 'Choisissez les groupes qui peuvent voir un article dans ces catégories');
-define('_MA_XMARTICLE_PERMISSION_VIEW_THIS', 'Sélectionnez les groupes pouvant voir un article dans ces catégories');
+define('_MA_XMARTICLE_PERMISSION_VIEW', 'Autorisation de voir un composant');
+define('_MA_XMARTICLE_PERMISSION_VIEW_DSC', 'Choisissez les groupes qui peuvent voir un composant dans ces catégories');
+define('_MA_XMARTICLE_PERMISSION_VIEW_THIS', 'Sélectionnez les groupes pouvant voir un composant dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_SUBMIT', 'Autorisation de soumettre');
-define('_MA_XMARTICLE_PERMISSION_SUBMIT_DSC', 'Sélectionnez les groupes pouvant soumettre des articles dans ces catégories');
+define('_MA_XMARTICLE_PERMISSION_SUBMIT_DSC', 'Sélectionnez les groupes pouvant soumettre des composants dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_SUBMIT_THIS', 'Sélectionnez les groupes pouvant soumettre dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE', 'Autorisation de modifier et d\'approuver');
-define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE_DSC', 'Sélectionnez les groupes pouvant éditer et approuver des articles dans ces catégories');
+define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE_DSC', 'Sélectionnez les groupes pouvant éditer et approuver des composants dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_EDITAPPROVE_THIS', 'Sélectionnez les groupes pouvant éditer et approuver dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_DELETE', 'Autorisation de supprimer');
-define('_MA_XMARTICLE_PERMISSION_DELETE_DSC', 'Sélectionnez les groupes pouvant supprimer des articles dans ces catégories');
+define('_MA_XMARTICLE_PERMISSION_DELETE_DSC', 'Sélectionnez les groupes pouvant supprimer des composants dans ces catégories');
 define('_MA_XMARTICLE_PERMISSION_DELETE_THIS', 'Sélectionner les groupes pouvant supprimer dans ces catégories');
 
 // Field
@@ -188,7 +188,7 @@ define('_MA_XMARTICLE_FIELD_SORTVLH', 'Trier selon "' . _MA_XMARTICLE_FIELD_VALU
 define('_MA_XMARTICLE_FIELD_SORTVHL', 'Trier selon "' . _MA_XMARTICLE_FIELD_VALUE . '" de haut en bas');
 define('_MA_XMARTICLE_FIELD_SORTKLH', 'Trier selon "' . _MA_XMARTICLE_FIELD_KEY . '" de bas en haut');
 define('_MA_XMARTICLE_FIELD_SORTKHL', 'Trier selon "' . _MA_XMARTICLE_FIELD_KEY . '" de haut en bas');
-define('_MA_XMARTICLE_FIELD_SUREDEL', 'Voulez-vous vraiment supprimer ce champ ? %s<br><span style="font-size: large;  font-weight: bold;">Warning</span> en supprimant ce champ, vous supprimerez les données de ce champ pour tous les articles qui l\'utilisent. ');
+define('_MA_XMARTICLE_FIELD_SUREDEL', 'Voulez-vous vraiment supprimer ce champ ? %s<br><span style="font-size: large;  font-weight: bold;">Warning</span> en supprimant ce champ, vous supprimerez les données de ce champ pour tous les composants qui l\'utilisent. ');
 define('_MA_XMARTICLE_FIELD_TITLEREQUIRED', 'Obligatoire?');
 define('_MA_XMARTICLE_FIELD_TITLESEARCH', 'Recherche?');
 define('_MA_XMARTICLE_FIELD_TITLEWEIGHT', 'Poids');
@@ -197,7 +197,7 @@ define('_MA_XMARTICLE_FIELD_WEIGHT', 'Poids du champ');
 
 // user
 define('_MA_XMARTICLE_HOME', 'Page d\'accueil');
-define('_MA_XMARTICLE_LISTARTICLE', 'Liste des articles');
+define('_MA_XMARTICLE_LISTARTICLE', 'Liste des composants');
 define('_MA_XMARTICLE_MOREDETAILS', 'Plus de détails');
 define('_MA_XMARTICLE_SEARCH', 'Recherche');
 define('_MA_XMARTICLE_SEARCHFORM', 'Formulaire de recherche');
@@ -207,10 +207,10 @@ define('_MA_XMARTICLE_SEARCH_MAX', 'Supérieur à:');
 define('_MA_XMARTICLE_SELECTCATEGORY', 'Sélectionnez une catégorie à laquelle ajouter un élément');
 
 // formArticle
-define('_MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD', 'Ajouter un article');
-define('_MA_XMARTICLE_FORMARTICLE_LISTARTICLE', 'Liste des articles');
-define('_MA_XMARTICLE_FORMARTICLE_NOARTICLESELECTED', 'Aucun article sélectionné...');
+define('_MA_XMARTICLE_FORMARTICLE_ARTICLE_ADD', 'Ajouter un composant');
+define('_MA_XMARTICLE_FORMARTICLE_LISTARTICLE', 'Liste des composants');
+define('_MA_XMARTICLE_FORMARTICLE_NOARTICLESELECTED', 'Aucun composant sélectionné...');
 define('_MA_XMARTICLE_FORMARTICLE_SELECT', 'Sélectionner');
-define('_MA_XMARTICLE_FORMARTICLE_RESETSELECTED', 'Réinitialiser l\'article sélectionné');;
-define('_MA_XMARTICLE_FORMARTICLE_SELECTED', 'Article sélectionné');
+define('_MA_XMARTICLE_FORMARTICLE_RESETSELECTED', 'Réinitialiser le composant sélectionné');;
+define('_MA_XMARTICLE_FORMARTICLE_SELECTED', 'Composant sélectionné');
 define('_MA_XMARTICLE_FORMARTICLE_VALIDATE', 'valider');
