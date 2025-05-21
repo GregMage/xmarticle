@@ -3,6 +3,14 @@
 		<li class="active"><{$index_module}></li>
     </ol>
 	<{if $category_count != 0}>
+		<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2"><{$smarty.const._MA_XMARTICLE_CATEGORY_LIST}></h1>
+			<{if $export == true}>
+			<a href="<{xoAppUrl 'modules/xmstats/export.php?op=article'}>" class="btn btn-sm btn-secondary">
+				<{$smarty.const._MA_XMARTICLE_INDEX_EXPORT}>
+			</a>
+			<{/if}>
+		</div>
 		<div class="row justify-content-center">
 			<{foreach item=category from=$categories}>
 				<div class="col-6 col-sm-4 col-md-3 col-lg-3 p-2">
@@ -27,11 +35,11 @@
 											<button class="btn btn-secondary btn-sm" disabled data-toggle="modal">+</button>
 										<{/if}>
 									</div>
-								</div>								
-							</div>				
-						</div>				
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>		
+				</div>
 				<div class="modal fade" id="xmDesc-<{$category.id}>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -64,6 +72,6 @@
 		<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<{$smarty.const._MA_XMARTICLE_ERROR_NOCATEGORY}>
-		</div>	
+		</div>
 	<{/if}>
 </div><!-- .xmarticle -->

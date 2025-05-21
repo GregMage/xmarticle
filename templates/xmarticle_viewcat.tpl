@@ -46,6 +46,12 @@
 				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category_id}>&order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=0" <{if $display == 0}>disabled<{/if}>><span class="fa fa-id-card-o"></span></button>
 				&nbsp;
 				<button type="button" class="btn btn-sm btn-secondary" onclick=window.location.href="<{$xoops_url}>/modules/xmarticle/viewcat.php?category_id=<{$category_id}>&order=<{$order}>&sort=<{$sort}>&filter=<{$filter}>&display=1" <{if $display == 1}>disabled<{/if}>><span class="fa fa-list-alt"></span></button>
+				<{if $export == true}>
+				&nbsp;
+				<a href="<{xoAppUrl 'modules/xmstats/export.php?op=article'}>" class="btn btn-sm btn-secondary">
+					<{$smarty.const._MA_XMARTICLE_INDEX_EXPORT}>
+				</a>
+				<{/if}>
 			</div>
 		</div>
 		<{if $display|default:0 == 0}>

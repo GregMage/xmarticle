@@ -36,7 +36,7 @@ define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'You must enable
 define('_MA_XMARTICLE_INDEX_ARTICLE', 'Articles');
 define('_MA_XMARTICLE_INDEX_ARTICLE_ACTIVE', 'Active articles');
 define('_MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE', 'Disabled articles');
-define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporting articles');
+define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporting');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Server status');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Information taken from PHP ini file:</span>");
 define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");

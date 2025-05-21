@@ -24,14 +24,15 @@ require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 $moduleAdmin->displayNavigation('index.php');
-$op = Request::getCmd('op', '');
 
 $iniPostMaxSize = XmarticleUtility::returnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = XmarticleUtility::returnBytes(ini_get('upload_max_filesize'));
 if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $helper->getConfig('general_maxuploadsize', 104858)) {
 	echo '<div class="errorMsg" style="text-align: left;">' . _MA_XMARTICLE_ERROR_SIZE . '</div>';
 }
-$moduleAdmin->addItemButton(_MA_XMARTICLE_INDEX_EXPORT, 'index.php?op=export', 'list');
+if (xoops_isActiveModule('xmstats')) {
+	$moduleAdmin->addItemButton(_MA_XMARTICLE_INDEX_EXPORT, XOOPS_URL . '/modules/xmstats/export.php?op=article', 'list');
+}
 echo $moduleAdmin->renderButton();
 
 // article
@@ -88,48 +89,4 @@ foreach (array_keys( $folder) as $i) {
 $moduleAdmin->displayIndex();
 echo XmarticleUtility::getServerStats();
 
-// export en csv
-if ($op == 'export'){
-	$name_csv 	= 'Export_' . time() . '.csv';
-	$path_csv 	= XOOPS_UPLOAD_PATH . '/xmarticle/' . $name_csv;
-	$url_csv 	= XOOPS_UPLOAD_URL . '/xmarticle/' . $name_csv;
-	$separator 	= ';';
-
-	//supression des anciens fichiers
-	$csv_list = XoopsLists::getFileListByExtension(XOOPS_UPLOAD_PATH . '/xmarticle/', array('csv'));
-	foreach ($csv_list as $file) {
-		unlink(XOOPS_UPLOAD_PATH . '/xmarticle/' . $file);
-	}
-
-	// Création du fichier d'export
-	$sql = "SELECT o.*, l.* , k.* , m.* FROM " . $xoopsDB->prefix('xmarticle_article') . " AS o LEFT JOIN " . $xoopsDB->prefix('xmarticle_category') . " AS l ON o.article_cid = l.category_id";
-	$sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_stock') . " AS k ON o.article_id = k.stock_articleid";
-	$sql .= " LEFT JOIN " . $xoopsDB->prefix('xmstock_area') . " AS m ON k.stock_areaid = m.area_id";
-	$sql .= " GROUP BY article_id ORDER BY article_id ASC";
-	$article_arr = $xoopsDB->query($sql);
-	$csv = fopen($path_csv, 'w+');
-	//add BOM to fix UTF-8 in Excel
-	fputs($csv, $bom = ( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
-	while($myrow = $xoopsDB->fetchArray($article_arr)){
-		if ($myrow['area_name'] != ''){
-			$stock = $myrow['area_name'];
-			if ($myrow['stock_location'] != ''){
-				$stock .= "-" . $myrow['stock_location'];
-			}
-			if ($myrow['stock_amount'] != ''){
-				$amount = $myrow['stock_amount'];
-			}
-		} else {
-			$stock = '';
-			$amount = '';
-		}
-		$name = $myrow['article_name'];
-		if (strlen($name) > 70){
-			$name = substr($name, 0, 70) . '...';
-		}
-		fputcsv($csv, array($myrow['article_reference'], $name, $myrow['category_name'], $stock, $amount, 'Standard'), $separator);
-	}
-	fclose($csv);
-	header("Location: $url_csv");
-}
 require __DIR__ . '/admin_footer.php';

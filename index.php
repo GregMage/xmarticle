@@ -32,6 +32,7 @@ $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('article_status', 1));
 $article_arr = $articleHandler->getall($criteria);
 
+$xoopsTpl->assign('export', xoops_isActiveModule('xmstats'));
 // Get start pager
 $start = Request::getInt('start', 0);
 

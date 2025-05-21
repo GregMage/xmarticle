@@ -36,6 +36,8 @@ if ($category_id == 0) {
 // permission to view
 $permHelper->checkPermissionRedirect('xmarticle_view', $category_id, 'index.php', 2, _NOPERM);
 
+$xoopsTpl->assign('export', xoops_isActiveModule('xmstats'));
+
 $category = $categoryHandler->get($category_id);
 
 if (empty($category)) {

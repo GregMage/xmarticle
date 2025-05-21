@@ -36,7 +36,7 @@ define('_MA_XMARTICLE_INDEXCONFIG_XMSOCIAL_WARNINGNOTACTIVATE', 'Vous devez acti
 define('_MA_XMARTICLE_INDEX_ARTICLE', 'Composants');
 define('_MA_XMARTICLE_INDEX_ARTICLE_ACTIVE', 'Composants actifs');
 define('_MA_XMARTICLE_INDEX_ARTICLE_NOTACTIVE', 'Composants désactivés');
-define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporter les composants');
+define('_MA_XMARTICLE_INDEX_EXPORT', 'Exporter');
 define('_MA_XMARTICLE_INDEX_IMAGEINFO', 'Statut du serveur');
 define('_MA_XMARTICLE_INDEX_SPHPINI', "<span style='font-weight: bold;'>Informations extraites du fichier php.ini :</span>");
 define('_MA_XMARTICLE_INDEX_ON', "<span style='font-weight: bold;'>ON</span>");
