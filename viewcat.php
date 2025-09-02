@@ -135,7 +135,7 @@ if ($article_count > 0) {
         $article['cid']             = $article_arr[$i]->getVar('article_cid');
         $article['name']            = $article_arr[$i]->getVar('article_name');
         $article['reference']       = $article_arr[$i]->getVar('article_reference');
-        $article['description']     = XmarticleUtility::TagSafe($article_arr[$i]->getVar('article_description', 'n'));
+        $article['description']     = XmarticleUtility::TagSafe($article_arr[$i]->getVar('article_description'));
         $article['date']            = formatTimestamp($article_arr[$i]->getVar('article_date'), 's');
 		if ($article_arr[$i]->getVar('article_mdate') != 0) {
 			$article['mdate'] 		 = formatTimestamp($article_arr[$i]->getVar('article_mdate'), 's');
