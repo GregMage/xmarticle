@@ -188,6 +188,7 @@ class XmarticleUtility
             include __DIR__ . '/../include/common.php';
             // field
             $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('field_status', 1));
             $criteria->setSort('field_weight ASC, field_name');
             $criteria->setOrder('ASC');
             $criteria->add(new Criteria('field_id', '(' . implode(',', $fields) . ')', 'IN'));
