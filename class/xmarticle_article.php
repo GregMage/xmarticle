@@ -720,9 +720,23 @@ class xmarticle_article extends XoopsObject
 							break;
 						case 'select':
 						case 'select_multi':
-							$select_multi_field = new XoopsFormSelect($caption, $name, $value, 4, true);
-							$select_multi_field->addOptionArray($field_arr[$i]->getVar('field_options'));
-							$form->addElement($select_multi_field);
+							$criteria_field = new CriteriaCompo();
+							$criteria_field->add(new Criteria('fielddata_fid', $i));
+							if (!empty($article_ids)){
+								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
+							}
+							$criteria_field->setSort('fielddata_value3');
+							$criteria_field->setOrder('ASC');
+							$fielddata_arr = $fielddataHandler->getall($criteria_field);
+							if (count($fielddata_arr) > 0) {
+								$select_multi_field = new XoopsFormSelect($caption, $name, $value, 4, true);
+								foreach (array_keys($fielddata_arr) as $j) {
+									if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
+										$select_multi_field->addOption($fielddata_arr[$j]->getVar('fielddata_value3'), $options[$fielddata_arr[$j]->getVar('fielddata_value3')]);
+									}
+								}
+								$form->addElement($select_multi_field);
+							}
 							break;
 						case 'radio_yn':
 							if ($value == '') {
