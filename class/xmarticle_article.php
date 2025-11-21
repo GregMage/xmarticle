@@ -575,7 +575,6 @@ class xmarticle_article extends XoopsObject
 				foreach (array_keys($article_arr) as $i) {
 					$article_ids[] = $i;
 				}
-
 				$criteria = new CriteriaCompo();
 				$criteria->setSort('field_weight ASC, field_name');
 				$criteria->setOrder('ASC');
@@ -725,15 +724,28 @@ class xmarticle_article extends XoopsObject
 							if (!empty($article_ids)){
 								$criteria_field->add(new Criteria('fielddata_aid', '(' . implode(',', $article_ids) . ')', 'IN'));
 							}
-							$criteria_field->setSort('fielddata_value3');
+							if ($field_arr[$i]->getVar('field_type') == 'select') {
+								$criteria_field->setSort('fielddata_value1');
+							} else {
+								$criteria_field->setSort('fielddata_value3');
+							}
+
 							$criteria_field->setOrder('ASC');
 							$fielddata_arr = $fielddataHandler->getall($criteria_field);
 							if (count($fielddata_arr) > 0) {
+								$options = $field_arr[$i]->getVar('field_options');
 								$select_multi_field = new XoopsFormSelect($caption, $name, $value, 4, true);
 								foreach (array_keys($fielddata_arr) as $j) {
-									if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
-										$select_multi_field->addOption($fielddata_arr[$j]->getVar('fielddata_value3'), $options[$fielddata_arr[$j]->getVar('fielddata_value3')]);
+									if ($field_arr[$i]->getVar('field_type') == 'select') {
+										if ($fielddata_arr[$j]->getVar('fielddata_value1') != ''){
+											$select_multi_field->addOption($fielddata_arr[$j]->getVar('fielddata_value1'), $options[$fielddata_arr[$j]->getVar('fielddata_value1')]);
+										}
+									} else {
+										if ($fielddata_arr[$j]->getVar('fielddata_value3') != ''){
+											$select_multi_field->addOption($fielddata_arr[$j]->getVar('fielddata_value3'), $options[$fielddata_arr[$j]->getVar('fielddata_value3')]);
+										}
 									}
+
 								}
 								$form->addElement($select_multi_field);
 							}
