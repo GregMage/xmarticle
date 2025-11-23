@@ -21,7 +21,7 @@
 
  class CriteriaAllowEmpty extends Criteria{
 
-    public function render()
+    public function render(?\XoopsDatabase $db = null)
     {
         $backtick = (false === strpos($this->column, '.')) ? '`' : '';
         $backtick = (false !== strpos($this->column, '(')) ? '' : $backtick;
