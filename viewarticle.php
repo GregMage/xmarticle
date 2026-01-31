@@ -169,9 +169,9 @@ if (xoops_isActiveModule('xmsocial')){
 if (xoops_isActiveModule('xmdoc') && $helper->getConfig('general_xmdoc', 0) == 1) {
     xoops_load('utility', 'xmdoc');
     XmdocUtility::renderDocuments($xoopsTpl, $xoTheme, 'xmarticle', $article_id);
-	$xoopsTpl->assign('viewdocs', true);
+	//$xoopsTpl->assign('viewdocs', true);
 } else {
-    $xoopsTpl->assign('viewdocs', false);
+    $xoopsTpl->assign('xmdoc_viewdocs', false);
 }
 //SEO
 // pagetitle
