@@ -127,13 +127,15 @@
 					</div>
 					<div class="w-100"></div>
 					<{/if}>
-					<{if $xmdoc_viewdocs|default:false == true}>
+					<{if $viewdocs|default:false == true}>
 					<div class="col-12 pl-2 pr-2 pb-2">
 						<div class="card">
 							<div class="card-header">
 								<{$smarty.const._MA_XMARTICLE_XMDOC}>
 							</div>
 							<div class="card-body">
+								<{assign var='docitemid' value=$article_id}>
+								<{assign var='mod' value='xmarticle'}>
 								<{include file="db:xmdoc_viewdoc.tpl"}>
 							</div>
 						</div>
